@@ -109,8 +109,13 @@ differentialDrive1.setMaxOutput(1.0);
 
     public void reportPosition()
     {
-        SmartDashboard.putNumber("Right Position", right4.getSensorCollection().getQuadraturePosition());
-        SmartDashboard.putNumber("Left Position", left4.getSensorCollection().getQuadraturePosition());
+        double wheelDiameter = 4; 
+        double gearRatio = (double)1/1; // ratio of the axel the wheel lies on to the axel the encoder reads
+        double rightInches = gearRatio*(wheelDiameter*Math.PI)*((right4.getSensorCollection().getQuadraturePosition())/4096);
+        double leftInches = gearRatio*(wheelDiameter*Math.PI)*(left4.getSensorCollection().getQuadraturePosition()/4096);
+        // converts raw encoder readout to inches
+        SmartDashboard.putNumber("Right Position", rightInches);
+        SmartDashboard.putNumber("Left Position", leftInches);
     }
 
     @Override
