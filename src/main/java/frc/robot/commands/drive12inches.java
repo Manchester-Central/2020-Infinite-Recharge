@@ -8,6 +8,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.controller.PIDController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -15,7 +16,8 @@ public class drive12inches extends Command {
   public drive12inches() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    PIDRight = new PIDController(0.9, 0, 0);
+    PIDRight = new PIDController(0.75, 0, 0);
+    SmartDashboard.putData("PIDRight",PIDRight);
   }
 
   // Called just before this Command runs the first time
