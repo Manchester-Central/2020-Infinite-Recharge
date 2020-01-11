@@ -20,9 +20,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 
 public class Camera {
 
-    NetworkTableEntry tx;
-    NetworkTableEntry ty;
-    NetworkTableEntry ta;
+    NetworkTableEntry tx, ty, ta, ts, tl, tshort, tlong, thor, tvert, getpipe, camtran;
     double robotHeight, totalHeight, offsetAngle;
 
     public Camera(double robotHeight, double totalHeight, double offsetAngle) {
@@ -31,6 +29,12 @@ public class Camera {
         tx = table.getEntry("tx");
         ty = table.getEntry("ty");
         ta = table.getEntry("ta");
+        ts = table.getEntry("ts"); // not helpful. Measures rotation of target
+        tshort = table.getEntry("tshort");
+        tlong = table.getEntry("tlong");
+        thor = table.getEntry("thor");
+        tvert = table.getEntry("tvert");
+        camtran = table.getEntry("camtran");
 
         this.robotHeight = robotHeight;
         this.totalHeight = totalHeight;
@@ -46,17 +50,18 @@ public class Camera {
 
     public void updateDashboard() {
 
-        //read values periodically
-        double x = tx.getDouble(0.0);
-        double y = ty.getDouble(0.0);
-        double area = ta.getDouble(0.0);
-
         //post to smart dashboard periodically
-        SmartDashboard.putNumber("LimelightX", x);
-        SmartDashboard.putNumber("LimelightY", y);
-        SmartDashboard.putNumber("LimelightArea", area);
+        SmartDashboard.putNumber("LimelightX", tx.getDouble(0.0));
+        SmartDashboard.putNumber("LimelightY", ty.getDouble(0.0));
+        SmartDashboard.putNumber("LimelightArea", ta.getDouble(0.0));
+        SmartDashboard.putNumber("LimelightSkew", ts.getDouble(0.0)); // not useful
 
-        SmartDashboard.putNumber("time", Math.random());
+        SmartDashboard.putNumber("LimelightShort", tshort.getDouble(0.0));
+        SmartDashboard.putNumber("LimelightLong", tlong.getDouble(0.0));
+        SmartDashboard.putNumber("LimelightHorizSidelen", thor.getDouble(0.0));
+        SmartDashboard.putNumber("LimelightVerticalSidelen", tvert.getDouble(0.0));
+        SmartDashboard.putNumber("LimelightCamtran", camtran.getDouble(0.0));
+
     }
 
     // Calculates angle
