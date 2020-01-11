@@ -23,17 +23,25 @@ public class Camera {
     NetworkTableEntry tx;
     NetworkTableEntry ty;
     NetworkTableEntry ta;
+    double robotHeight, totalHeight, offsetAngle;
 
-    public Camera() {
+    public Camera(double robotHeight, double totalHeight, double offsetAngle) {
 
         NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
-        //
         tx = table.getEntry("tx");
-        //
         ty = table.getEntry("ty");
-        //
         ta = table.getEntry("ta");
 
+        this.robotHeight = robotHeight;
+        this.totalHeight = totalHeight;
+        this.offsetAngle = offsetAngle;
+
+
+
+    }
+
+    public double getYAngle(){
+        return ty.getDouble(0.0);
     }
 
     public void updateDashboard() {
@@ -49,7 +57,14 @@ public class Camera {
         SmartDashboard.putNumber("LimelightArea", area);
 
         SmartDashboard.putNumber("time", Math.random());
+    }
 
+    // Calculates angle
+    // 2-degree offset hardcoded for raft testing
+    public double getDistance() {
+        double distance = (totalHeight - robotHeight) / Math.tan(Math.toRadians(getYAngle() + offsetAngle));
+        SmartDashboard.putNumber("distance", distance);
+        return distance;
     }
 
 }
