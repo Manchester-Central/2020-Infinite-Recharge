@@ -17,20 +17,20 @@ public class drive12inches extends Command {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     PIDRight = new PIDController(0.75, 0, 0);
-    SmartDashboard.putData("PIDRight",PIDRight);
+    SmartDashboard.putData("PIDRight", PIDRight);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    target=Robot.driveBase.getRightPosition()+12;
+    target = Robot.driveBase.getRightPosition() + 12;
     PIDRight.setSetpoint(target);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double right=PIDRight.calculate(Robot.driveBase.getRightPosition());
+    double right = PIDRight.calculate(Robot.driveBase.getRightPosition());
     Robot.driveBase.differentialDrive1.tankDrive(0, right);
   }
 
@@ -52,8 +52,7 @@ public class drive12inches extends Command {
   }
 
   private PIDController PIDRight;
-  
+
   double target;
 
-  
 }

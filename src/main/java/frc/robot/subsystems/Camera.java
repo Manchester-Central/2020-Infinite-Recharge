@@ -12,8 +12,6 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 
-
-
 /**
  * Add your docs here.
  */
@@ -40,17 +38,15 @@ public class Camera {
         this.totalHeight = totalHeight;
         this.offsetAngle = offsetAngle;
 
-
-
     }
 
-    public double getYAngle(){
+    public double getYAngle() {
         return ty.getDouble(0.0);
     }
 
     public void updateDashboard() {
 
-        //post to smart dashboard periodically
+        // post to smart dashboard periodically
         SmartDashboard.putNumber("LimelightX", tx.getDouble(0.0));
         SmartDashboard.putNumber("LimelightY", ty.getDouble(0.0));
         SmartDashboard.putNumber("LimelightArea", ta.getDouble(0.0));
