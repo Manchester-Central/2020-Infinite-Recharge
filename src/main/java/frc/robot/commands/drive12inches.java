@@ -21,14 +21,14 @@ public class drive12inches extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    target=Robot.driveBase.rightposition()+12;
+    target=Robot.driveBase.getRightPosition()+12;
     PIDRight.setSetpoint(target);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double right=PIDRight.calculate(Robot.driveBase.rightposition());
+    double right=PIDRight.calculate(Robot.driveBase.getRightPosition());
     Robot.driveBase.differentialDrive1.tankDrive(0, right);
   }
 
