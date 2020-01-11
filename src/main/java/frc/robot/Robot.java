@@ -117,6 +117,7 @@ driveBase = new DriveBase();
         double rightSpeed = oi.driver.getRawAxis(3);
         SmartDashboard.putNumber("Left Speed", leftSpeed);
         SmartDashboard.putNumber("Right Speed", rightSpeed);
+        driveBase.reportPosition();
         driveBase.differentialDrive1.tankDrive(leftSpeed, rightSpeed);
     }
 }
