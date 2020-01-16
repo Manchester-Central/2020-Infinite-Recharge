@@ -7,30 +7,36 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
+import edu.wpi.first.wpilibj.command.Command;
 
-public class TankDrive extends Command {
-  public TankDrive() {
+public class DriveDistancePID extends Command {
+  public DriveDistancePID(double inches) {
     requires(Robot.driveBase);
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
+    targetInches = inches;
+    
   }
+
+  double targetLeft;
+  double targetRight;
+  double targetInches;
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    targetLeft = Robot.driveBase.getLeftPosition() + targetInches;
+    targetRight = Robot.driveBase.getRightPosition() + targetInches;
+    Robot.driveBase.setTarget(targetLeft, targetRight);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double leftSpeed = -Robot.oi.driver.getRawAxis(1);
-    double rightSpeed = -Robot.oi.driver.getRawAxis(3);
-    SmartDashboard.putNumber("Left Speed", leftSpeed);
-    SmartDashboard.putNumber("Right Speed", rightSpeed);
-    Robot.driveBase.differentialDrive1.tankDrive(leftSpeed, rightSpeed);
+    Robot.driveBase.PIDDrive();
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -49,4 +55,7 @@ public class TankDrive extends Command {
   @Override
   protected void interrupted() {
   }
+
+
+
 }
