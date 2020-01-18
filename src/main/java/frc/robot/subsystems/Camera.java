@@ -39,10 +39,18 @@ public class Camera {
         this.offsetAngle = offsetAngle;
 
     }
-
+    
+    public double getXAngle() {
+        return tx.getDouble(0.0);
+    }
+    
     public double getYAngle() {
         return ty.getDouble(0.0);
     }
+
+    // public void turnRobot(double angle) {
+        
+    // }
 
     public void updateDashboard() {
 
@@ -58,6 +66,7 @@ public class Camera {
         SmartDashboard.putNumber("LimelightVerticalSidelen", tvert.getDouble(0.0));
         SmartDashboard.putNumber("LimelightCamtran", camtran.getDouble(0.0));
 
+            
     }
 
     // Calculates angle
