@@ -7,31 +7,29 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.controller.PIDController;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.Robot;
 
-public class DriveDistancePID extends Command {
-  public DriveDistancePID(double inches) {
+public class TurnAnglePID extends Command {
+  public TurnAnglePID(double angle) {
     requires(Robot.driveBase);
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    targetInches = inches;
-    
+    targetAngle = angle;
   }
 
-  double targetLeft;
+  double targetAngle;
   double targetRight;
-  double targetInches;
+  double targetLeft;
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    targetLeft = Robot.driveBase.getLeftPosition() + targetInches;
-    targetRight = Robot.driveBase.getRightPosition() + targetInches;
+    double delta = Robot.driveBase.angleToDist(targetAngle);
+    targetLeft = Robot.driveBase.getLeftPosition() + delta;
+    targetRight = Robot.driveBase.getRightPosition() - delta;
     Robot.driveBase.setTarget(targetLeft, targetRight);
-    System.out.println("DriveDistancePID initialized, target left = " + targetLeft + " target right = " + targetRight);
+    System.out.println("TurnAnglePID initialized, target left = " + targetLeft + " target right = " + targetRight);
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -44,8 +42,8 @@ public class DriveDistancePID extends Command {
   @Override
   protected boolean isFinished() {
     double error = 2;
-    boolean rightFinished = (targetRight<Robot.driveBase.getRightPosition()+error)&&(targetRight>Robot.driveBase.getRightPosition()-error);
-    boolean leftFinished = (targetLeft<Robot.driveBase.getLeftPosition()+error)&&(targetLeft>Robot.driveBase.getLeftPosition()-error);
+    boolean rightFinished =(targetRight<Robot.driveBase.getRightPosition()+error)&&(targetRight>Robot.driveBase.getRightPosition()-error);
+    boolean leftFinished =(targetLeft<Robot.driveBase.getLeftPosition()+error)&&(targetLeft>Robot.driveBase.getLeftPosition()-error);
     if(leftFinished && rightFinished)
     {
       return true;
@@ -63,7 +61,4 @@ public class DriveDistancePID extends Command {
   @Override
   protected void interrupted() {
   }
-
-
-
 }
