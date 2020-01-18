@@ -31,6 +31,7 @@ public class DriveDistancePID extends Command {
     targetLeft = Robot.driveBase.getLeftPosition() + targetInches;
     targetRight = Robot.driveBase.getRightPosition() + targetInches;
     Robot.driveBase.setTarget(targetLeft, targetRight);
+    System.out.println("DriveDistancePID initialized, target left = " + targetLeft + " target right = " + targetRight);
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -42,6 +43,13 @@ public class DriveDistancePID extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
+    double error = 2;
+    boolean rightFinished = (targetRight<Robot.driveBase.getRightPosition()+error)&&(targetRight>Robot.driveBase.getRightPosition()-error);
+    boolean leftFinished = (targetLeft<Robot.driveBase.getLeftPosition()+error)&&(targetLeft>Robot.driveBase.getLeftPosition()-error);
+    if(leftFinished && rightFinished)
+    {
+      return true;
+    }
     return false;
   }
 

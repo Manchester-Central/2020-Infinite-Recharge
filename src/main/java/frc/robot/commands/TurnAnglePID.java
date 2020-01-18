@@ -19,14 +19,17 @@ public class TurnAnglePID extends Command {
   }
 
   double targetAngle;
+  double targetRight;
+  double targetLeft;
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
     double delta = Robot.driveBase.angleToDist(targetAngle);
-    double targetLeft = Robot.driveBase.getLeftPosition() + delta;
-    double targetRight = Robot.driveBase.getRightPosition() - delta;
+    targetLeft = Robot.driveBase.getLeftPosition() + delta;
+    targetRight = Robot.driveBase.getRightPosition() - delta;
     Robot.driveBase.setTarget(targetLeft, targetRight);
+    System.out.println("TurnAnglePID initialized, target left = " + targetLeft + " target right = " + targetRight);
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -38,6 +41,13 @@ public class TurnAnglePID extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
+    double error = 2;
+    boolean rightFinished =(targetRight<Robot.driveBase.getRightPosition()+error)&&(targetRight>Robot.driveBase.getRightPosition()-error);
+    boolean leftFinished =(targetLeft<Robot.driveBase.getLeftPosition()+error)&&(targetLeft>Robot.driveBase.getLeftPosition()-error);
+    if(leftFinished && rightFinished)
+    {
+      return true;
+    }
     return false;
   }
 
