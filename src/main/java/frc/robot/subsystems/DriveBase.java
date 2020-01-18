@@ -20,6 +20,9 @@ import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Victor;
 import frc.robot.commands.*;
 import frc.robot.Robot;
+import frc.robot.RobotConstants2019;
+import frc.robot.RobotConstants2020;
+import frc.robot.RobotConstantsRaft;
 
 /**
  *
@@ -48,98 +51,101 @@ public class DriveBase extends Subsystem {
         PIDRight = new PIDController(0.4, 0, 0);
         PIDLeft = new PIDController(0.4, 0, 0);
         if (type == Robot.RobotType.raft) {
-            left1 = new Victor(0);
-            addChild("Left1", left1);
-            left1.setInverted(false);
-
-            left2 = new Victor(1);
-            addChild("Left2", left2);
-            left2.setInverted(false);
-
-            left3 = new Victor(2);
-            addChild("Left3", left3);
-            left3.setInverted(false);
-
-            left4 = new WPI_TalonSRX(4);
-            addChild("Left4", left4);
-            left4.setInverted(false);
-
-            leftDrive = new SpeedControllerGroup(left1, left2, left3, left4);
-            addChild("LeftDrive", leftDrive);
-
-            right1 = new Victor(3);
-            addChild("Right1", right1);
-            right1.setInverted(false);
-
-            right2 = new Victor(4);
-            addChild("Right2", right2);
-            right2.setInverted(false);
-
-            right3 = new Victor(5);
-            addChild("Right3", right3);
-            right3.setInverted(false);
-
-            right4 = new WPI_TalonSRX(3);
-            addChild("Right4", right4);
-            right4.setInverted(false);
-
-            rightDrive = new SpeedControllerGroup(right1, right2, right3, right4);
-            addChild("RightDrive", rightDrive);
+            setupRaft();
         }
-
         if (type == Robot.RobotType.chaos2019) {
-            leftSpark1 = new CANSparkMax(10, CANSparkMax.MotorType.kBrushless);
-            // addChild("Left1", leftSpark1);
-            leftSpark1.setInverted(false);
-
-            leftSpark2 = new CANSparkMax(11, CANSparkMax.MotorType.kBrushless);
-            // addChild("Left2", leftSpark2);
-            leftSpark2.setInverted(false);
-
-            leftDrive = new SpeedControllerGroup(leftSpark1, leftSpark2);
-            addChild("LeftDrive", leftDrive);
-
-            rightSpark1 = new CANSparkMax(8, CANSparkMax.MotorType.kBrushless);
-            // addChild("Right1", rightSpark1);
-            rightSpark1.setInverted(false);
-
-            rightSpark2 = new CANSparkMax(9, CANSparkMax.MotorType.kBrushless);
-            // addChild("Right2", rightSpark2);
-            rightSpark2.setInverted(false);
-
-            rightDrive = new SpeedControllerGroup(rightSpark1, rightSpark2);
-            addChild("RightDrive", rightDrive);
+            setup2019();
+        }
+        if (type == Robot.RobotType.chaos2020) {
+            setup2020();
         }
 
-        if(type == Robot.RobotType.chaos2020){
-            leftSpark1 = new CANSparkMax(1, CANSparkMax.MotorType.kBrushless);
-            //addChild("Left1", leftSpark1);
-            leftSpark1.setInverted(false);
-
-            leftSpark2 = new CANSparkMax(2, CANSparkMax.MotorType.kBrushless);
-            //addChild("Left2", leftSpark2);
-            leftSpark2.setInverted(false);
-
-            leftDrive = new SpeedControllerGroup(leftSpark1, leftSpark2);
-            addChild("LeftDrive", leftDrive);
-
-            rightSpark1 = new CANSparkMax(3, CANSparkMax.MotorType.kBrushless);
-            //addChild("Right1", rightSpark1);
-            rightSpark1.setInverted(false);
-
-            rightSpark2 = new CANSparkMax(4, CANSparkMax.MotorType.kBrushless);
-            //addChild("Right2", rightSpark2);
-            rightSpark2.setInverted(false);
-
-            rightDrive = new SpeedControllerGroup(rightSpark1, rightSpark2);
-            addChild("RightDrive", rightDrive);
-        }
-
+        addChild("LeftDrive", leftDrive);
+        addChild("RightDrive", rightDrive);
         differentialDrive1 = new DifferentialDrive(leftDrive, rightDrive);
         addChild("Differential Drive 1", differentialDrive1);
         differentialDrive1.setSafetyEnabled(true);
         differentialDrive1.setExpiration(0.1);
         differentialDrive1.setMaxOutput(1.0);
+    }
+
+    private void setupRaft() {
+        left1 = new Victor(RobotConstantsRaft.DRIVE_LEFT_VICTOR_A);
+        addChild("Left1", left1);
+        left1.setInverted(false);
+
+        left2 = new Victor(RobotConstantsRaft.DRIVE_LEFT_VICTOR_B);
+        addChild("Left2", left2);
+        left2.setInverted(false);
+
+        left3 = new Victor(RobotConstantsRaft.DRIVE_LEFT_VICTOR_C);
+        addChild("Left3", left3);
+        left3.setInverted(false);
+
+        left4 = new WPI_TalonSRX(RobotConstantsRaft.DRIVE_LEFT_TALONSRX);
+        addChild("Left4", left4);
+        left4.setInverted(false);
+
+        right1 = new Victor(RobotConstantsRaft.DRIVE_RIGHT_VICTOR_A);
+        addChild("Right1", right1);
+        right1.setInverted(false);
+
+        right2 = new Victor(RobotConstantsRaft.DRIVE_RIGHT_VICTOR_B);
+        addChild("Right2", right2);
+        right2.setInverted(false);
+
+        right3 = new Victor(RobotConstantsRaft.DRIVE_RIGHT_VICTOR_C);
+        addChild("Right3", right3);
+        right3.setInverted(false);
+
+        right4 = new WPI_TalonSRX(RobotConstantsRaft.DRIVE_RIGHT_TALONSRX);
+        addChild("Right4", right4);
+        right4.setInverted(false);
+
+        leftDrive = new SpeedControllerGroup(left1, left2, left3, left4);
+        rightDrive = new SpeedControllerGroup(right1, right2, right3, right4);
+    }
+
+    private void setup2019() {
+        leftSpark1 = new CANSparkMax(RobotConstants2019.DRIVE_LEFT_SPARKMAX_A, CANSparkMax.MotorType.kBrushless);
+        // addChild("Left1", leftSpark1);
+        leftSpark1.setInverted(false);
+
+        leftSpark2 = new CANSparkMax(RobotConstants2019.DRIVE_LEFT_SPARKMAX_B, CANSparkMax.MotorType.kBrushless);
+        // addChild("Left2", leftSpark2);
+        leftSpark2.setInverted(false);
+
+        rightSpark1 = new CANSparkMax(RobotConstants2019.DRIVE_RIGHT_SPARKMAX_A, CANSparkMax.MotorType.kBrushless);
+        // addChild("Right1", rightSpark1);
+        rightSpark1.setInverted(false);
+
+        rightSpark2 = new CANSparkMax(RobotConstants2019.DRIVE_RIGHT_SPARKMAX_B, CANSparkMax.MotorType.kBrushless);
+        // addChild("Right2", rightSpark2);
+        rightSpark2.setInverted(false);
+
+        leftDrive = new SpeedControllerGroup(leftSpark1, leftSpark2);
+        rightDrive = new SpeedControllerGroup(rightSpark1, rightSpark2);
+    }
+
+    private void setup2020() {
+        leftSpark1 = new CANSparkMax(RobotConstants2020.DRIVE_LEFT_SPARKMAX_A, CANSparkMax.MotorType.kBrushless);
+        // addChild("Left1", leftSpark1);
+        leftSpark1.setInverted(false);
+
+        leftSpark2 = new CANSparkMax(RobotConstants2020.DRIVE_LEFT_SPARKMAX_B, CANSparkMax.MotorType.kBrushless);
+        // addChild("Left2", leftSpark2);
+        leftSpark2.setInverted(false);
+
+        rightSpark1 = new CANSparkMax(RobotConstants2020.DRIVE_RIGHT_SPARKMAX_A, CANSparkMax.MotorType.kBrushless);
+        // addChild("Right1", rightSpark1);
+        rightSpark1.setInverted(false);
+
+        rightSpark2 = new CANSparkMax(RobotConstants2020.DRIVE_RIGHT_SPARKMAX_B, CANSparkMax.MotorType.kBrushless);
+        // addChild("Right2", rightSpark2);
+        rightSpark2.setInverted(false);
+
+        leftDrive = new SpeedControllerGroup(leftSpark1, leftSpark2);
+		rightDrive = new SpeedControllerGroup(rightSpark1, rightSpark2);
     }
 
     private double encoderInches(WPI_TalonSRX driveInput) {
