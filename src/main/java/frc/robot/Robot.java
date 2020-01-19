@@ -37,7 +37,7 @@ public class Robot extends TimedRobot {
     //ColorSensor detectedColor;
     AutoBuilder autoBuilder;
 		
-    public enum RobotType {raft, chaos2019, chaos2020};
+    public enum RobotType {raft, chaos2019, chaos2020, simulator};
     public static RobotType hardware = RobotType.chaos2019;
 
     public static OI oi;
