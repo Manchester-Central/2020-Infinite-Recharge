@@ -8,12 +8,13 @@
 package frc.robot.auto.conditions;
 
 /**
- * Add your docs here.
+ * Stops auto command if based on time.
+ * Requires int "timeMs" in parameter (in milliseconds)
  */
 public class TimeAutoCondition implements IAutoCondition {
 
-    long startTime;
-    int timeMs;
+    long startTime; // stores current time at init
+    int timeMs; // stores target time
 
     public TimeAutoCondition(int timeMs) {
         this.timeMs = timeMs;
@@ -24,6 +25,7 @@ public class TimeAutoCondition implements IAutoCondition {
         startTime = System.currentTimeMillis();
     }
 
+    // when the total time is greater than 5, stop time auto command
     @Override
     public boolean isDone() {
         return (System.currentTimeMillis() - startTime) > timeMs;

@@ -10,7 +10,9 @@ package frc.robot.auto.commands;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- * Add your docs here.
+ * Tells robot to do absolutely nothing.
+ * Immediately calls isFinished()
+ * Takes zero parameters.
  */
 public class NullCommand extends Command {
 

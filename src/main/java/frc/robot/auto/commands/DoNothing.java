@@ -10,7 +10,7 @@ package frc.robot.auto.commands;
 import frc.robot.auto.ParseCommand;
 
 /**
- * Add your docs here.
+ * Does nothing, but requires the parameter of type ParseCommand
  */
 public class DoNothing extends BaseAutoCommand {
 

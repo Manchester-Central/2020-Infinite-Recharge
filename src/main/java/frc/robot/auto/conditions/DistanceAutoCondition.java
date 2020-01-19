@@ -8,7 +8,8 @@
 package frc.robot.auto.conditions;
 
 /**
- * Add your docs here.
+ * Stops auto command if based on distance
+ * Requires double "distanceIn" in parameter (inches)
  */
 public class DistanceAutoCondition implements IAutoCondition {
 

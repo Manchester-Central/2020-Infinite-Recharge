@@ -8,7 +8,7 @@
 package frc.robot.auto.conditions;
 
 /**
- * Add your docs here.
+ * Interface used for auto conditions.
  */
 public interface IAutoCondition {
 

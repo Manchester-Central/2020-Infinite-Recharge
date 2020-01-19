@@ -11,10 +11,11 @@ import frc.robot.Robot;
 import frc.robot.auto.ParseCommand;
 
 /**
- * Add your docs here.
+ * Autonomously drives robot.
  */
 public class AutoDrive extends BaseAutoCommand {
 
+    // from parsedCommand, a double speed will be assigned to driveBase
     double speed;
 
     public AutoDrive(ParseCommand parsedCommand) {
@@ -24,6 +25,7 @@ public class AutoDrive extends BaseAutoCommand {
         this.speed = Double.parseDouble(parsedCommand.getArgument("speed"));
     }
 
+    // sets the robot to drive at speed from arguments of parsedCommand
     @Override
     protected void execute() {
         Robot.driveBase.differentialDrive1.tankDrive(speed, speed);
