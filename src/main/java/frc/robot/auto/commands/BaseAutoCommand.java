@@ -21,8 +21,7 @@ public abstract class BaseAutoCommand extends Command {
 
     List<IAutoCondition> conditions = new ArrayList<IAutoCondition>();
 
-
-    public BaseAutoCommand (ParseCommand parsedCommand) {
+    public BaseAutoCommand(ParseCommand parsedCommand) {
         String timeMsString = parsedCommand.getArgument("timeMs");
         String distanceInString = parsedCommand.getArgument("distanceIn");
 
@@ -39,10 +38,10 @@ public abstract class BaseAutoCommand extends Command {
 
     @Override
     protected void initialize() {
-        for (IAutoCondition condition: conditions) {
+        for (IAutoCondition condition : conditions) {
             condition.init();
         }
- 
+
     }
 
     @Override
@@ -51,7 +50,7 @@ public abstract class BaseAutoCommand extends Command {
         if (conditions.size() == 0) {
             return true;
         }
-    
+
         for (IAutoCondition condition : conditions) {
             if (condition.isDone()) {
                 return true;

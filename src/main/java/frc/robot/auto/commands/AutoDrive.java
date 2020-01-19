@@ -17,7 +17,7 @@ public class AutoDrive extends BaseAutoCommand {
 
     double speed;
 
-    public AutoDrive (ParseCommand parsedCommand) {
+    public AutoDrive(ParseCommand parsedCommand) {
         super(parsedCommand);
         requires(Robot.driveBase);
 

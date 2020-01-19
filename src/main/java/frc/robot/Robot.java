@@ -13,12 +13,11 @@ package frc.robot;
 import edu.wpi.first.hal.FRCNetComm.tInstances;
 import edu.wpi.first.hal.FRCNetComm.tResourceType;
 import edu.wpi.first.hal.HAL;
-import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.TimedRobot;
 import frc.robot.auto.AutoBuilder;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
@@ -37,7 +36,10 @@ public class Robot extends TimedRobot {
     SendableChooser<Command> chooser = new SendableChooser<>();
     ColorSensor detectedColor;
     AutoBuilder autoBuilder;
-    public enum RobotType {raft, chaos2019};
+
+    public enum RobotType {
+        raft, chaos2019
+    };
 
     public static OI oi;
     public static DriveBase driveBase;
@@ -88,7 +90,7 @@ public class Robot extends TimedRobot {
         autonomousCommand = chooser.getSelected();
         // schedule the autonomous command (example)
         if (autonomousCommand != null) {
-            //autonomousCommand.start();
+            // autonomousCommand.start();
         }
         autoBuilder.init();
         autoBuilder.getAutoCommand().start();

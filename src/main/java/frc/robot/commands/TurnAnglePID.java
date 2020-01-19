@@ -42,10 +42,9 @@ public class TurnAnglePID extends Command {
   @Override
   protected boolean isFinished() {
     double error = 2;
-    boolean rightFinished =(targetRight<Robot.driveBase.getRightPosition()+error)&&(targetRight>Robot.driveBase.getRightPosition()-error);
-    boolean leftFinished =(targetLeft<Robot.driveBase.getLeftPosition()+error)&&(targetLeft>Robot.driveBase.getLeftPosition()-error);
-    if(leftFinished && rightFinished)
-    {
+    boolean rightFinished = (targetRight < Robot.driveBase.getRightPosition() + error) && (targetRight > Robot.driveBase.getRightPosition() - error);
+    boolean leftFinished = (targetLeft < Robot.driveBase.getLeftPosition() + error) && (targetLeft > Robot.driveBase.getLeftPosition() - error);
+    if (leftFinished && rightFinished) {
       return true;
     }
     return false;

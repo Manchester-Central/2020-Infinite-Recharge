@@ -24,7 +24,7 @@ public class AutoBuilder {
 
         int i = 1;
         // if there is an autoX in robot preferences, keep running!!!!!
-        while(prefs.containsKey("auto" + i)) {
+        while (prefs.containsKey("auto" + i)) {
 
             System.out.println(prefs.getString("auto" + i, null));
             // assigns argumnents from autoX (where x = i in iterator)
@@ -47,15 +47,14 @@ public class AutoBuilder {
 
     // depending on the arguments, creates new object
     private Command getCommand(ParseCommand parsedCommand) {
-        switch(parsedCommand.commandName){
-            case "drive":
-                return new AutoDrive(parsedCommand);
-            case "stop":
-                return new DoNothing(parsedCommand);
-            default:
-                System.out.println("Auto command not recognized: " + parsedCommand);
-                return new NullCommand();
-        
+        switch (parsedCommand.commandName) {
+        case "drive":
+            return new AutoDrive(parsedCommand);
+        case "stop":
+            return new DoNothing(parsedCommand);
+        default:
+            System.out.println("Auto command not recognized: " + parsedCommand);
+            return new NullCommand();
 
         }
     }

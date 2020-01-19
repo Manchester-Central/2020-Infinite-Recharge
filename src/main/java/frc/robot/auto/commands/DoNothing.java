@@ -14,7 +14,7 @@ import frc.robot.auto.ParseCommand;
  */
 public class DoNothing extends BaseAutoCommand {
 
-    public DoNothing (ParseCommand parsedCommand) {
+    public DoNothing(ParseCommand parsedCommand) {
         super(parsedCommand);
     }
 

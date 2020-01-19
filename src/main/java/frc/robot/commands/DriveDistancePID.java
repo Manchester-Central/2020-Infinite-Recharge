@@ -7,10 +7,8 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.controller.PIDController;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.Robot;
 
 public class DriveDistancePID extends Command {
   public DriveDistancePID(double inches) {
@@ -18,7 +16,7 @@ public class DriveDistancePID extends Command {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     targetInches = inches;
-    
+
   }
 
   double targetLeft;
@@ -44,10 +42,9 @@ public class DriveDistancePID extends Command {
   @Override
   protected boolean isFinished() {
     double error = 2;
-    boolean rightFinished = (targetRight<Robot.driveBase.getRightPosition()+error)&&(targetRight>Robot.driveBase.getRightPosition()-error);
-    boolean leftFinished = (targetLeft<Robot.driveBase.getLeftPosition()+error)&&(targetLeft>Robot.driveBase.getLeftPosition()-error);
-    if(leftFinished && rightFinished)
-    {
+    boolean rightFinished = (targetRight < Robot.driveBase.getRightPosition() + error) && (targetRight > Robot.driveBase.getRightPosition() - error);
+    boolean leftFinished = (targetLeft < Robot.driveBase.getLeftPosition() + error) && (targetLeft > Robot.driveBase.getLeftPosition() - error);
+    if (leftFinished && rightFinished) {
       return true;
     }
     return false;
@@ -63,7 +60,5 @@ public class DriveDistancePID extends Command {
   @Override
   protected void interrupted() {
   }
-
-
 
 }

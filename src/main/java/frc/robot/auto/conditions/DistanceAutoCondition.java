@@ -11,8 +11,8 @@ package frc.robot.auto.conditions;
  * Add your docs here.
  */
 public class DistanceAutoCondition implements IAutoCondition {
-    
-    public DistanceAutoCondition (double distanceIn) {
+
+    public DistanceAutoCondition(double distanceIn) {
 
     }
 
