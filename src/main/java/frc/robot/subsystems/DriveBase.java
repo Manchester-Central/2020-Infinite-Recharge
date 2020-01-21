@@ -133,6 +133,30 @@ public class DriveBase extends Subsystem {
             addChild("RightDrive", rightDrive);
         }
 
+        if(type == Robot.RobotType.chaos2020){
+            leftSpark1 = new CANSparkMax(1, CANSparkMax.MotorType.kBrushless);
+            //addChild("Left1", leftSpark1);
+            leftSpark1.setInverted(false);
+
+            leftSpark2 = new CANSparkMax(2, CANSparkMax.MotorType.kBrushless);
+            //addChild("Left2", leftSpark2);
+            leftSpark2.setInverted(false);
+
+            leftDrive = new SpeedControllerGroup(leftSpark1, leftSpark2);
+            addChild("LeftDrive", leftDrive);
+
+            rightSpark1 = new CANSparkMax(3, CANSparkMax.MotorType.kBrushless);
+            //addChild("Right1", rightSpark1);
+            rightSpark1.setInverted(false);
+
+            rightSpark2 = new CANSparkMax(4, CANSparkMax.MotorType.kBrushless);
+            //addChild("Right2", rightSpark2);
+            rightSpark2.setInverted(false);
+
+            rightDrive = new SpeedControllerGroup(rightSpark1, rightSpark2);
+            addChild("RightDrive", rightDrive);
+        }
+
         differentialDrive1 = new DifferentialDrive(leftDrive, rightDrive);
         addChild("Differential Drive 1", differentialDrive1);
         differentialDrive1.setSafetyEnabled(true);
@@ -197,8 +221,8 @@ public class DriveBase extends Subsystem {
 
     @Override
     public void periodic() {
-        SmartDashboard.putNumber("Right Encoder", right4.getSensorCollection().getQuadraturePosition());
-        SmartDashboard.putNumber("Left Encoder", -left4.getSensorCollection().getQuadraturePosition());
+        //SmartDashboard.putNumber("Right Encoder", right4.getSensorCollection().getQuadraturePosition());
+        //SmartDashboard.putNumber("Left Encoder", -left4.getSensorCollection().getQuadraturePosition());
         // Put code here to be run every loop
         double rightInches = encoderInches(right4);
         double leftInches = encoderInches(left4);
