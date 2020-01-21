@@ -35,6 +35,8 @@ public class Robot extends TimedRobot {
     Command autonomousCommand;
     SendableChooser<Command> chooser = new SendableChooser<>();
     //ColorSensor detectedColor;
+    AutoBuilder autoBuilder;
+		
     public enum RobotType {raft, chaos2019, chaos2020};
     public static RobotType hardware = RobotType.chaos2020;
 
@@ -56,6 +58,13 @@ public class Robot extends TimedRobot {
         driveBase = new DriveBase(hardware);
 
         // OI must be constructed after subsystems. If the OI creates Commands
+        // (which it very likely will), subsystems are not guaranteed to be
+        // constructed yet. Thus, their requires() statements may grab null
+        // pointers. Bad news. Don't move it.
+        oi = new OI();
+
+        HAL.report(tResourceType.kResourceType_Framework, tInstances.kFramework_RobotBuilder);
+
         // Add commands to Autonomous Sendable Chooser
         chooser.setDefaultOption("Autonomous Command", new AutonomousCommand());
         SmartDashboard.putData("Auto mode", chooser);
