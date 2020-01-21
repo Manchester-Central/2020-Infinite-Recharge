@@ -40,9 +40,17 @@ public class Camera {
 
     }
 
+    public double getXAngle() {
+        return tx.getDouble(0.0);
+    }
+
     public double getYAngle() {
         return ty.getDouble(0.0);
     }
+
+    // public void turnRobot(double angle) {
+
+    // }
 
     public void updateDashboard() {
 
