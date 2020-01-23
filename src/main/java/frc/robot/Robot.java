@@ -31,14 +31,14 @@ import frc.robot.subsystems.*;
  */
 public class Robot extends TimedRobot {
 
-    Camera camera;
+    public static Camera camera;
     Command autonomousCommand;
     SendableChooser<Command> chooser = new SendableChooser<>();
     //ColorSensor detectedColor;
     AutoBuilder autoBuilder;
 		
     public enum RobotType {raft, chaos2019, chaos2020};
-    public static RobotType hardware = RobotType.chaos2020;
+    public static RobotType hardware = RobotType.chaos2019;
 
     public static OI oi;
     public static DriveBase driveBase;

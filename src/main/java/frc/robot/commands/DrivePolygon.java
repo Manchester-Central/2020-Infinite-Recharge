@@ -13,7 +13,11 @@ public class DrivePolygon extends CommandGroup {
   /**
    * Add your docs here.
    */
-  public DrivePolygon() {
+  public DrivePolygon(double sideLength, int sides) {
+    /*for(int i = 0, i < sides, i++){
+      addSequential(new DriveDistancePID(sideLength));
+      addSequential(new TurnAnglePID(-90));
+    }*/
     // Add Commands here:
     // e.g. addSequential(new Command1());
     // addSequential(new Command2());

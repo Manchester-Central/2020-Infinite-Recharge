@@ -68,6 +68,7 @@ public class OI {
     public JoystickButton xButton;
     public JoystickButton yButton;
     public JoystickButton startButton;
+    public JoystickButton leftBumper;
 
     public OI() {
         driver = new Joystick(0);
@@ -77,11 +78,14 @@ public class OI {
         bButton = new JoystickButton(driver, RIGHT_B);
         yButton = new JoystickButton(driver, UP_Y);
         startButton = new JoystickButton(driver, START);
+        leftBumper = new JoystickButton(driver, LEFT_BUMPER);
         yButton.whenPressed(new DriveDistancePID(12));
         bButton.whenPressed(new TurnAnglePID(90));
         aButton.whenPressed(new DriveDistancePID(-12));
         xButton.whenPressed(new TurnAnglePID(-90));
         startButton.whenPressed(new DriveSquare(12));
+        leftBumper.whenPressed(new TurnToTarget());
+
 
         // SmartDashboard Buttons
         SmartDashboard.putData("Autonomous Command", new AutonomousCommand());

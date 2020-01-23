@@ -23,6 +23,7 @@ import frc.robot.Robot;
 import frc.robot.RobotConstants2019;
 import frc.robot.RobotConstants2020;
 import frc.robot.RobotConstantsRaft;
+import frc.robot.Robot.RobotType;
 
 /**
  *
@@ -46,8 +47,11 @@ public class DriveBase extends Subsystem {
     private CANSparkMax leftSpark2;
     private CANSparkMax rightSpark1;
     private CANSparkMax rightSpark2;
+    private Robot.RobotType type;
 
-    public DriveBase(Robot.RobotType type) {
+    public DriveBase(Robot.RobotType robotType) {
+        type = robotType;
+        
         PIDRight = new PIDController(0.4, 0, 0);
         PIDLeft = new PIDController(0.4, 0, 0);
         if (type == Robot.RobotType.raft) {
@@ -160,6 +164,28 @@ public class DriveBase extends Subsystem {
         return counts * ratio;
     }
 
+    private double encoderInches(CANSparkMax driveInput) {
+        if (driveInput == null) {
+            return 0;
+        }
+        double wheelDiameter = 4.0;
+        double gearRatio = (double) 1 / 1; // ratio of the axel the wheel lies on to the axel the encoder reads
+        if (type == Robot.RobotType.chaos2019)
+        {
+            wheelDiameter = 4.0;
+            gearRatio = (double) 60 / 8.62;
+        }
+        if (type == Robot.RobotType.chaos2020)
+        {
+            wheelDiameter = 4.0;
+            gearRatio = (double) 1 / 1;
+        }
+        int ticksPerRev = 42; // amount of ticks in one revolution of the encoder axel
+        double counts = driveInput.getEncoder().getPosition();
+        double ratio = (gearRatio * wheelDiameter * Math.PI) / ticksPerRev;
+        return counts * ratio;
+    }
+
     public double angleToDist(double angle) {
         double inchPerRev = 92.45; // constant equal to the total distance the wheels move for one full revolution
         return (inchPerRev * angle) / 360;
@@ -170,15 +196,33 @@ public class DriveBase extends Subsystem {
     }
 
     public double getRightPosition() {
-        return encoderInches(right4);
+        if (type == Robot.RobotType.raft) {
+            return encoderInches(right4);
+        }
+        if (type == Robot.RobotType.chaos2019) {
+            return -encoderInches(rightSpark1);
+        }
+        if (type == Robot.RobotType.chaos2020) {
+            return encoderInches(rightSpark1);
+        }
+        return 0;
     }
 
     public double getLeftPosition() {
-        return -encoderInches(left4); // inverted for consistency with
+        if (type == Robot.RobotType.raft) {
+            return -encoderInches(left4);
+        }
+        if (type == Robot.RobotType.chaos2019) {
+            return encoderInches(leftSpark1);
+        }
+        if (type == Robot.RobotType.chaos2020) {
+            return -encoderInches(leftSpark1);
+        } // inverted for consistency with robot direction
+        return 0;
     }
 
     public void PIDDrive() {
-        double maxSpeed = 0.2;
+        double maxSpeed = 0.4;
         double right = PIDRight.calculate(getRightPosition());
         double left = PIDLeft.calculate(getLeftPosition());
         differentialDrive1.tankDrive(left * maxSpeed, right * maxSpeed);
@@ -201,11 +245,11 @@ public class DriveBase extends Subsystem {
         //SmartDashboard.putNumber("Right Encoder", right4.getSensorCollection().getQuadraturePosition());
         //SmartDashboard.putNumber("Left Encoder", -left4.getSensorCollection().getQuadraturePosition());
         // Put code here to be run every loop
-        double rightInches = encoderInches(right4);
-        double leftInches = encoderInches(left4);
+        double rightInches = getRightPosition();
+        double leftInches = getLeftPosition();
         // converts raw encoder readout to inches
         SmartDashboard.putNumber("Right Position", rightInches);
-        SmartDashboard.putNumber("Left Position", -leftInches);
+        SmartDashboard.putNumber("Left Position", leftInches);
     }
 
     // Put methods for controlling this subsystem
