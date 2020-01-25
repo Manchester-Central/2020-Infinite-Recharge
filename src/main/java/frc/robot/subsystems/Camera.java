@@ -18,12 +18,13 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 
 public class Camera {
 
-    NetworkTableEntry tx, ty, ta, ts, tl, tshort, tlong, thor, tvert, getpipe, camtran;
+    NetworkTableEntry tv, tx, ty, ta, ts, tl, tshort, tlong, thor, tvert, getpipe, camtran, pipeline, ledMode;
     double robotHeight, totalHeight, offsetAngle;
 
     public Camera(double robotHeight, double totalHeight, double offsetAngle) {
 
         NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
+        tv = table.getEntry("tv");
         tx = table.getEntry("tx");
         ty = table.getEntry("ty");
         ta = table.getEntry("ta");
@@ -38,6 +39,11 @@ public class Camera {
         this.totalHeight = totalHeight;
         this.offsetAngle = offsetAngle;
 
+        pipeline = table.getEntry("pipeline");
+        pipeline.setDouble(9);
+        ledMode = table.getEntry("ledMode");
+        ledMode.setDouble(0);
+
     }
 
     public double getXAngle() {
@@ -46,6 +52,14 @@ public class Camera {
 
     public double getYAngle() {
         return ty.getDouble(0.0);
+    }
+
+    public boolean hasTarget() {
+        return (tv.getDouble(0) == 1);
+    }
+
+    public void setPipeline(double pipeline) {
+        this.pipeline.setDouble(pipeline);
     }
 
     // public void turnRobot(double angle) {

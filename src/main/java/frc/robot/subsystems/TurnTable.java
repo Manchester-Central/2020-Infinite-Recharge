@@ -49,6 +49,7 @@ public class TurnTable extends Subsystem {
     }
     if (type == Robot.RobotType.chaos2019) {
        // turnTable = new CANSparkMax(RobotConstants2019.TURN_TABLE_SPARKMAX, CANSparkMax.MotorType.kBrushless);
+       return;
     }
     if (type == Robot.RobotType.chaos2020) {
        turnTable = new CANSparkMax(RobotConstants2020.TURN_TABLE_SPARKMAX, CANSparkMax.MotorType.kBrushless);
@@ -100,12 +101,15 @@ public class TurnTable extends Subsystem {
 
   @Override
   public void periodic(){
-    /*if (Robot.oi.rightBumper.get()){
+    if (turnTable == null){
+      return;
+    }
+    if (Robot.oi.rightBumper.get()){
       driveTurnTableMotor();
     }
     else{
       m_pidController.setReference(0, ControlType.kVoltage);
-    }*/
+    }
   }
 
   private double turnTableDegrees(CANSparkMax input)

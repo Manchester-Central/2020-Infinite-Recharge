@@ -68,8 +68,10 @@ public class OI {
     public JoystickButton xButton;
     public JoystickButton yButton;
     public JoystickButton startButton;
+    public JoystickButton selectButton;
     public JoystickButton leftBumper;
     public JoystickButton rightBumper;
+    public JoystickButton leftTrigger;
 
     public OI() {
         driver = new Joystick(0);
@@ -79,14 +81,18 @@ public class OI {
         bButton = new JoystickButton(driver, RIGHT_B);
         yButton = new JoystickButton(driver, UP_Y);
         startButton = new JoystickButton(driver, START);
+        selectButton = new JoystickButton(driver, SELECT);
         leftBumper = new JoystickButton(driver, LEFT_BUMPER);
         rightBumper = new JoystickButton(driver, RIGHT_BUMPER);
+        leftTrigger = new JoystickButton(driver, LEFT_TRIGGER);
         yButton.whenPressed(new DriveDistancePID(12));
         bButton.whenPressed(new TurnAnglePID(90));
         aButton.whenPressed(new DriveDistancePID(-12));
         xButton.whenPressed(new TurnAnglePID(-90));
         startButton.whenPressed(new DriveSquare(12));
+        selectButton.whileHeld(new AimClimbtake());
         leftBumper.whenPressed(new TurnToTarget());
+        leftTrigger.whenPressed(new SetPipeline());
 
 
         // SmartDashboard Buttons
