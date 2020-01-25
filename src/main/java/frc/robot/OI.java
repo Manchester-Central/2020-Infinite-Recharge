@@ -69,6 +69,7 @@ public class OI {
     public JoystickButton yButton;
     public JoystickButton startButton;
     public JoystickButton leftBumper;
+    public JoystickButton rightBumper;
 
     public OI() {
         driver = new Joystick(0);
@@ -79,6 +80,7 @@ public class OI {
         yButton = new JoystickButton(driver, UP_Y);
         startButton = new JoystickButton(driver, START);
         leftBumper = new JoystickButton(driver, LEFT_BUMPER);
+        rightBumper = new JoystickButton(driver, RIGHT_BUMPER);
         yButton.whenPressed(new DriveDistancePID(12));
         bButton.whenPressed(new TurnAnglePID(90));
         aButton.whenPressed(new DriveDistancePID(-12));

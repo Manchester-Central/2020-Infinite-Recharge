@@ -10,4 +10,6 @@ public class RobotConstantsRaft {
     public final static int DRIVE_RIGHT_VICTOR_B = 4; // PWM
     public final static int DRIVE_RIGHT_VICTOR_C = 5; // PWM
     public final static int DRIVE_RIGHT_TALONSRX = 3; // CAN
+
+    public static final int TURN_TABLE_SPARKMAX = 2; // CAN
 }
