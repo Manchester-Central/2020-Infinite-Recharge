@@ -23,7 +23,6 @@ import frc.robot.Robot;
 import frc.robot.RobotConstants2019;
 import frc.robot.RobotConstants2020;
 import frc.robot.RobotConstantsRaft;
-import frc.robot.Robot.RobotType;
 
 /**
  *
