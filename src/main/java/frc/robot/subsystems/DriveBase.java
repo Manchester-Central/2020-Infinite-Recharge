@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.*;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Victor;
 import frc.robot.commands.*;
@@ -47,6 +48,8 @@ public class DriveBase extends Subsystem {
     private CANSparkMax rightSpark1;
     private CANSparkMax rightSpark2;
     private Robot.RobotType type;
+    private Encoder sim_encoder_l;
+    private Encoder sim_encoder_r;
 
     public DriveBase(Robot.RobotType robotType) {
         type = robotType;
@@ -62,6 +65,9 @@ public class DriveBase extends Subsystem {
         if (type == Robot.RobotType.chaos2020) {
             setup2020();
         }
+        if (type == Robot.RobotType.simulator) {
+            setupSimulator();
+        }        
 
         addChild("LeftDrive", leftDrive);
         addChild("RightDrive", rightDrive);
@@ -151,6 +157,22 @@ public class DriveBase extends Subsystem {
 		rightDrive = new SpeedControllerGroup(rightSpark1, rightSpark2);
     }
 
+    private void setupSimulator() {
+        left1 = new Victor(1);
+        addChild("Left1", left1);
+        left1.setInverted(false);
+
+        right1 = new Victor(2);
+        addChild("Right1", right1);
+        right1.setInverted(false);
+
+        sim_encoder_l = new Encoder(1, 2);
+        sim_encoder_r = new Encoder(3, 4);
+
+        leftDrive = new SpeedControllerGroup(left1);
+        rightDrive = new SpeedControllerGroup(right1);
+    }    
+
     private double encoderInches(WPI_TalonSRX driveInput) {
         if (driveInput == null) {
             return 0;
@@ -204,6 +226,9 @@ public class DriveBase extends Subsystem {
         if (type == Robot.RobotType.chaos2020) {
             return encoderInches(rightSpark1);
         }
+        if (type == Robot.RobotType.simulator) {
+            return sim_encoder_r.get();
+        }                 
         return 0;
     }
 
@@ -212,11 +237,14 @@ public class DriveBase extends Subsystem {
             return -encoderInches(left4);
         }
         if (type == Robot.RobotType.chaos2019) {
-            return encoderInches(leftSpark1);
+            return encoderInches(leftSpark1); // inverted for consistency with robot direction
         }
         if (type == Robot.RobotType.chaos2020) {
             return -encoderInches(leftSpark1);
-        } // inverted for consistency with robot direction
+        } 
+        if (type == Robot.RobotType.simulator) {
+            return sim_encoder_l.get();
+        }         
         return 0;
     }
 
