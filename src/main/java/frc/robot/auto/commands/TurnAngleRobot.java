@@ -8,6 +8,7 @@
 package frc.robot.auto.commands;
 
 import frc.robot.auto.ParseCommand;
+import frc.robot.commands.TurnAnglePID;
 
 public class TurnAngleRobot extends BaseAutoCommand {
 
@@ -23,6 +24,9 @@ public class TurnAngleRobot extends BaseAutoCommand {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    TurnAnglePID turnAngle = new TurnAnglePID(angle);
+    //TODO: make the object run commands to turn
+
     // TODO: create TurnAnglePID object + do the distance auto stuff later (1/27/20)
   }
 
