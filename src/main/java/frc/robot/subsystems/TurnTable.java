@@ -95,7 +95,7 @@ public class TurnTable extends Subsystem {
     if (turnTable == null){
       return;
     }
-    if (Robot.oi.rightBumper.get()){
+    if (Robot.oi.driver.rightBumper.get()){
       driveTurnTableMotor();
     }
     else{

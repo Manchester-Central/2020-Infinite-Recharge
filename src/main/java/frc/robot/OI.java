@@ -15,26 +15,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.subsystems.*;
+import com.chaos131.LogitechF310;
 
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-    public static final int LEFT_X = 1;
-    public static final int DOWN_A = 2;
-    public static final int RIGHT_B = 3;
-    public static final int UP_Y = 4;
 
-    public static final int LEFT_BUMPER = 5;
-    public static final int RIGHT_BUMPER = 6;
-    public static final int LEFT_TRIGGER = 7;
-    public static final int RIGHT_TRIGGER = 8;
-
-    public static final int SELECT = 9;
-    public static final int START = 10;
-    public static final int LEFT_JOYSTICK = 11;
-    public static final int RIGHT_JOYSTICK = 12;
     //// CREATING BUTTONS
     // One type of button is a joystick button which is any button on a joystick.
     // You create one by telling it which joystick it's on and which button
@@ -62,37 +50,22 @@ public class OI {
     // until it is finished as determined by it's isFinished method.
     // button.whenReleased(new ExampleCommand());
 
-    public Joystick driver;
-    public JoystickButton aButton;
-    public JoystickButton bButton;
-    public JoystickButton xButton;
-    public JoystickButton yButton;
-    public JoystickButton startButton;
-    public JoystickButton selectButton;
-    public JoystickButton leftBumper;
-    public JoystickButton rightBumper;
-    public JoystickButton leftTrigger;
+    public LogitechF310 driver;
+    public LogitechF310 opperator;
+    
 
     public OI() {
-        driver = new Joystick(0);
+        driver = new LogitechF310(0);
+        // opperator = new LogitechF310(1);
 
-        xButton = new JoystickButton(driver, LEFT_X);
-        aButton = new JoystickButton(driver, DOWN_A);
-        bButton = new JoystickButton(driver, RIGHT_B);
-        yButton = new JoystickButton(driver, UP_Y);
-        startButton = new JoystickButton(driver, START);
-        selectButton = new JoystickButton(driver, SELECT);
-        leftBumper = new JoystickButton(driver, LEFT_BUMPER);
-        rightBumper = new JoystickButton(driver, RIGHT_BUMPER);
-        leftTrigger = new JoystickButton(driver, LEFT_TRIGGER);
-        yButton.whenPressed(new DriveDistancePID(12));
-        bButton.whenPressed(new TurnAnglePID(90));
-        aButton.whenPressed(new DriveDistancePID(-12));
-        xButton.whenPressed(new TurnAnglePID(-90));
-        startButton.whenPressed(new DriveSquare(12));
-        selectButton.whileHeld(new AimClimbtake());
-        leftBumper.whenPressed(new TurnToTarget());
-        leftTrigger.whenPressed(new SetPipeline());
+        driver.yButton.whenPressed(new DriveDistancePID(12));
+        driver.bButton.whenPressed(new TurnAnglePID(90));
+        driver.aButton.whenPressed(new DriveDistancePID(-12));
+        driver.xButton.whenPressed(new TurnAnglePID(-90));
+        driver.startButton.whenPressed(new DriveSquare(12));
+        driver.selectButton.whileHeld(new AimClimbtake());
+        driver.leftBumper.whenPressed(new TurnToTarget());
+        driver.leftTrigger.whenPressed(new SetPipeline());
 
 
         // SmartDashboard Buttons

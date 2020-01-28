@@ -32,8 +32,8 @@ public class TankDrive extends Command {
     if( Robot.hardware == Robot.RobotType.chaos2019) {
     speedScale = 0.3;
     }
-    double leftSpeed = -Robot.oi.driver.getRawAxis(1);
-    double rightSpeed = -Robot.oi.driver.getRawAxis(3);
+    double leftSpeed = Robot.oi.driver.getLeftY() * speedScale;
+    double rightSpeed = Robot.oi.driver.getRightY() * speedScale;
     SmartDashboard.putNumber("Left Speed", leftSpeed);
     SmartDashboard.putNumber("Right Speed", rightSpeed);
     Robot.driveBase.differentialDrive1.tankDrive(leftSpeed, rightSpeed);
