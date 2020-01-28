@@ -31,6 +31,7 @@ import frc.robot.subsystems.*;
  */
 public class Robot extends TimedRobot {
 
+    boolean cameraPipelineSet = false;
     public static Camera camera;
     Command autonomousCommand;
     SendableChooser<Command> chooser = new SendableChooser<>();
@@ -134,6 +135,15 @@ public class Robot extends TimedRobot {
     public void robotPeriodic() {
         camera.updateDashboard();
         camera.getDistance();
+
+        while (!cameraPipelineSet) {
+            camera.setPipeline(9);
+            if (camera.getPipeline() == 9) {
+                cameraPipelineSet = true;
+            }
+        }
+        System.out.println(camera.getPipeline());
+
         //detectedColor.updateColorDashboard();
     }
 }
