@@ -1,6 +1,8 @@
 package frc.robot;
 
 public class RobotConstants2019 {
+    public final static String MAC_ADDRESS = "G";
+
     public final static int DRIVE_LEFT_SPARKMAX_A = 10; // CAN 
     public final static int DRIVE_LEFT_SPARKMAX_B = 11; // CAN 
     public final static int DRIVE_RIGHT_SPARKMAX_A = 8; // CAN 
