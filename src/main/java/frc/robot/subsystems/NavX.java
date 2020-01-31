@@ -41,9 +41,6 @@ public class NavX extends Subsystem {
 
 }
 
-// TODO: implement NavX turn with locked yaw
-// https://github.com/dkongo/NavX-Mxp-java-examples/blob/master/FieldCentricDrive/src/org/usfirst/frc/team2465/robot/Robot.java
-
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.

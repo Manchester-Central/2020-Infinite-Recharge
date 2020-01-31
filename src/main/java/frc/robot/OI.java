@@ -66,6 +66,7 @@ public class OI {
         driver.selectButton.whileHeld(new AimClimbtake());
         driver.leftBumper.whenPressed(new TurnToTarget());
         driver.leftTrigger.whenPressed(new SetPipeline());
+        driver.rightJoystick.whenPressed(new NavXTurnRobot());
 
 
         // SmartDashboard Buttons
