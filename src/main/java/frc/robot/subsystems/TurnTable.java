@@ -94,7 +94,7 @@ public class TurnTable extends Subsystem {
     if (turnTable == null) {
       return;
     }
-    if (Robot.oi.driver.rightBumper.get()) {
+    if (Robot.oi.opperator.rightBumper.get()) {
       driveTurnTableMotor();
     } else {
       m_pidController.setReference(0, ControlType.kVoltage);
