@@ -50,12 +50,14 @@ public class DriveBase extends Subsystem {
     private Robot.RobotType type;
     private Encoder sim_encoder_l;
     private Encoder sim_encoder_r;
+    private double setpointLeft, setpointRight;
 
     public DriveBase(Robot.RobotType robotType) {
         type = robotType;
         
-        PIDRight = new PIDController(0.4, 0, 0);
-        PIDLeft = new PIDController(0.4, 0, 0);
+        PIDRight = new PIDController(0.1, 0.01, 0.01);
+        PIDLeft = new PIDController(0.1, 0.01, 0.01);
+
         if (type == Robot.RobotType.raft) {
             setupRaft();
         }
@@ -212,6 +214,7 @@ public class DriveBase extends Subsystem {
         return (inchPerRev * angle) / 360;
     }
 
+
     public void reportPosition() {
 
     }
@@ -249,16 +252,50 @@ public class DriveBase extends Subsystem {
     }
 
     public void PIDDrive() {
-        double maxSpeed = 0.4;
+        double maxSpeed = 0.7;
+        double minSpeed = 0.3;
         double right = PIDRight.calculate(getRightPosition());
         double left = PIDLeft.calculate(getLeftPosition());
-        differentialDrive1.tankDrive(left * maxSpeed, right * maxSpeed);
+        double leftSign = left / Math.abs(left);
+        double rightSign = right / Math.abs(right);
+
+        right = Math.min(maxSpeed, Math.max(minSpeed, Math.abs(right))) * rightSign;
+        left = Math.min(maxSpeed, Math.max(minSpeed, Math.abs(left))) * leftSign;
+
+        right = isAtRightTarget() ? 0 : right;
+        left = isAtLeftTarget() ? 0 : left;
+
+        differentialDrive1.tankDrive(left, right);
 
     }
 
     public void setTarget(double left, double right) {
+        setpointLeft = left;
+        setpointRight = right;
         PIDLeft.setSetpoint(left);
         PIDRight.setSetpoint(right);
+    }
+
+    public void setTargetAngle(double targetAngle) {
+        double delta = angleToDist(targetAngle);
+        double targetLeft = getLeftPosition() + delta;
+        double targetRight = getRightPosition() - delta;
+        Robot.driveBase.setTarget(targetLeft, targetRight);
+        System.out.println("setTargetAngle initialized, target left = " + targetLeft + " target right = " + targetRight);
+    }
+
+    public boolean isAtTarget() {
+        return isAtLeftTarget() && isAtRightTarget();
+    }
+
+    public boolean isAtRightTarget() {
+        double error = 2;
+        return (setpointRight < Robot.driveBase.getRightPosition() + error) && (setpointRight > Robot.driveBase.getRightPosition() - error);
+    }
+
+    public boolean isAtLeftTarget() {
+        double error = 2;
+        return (setpointLeft < Robot.driveBase.getLeftPosition() + error) && (setpointLeft > Robot.driveBase.getLeftPosition() - error);
     }
 
     @Override

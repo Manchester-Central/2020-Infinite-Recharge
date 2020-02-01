@@ -9,59 +9,59 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-import frc.robot.OI;
-import frc.robot.subsystems.NavX;
-import edu.wpi.first.wpilibj.command.CommandGroup;
-import frc.robot.commands.TurnAnglePID;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class NavXTurnRobot extends Command {
   public NavXTurnRobot() {
-    // requires(Robot.driveBase);
+    requires(Robot.navx);
+    requires(Robot.driveBase);
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }
 
-  boolean rightJoystickClicked;
-  NavX navx;
-  CommandGroup commandList;
-  // Joystick rightJoy;
-  // TurnAnglePID turnAngle;
-
- public void turnRobotJoystick() {
-  //  if (rightJoy.getTriggerPressed()) {
-
-    System.out.println("Right joystick button is clicked");
-    // double rightJoystickAngle = rightJoy.getDirectionDegrees();
-
-
-    // commandList.addSequential(new TurnAnglePID(rightJoystickAngle));
-    commandList.addSequential(new TurnAnglePID(navx.getNavAngle()));
-
-  //  }
- }
-
-
-
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    navx = new NavX();
-    commandList = new CommandGroup();
-    // rightJoy = new Joystick(12);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    rightJoystickClicked = Robot.oi.driver.getRawButton(12);
+    // get data from controller and NavX
+    double currentYaw = Robot.navx.getNavYaw();
+    double currentRightJoystickAngle = Robot.oi.opperator.getRightJoystickAngle();
+    
+    double deltaLeft = currentRightJoystickAngle - currentYaw;
+    // if deltaLeft is positive, need to subtract 360 so we don't go over 360deg (or else it spazzes out :O)
+    double deltaRight = deltaLeft < 0 ? deltaLeft + 360 : deltaLeft - 360;
+
+    // if right joystick is too close to center, don't do anything
+    if (Math.abs(Robot.oi.opperator.getRightX()) < 0.1 && Math.abs(Robot.oi.opperator.getRightY()) < 0.1) {
+      return;
+    }
+
+    // calculates the shortest angular displacement to goal
+    double delta = deltaRight;
+    if (Math.abs(deltaLeft) < Math.abs(deltaRight)) {
+      delta = deltaLeft;
+    }
+
+    // visualize data
+    SmartDashboard.putNumber("Joy Delta", delta);
+    SmartDashboard.putNumber("Right Angle", currentRightJoystickAngle);
+    SmartDashboard.putNumber("Calc Yaw", currentYaw);
+    Robot.driveBase.setTargetAngle(delta);
+
+    // tells robot to drive
+    Robot.driveBase.PIDDrive();
+
+
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return Robot.driveBase.isAtTarget();
   }
 
   // Called once after isFinished returns true

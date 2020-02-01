@@ -77,4 +77,16 @@ public class LogitechF310 extends edu.wpi.first.wpilibj.Joystick{
         return -getRawAxis(3);
     }
 
+    private double calculateAngle(double x, double y) {
+        return -Math.toDegrees(Math.atan2(-x, y));
+        
+    }
+
+    public double getRightJoystickAngle(){
+        return calculateAngle(getRightX(), getRightY());
+    }
+
+    public double getLeftJoystickAngle(){
+        return calculateAngle(getLeftX(), getLeftY());
+    }
 }

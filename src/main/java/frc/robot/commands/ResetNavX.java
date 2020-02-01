@@ -10,34 +10,26 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class TurnAnglePID extends Command {
-  public TurnAnglePID(double angle) {
-    requires(Robot.driveBase);
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
-    targetAngle = angle;
+public class ResetNavX extends Command {
+  public ResetNavX() {
+   requires(Robot.navx);
   }
-
-  double targetAngle;
-  double targetRight;
-  double targetLeft;
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.driveBase.setTargetAngle(targetAngle);
+    Robot.navx.reset(); // resets all variables stored on navX (such as yaw)
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.driveBase.PIDDrive();
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return Robot.driveBase.isAtTarget();
+    return true;
   }
 
   // Called once after isFinished returns true
