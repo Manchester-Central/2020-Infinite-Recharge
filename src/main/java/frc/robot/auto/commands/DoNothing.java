@@ -14,6 +14,8 @@ import frc.robot.auto.ParseCommand;
  */
 public class DoNothing extends BaseAutoCommand {
 
+    public static final String COMMAND_NAME = "stop";
+
     public DoNothing(ParseCommand parsedCommand) {
         super(parsedCommand);
     }

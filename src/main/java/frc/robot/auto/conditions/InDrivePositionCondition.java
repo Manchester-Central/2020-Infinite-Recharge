@@ -7,10 +7,13 @@
 
 package frc.robot.auto.conditions;
 
+import frc.robot.Robot;
+import frc.robot.Robot.*;
+
 /**
  * Add your docs here.
  */
-public class TurnAngleRobotCondition implements IAutoCondition {
+public class InDrivePositionCondition implements IAutoCondition {
 
     @Override
     public void init() {
@@ -19,7 +22,7 @@ public class TurnAngleRobotCondition implements IAutoCondition {
 
     @Override
     public boolean isDone() {
-        return false;
+        return Robot.driveBase.isAtTarget();
     }
 
 

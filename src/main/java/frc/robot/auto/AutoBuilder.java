@@ -48,10 +48,14 @@ public class AutoBuilder {
     // depending on the arguments, creates new object
     private Command getCommand(ParseCommand parsedCommand) {
         switch (parsedCommand.commandName) {
-        case "drive":
+        case AutoDrive.COMMAND_NAME:
             return new AutoDrive(parsedCommand);
-        case "stop":
+        case DoNothing.COMMAND_NAME:
             return new DoNothing(parsedCommand);
+        case TurnAngleRobot.COMMAND_NAME:
+            return new TurnAngleRobot(parsedCommand);
+        case AimTurret.COMMAND_NAME:
+            return new AimTurret(parsedCommand);
         default:
             System.out.println("Auto command not recognized: " + parsedCommand);
             return new NullCommand();
