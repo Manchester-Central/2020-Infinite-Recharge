@@ -26,8 +26,7 @@ public abstract class BaseAutoCommand extends Command {
     public BaseAutoCommand(ParseCommand parsedCommand) {
         // set strings to value of parameter (can be null if does not exist)
         String timeMsString = parsedCommand.getArgument("timeMs");
-        String distanceInString = parsedCommand.getArgument("distanceIn");
-        String angleBaseString = parsedCommand.getArgument("angleTurnRobot");
+        String pidPosition = parsedCommand.getArgument("pidInPosition");
 
         // if there is a time parameter, add it to conditions to process
         if (timeMsString != null) {
@@ -35,18 +34,10 @@ public abstract class BaseAutoCommand extends Command {
             conditions.add(new TimeAutoCondition(timeMs));
         }
 
-        // if there is a distance parameter, add it to conditions to process
-        if (distanceInString != null) {
-            Double distanceIn = Double.parseDouble(distanceInString);
-            conditions.add(new DistanceAutoCondition(distanceIn));
+        // if there is a PIDPosition condition, check if PID is in position
+        if (pidPosition != null) {
+            conditions.add(new InDrivePositionCondition());
         }
-
-        // if there is a distance parameter, add it to conditions to process
-        if (angleBaseString != null) {
-            Double angleBase = Double.parseDouble(angleBaseString);
-            conditions.add(new DistanceAutoCondition(angleBase));
-        }
-
     }
 
     // for each condition in the list of conditions, initialize them.

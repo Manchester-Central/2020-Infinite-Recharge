@@ -7,32 +7,38 @@
 
 package frc.robot.auto.commands;
 
-import frc.robot.auto.ParseCommand;
-import frc.robot.commands.TurnAnglePID;
-import frc.robot.Robot;
-import frc.robot.Robot.*;
+import edu.wpi.first.wpilibj.command.Command;
 
-public class TurnAngleRobot extends BaseAutoCommand {
-  
-  public static final String COMMAND_NAME = "turnRobot";
-  double angle;
-
-  public TurnAngleRobot(ParseCommand parsedCommand) {
-
-    super(parsedCommand);
-    this.angle = Double.parseDouble(parsedCommand.getArgument("robotAngle"));
-
+public class AimTurret extends Command {
+  public AimTurret() {
+    // Use requires() here to declare subsystem dependencies
+    // eg. requires(chassis);
   }
 
+  // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.driveBase.setTargetAngle(angle);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.driveBase.PIDDrive();
   }
 
+  // Make this return true when this Command no longer needs to run execute()
+  @Override
+  protected boolean isFinished() {
+    return false;
+  }
+
+  // Called once after isFinished returns true
+  @Override
+  protected void end() {
+  }
+
+  // Called when another command which requires one or more of the same
+  // subsystems is scheduled to run
+  @Override
+  protected void interrupted() {
+  }
 }

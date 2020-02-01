@@ -62,11 +62,12 @@ public class OI {
         driver.bButton.whenPressed(new TurnAnglePID(90));
         driver.aButton.whenPressed(new DriveDistancePID(-12));
         driver.xButton.whenPressed(new TurnAnglePID(-90));
-        driver.startButton.whenPressed(new DriveSquare(12));
+        driver.startButton.whileHeld(new DriveSquare(12));
         driver.selectButton.whileHeld(new AimClimbtake());
         driver.leftBumper.whenPressed(new TurnToTarget());
         driver.leftTrigger.whenPressed(new SetPipeline());
-        driver.rightJoystick.whenPressed(new NavXTurnRobot());
+        opperator.leftBumper.whileHeld(new NavXTurnRobot());
+        opperator.xButton.whenPressed(new ResetNavX());
 
 
         // SmartDashboard Buttons

@@ -47,7 +47,7 @@ public class Robot extends TimedRobot {
         raft, chaos2019, chaos2020, simulator
     };
 
-    NavX navx;
+    public static NavX navx;
 
     public static RobotType hardware;
 

@@ -15,20 +15,26 @@ import frc.robot.auto.ParseCommand;
  */
 public class AutoDrive extends BaseAutoCommand {
 
-    // from parsedCommand, a double speed will be assigned to driveBase
-    double speed;
+    public static final String COMMAND_NAME = "drive";
+    // from parsedCommand, a double distance will be assigned to driveBase
+    double distance;
 
     public AutoDrive(ParseCommand parsedCommand) {
         super(parsedCommand);
         requires(Robot.driveBase);
 
-        this.speed = Double.parseDouble(parsedCommand.getArgument("speed"));
+        this.distance = Double.parseDouble(parsedCommand.getArgument("distanceIn"));
+    }
+
+    @Override
+    protected void initialize() {
+        Robot.driveBase.setTarget(distance, distance);
     }
 
     // sets the robot to drive at speed from arguments of parsedCommand
     @Override
     protected void execute() {
-        Robot.driveBase.differentialDrive1.tankDrive(speed, speed);
+        Robot.driveBase.PIDDrive();
     }
 
 }

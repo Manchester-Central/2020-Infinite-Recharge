@@ -17,20 +17,28 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class NavX extends Subsystem {
 
-  AHRS ahrs;
+  AHRS sensor;
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
   public NavX(){
-    ahrs = new AHRS(SPI.Port.kMXP); 
+    sensor = new AHRS(SPI.Port.kMXP); 
   }
 
   public double getNavAngle() {
-    return ahrs.getAngle();
+    return sensor.getAngle();
   }
 
   public double getNavPitch() {
-    return ahrs.getPitch();
+    return sensor.getPitch();
+  }
+
+  public double getNavYaw() {
+    return sensor.getYaw();
+  }
+
+  public void reset() {
+    sensor.reset();
   }
 
   public void updateNavDashboard() {
@@ -38,6 +46,7 @@ public class NavX extends Subsystem {
     // post to smart dashboard periodically
     SmartDashboard.putNumber("NavX Angle", getNavAngle());
     SmartDashboard.putNumber("NavX Pitch", getNavPitch());
+    SmartDashboard.putNumber("currentYaw", getNavYaw());
 
 }
 
