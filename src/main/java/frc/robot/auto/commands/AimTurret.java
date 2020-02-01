@@ -8,9 +8,14 @@
 package frc.robot.auto.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.auto.ParseCommand;
 
-public class AimTurret extends Command {
-  public AimTurret() {
+public class AimTurret extends BaseAutoCommand {
+
+  public static final String COMMAND_NAME = "aimTurret";
+
+  public AimTurret(ParseCommand parsedCommand) {
+    super(parsedCommand);
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }
