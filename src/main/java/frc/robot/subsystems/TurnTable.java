@@ -158,7 +158,7 @@ public class TurnTable extends Subsystem {
      * com.revrobotics.ControlType.kPosition com.revrobotics.ControlType.kVelocity
      * com.revrobotics.ControlType.kVoltage
      */
-    double setPoint = Robot.oi.driver.getLeftX() * maxRPM;
+    double setPoint = Robot.oi.opperator.getLeftX() * maxRPM;
     m_pidController.setReference(setPoint, ControlType.kVelocity);
 
     SmartDashboard.putNumber("SetPoint", setPoint);

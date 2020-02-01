@@ -56,7 +56,7 @@ public class OI {
 
     public OI() {
         driver = new LogitechF310(0);
-        // opperator = new LogitechF310(1);
+        opperator = new LogitechF310(1);
 
         driver.yButton.whenPressed(new DriveDistancePID(12));
         driver.bButton.whenPressed(new TurnAnglePID(90));
