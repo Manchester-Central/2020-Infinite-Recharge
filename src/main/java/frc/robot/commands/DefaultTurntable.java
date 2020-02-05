@@ -5,19 +5,17 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.auto.commands;
+package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.auto.ParseCommand;
+import frc.robot.Robot;
+import frc.robot.subsystems.TurnTable;
+import frc.robot.subsystems.TurnTable.Speed;
 
-public class AimTurret extends BaseAutoCommand {
-
-  public static final String COMMAND_NAME = "aimTurret";
-
-  public AimTurret(ParseCommand parsedCommand) {
-    super(parsedCommand);
+public class DefaultTurntable extends Command {
+  public DefaultTurntable() {
     // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis); 
+    requires(Robot.turnTable);
   }
 
   // Called just before this Command runs the first time
@@ -28,6 +26,7 @@ public class AimTurret extends BaseAutoCommand {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    Robot.turnTable.driveTurnTable(Speed.slow, false);
   }
 
   // Make this return true when this Command no longer needs to run execute()

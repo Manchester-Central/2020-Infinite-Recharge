@@ -25,11 +25,19 @@ import frc.robot.RobotConstantsRaft;
 public class TurnTable extends Subsystem {
 
   private CANSparkMax turnTable;
+  private CANSparkMax ejector;
   private Robot.RobotType type;
+
+  public enum Speed {
+    fast, slow
+  }
 
   private CANPIDController m_pidController;
   private CANEncoder m_encoder;
   public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxRPM;
+  private double setPoint;
+  private final double FAST_SPEED = 1500;
+  private final double SLOW_Speed = 500;
 
   public TurnTable(Robot.RobotType robotType) {
     type = robotType;
@@ -44,6 +52,8 @@ public class TurnTable extends Subsystem {
     }
     if (type == Robot.RobotType.chaos2020) {
       turnTable = new CANSparkMax(RobotConstants2020.TURN_TABLE_SPARKMAX, CANSparkMax.MotorType.kBrushless);
+      ejector = new CANSparkMax(RobotConstants2020.EJECTER_SPARKMAX, MotorType.kBrushless);
+      ejector.setInverted(true);
     }
     /**
      * The RestoreFactoryDefaults method can be used to reset the configuration
@@ -91,14 +101,6 @@ public class TurnTable extends Subsystem {
 
   @Override
   public void periodic() {
-    if (turnTable == null) {
-      return;
-    }
-    if (Robot.oi.opperator.rightBumper.get()) {
-      driveTurnTableMotor();
-    } else {
-      m_pidController.setReference(0, ControlType.kVoltage);
-    }
   }
 
   private double turnTableDegrees(CANSparkMax input) {
@@ -108,7 +110,7 @@ public class TurnTable extends Subsystem {
     return (counts * gearRatio) / ticksPerRev;
   }
 
-  public void driveTurnTableMotor() {
+  public void driveTurnTable(Speed speed, boolean ejectorOn) {
     // read PID coefficients from SmartDashboard
     double p = SmartDashboard.getNumber("P Gain", 0);
     double i = SmartDashboard.getNumber("I Gain", 0);
@@ -146,6 +148,19 @@ public class TurnTable extends Subsystem {
       kMaxOutput = max;
     }
 
+    if (speed == Speed.fast) {
+      setPoint = FAST_SPEED;
+    }else {
+      setPoint = SLOW_Speed;
+    }
+
+    if (ejectorOn){
+      ejector.set(1);
+    }else {
+      ejector.set(0);
+    }
+
+
     /**
      * PIDController objects are commanded to a set point using the SetReference()
      * method.
@@ -158,7 +173,6 @@ public class TurnTable extends Subsystem {
      * com.revrobotics.ControlType.kPosition com.revrobotics.ControlType.kVelocity
      * com.revrobotics.ControlType.kVoltage
      */
-    double setPoint = Robot.oi.opperator.getLeftX() * maxRPM;
     m_pidController.setReference(setPoint, ControlType.kVelocity);
 
     SmartDashboard.putNumber("SetPoint", setPoint);
@@ -170,6 +184,7 @@ public class TurnTable extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
+    setDefaultCommand(new DefaultTurntable());
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
   }
