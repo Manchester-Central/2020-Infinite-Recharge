@@ -13,7 +13,6 @@ package frc.robot;
 import frc.robot.commands.*;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.subsystems.*;
 import com.chaos131.LogitechF310;
 
@@ -68,6 +67,8 @@ public class OI {
         driver.leftTrigger.whenPressed(new SetPipeline());
         opperator.leftBumper.whileHeld(new NavXTurnRobot());
         opperator.xButton.whenPressed(new ResetNavX());
+
+        driver.rightBumper.whileHeld(new SerializerFeed());
 
 
         // SmartDashboard Buttons

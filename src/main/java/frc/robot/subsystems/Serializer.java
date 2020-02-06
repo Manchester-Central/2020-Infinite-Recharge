@@ -22,7 +22,7 @@ import frc.robot.RobotConstantsRaft;
 /**
  * Add your docs here.
  */
-public class TurnTable extends Subsystem {
+public class Serializer extends Subsystem {
 
   private CANSparkMax turnTable;
   private CANSparkMax ejector;
@@ -37,9 +37,9 @@ public class TurnTable extends Subsystem {
   public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxRPM;
   private double setPoint;
   private final double FAST_SPEED = 1500;
-  private final double SLOW_Speed = 500;
+  private final double SLOW_SPEED = 500;
 
-  public TurnTable(Robot.RobotType robotType) {
+  public Serializer(Robot.RobotType robotType) {
     type = robotType;
 
     if (type == Robot.RobotType.raft) {
@@ -52,6 +52,9 @@ public class TurnTable extends Subsystem {
     }
     if (type == Robot.RobotType.chaos2020) {
       turnTable = new CANSparkMax(RobotConstants2020.TURN_TABLE_SPARKMAX, CANSparkMax.MotorType.kBrushless);
+      turnTable.setInverted(true);
+      m_encoder = turnTable.getEncoder();
+      m_encoder.setInverted(true);
       ejector = new CANSparkMax(RobotConstants2020.EJECTER_SPARKMAX, MotorType.kBrushless);
       ejector.setInverted(true);
     }
@@ -69,7 +72,6 @@ public class TurnTable extends Subsystem {
      */
     m_pidController = turnTable.getPIDController();
     // Encoder object created to display position values
-    m_encoder = turnTable.getEncoder();
 
     // PID coefficients
     kP = 0.00005;
@@ -111,6 +113,9 @@ public class TurnTable extends Subsystem {
   }
 
   public void driveTurnTable(Speed speed, boolean ejectorOn) {
+    if (type != Robot.RobotType.chaos2020) {
+      return;
+    }
     // read PID coefficients from SmartDashboard
     double p = SmartDashboard.getNumber("P Gain", 0);
     double i = SmartDashboard.getNumber("I Gain", 0);
@@ -151,7 +156,7 @@ public class TurnTable extends Subsystem {
     if (speed == Speed.fast) {
       setPoint = FAST_SPEED;
     }else {
-      setPoint = SLOW_Speed;
+      setPoint = SLOW_SPEED;
     }
 
     if (ejectorOn){
@@ -184,7 +189,7 @@ public class TurnTable extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
-    setDefaultCommand(new DefaultTurntable());
+    setDefaultCommand(new SerializerDefault());
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
   }
