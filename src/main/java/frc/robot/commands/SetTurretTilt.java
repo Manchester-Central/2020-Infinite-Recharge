@@ -9,10 +9,8 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class SetIntake extends Command {
-  public SetIntake(double speed) {
-    // speed = direction
-    
+public class SetTurretTilt extends Command {
+  public SetTurretTilt(double angle) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }

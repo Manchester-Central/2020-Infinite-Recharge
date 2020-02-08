@@ -10,7 +10,9 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class Shoot extends Command {
-  public Shoot() {
+  public Shoot(boolean aim) {
+    // aim = turret needs to aim to target before shooting
+
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }

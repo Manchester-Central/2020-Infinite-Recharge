@@ -9,8 +9,8 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class MoveColorWheel extends Command {
-  public MoveColorWheel() {
+public class MoveColorWheelAmt extends Command {
+  public MoveColorWheelAmt() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }
