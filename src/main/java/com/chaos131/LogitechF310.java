@@ -9,6 +9,7 @@ package com.chaos131;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.buttons.POVButton;
 
 /**
  * Add your docs here.
@@ -28,22 +29,31 @@ public class LogitechF310 extends edu.wpi.first.wpilibj.Joystick{
         rightTrigger = new JoystickButton(this, RIGHT_TRIGGER);
         leftJoystick = new JoystickButton(this, LEFT_JOYSTICK);
         rightJoystick = new JoystickButton(this, RIGHT_JOYSTICK);
+        dPadUp = new POVButton(this, DPAD_UP);
+        dPadRight = new POVButton(this, DPAD_RIGHT);
+        dPadDown = new POVButton(this, DPAD_DOWN);
+        dPadLeft = new POVButton(this, DPAD_LEFT);
     }
     
-    public static final int LEFT_X = 1;
-    public static final int DOWN_A = 2;
-    public static final int RIGHT_B = 3;
-    public static final int UP_Y = 4;
+    private static final int LEFT_X = 1;
+    private static final int DOWN_A = 2;
+    private static final int RIGHT_B = 3;
+    private static final int UP_Y = 4;
 
-    public static final int LEFT_BUMPER = 5;
-    public static final int RIGHT_BUMPER = 6;
-    public static final int LEFT_TRIGGER = 7;
-    public static final int RIGHT_TRIGGER = 8;
+    private static final int LEFT_BUMPER = 5;
+    private static final int RIGHT_BUMPER = 6;
+    private static final int LEFT_TRIGGER = 7;
+    private static final int RIGHT_TRIGGER = 8;
 
-    public static final int SELECT = 9;
-    public static final int START = 10;
-    public static final int LEFT_JOYSTICK = 11;
-    public static final int RIGHT_JOYSTICK = 12;
+    private static final int SELECT = 9;
+    private static final int START = 10;
+    private static final int LEFT_JOYSTICK = 11;
+    private static final int RIGHT_JOYSTICK = 12;
+
+    private static final int DPAD_UP = 0;
+    private static final int DPAD_RIGHT = 90;
+    private static final int DPAD_DOWN = 180;
+    private static final int DPAD_LEFT = 270; 
 
     public JoystickButton aButton;
     public JoystickButton bButton;
@@ -60,6 +70,11 @@ public class LogitechF310 extends edu.wpi.first.wpilibj.Joystick{
 
     public JoystickButton leftJoystick;
     public JoystickButton rightJoystick;
+
+    public POVButton dPadUp;
+    public POVButton dPadRight;
+    public POVButton dPadDown;
+    public POVButton dPadLeft;
 
     public double getLeftX() {
         return getRawAxis(0);

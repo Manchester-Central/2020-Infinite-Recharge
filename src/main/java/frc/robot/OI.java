@@ -57,18 +57,49 @@ public class OI {
         driver = new LogitechF310(0);
         operator = new LogitechF310(1);
 
-        driver.yButton.whenPressed(new DriveDistancePID(12));
-        driver.bButton.whenPressed(new TurnAnglePID(90));
-        driver.aButton.whenPressed(new DriveDistancePID(-12));
-        driver.xButton.whenPressed(new TurnAnglePID(-90));
-        driver.startButton.whileHeld(new DriveSquare(12));
-        driver.selectButton.whileHeld(new AimClimbtake());
-        driver.leftBumper.whenPressed(new TurnToTarget());
-        driver.leftTrigger.whenPressed(new SetPipeline());
-        driver.rightBumper.whileHeld(new SerializerFeed());
+        // driver left - climbarm left
+        driver.dPadLeft.whenPressed(new MoveClimbtake(-0.5));
 
-        operator.leftBumper.whileHeld(new NavXTurnRobot());
-        operator.xButton.whenPressed(new ResetNavX());
+        // driver right - climbarm right
+        driver.dPadRight.whenPressed(new MoveClimbtake(0.5));
+
+        // driver leftBump - NavX mode
+        driver.leftBumper.whenPressed(new NavXTurnRobot()); // TODO: add straight back/foward on left joy
+
+        // driver rightBump - slow drive
+        driver.rightBumper.whenPressed(new SetSpeedScale(0.25));
+
+        // driver rightTrig - fast drive
+        driver.rightTrigger.whenPressed(new SetSpeedScale(1.00));
+
+        // driver.yButton.whenPressed(new DriveDistancePID(12));
+        // driver.bButton.whenPressed(new TurnAnglePID(90));
+        // driver.aButton.whenPressed(new DriveDistancePID(-12));
+        // driver.xButton.whenPressed(new TurnAnglePID(-90));
+        // driver.startButton.whileHeld(new DriveSquare(12));
+        // driver.selectButton.whileHeld(new AimClimbtake());
+        // driver.leftBumper.whenPressed(new TurnToTarget());
+        // driver.leftTrigger.whenPressed(new SetPipeline());
+        // driver.rightBumper.whileHeld(new SerializerFeed());
+
+
+        // operator up - move arm up to climb + extend
+        // operator down - move arm up to climb + retract
+        // operator left - move arm to intake
+        // op right - move arm to colorwheel
+        // op a - forward intake
+        // op b - reverse intake
+        // op x - turret to 1pt pos
+        // op y - turret to 2pt pos
+        // op leftBump - turn off auto turret (hold)
+        // op leftTrig - align + shoot
+        // op rightBump - shoot once
+        // op rightTrig - shoot (hold)
+        // op select - colorwheel spin to amt
+        // op start - colorwheel spin to color
+
+        // operator.leftBumper.whileHeld(new NavXTurnRobot());
+        // operator.xButton.whenPressed(new ResetNavX());
 
         // SmartDashboard Buttons
         SmartDashboard.putData("Autonomous Command", new AutonomousCommand());
