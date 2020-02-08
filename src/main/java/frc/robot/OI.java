@@ -68,12 +68,6 @@ public class OI {
         // driver leftBump - NavX mode
         driver.leftBumper.whenPressed(new NavXTurnRobot());
 
-        // driver rightBump - slow drive
-        driver.rightBumper.whenPressed(new SetSpeedScale(0.25));
-
-        // driver rightTrig - fast drive
-        driver.rightTrigger.whenPressed(new SetSpeedScale(1.00));
-
         // TEST: Parallel Group test, delete after
         driver.xButton.whenPressed(new ParallelGroup(new Wait(2000), new DriveRunAfterReady()));
 

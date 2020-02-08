@@ -43,7 +43,8 @@ public class Serializer extends Subsystem {
     type = robotType;
 
     if (type == Robot.RobotType.raft) {
-      turnTable = new CANSparkMax(RobotConstantsRaft.TURN_TABLE_SPARKMAX, MotorType.kBrushless);
+      return ;
+      // turnTable = new CANSparkMax(RobotConstantsRaft.TURN_TABLE_SPARKMAX, MotorType.kBrushless);
     }
     if (type == Robot.RobotType.chaos2019) {
       // turnTable = new CANSparkMax(RobotConstants2019.TURN_TABLE_SPARKMAX,
