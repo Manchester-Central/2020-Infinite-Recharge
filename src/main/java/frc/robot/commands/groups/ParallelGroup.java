@@ -29,10 +29,16 @@ public class ParallelGroup extends CommandGroup {
   }
 
   @Override
+  protected void initialize() {
+    super.initialize();
+    this.start();
+  }
+
+  @Override
   public boolean isFinished() {
     for (Command command : commandList) {
 
-      boolean isDone = command.isCompleted(); // chks if command is done
+      boolean isDone = !command.isRunning(); // chks if command is done
 
       if (command instanceof RunAfterReadyCommand) { // if command is a type of RunAfterReadyCommand
         RunAfterReadyCommand runCommand = (RunAfterReadyCommand) command; // cast to RunAfterCommand
