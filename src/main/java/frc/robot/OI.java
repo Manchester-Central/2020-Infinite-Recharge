@@ -66,12 +66,6 @@ public class OI {
         // driver leftBump - NavX mode
         driver.leftBumper.whenPressed(new NavXTurnRobot()); // TODO: add straight back/foward on left joy
 
-        // driver rightBump - slow drive
-        driver.rightBumper.whenPressed(new SetSpeedScale(0.25));
-
-        // driver rightTrig - fast drive
-        driver.rightTrigger.whenPressed(new SetSpeedScale(1.00));
-
         // driver.yButton.whenPressed(new DriveDistancePID(12));
         // driver.bButton.whenPressed(new TurnAnglePID(90));
         // driver.aButton.whenPressed(new DriveDistancePID(-12));
