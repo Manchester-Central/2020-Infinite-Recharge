@@ -11,8 +11,10 @@
 package frc.robot;
 
 import frc.robot.commands.*;
+import frc.robot.commands.groups.ParallelGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.subsystems.*;
 import com.chaos131.LogitechF310;
 
@@ -71,6 +73,9 @@ public class OI {
 
         // driver rightTrig - fast drive
         driver.rightTrigger.whenPressed(new SetSpeedScale(1.00));
+
+        // TEST: Parallel Group test, delete after
+        driver.xButton.whenPressed(new ParallelGroup(new Wait(2000), new DriveRunAfterReady()));
 
         // driver.yButton.whenPressed(new DriveDistancePID(12));
         // driver.bButton.whenPressed(new TurnAnglePID(90));
