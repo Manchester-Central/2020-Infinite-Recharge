@@ -121,4 +121,13 @@ public class OI {
         return driver.getRightY();
     }
 
+    public double getTankDriveSpeedScale() {
+        if (driver.rightBumper.get()){
+            return 0.25; // slow speed
+        }else if (driver.rightTrigger.get()){
+            return 1; // fast speed
+        }else{
+            return 0.5; // normal speed
+        }
+    }
 }
