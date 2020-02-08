@@ -64,7 +64,7 @@ public class OI {
         driver.dPadRight.whenPressed(new MoveClimbtake(0.5));
 
         // driver leftBump - NavX mode
-        driver.leftBumper.whenPressed(new NavXTurnRobot()); // TODO: add straight back/foward on left joy
+        driver.leftBumper.whenPressed(new NavXTurnRobot());
 
         // driver rightBump - slow drive
         driver.rightBumper.whenPressed(new SetSpeedScale(0.25));
@@ -146,6 +146,10 @@ public class OI {
 
     public double getRightSpeed() {
         return driver.getRightY();
+    }
+
+    public double getSpeedDuringNavX(){
+        return driver.getLeftY();
     }
 
 }

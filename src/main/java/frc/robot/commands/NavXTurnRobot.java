@@ -37,6 +37,8 @@ public class NavXTurnRobot extends Command {
 
     // if right joystick is too close to center, don't do anything
     if (!Robot.oi.shouldUseRobotTargetAngle()) {
+      double speed = Robot.oi.getSpeedDuringNavX();
+      Robot.driveBase.differentialDrive1.tankDrive(speed, speed);
       return;
     }
 
