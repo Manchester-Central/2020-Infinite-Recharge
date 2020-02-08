@@ -29,14 +29,14 @@ public class NavXTurnRobot extends Command {
   protected void execute() {
     // get data from controller and NavX
     double currentYaw = Robot.navx.getNavYaw();
-    double currentRightJoystickAngle = Robot.oi.opperator.getRightJoystickAngle();
+    double currentRightJoystickAngle = Robot.oi.getRobotTargetAngle();
     
     double deltaLeft = currentRightJoystickAngle - currentYaw;
     // if deltaLeft is positive, need to subtract 360 so we don't go over 360deg (or else it spazzes out :O)
     double deltaRight = deltaLeft < 0 ? deltaLeft + 360 : deltaLeft - 360;
 
     // if right joystick is too close to center, don't do anything
-    if (Math.abs(Robot.oi.opperator.getRightX()) < 0.1 && Math.abs(Robot.oi.opperator.getRightY()) < 0.1) {
+    if (!Robot.oi.shouldUseRobotTargetAngle()) {
       return;
     }
 

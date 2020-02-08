@@ -49,13 +49,13 @@ public class OI {
     // until it is finished as determined by it's isFinished method.
     // button.whenReleased(new ExampleCommand());
 
-    public LogitechF310 driver;
-    public LogitechF310 opperator;
+    private LogitechF310 driver;
+    private LogitechF310 operator;
     
 
     public OI() {
         driver = new LogitechF310(0);
-        opperator = new LogitechF310(1);
+        operator = new LogitechF310(1);
 
         driver.yButton.whenPressed(new DriveDistancePID(12));
         driver.bButton.whenPressed(new TurnAnglePID(90));
@@ -65,17 +65,29 @@ public class OI {
         driver.selectButton.whileHeld(new AimClimbtake());
         driver.leftBumper.whenPressed(new TurnToTarget());
         driver.leftTrigger.whenPressed(new SetPipeline());
-        opperator.leftBumper.whileHeld(new NavXTurnRobot());
-        opperator.xButton.whenPressed(new ResetNavX());
-
         driver.rightBumper.whileHeld(new SerializerFeed());
 
+        operator.leftBumper.whileHeld(new NavXTurnRobot());
+        operator.xButton.whenPressed(new ResetNavX());
 
         // SmartDashboard Buttons
         SmartDashboard.putData("Autonomous Command", new AutonomousCommand());
     }
 
-    public Joystick getDriver() {
-        return driver;
+    public double getRobotTargetAngle() {
+        return operator.getRightJoystickAngle();
     }
+
+    public boolean shouldUseRobotTargetAngle() {
+        return (Math.abs(Robot.oi.operator.getRightX()) > 0.1) || (Math.abs(Robot.oi.operator.getRightY()) > 0.1);
+    }
+
+    public double getLeftSpeed() {
+        return driver.getLeftY();
+    }
+
+    public double getRightSpeed() {
+        return driver.getRightY();
+    }
+
 }
