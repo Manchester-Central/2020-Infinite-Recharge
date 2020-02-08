@@ -33,9 +33,9 @@
 | B | Reverse direction intake |
 | X | Move turret to 1pt position (manual) |
 | Y | Move turret to 2pt position (manual) | 
-| LB | Hold to toggle off auto turret |
-| LT | Align + shoot combo |
-| RB | Shoot once? |
+| LB | Hold to toggle on auto turret |
+| LT | Shoot once (override aim) |
+| RB | Shoot once (needs aim) |
 | RT | Shoot while held |
 | Select | Colorwheel: turn specific amt. of times |
 | Start | Colorwheel: align to color |
