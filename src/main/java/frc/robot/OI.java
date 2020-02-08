@@ -96,34 +96,34 @@ public class OI {
         operator.dPadRight.whenPressed(new SetClimber());
 
         // op a - forward intake
-        operator.aButton.whenPressed(new SetIntake());
+        operator.aButton.whenPressed(new SetIntake(0.5));
 
         // op b - reverse intake
-        operator.bButton.whenPressed(new SetIntake());
+        operator.bButton.whenPressed(new SetIntake(-0.5));
 
         // op x - turret to 1pt pos
-        operator.xButton.whenPressed(new SetTurretPosition());
+        operator.xButton.whenPressed(new SetTurretTilt(0.0));
 
         // op y - turret to 2pt pos
-        operator.yButton.whenPressed(new SetTurretPosition());
+        operator.yButton.whenPressed(new SetTurretTilt(75.0));
 
         // op leftBump - turn on auto turret (hold) "aim"
         operator.leftBumper.whileHeld(new AimTurret()); //TODO: move flywheel when aiming turret (experiment)
 
         // op leftTrig - shoot (override: doesn't need to be aimed)
-        operator.leftTrigger.whenPressed(new Shoot());
+        operator.leftTrigger.whenPressed(new Shoot(false));
 
         // op rightBump - shoot once (needs to be aimed)
-        operator.rightBumper.whenPressed(new Shoot());
+        operator.rightBumper.whenPressed(new Shoot(true));
 
         // op rightTrig - shoot (hold)
-        operator.rightTrigger.whileHeld(new Shoot());
+        operator.rightTrigger.whileHeld(new Shoot(true));
 
         // op select - colorwheel spin to amt
-        operator.selectButton.whenPressed(new MoveColorWheel());
+        operator.selectButton.whenPressed(new MoveColorWheelAmt());
 
         // op start - colorwheel spin to color
-        operator.startButton.whenPressed(new MoveColorWheel());
+        operator.startButton.whenPressed(new MoveColorWheelToColor());
 
         // operator.leftBumper.whileHeld(new NavXTurnRobot());
         // operator.xButton.whenPressed(new ResetNavX());
