@@ -7,23 +7,22 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.CommandGroup;
-import frc.robot.commands.groups.ParallelGroup;
+import edu.wpi.first.wpilibj.command.Command;
 
-public class Shoot extends CommandGroup {
-  public Shoot(boolean aim) {
-    // aim = turret needs to aim to target before shooting
-   
-    if (aim) {
+/**
+ * Specific type of Command.
+ * If a RunAfterReady command is ready early, keeps running command.
+ * 
+ * Combined w. ParallelGroup, allows all commands to keep running until all are ready.
+ */
+public abstract class RunAfterReadyCommand extends Command {
 
-      addSequential(new ParallelGroup(new AimTurret(), new PrepareToShoot()));
-
-    } else {
-      addSequential(new PrepareToShoot());
-    }
-
-    addSequential(new ShootOnce());
-
+  // Make this return true when this Command no longer needs to run execute()
+  @Override
+  protected boolean isFinished() {
+    return false;
   }
+
+  public abstract boolean isReady();
 
 }

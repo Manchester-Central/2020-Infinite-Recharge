@@ -7,23 +7,24 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.CommandGroup;
-import frc.robot.commands.groups.ParallelGroup;
+import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.Robot;
 
-public class Shoot extends CommandGroup {
-  public Shoot(boolean aim) {
-    // aim = turret needs to aim to target before shooting
-   
-    if (aim) {
-
-      addSequential(new ParallelGroup(new AimTurret(), new PrepareToShoot()));
-
-    } else {
-      addSequential(new PrepareToShoot());
-    }
-
-    addSequential(new ShootOnce());
-
+public class DriveRunAfterReady extends RunAfterReadyCommand {
+  public DriveRunAfterReady() {
+    requires(Robot.driveBase);
   }
+
+  // Called repeatedly when this Command is scheduled to run
+  @Override
+  protected void execute() {
+    Robot.driveBase.differentialDrive1.tankDrive(0.2, 0.2);
+  }
+
+  @Override
+  public boolean isReady() {
+    return true;
+  }
+
 
 }
