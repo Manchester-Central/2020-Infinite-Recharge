@@ -15,6 +15,10 @@ import com.revrobotics.CANSparkMax;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.geometry.Pose2d;
+import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.geometry.Translation2d;
+import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.smartdashboard.*;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
@@ -24,6 +28,7 @@ import frc.robot.Robot;
 import frc.robot.RobotConstants2019;
 import frc.robot.RobotConstants2020;
 import frc.robot.RobotConstantsRaft;
+import frc.robot.Robot.RobotType;
 
 /**
  *
@@ -41,6 +46,7 @@ public class DriveBase extends Subsystem {
     private WPI_TalonSRX right4 = null;
     private SpeedControllerGroup rightDrive;
     public DifferentialDrive differentialDrive1;
+    public DifferentialDriveOdometry odometer;
     private PIDController PIDRight;
     private PIDController PIDLeft;
     private CANSparkMax leftSpark1;
@@ -78,6 +84,9 @@ public class DriveBase extends Subsystem {
         differentialDrive1.setSafetyEnabled(true);
         differentialDrive1.setExpiration(0.1);
         differentialDrive1.setMaxOutput(1.0);
+        double navxAngle = Robot.navx.getNavYaw();
+        odometer = new DifferentialDriveOdometry(Rotation2d.fromDegrees(navxAngle));
+
     }
 
     private void setupRaft() {
@@ -209,6 +218,20 @@ public class DriveBase extends Subsystem {
         return counts * ratio;
     }
 
+    public double speedToVolts(double speed){
+        double volts = 12;
+        double speedFactor = 1;
+        return speed * volts * speedFactor;
+    }
+
+    public void tankDriveVolts(double leftSpeed, double rightSpeed){
+        double leftVolts = speedToVolts(leftSpeed);
+        double rightVolts = speedToVolts(rightSpeed);
+        leftDrive.setVoltage(leftVolts);
+        rightDrive.setVoltage(-rightVolts);
+        differentialDrive1.feed();
+    }
+
     public double angleToDist(double angle) {
         double inchPerRev = 92.45; // constant equal to the total distance the wheels move for one full revolution
         return (inchPerRev * angle) / 360;
@@ -298,6 +321,21 @@ public class DriveBase extends Subsystem {
         return (setpointLeft < Robot.driveBase.getLeftPosition() + error) && (setpointLeft > Robot.driveBase.getLeftPosition() - error);
     }
 
+    public void resetOdometry(){
+        if(type == RobotType.raft){
+            left4.getSensorCollection().setQuadraturePosition(0, 0);
+            right4.getSensorCollection().setQuadraturePosition(0, 0);
+        }
+        if(type == RobotType.chaos2019 || type == RobotType.chaos2020){
+            leftSpark1.getEncoder().setPosition(0);
+            rightSpark1.getEncoder().setPosition(0);
+        }
+
+        double navxAngle = Robot.navx.getNavYaw();
+        Rotation2d rotation = Rotation2d.fromDegrees(navxAngle);
+        odometer.resetPosition(new Pose2d(0, 0, rotation), rotation);
+    }
+
     @Override
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
@@ -311,9 +349,16 @@ public class DriveBase extends Subsystem {
         // Put code here to be run every loop
         double rightInches = getRightPosition();
         double leftInches = getLeftPosition();
+        double navxAngle = Robot.navx.getNavYaw();
         // converts raw encoder readout to inches
+        odometer.update(Rotation2d.fromDegrees(navxAngle), leftInches, rightInches);
         SmartDashboard.putNumber("Right Position", rightInches);
         SmartDashboard.putNumber("Left Position", leftInches);
+
+        Translation2d translation = odometer.getPoseMeters().getTranslation();
+
+        SmartDashboard.putNumber("Odometer x", translation.getX());
+        SmartDashboard.putNumber("Odometer y", translation.getY());
     }
 
     // Put methods for controlling this subsystem

@@ -21,8 +21,8 @@ public class NavX extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
-  public NavX(){
-    sensor = new AHRS(SPI.Port.kMXP); 
+  public NavX() {
+    sensor = new AHRS(SPI.Port.kMXP);
   }
 
   public double getNavAngle() {
@@ -47,8 +47,11 @@ public class NavX extends Subsystem {
     SmartDashboard.putNumber("NavX Angle", getNavAngle());
     SmartDashboard.putNumber("NavX Pitch", getNavPitch());
     SmartDashboard.putNumber("currentYaw", getNavYaw());
-
-}
+    SmartDashboard.putBoolean("Callibrating?", sensor.isCalibrating()); // not necessary long term
+    if (sensor.isCalibrating()) {
+      SmartDashboard.putBoolean("Callibrated?", sensor.isCalibrating());
+    }
+  }
 
   @Override
   public void initDefaultCommand() {

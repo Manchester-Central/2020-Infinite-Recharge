@@ -123,7 +123,7 @@ public class OI {
         // operator.xButton.whenPressed(new ResetNavX());
 
         // SmartDashboard Buttons
-        SmartDashboard.putData("Autonomous Command", new AutonomousCommand());
+        SmartDashboard.putData("Reset Odometry", new ResetOdometry());
     }
 
     public double getRobotTargetAngle() {

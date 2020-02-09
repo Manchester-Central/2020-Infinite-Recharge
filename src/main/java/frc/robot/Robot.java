@@ -15,8 +15,10 @@ import edu.wpi.first.hal.FRCNetComm.tResourceType;
 import edu.wpi.first.hal.HAL;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.util.Units;
 import edu.wpi.first.wpilibj.TimedRobot;
 import frc.robot.auto.AutoBuilder;
 import frc.robot.commands.*;
@@ -42,6 +44,8 @@ public class Robot extends TimedRobot {
     SendableChooser<Command> chooser = new SendableChooser<>();
     // ColorSensor detectedColor;
     AutoBuilder autoBuilder;
+
+    private double trackWidth;
 
     public enum RobotType {
         raft, chaos2019, chaos2020, simulator
@@ -93,6 +97,12 @@ public class Robot extends TimedRobot {
         if (hardware == RobotType.chaos2019) {
             climbTake = new ClimbTake19();
         }
+
+        if (hardware == RobotType.raft){
+            trackWidth = 26;
+        }
+
+        new DifferentialDriveKinematics(Units.inchesToMeters(trackWidth));
 
         // OI must be constructed after subsystems. If the OI creates Commands
         // (which it very likely will), subsystems are not guaranteed to be
