@@ -19,7 +19,9 @@ import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
+import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.smartdashboard.*;
+import edu.wpi.first.wpilibj.util.Units;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Victor;
@@ -60,7 +62,7 @@ public class DriveBase extends Subsystem {
 
     public DriveBase(Robot.RobotType robotType) {
         type = robotType;
-        
+
         PIDRight = new PIDController(0.1, 0.01, 0.01);
         PIDLeft = new PIDController(0.1, 0.01, 0.01);
 
@@ -75,7 +77,7 @@ public class DriveBase extends Subsystem {
         }
         if (type == Robot.RobotType.simulator) {
             setupSimulator();
-        }        
+        }
 
         addChild("LeftDrive", leftDrive);
         addChild("RightDrive", rightDrive);
@@ -165,7 +167,7 @@ public class DriveBase extends Subsystem {
         rightSpark2.setInverted(false);
 
         leftDrive = new SpeedControllerGroup(leftSpark1, leftSpark2);
-		rightDrive = new SpeedControllerGroup(rightSpark1, rightSpark2);
+        rightDrive = new SpeedControllerGroup(rightSpark1, rightSpark2);
     }
 
     private void setupSimulator() {
@@ -182,7 +184,7 @@ public class DriveBase extends Subsystem {
 
         leftDrive = new SpeedControllerGroup(left1);
         rightDrive = new SpeedControllerGroup(right1);
-    }    
+    }
 
     private double encoderInches(WPI_TalonSRX driveInput) {
         if (driveInput == null) {
@@ -202,13 +204,11 @@ public class DriveBase extends Subsystem {
         }
         double wheelDiameter = 4.0;
         double gearRatio = (double) 1 / 1; // ratio of the axel the wheel lies on to the axel the encoder reads
-        if (type == Robot.RobotType.chaos2019)
-        {
+        if (type == Robot.RobotType.chaos2019) {
             wheelDiameter = 4.0;
             gearRatio = (double) 60 / 8.62;
         }
-        if (type == Robot.RobotType.chaos2020)
-        {
+        if (type == Robot.RobotType.chaos2020) {
             wheelDiameter = 4.0;
             gearRatio = (double) 1 / 1;
         }
@@ -218,13 +218,13 @@ public class DriveBase extends Subsystem {
         return counts * ratio;
     }
 
-    public double speedToVolts(double speed){
+    public double speedToVolts(double speed) {
         double volts = 12;
         double speedFactor = 1;
         return speed * volts * speedFactor;
     }
 
-    public void tankDriveVolts(double leftSpeed, double rightSpeed){
+    public void tankDriveVolts(double leftSpeed, double rightSpeed) {
         double leftVolts = speedToVolts(leftSpeed);
         double rightVolts = speedToVolts(rightSpeed);
         leftDrive.setVoltage(leftVolts);
@@ -236,7 +236,6 @@ public class DriveBase extends Subsystem {
         double inchPerRev = 92.45; // constant equal to the total distance the wheels move for one full revolution
         return (inchPerRev * angle) / 360;
     }
-
 
     public void reportPosition() {
 
@@ -254,7 +253,7 @@ public class DriveBase extends Subsystem {
         }
         if (type == Robot.RobotType.simulator) {
             return sim_encoder_r.get();
-        }                 
+        }
         return 0;
     }
 
@@ -267,10 +266,10 @@ public class DriveBase extends Subsystem {
         }
         if (type == Robot.RobotType.chaos2020) {
             return -encoderInches(leftSpark1);
-        } 
+        }
         if (type == Robot.RobotType.simulator) {
             return sim_encoder_l.get();
-        }         
+        }
         return 0;
     }
 
@@ -292,6 +291,14 @@ public class DriveBase extends Subsystem {
 
     }
 
+    public PIDController getPIDLeft(){
+        return PIDLeft;
+    }
+
+    public PIDController getPIDRight(){
+        return PIDRight;
+    }
+
     public void setTarget(double left, double right) {
         setpointLeft = left;
         setpointRight = right;
@@ -304,7 +311,8 @@ public class DriveBase extends Subsystem {
         double targetLeft = getLeftPosition() + delta;
         double targetRight = getRightPosition() - delta;
         Robot.driveBase.setTarget(targetLeft, targetRight);
-        System.out.println("setTargetAngle initialized, target left = " + targetLeft + " target right = " + targetRight);
+        System.out
+                .println("setTargetAngle initialized, target left = " + targetLeft + " target right = " + targetRight);
     }
 
     public boolean isAtTarget() {
@@ -313,20 +321,22 @@ public class DriveBase extends Subsystem {
 
     public boolean isAtRightTarget() {
         double error = 2;
-        return (setpointRight < Robot.driveBase.getRightPosition() + error) && (setpointRight > Robot.driveBase.getRightPosition() - error);
+        return (setpointRight < Robot.driveBase.getRightPosition() + error)
+                && (setpointRight > Robot.driveBase.getRightPosition() - error);
     }
 
     public boolean isAtLeftTarget() {
         double error = 2;
-        return (setpointLeft < Robot.driveBase.getLeftPosition() + error) && (setpointLeft > Robot.driveBase.getLeftPosition() - error);
+        return (setpointLeft < Robot.driveBase.getLeftPosition() + error)
+                && (setpointLeft > Robot.driveBase.getLeftPosition() - error);
     }
 
-    public void resetOdometry(){
-        if(type == RobotType.raft){
+    public void resetOdometry() {
+        if (type == RobotType.raft) {
             left4.getSensorCollection().setQuadraturePosition(0, 0);
             right4.getSensorCollection().setQuadraturePosition(0, 0);
         }
-        if(type == RobotType.chaos2019 || type == RobotType.chaos2020){
+        if (type == RobotType.chaos2019 || type == RobotType.chaos2020) {
             leftSpark1.getEncoder().setPosition(0);
             rightSpark1.getEncoder().setPosition(0);
         }
@@ -334,6 +344,22 @@ public class DriveBase extends Subsystem {
         double navxAngle = Robot.navx.getNavYaw();
         Rotation2d rotation = Rotation2d.fromDegrees(navxAngle);
         odometer.resetPosition(new Pose2d(0, 0, rotation), rotation);
+    }
+
+    public Pose2d getPose() {
+        return odometer.getPoseMeters();
+    }
+
+    public DifferentialDriveWheelSpeeds getWheelSpeeds() {
+        if (type == RobotType.raft)
+            return new DifferentialDriveWheelSpeeds(left4.getSensorCollection().getQuadratureVelocity(),
+                    right4.getSensorCollection().getQuadratureVelocity());
+        else if (type == RobotType.chaos2019 || type == RobotType.chaos2020) {
+        return new DifferentialDriveWheelSpeeds(left4.getSensorCollection().getQuadratureVelocity(),
+                right4.getSensorCollection().getQuadratureVelocity()); // TODO: separate and clean up
+        }
+        return null;
+
     }
 
     @Override
@@ -344,8 +370,10 @@ public class DriveBase extends Subsystem {
 
     @Override
     public void periodic() {
-        //SmartDashboard.putNumber("Right Encoder", right4.getSensorCollection().getQuadraturePosition());
-        //SmartDashboard.putNumber("Left Encoder", -left4.getSensorCollection().getQuadraturePosition());
+        // SmartDashboard.putNumber("Right Encoder",
+        // right4.getSensorCollection().getQuadraturePosition());
+        // SmartDashboard.putNumber("Left Encoder",
+        // -left4.getSensorCollection().getQuadraturePosition());
         // Put code here to be run every loop
         double rightInches = getRightPosition();
         double leftInches = getLeftPosition();
