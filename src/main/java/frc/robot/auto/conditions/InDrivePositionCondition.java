@@ -5,19 +5,25 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.auto.commands;
+package frc.robot.auto.conditions;
 
-import frc.robot.auto.ParseCommand;
+import frc.robot.Robot;
+import frc.robot.Robot.*;
 
 /**
- * Does nothing, but requires the parameter of type ParseCommand
+ * Add your docs here.
  */
-public class DoNothing extends BaseAutoCommand {
+public class InDrivePositionCondition implements IAutoCondition {
 
-    public static final String COMMAND_NAME = "stop";
+    @Override
+    public void init() {
 
-    public DoNothing(ParseCommand parsedCommand) {
-        super(parsedCommand);
     }
+
+    @Override
+    public boolean isDone() {
+        return Robot.driveBase.isAtTarget();
+    }
+
 
 }

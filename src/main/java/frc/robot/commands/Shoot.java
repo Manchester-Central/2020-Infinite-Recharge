@@ -5,25 +5,25 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.auto.conditions;
+package frc.robot.commands;
 
-/**
- * Stops auto command if based on distance
- * Requires double "distanceIn" in parameter (inches)
- */
-public class DistanceAutoCondition implements IAutoCondition {
+import edu.wpi.first.wpilibj.command.CommandGroup;
+import frc.robot.commands.groups.ParallelGroup;
 
-    public DistanceAutoCondition(double distanceIn) {
+public class Shoot extends CommandGroup {
+  public Shoot(boolean aim) {
+    // aim = turret needs to aim to target before shooting
+   
+    if (aim) {
 
+      addSequential(new ParallelGroup(new AimTurret(), new PrepareFlywheel()));
+
+    } else {
+      addSequential(new PrepareFlywheel());
     }
 
-    @Override
-    public void init() {
+    addSequential(new ShootOnce());
 
-    }
+  }
 
-    @Override
-    public boolean isDone() {
-        return true;
-    }
 }

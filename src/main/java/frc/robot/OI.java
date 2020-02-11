@@ -11,30 +11,19 @@
 package frc.robot;
 
 import frc.robot.commands.*;
+import frc.robot.commands.groups.ParallelGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.subsystems.*;
+import com.chaos131.LogitechF310;
 
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-    public static final int LEFT_X = 1;
-    public static final int DOWN_A = 2;
-    public static final int RIGHT_B = 3;
-    public static final int UP_Y = 4;
 
-    public static final int LEFT_BUMPER = 5;
-    public static final int RIGHT_BUMPER = 6;
-    public static final int LEFT_TRIGGER = 7;
-    public static final int RIGHT_TRIGGER = 8;
-
-    public static final int SELECT = 9;
-    public static final int START = 10;
-    public static final int LEFT_JOYSTICK = 11;
-    public static final int RIGHT_JOYSTICK = 12;
     //// CREATING BUTTONS
     // One type of button is a joystick button which is any button on a joystick.
     // You create one by telling it which joystick it's on and which button
@@ -62,44 +51,113 @@ public class OI {
     // until it is finished as determined by it's isFinished method.
     // button.whenReleased(new ExampleCommand());
 
-    public Joystick driver;
-    public JoystickButton aButton;
-    public JoystickButton bButton;
-    public JoystickButton xButton;
-    public JoystickButton yButton;
-    public JoystickButton startButton;
-    public JoystickButton selectButton;
-    public JoystickButton leftBumper;
-    public JoystickButton rightBumper;
-    public JoystickButton leftTrigger;
+    private LogitechF310 driver;
+    private LogitechF310 operator;
+    
 
     public OI() {
-        driver = new Joystick(0);
+        driver = new LogitechF310(0);
+        operator = new LogitechF310(1);
 
-        xButton = new JoystickButton(driver, LEFT_X);
-        aButton = new JoystickButton(driver, DOWN_A);
-        bButton = new JoystickButton(driver, RIGHT_B);
-        yButton = new JoystickButton(driver, UP_Y);
-        startButton = new JoystickButton(driver, START);
-        selectButton = new JoystickButton(driver, SELECT);
-        leftBumper = new JoystickButton(driver, LEFT_BUMPER);
-        rightBumper = new JoystickButton(driver, RIGHT_BUMPER);
-        leftTrigger = new JoystickButton(driver, LEFT_TRIGGER);
-        yButton.whenPressed(new DriveDistancePID(12));
-        bButton.whenPressed(new TurnAnglePID(90));
-        aButton.whenPressed(new DriveDistancePID(-12));
-        xButton.whenPressed(new TurnAnglePID(-90));
-        startButton.whenPressed(new DriveSquare(12));
-        selectButton.whileHeld(new AimClimbtake());
-        leftBumper.whenPressed(new TurnToTarget());
-        leftTrigger.whenPressed(new SetPipeline());
+        // driver left - climbarm left
+        driver.dPadLeft.whenPressed(new MoveClimbtake(-0.5));
 
+        // driver right - climbarm right
+        driver.dPadRight.whenPressed(new MoveClimbtake(0.5));
+
+        // driver leftBump - NavX mode
+        driver.leftBumper.whenPressed(new NavXTurnRobot());
+
+        // TEST: Parallel Group test, delete after
+        driver.xButton.whenPressed(new ParallelGroup(new Wait(2000), new DriveRunAfterReady()));
+
+        // driver.yButton.whenPressed(new DriveDistancePID(12));
+        // driver.bButton.whenPressed(new TurnAnglePID(90));
+        // driver.aButton.whenPressed(new DriveDistancePID(-12));
+        // driver.xButton.whenPressed(new TurnAnglePID(-90));
+        // driver.startButton.whileHeld(new DriveSquare(12));
+        // driver.selectButton.whileHeld(new AimClimbtake());
+        // driver.leftBumper.whenPressed(new TurnToTarget());
+        // driver.leftTrigger.whenPressed(new SetPipeline());
+        // driver.rightBumper.whileHeld(new SerializerFeed());
+
+
+        // operator up - move arm up to climb + extend
+        operator.dPadUp.whenPressed(new SetClimber());
+
+        // operator down - move arm up to climb + retract
+        operator.dPadDown.whenPressed(new SetClimber());
+
+        // operator left - move arm to intake
+        operator.dPadLeft.whenPressed(new SetClimber());
+
+        // op right - move arm to colorwheel
+        operator.dPadRight.whenPressed(new SetClimber());
+
+        // op a - forward intake
+        operator.aButton.whenPressed(new SetIntake(0.5));
+
+        // op b - reverse intake
+        operator.bButton.whenPressed(new SetIntake(-0.5));
+
+        // op x - turret to 1pt pos
+        operator.xButton.whenPressed(new SetTurretTilt(0.0));
+
+        // op y - turret to 2pt pos
+        operator.yButton.whenPressed(new SetTurretTilt(75.0));
+
+        // op leftBump - turn on auto turret (hold) "aim"
+        operator.leftBumper.whileHeld(new AimTurret()); //TODO: move flywheel when aiming turret (experiment)
+
+        // op leftTrig - shoot (override: doesn't need to be aimed)
+        operator.leftTrigger.whenPressed(new Shoot(false));
+
+        // op rightBump - shoot once (needs to be aimed)
+        operator.rightBumper.whenPressed(new Shoot(true));
+
+        // op rightTrig - shoot (hold)
+        operator.rightTrigger.whileHeld(new Shoot(true));
+
+        // op select - colorwheel spin to amt
+        operator.selectButton.whenPressed(new MoveColorWheelAmt());
+
+        // op start - colorwheel spin to color
+        operator.startButton.whenPressed(new MoveColorWheelToColor());
+
+        // operator.leftBumper.whileHeld(new NavXTurnRobot());
+        // operator.xButton.whenPressed(new ResetNavX());
 
         // SmartDashboard Buttons
-        SmartDashboard.putData("Autonomous Command", new AutonomousCommand());
+        SmartDashboard.putData("Reset Odometry", new ResetOdometry());
     }
 
-    public Joystick getDriver() {
-        return driver;
+    public double getRobotTargetAngle() {
+        return operator.getRightJoystickAngle();
+    }
+
+    public boolean shouldUseRobotTargetAngle() {
+        return (Math.abs(Robot.oi.operator.getRightX()) > 0.1) || (Math.abs(Robot.oi.operator.getRightY()) > 0.1);
+    }
+
+    public double getLeftSpeed() {
+        return driver.getLeftY();
+    }
+
+    public double getRightSpeed() {
+        return driver.getRightY();
+    }
+
+    public double getSpeedDuringNavX(){
+        return driver.getLeftY();
+    }
+
+    public double getTankDriveSpeedScale() {
+        if (driver.rightBumper.get()){
+            return 0.25; // slow speed
+        }else if (driver.rightTrigger.get()){
+            return 1; // fast speed
+        }else{
+            return 0.5; // normal speed
+        }
     }
 }

@@ -15,6 +15,10 @@ import com.revrobotics.CANSparkMax;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.geometry.Pose2d;
+import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.geometry.Translation2d;
+import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.smartdashboard.*;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
@@ -24,6 +28,7 @@ import frc.robot.Robot;
 import frc.robot.RobotConstants2019;
 import frc.robot.RobotConstants2020;
 import frc.robot.RobotConstantsRaft;
+import frc.robot.Robot.RobotType;
 
 /**
  *
@@ -41,6 +46,7 @@ public class DriveBase extends Subsystem {
     private WPI_TalonSRX right4 = null;
     private SpeedControllerGroup rightDrive;
     public DifferentialDrive differentialDrive1;
+    public DifferentialDriveOdometry odometer;
     private PIDController PIDRight;
     private PIDController PIDLeft;
     private CANSparkMax leftSpark1;
@@ -50,12 +56,14 @@ public class DriveBase extends Subsystem {
     private Robot.RobotType type;
     private Encoder sim_encoder_l;
     private Encoder sim_encoder_r;
+    private double setpointLeft, setpointRight;
 
     public DriveBase(Robot.RobotType robotType) {
         type = robotType;
         
-        PIDRight = new PIDController(0.4, 0, 0);
-        PIDLeft = new PIDController(0.4, 0, 0);
+        PIDRight = new PIDController(0.1, 0.01, 0.01);
+        PIDLeft = new PIDController(0.1, 0.01, 0.01);
+
         if (type == Robot.RobotType.raft) {
             setupRaft();
         }
@@ -76,6 +84,9 @@ public class DriveBase extends Subsystem {
         differentialDrive1.setSafetyEnabled(true);
         differentialDrive1.setExpiration(0.1);
         differentialDrive1.setMaxOutput(1.0);
+        double navxAngle = Robot.navx.getNavYaw();
+        odometer = new DifferentialDriveOdometry(Rotation2d.fromDegrees(navxAngle));
+
     }
 
     private void setupRaft() {
@@ -207,10 +218,25 @@ public class DriveBase extends Subsystem {
         return counts * ratio;
     }
 
+    public double speedToVolts(double speed){
+        double volts = 12;
+        double speedFactor = 1;
+        return speed * volts * speedFactor;
+    }
+
+    public void tankDriveVolts(double leftSpeed, double rightSpeed){
+        double leftVolts = speedToVolts(leftSpeed);
+        double rightVolts = speedToVolts(rightSpeed);
+        leftDrive.setVoltage(leftVolts);
+        rightDrive.setVoltage(-rightVolts);
+        differentialDrive1.feed();
+    }
+
     public double angleToDist(double angle) {
         double inchPerRev = 92.45; // constant equal to the total distance the wheels move for one full revolution
         return (inchPerRev * angle) / 360;
     }
+
 
     public void reportPosition() {
 
@@ -249,16 +275,65 @@ public class DriveBase extends Subsystem {
     }
 
     public void PIDDrive() {
-        double maxSpeed = 0.4;
+        double maxSpeed = 0.7;
+        double minSpeed = 0.3;
         double right = PIDRight.calculate(getRightPosition());
         double left = PIDLeft.calculate(getLeftPosition());
-        differentialDrive1.tankDrive(left * maxSpeed, right * maxSpeed);
+        double leftSign = left / Math.abs(left);
+        double rightSign = right / Math.abs(right);
+
+        right = Math.min(maxSpeed, Math.max(minSpeed, Math.abs(right))) * rightSign;
+        left = Math.min(maxSpeed, Math.max(minSpeed, Math.abs(left))) * leftSign;
+
+        right = isAtRightTarget() ? 0 : right;
+        left = isAtLeftTarget() ? 0 : left;
+
+        differentialDrive1.tankDrive(left, right);
 
     }
 
     public void setTarget(double left, double right) {
+        setpointLeft = left;
+        setpointRight = right;
         PIDLeft.setSetpoint(left);
         PIDRight.setSetpoint(right);
+    }
+
+    public void setTargetAngle(double targetAngle) {
+        double delta = angleToDist(targetAngle);
+        double targetLeft = getLeftPosition() + delta;
+        double targetRight = getRightPosition() - delta;
+        Robot.driveBase.setTarget(targetLeft, targetRight);
+        System.out.println("setTargetAngle initialized, target left = " + targetLeft + " target right = " + targetRight);
+    }
+
+    public boolean isAtTarget() {
+        return isAtLeftTarget() && isAtRightTarget();
+    }
+
+    public boolean isAtRightTarget() {
+        double error = 2;
+        return (setpointRight < Robot.driveBase.getRightPosition() + error) && (setpointRight > Robot.driveBase.getRightPosition() - error);
+    }
+
+    public boolean isAtLeftTarget() {
+        double error = 2;
+        return (setpointLeft < Robot.driveBase.getLeftPosition() + error) && (setpointLeft > Robot.driveBase.getLeftPosition() - error);
+    }
+
+    public void resetOdometry(){
+        if(type == RobotType.raft){
+            left4.getSensorCollection().setQuadraturePosition(0, 0);
+            right4.getSensorCollection().setQuadraturePosition(0, 0);
+        }
+        if(type == RobotType.chaos2019 || type == RobotType.chaos2020){
+            leftSpark1.getEncoder().setPosition(0);
+            rightSpark1.getEncoder().setPosition(0);
+        }
+
+        double navxAngle = Robot.navx.getNavYaw();
+        Rotation2d rotation = Rotation2d.fromDegrees(navxAngle);
+        odometer.resetPosition(new Pose2d(0, 0, rotation), rotation);
     }
 
     @Override
@@ -274,9 +349,16 @@ public class DriveBase extends Subsystem {
         // Put code here to be run every loop
         double rightInches = getRightPosition();
         double leftInches = getLeftPosition();
+        double navxAngle = Robot.navx.getNavYaw();
         // converts raw encoder readout to inches
+        odometer.update(Rotation2d.fromDegrees(navxAngle), leftInches, rightInches);
         SmartDashboard.putNumber("Right Position", rightInches);
         SmartDashboard.putNumber("Left Position", leftInches);
+
+        Translation2d translation = odometer.getPoseMeters().getTranslation();
+
+        SmartDashboard.putNumber("Odometer x", translation.getX());
+        SmartDashboard.putNumber("Odometer y", translation.getY());
     }
 
     // Put methods for controlling this subsystem

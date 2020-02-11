@@ -65,10 +65,6 @@ public class ClimbTake19 extends Subsystem {
   @Override
   public void periodic() {
     SmartDashboard.putNumber("ClimbTake Angle", getAngle());
-    /* 
-	double speed = -Robot.oi.getDriver().getRawAxis(1);
-    setArmSpeed(speed);
-    */
   }
 
   public void setArmSpeed(double speed) {

@@ -34,6 +34,7 @@ public class Camera {
         thor = table.getEntry("thor");
         tvert = table.getEntry("tvert");
         camtran = table.getEntry("camtran");
+        getpipe = table.getEntry("getpipe");
 
         this.robotHeight = robotHeight;
         this.totalHeight = totalHeight;
@@ -44,6 +45,14 @@ public class Camera {
         ledMode = table.getEntry("ledMode");
         ledMode.setDouble(0);
 
+    }
+
+    /***
+     * returns the Camera network table
+     * @return Camera NetworkTable
+     */
+    public NetworkTable getTable () {
+        return NetworkTableInstance.getDefault().getTable("limelight");
     }
 
     public double getXAngle() {
@@ -60,6 +69,10 @@ public class Camera {
 
     public void setPipeline(double pipeline) {
         this.pipeline.setDouble(pipeline);
+    }
+
+    public double getPipeline() {
+        return getpipe.getDouble(0.0);
     }
 
     // public void turnRobot(double angle) {
@@ -79,6 +92,7 @@ public class Camera {
         SmartDashboard.putNumber("LimelightHorizSidelen", thor.getDouble(0.0));
         SmartDashboard.putNumber("LimelightVerticalSidelen", tvert.getDouble(0.0));
         SmartDashboard.putNumber("LimelightCamtran", camtran.getDouble(0.0));
+        SmartDashboard.putNumber("LimelightPipe", getpipe.getDouble(0.0));
 
     }
 

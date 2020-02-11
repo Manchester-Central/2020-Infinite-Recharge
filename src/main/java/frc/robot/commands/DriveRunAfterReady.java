@@ -5,19 +5,26 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.auto.commands;
+package frc.robot.commands;
 
-import frc.robot.auto.ParseCommand;
+import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.Robot;
 
-/**
- * Does nothing, but requires the parameter of type ParseCommand
- */
-public class DoNothing extends BaseAutoCommand {
+public class DriveRunAfterReady extends RunAfterReadyCommand {
+  public DriveRunAfterReady() {
+    requires(Robot.driveBase);
+  }
 
-    public static final String COMMAND_NAME = "stop";
+  // Called repeatedly when this Command is scheduled to run
+  @Override
+  protected void execute() {
+    Robot.driveBase.differentialDrive1.tankDrive(0.2, 0.2);
+  }
 
-    public DoNothing(ParseCommand parsedCommand) {
-        super(parsedCommand);
-    }
+  @Override
+  public boolean isReady() {
+    return true;
+  }
+
 
 }
