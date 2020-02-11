@@ -7,9 +7,9 @@
 
 package frc.robot.commands.inputs;
 
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class Wait extends Command {
+public class Wait extends CommandBase {
 
   long startTime; // stores current time at init
   int timeMs; // stores target time
@@ -20,13 +20,13 @@ public class Wait extends Command {
 
   // Called just before this Command runs the first time
   @Override
-  protected void initialize() {
+  public void initialize() {
     startTime = System.currentTimeMillis();
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
-  protected boolean isFinished() {
+  public boolean isFinished() {
     return (System.currentTimeMillis() - startTime) > timeMs;
   }
 }

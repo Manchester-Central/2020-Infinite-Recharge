@@ -8,15 +8,15 @@
 package frc.robot.commands.drive;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
-public class DrivePolygon extends CommandGroup {
+public class DrivePolygon extends SequentialCommandGroup {
   /**
    * Add your docs here.
    */
   public DrivePolygon(double sideLength, int sides) {
-    for(int i = 0; i < sides; i++){
-      addSequential(new DriveDistancePID(sideLength));
-      addSequential(new TurnAnglePID(-90));
+    for (int i = 0; i < sides; i++) {
+      addCommands(new DriveDistancePID(sideLength), new TurnAnglePID(-90));
     }
     // Add Commands here:
     // e.g. addSequential(new Command1());

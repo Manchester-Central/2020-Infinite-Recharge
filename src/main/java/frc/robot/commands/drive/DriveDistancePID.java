@@ -7,12 +7,13 @@
 
 package frc.robot.commands.drive;
 
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 
-public class DriveDistancePID extends Command {
+public class DriveDistancePID extends CommandBase {
   public DriveDistancePID(double inches) {
-    requires(Robot.driveBase);
+    addRequirements(Robot.driveBase);
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     targetInches = inches;
@@ -25,7 +26,7 @@ public class DriveDistancePID extends Command {
 
   // Called just before this Command runs the first time
   @Override
-  protected void initialize() {
+  public void initialize() {
     targetLeft = Robot.driveBase.getLeftPosition() + targetInches;
     targetRight = Robot.driveBase.getRightPosition() + targetInches;
     Robot.driveBase.setTarget(targetLeft, targetRight);
@@ -34,13 +35,13 @@ public class DriveDistancePID extends Command {
 
   // Called repeatedly when this Command is scheduled to run
   @Override
-  protected void execute() {
+  public void execute() {
     Robot.driveBase.PIDDrive();
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
-  protected boolean isFinished() {
+  public boolean isFinished() {
     double error = 2;
     boolean rightFinished = (targetRight < Robot.driveBase.getRightPosition() + error) && (targetRight > Robot.driveBase.getRightPosition() - error);
     boolean leftFinished = (targetLeft < Robot.driveBase.getLeftPosition() + error) && (targetLeft > Robot.driveBase.getLeftPosition() - error);
@@ -50,15 +51,9 @@ public class DriveDistancePID extends Command {
     return false;
   }
 
-  // Called once after isFinished returns true
+  // Called once after isFinished returns true or when interrupted
   @Override
-  protected void end() {
-  }
-
-  // Called when another command which requires one or more of the same
-  // subsystems is scheduled to run
-  @Override
-  protected void interrupted() {
+  public void end(boolean interrupted) {
   }
 
 }

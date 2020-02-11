@@ -7,15 +7,15 @@
 
 package frc.robot.commands.drive;
 
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 import frc.robot.OI;
 import frc.robot.Robot.RobotType;
 
-public class TankDrive extends Command {
+public class TankDrive extends CommandBase {
   public TankDrive() {
-    requires(Robot.driveBase);
+    addRequirements(Robot.driveBase);
 
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
@@ -25,12 +25,12 @@ public class TankDrive extends Command {
 
   // Called just before this Command runs the first time
   @Override
-  protected void initialize() {
+  public void initialize() {
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
-  protected void execute() {
+  public void execute() {
     speedScale = Robot.oi.getTankDriveSpeedScale();
     double hardwareScale = 0.5;
     
@@ -50,18 +50,12 @@ public class TankDrive extends Command {
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
-  protected boolean isFinished() {
+  public boolean isFinished() {
     return false;
   }
 
-  // Called once after isFinished returns true
+  // Called once after isFinished returns true or when interrupted
   @Override
-  protected void end() {
-  }
-
-  // Called when another command which requires one or more of the same
-  // subsystems is scheduled to run
-  @Override
-  protected void interrupted() {
+  public void end(boolean interrupted) {
   }
 }

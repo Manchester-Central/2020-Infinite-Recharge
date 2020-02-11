@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.smartdashboard.*;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Victor;
@@ -33,7 +34,7 @@ import frc.robot.Robot.RobotType;
 /**
  *
  */
-public class DriveBase extends Subsystem {
+public class DriveBase extends SubsystemBase {
 
     private Victor left1;
     private Victor left2;
@@ -87,6 +88,7 @@ public class DriveBase extends Subsystem {
         double navxAngle = Robot.navx.getNavYaw();
         odometer = new DifferentialDriveOdometry(Rotation2d.fromDegrees(navxAngle));
 
+        setDefaultCommand(new TankDrive());
     }
 
     private void setupRaft() {
@@ -334,12 +336,6 @@ public class DriveBase extends Subsystem {
         double navxAngle = Robot.navx.getNavYaw();
         Rotation2d rotation = Rotation2d.fromDegrees(navxAngle);
         odometer.resetPosition(new Pose2d(0, 0, rotation), rotation);
-    }
-
-    @Override
-    public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
-        setDefaultCommand(new TankDrive());
     }
 
     @Override

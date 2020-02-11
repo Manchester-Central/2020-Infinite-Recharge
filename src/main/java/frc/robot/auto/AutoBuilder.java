@@ -8,8 +8,7 @@
 package frc.robot.auto;
 
 import edu.wpi.first.wpilibj.Preferences;
-import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.auto.commands.*;
 
 /**
