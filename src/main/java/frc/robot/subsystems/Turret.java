@@ -20,7 +20,7 @@ import com.revrobotics.CANSparkMax;
 public class Turret extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-  public Turret (Robot.RobotType robotType){
+  public Turret(Robot.RobotType robotType) {
     xP = 0;
     xI = 0;
     xD = 0;
@@ -30,6 +30,8 @@ public class Turret extends Subsystem {
     pidX = new PIDController(xP, xI, xD);
     pidY = new PIDController(yP, yI, yD);
 
+    slope = 1; // TODO: CHANGE!!!
+    intercept = 1; // TODO: CHANGE!!!
   }
 
   private double xP, xI, xD, yP, yI, yD;
@@ -39,26 +41,24 @@ public class Turret extends Subsystem {
   AnalogPotentiometer anglePot;
   SpeedControllerGroup speedController;
 
-  private double turretXDegrees(CANSparkMax input)
-  {
+  private double turretXDegrees(CANSparkMax input) {
     double gearRatio = (double) 10 / 1; // ratio of the axel the turntable lies on to the axel the encoder reads
     int ticksPerRev = 42; // amount of ticks in one revolution of the encoder axel
     double counts = input.getEncoder().getPosition();
     return (counts * gearRatio) / ticksPerRev;
   }
 
-  public double getXPosition(){
-    return 0; // CHANGE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  public double getXPosition() {
+    return 0; // TODO: CHANGE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   }
 
-  public void setXTarget(){
-
-  }
-
-  private void PIDDriveX(){
+  public void setXTarget() {
 
   }
 
+  private void PIDDriveX() {
+
+  }
 
   public void setHoodSpeed(double speed) {
     if (getHoodAngle() < minAngle && speed < 0) {
@@ -86,8 +86,7 @@ public class Turret extends Subsystem {
     System.out.println("Angle: " + getHoodAngle() + " Speed: " + speed);
   }
 
-
-  public void PIDDrive(){
+  public void PIDDrive() {
     PIDDriveX();
     PIDDriveY();
   }
