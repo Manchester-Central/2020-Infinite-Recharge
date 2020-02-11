@@ -59,6 +59,8 @@ public class Robot extends TimedRobot {
     public static DriveBase driveBase;
     public static Serializer serializer;
     public static ClimbTake19 climbTake;
+    public static Feeder feeder;
+    public static Flywheel flywheel;
 
 
     /**

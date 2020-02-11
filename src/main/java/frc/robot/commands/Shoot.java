@@ -16,10 +16,10 @@ public class Shoot extends CommandGroup {
    
     if (aim) {
 
-      addSequential(new ParallelGroup(new AimTurret(), new PrepareToShoot()));
+      addSequential(new ParallelGroup(new AimTurret(), new PrepareFlywheel()));
 
     } else {
-      addSequential(new PrepareToShoot());
+      addSequential(new PrepareFlywheel());
     }
 
     addSequential(new ShootOnce());
