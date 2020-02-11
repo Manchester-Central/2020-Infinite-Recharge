@@ -5,40 +5,28 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.inputs;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class SetTurretTilt extends Command {
-  public SetTurretTilt(double angle) {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
+public class Wait extends Command {
+
+  long startTime; // stores current time at init
+  int timeMs; // stores target time
+
+  public Wait(int timeMs) {
+    this.timeMs = timeMs;
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-  }
-
-  // Called repeatedly when this Command is scheduled to run
-  @Override
-  protected void execute() {
+    startTime = System.currentTimeMillis();
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
-  }
-
-  // Called once after isFinished returns true
-  @Override
-  protected void end() {
-  }
-
-  // Called when another command which requires one or more of the same
-  // subsystems is scheduled to run
-  @Override
-  protected void interrupted() {
+    return (System.currentTimeMillis() - startTime) > timeMs;
   }
 }

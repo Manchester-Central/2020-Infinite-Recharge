@@ -14,10 +14,9 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.ControlType;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.*;
+import frc.robot.commands.serializer.*;
 import frc.robot.Robot;
 import frc.robot.RobotConstants2020;
-import frc.robot.RobotConstantsRaft;
 
 /**
  * Add your docs here.

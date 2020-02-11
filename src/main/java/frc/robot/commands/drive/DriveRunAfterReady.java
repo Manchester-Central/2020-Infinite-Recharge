@@ -5,10 +5,10 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.drive;
 
-import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.commands.util.RunAfterReadyCommand;
 
 public class DriveRunAfterReady extends RunAfterReadyCommand {
   public DriveRunAfterReady() {

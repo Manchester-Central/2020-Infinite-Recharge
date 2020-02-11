@@ -5,13 +5,13 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.drive;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class SetPipeline extends Command {
-  public SetPipeline() {
+public class ResetOdometry extends Command {
+  public ResetOdometry() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }
@@ -19,7 +19,7 @@ public class SetPipeline extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.camera.setPipeline(9);
+    Robot.driveBase.resetOdometry();
   }
 
   // Called repeatedly when this Command is scheduled to run

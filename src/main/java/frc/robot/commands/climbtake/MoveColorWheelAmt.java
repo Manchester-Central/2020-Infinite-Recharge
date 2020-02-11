@@ -5,39 +5,30 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.climbtake;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.Robot;
 
-public class TurnAnglePID extends Command {
-  public TurnAnglePID(double angle) {
-    requires(Robot.driveBase);
+public class MoveColorWheelAmt extends Command {
+  public MoveColorWheelAmt() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    targetAngle = angle;
   }
-
-  double targetAngle;
-  double targetRight;
-  double targetLeft;
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.driveBase.setTargetAngle(targetAngle);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.driveBase.PIDDrive();
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return Robot.driveBase.isAtTarget();
+    return false;
   }
 
   // Called once after isFinished returns true

@@ -5,19 +5,20 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.inputs;
 
 import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.Robot;
 
-public class ShootOnce extends Command {
-  public ShootOnce() {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
+public class ResetNavX extends Command {
+  public ResetNavX() {
+   requires(Robot.navx);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    Robot.navx.reset(); // resets all variables stored on navX (such as yaw)
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -28,7 +29,7 @@ public class ShootOnce extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return true;
   }
 
   // Called once after isFinished returns true

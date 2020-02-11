@@ -5,13 +5,12 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.groups;
+package frc.robot.commands.util;
 
 import java.util.List;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import frc.robot.commands.RunAfterReadyCommand;
 
 public class ParallelGroup extends CommandGroup {
   /**

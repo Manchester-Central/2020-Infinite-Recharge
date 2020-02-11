@@ -5,23 +5,15 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.turret;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Robot;
-import frc.robot.OI;
-import frc.robot.Robot.RobotType;
 
-public class TankDrive extends Command {
-  public TankDrive() {
-    requires(Robot.driveBase);
-
+public class ShootOnce extends Command {
+  public ShootOnce() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }
-
-  double speedScale;
 
   // Called just before this Command runs the first time
   @Override
@@ -31,21 +23,6 @@ public class TankDrive extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    speedScale = Robot.oi.getTankDriveSpeedScale();
-    double hardwareScale = 0.5;
-    
-    if (Robot.hardware == Robot.RobotType.chaos2019) {
-      hardwareScale = 0.3;
-    }
-    double leftSpeed = Robot.oi.getLeftSpeed() * speedScale * hardwareScale;
-    double rightSpeed = Robot.oi.getRightSpeed() * speedScale * hardwareScale;
-    SmartDashboard.putNumber("Left Speed", leftSpeed);
-    SmartDashboard.putNumber("Right Speed", rightSpeed);
-    Robot.driveBase.tankDriveVolts(leftSpeed, rightSpeed);
-    // Robot.driveBase.differentialDrive1.tankDrive(leftSpeed, rightSpeed);
-    // Robot.driveBase.differentialDrive1.curvatureDrive(leftSpeed,
-    // Robot.oi.driver.getRawAxis(2),
-    // Robot.oi.driver.getRawButton(OI.RIGHT_BUMPER));
   }
 
   // Make this return true when this Command no longer needs to run execute()

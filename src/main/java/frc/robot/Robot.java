@@ -21,13 +21,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Units;
 import edu.wpi.first.wpilibj.TimedRobot;
 import frc.robot.auto.AutoBuilder;
-import frc.robot.commands.*;
 import frc.robot.subsystems.*;
+import frc.robot.commands.drive.*;
 
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
-import java.net.UnknownHostException;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -114,7 +113,7 @@ public class Robot extends TimedRobot {
         HAL.report(tResourceType.kResourceType_Framework, tInstances.kFramework_RobotBuilder);
 
         // Add commands to Autonomous Sendable Chooser
-        chooser.setDefaultOption("Autonomous Command", new AutonomousCommand());
+        chooser.setDefaultOption("Autonomous Command", new DriveSquare(15));
         SmartDashboard.putData("Auto mode", chooser);
     }
 

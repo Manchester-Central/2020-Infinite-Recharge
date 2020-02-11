@@ -5,20 +5,19 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.turret;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.Robot;
 
-public class ResetNavX extends Command {
-  public ResetNavX() {
-   requires(Robot.navx);
+public class PrepareFlywheel extends Command {
+  public PrepareFlywheel() {
+    // Use requires() here to declare subsystem dependencies
+    // eg. requires(chassis);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.navx.reset(); // resets all variables stored on navX (such as yaw)
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -29,7 +28,7 @@ public class ResetNavX extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return true;
+    return false;
   }
 
   // Called once after isFinished returns true

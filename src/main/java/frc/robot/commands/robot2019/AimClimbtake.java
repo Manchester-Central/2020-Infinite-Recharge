@@ -5,15 +5,19 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.robot2019;
 
 import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.Robot;
 
-public class MoveColorWheelAmt extends Command {
-  public MoveColorWheelAmt() {
+public class AimClimbtake extends Command {
+  public AimClimbtake() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }
+
+  double targetAngle;
+  double offset = 45;
 
   // Called just before this Command runs the first time
   @Override
@@ -23,6 +27,11 @@ public class MoveColorWheelAmt extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    if (Robot.camera.hasTarget()) {
+      targetAngle = Robot.camera.getYAngle();
+      Robot.climbTake.setTargetAngle(targetAngle + offset);
+      Robot.climbTake.PIDDrive();
+    }
   }
 
   // Make this return true when this Command no longer needs to run execute()
