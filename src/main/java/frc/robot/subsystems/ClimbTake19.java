@@ -10,9 +10,9 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX; 
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
-import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.controller.PIDController; 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotConstants2019;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 
@@ -20,7 +20,7 @@ import edu.wpi.first.wpilibj.SpeedControllerGroup;
  * 2 speed controllers + potentiometer Make PID that takes arm angle from
  * potentiometer + angle from limelight to adjust
  */
-public class ClimbTake19 extends Subsystem {
+public class ClimbTake19 extends SubsystemBase {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
@@ -54,12 +54,6 @@ public class ClimbTake19 extends Subsystem {
     slope = (bAngle - aAngle) / (bVoltage - aVoltage);
     intercept = bAngle - slope * bVoltage;
     anglePot = new AnalogPotentiometer(RobotConstants2019.CLIMBTAKE_ANGLE_POT);
-  }
-
-  @Override
-  public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
   }
 
   @Override

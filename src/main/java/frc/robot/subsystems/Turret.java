@@ -9,15 +9,15 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
-import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.controller.PIDController;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
 import com.revrobotics.CANSparkMax;
 
 /**
  * Add your docs here.
  */
-public class Turret extends Subsystem {
+public class Turret extends SubsystemBase {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
   public Turret(Robot.RobotType robotType) {
@@ -89,11 +89,5 @@ public class Turret extends Subsystem {
   public void PIDDrive() {
     PIDDriveX();
     PIDDriveY();
-  }
-
-  @Override
-  public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
   }
 }

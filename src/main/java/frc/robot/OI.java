@@ -18,9 +18,9 @@ import frc.robot.commands.serializer.*;
 import frc.robot.commands.turret.*;
 import frc.robot.commands.util.*;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.subsystems.*;
 import frc.robot.commands.serializer.*;
 import frc.robot.commands.robot2019.*;
@@ -64,8 +64,8 @@ public class OI {
     private LogitechF310 driver;
     private LogitechF310 operator;
 
-    CommandBase aim = new AimTurret();
-    CommandBase flywheel = new PrepareFlywheel();
+    DoneCommand aim = new AimTurret();
+    DoneCommand flywheel = new PrepareFlywheel();
     
 
     public OI() {
@@ -84,7 +84,8 @@ public class OI {
         driver.leftBumper.whenPressed(new NavXTurnRobot());
 
         // TEST: Parallel Group test, delete after
-        driver.xButton.whenPressed(new ParallelGroup(new Wait(2000), new DriveRunAfterReady()));
+        // TODO commented out because DriveRunAfterReady removed
+        //driver.xButton.whenPressed(new ParallelCommandGroup(new Wait(2000), new DriveRunAfterReady()));
 
         // driver.yButton.whenPressed(new DriveDistancePID(12));
         // driver.bButton.whenPressed(new TurnAnglePID(90));

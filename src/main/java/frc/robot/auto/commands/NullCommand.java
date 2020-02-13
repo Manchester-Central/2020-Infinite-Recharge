@@ -7,17 +7,17 @@
 
 package frc.robot.auto.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
  * Tells robot to do absolutely nothing.
  * Immediately calls isFinished()
  * Takes zero parameters.
  */
-public class NullCommand extends Command {
+public class NullCommand extends CommandBase {
 
     @Override
-    protected boolean isFinished() {
+    public boolean isFinished() {
         return true;
     }
 
