@@ -7,7 +7,7 @@
 
 package frc.robot.commands.util;
 
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
  * Specific type of Command.
@@ -15,14 +15,14 @@ import edu.wpi.first.wpilibj.command.Command;
  * 
  * Combined w. ParallelGroup, allows all commands to keep running until all are ready.
  */
-public abstract class RunAfterReadyCommand extends Command {
+public abstract class DoneCommand extends CommandBase {
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
-  protected boolean isFinished() {
+  public boolean isFinished() {
     return false;
   }
 
-  public abstract boolean isReady();
+  public abstract boolean getDone();
 
 }

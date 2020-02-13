@@ -7,17 +7,16 @@
 
 package frc.robot.commands.drive;
 
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
+import frc.robot.commands.util.DoneCommand;
 
-public class DriveDistancePID extends CommandBase {
+public class DriveDistancePID extends DoneCommand {
   public DriveDistancePID(double inches) {
     addRequirements(Robot.driveBase);
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     targetInches = inches;
-
   }
 
   double targetLeft;
@@ -37,14 +36,22 @@ public class DriveDistancePID extends CommandBase {
   @Override
   public void execute() {
     Robot.driveBase.PIDDrive();
+
+    isDone();
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   public boolean isFinished() {
+    return false;
+  }
+
+  public boolean isDone() {
     double error = 2;
-    boolean rightFinished = (targetRight < Robot.driveBase.getRightPosition() + error) && (targetRight > Robot.driveBase.getRightPosition() - error);
-    boolean leftFinished = (targetLeft < Robot.driveBase.getLeftPosition() + error) && (targetLeft > Robot.driveBase.getLeftPosition() - error);
+    boolean rightFinished = (targetRight < Robot.driveBase.getRightPosition() + error)
+        && (targetRight > Robot.driveBase.getRightPosition() - error);
+    boolean leftFinished = (targetLeft < Robot.driveBase.getLeftPosition() + error)
+        && (targetLeft > Robot.driveBase.getLeftPosition() - error);
     if (leftFinished && rightFinished) {
       return true;
     }

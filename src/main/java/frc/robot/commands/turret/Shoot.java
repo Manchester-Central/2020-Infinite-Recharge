@@ -15,11 +15,12 @@ public class Shoot extends CommandGroup {
     // aim = turret needs to aim to target before shooting
    
     if (aim) {
-
-      addSequential(new ParallelGroup(new AimTurret(), new PrepareFlywheel()));
+      DoneCommand aimTurret = new AimTurret();
+      DoneCommand flyWheel = new PrepareFlywheel();
+      new Deadline(aimTurret, flyWheel).deadlineWith(aimTurret, flyWheel);
 
     } else {
-      addSequential(new PrepareFlywheel());
+      // addSequential(new PrepareFlywheel());
     }
 
     addSequential(new ShootOnce());

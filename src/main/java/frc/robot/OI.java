@@ -18,6 +18,7 @@ import frc.robot.commands.serializer.*;
 import frc.robot.commands.turret.*;
 import frc.robot.commands.util.*;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.subsystems.*;
@@ -62,11 +63,16 @@ public class OI {
 
     private LogitechF310 driver;
     private LogitechF310 operator;
+
+    CommandBase aim = new AimTurret();
+    CommandBase flywheel = new PrepareFlywheel();
     
 
     public OI() {
         driver = new LogitechF310(0);
         operator = new LogitechF310(1);
+
+        driver.aButton.whileHeld(new Deadline(aim, flywheel).deadlineWith(aim, flywheel));
 
         // driver left - climbarm left
         driver.dPadLeft.whenPressed(new MoveClimbtake(-0.5));

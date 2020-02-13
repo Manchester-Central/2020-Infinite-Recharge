@@ -7,30 +7,24 @@
 
 package frc.robot.commands.drive;
 
-import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 
-public class DriveSquare extends CommandGroup {
+public class DriveSquare extends ParallelCommandGroup {
   /**
    * Add your docs here.
    */
   public DriveSquare(double side) {
-    addSequential(new DriveDistancePID(side));
-    addSequential(new TurnAnglePID(-90));
-    addSequential(new DriveDistancePID(side));
-    addSequential(new TurnAnglePID(-90));
-    addSequential(new DriveDistancePID(side));
-    addSequential(new TurnAnglePID(-90));
-    addSequential(new DriveDistancePID(side));
-    addSequential(new TurnAnglePID(-90));
+    addCommands(new DriveDistancePID(side), new TurnAnglePID(-90), new DriveDistancePID(side), new TurnAnglePID(-90),
+        new DriveDistancePID(side), new TurnAnglePID(-90), new DriveDistancePID(side), new TurnAnglePID(-90));
     // Add Commands here:
-    // e.g. addSequential(new Command1());
-    // addSequential(new Command2());
+    // e.g. new Command1());
+    // new Command2());
     // these will run in order.
 
     // To run multiple commands at the same time,
     // use addParallel()
     // e.g. addParallel(new Command1());
-    // addSequential(new Command2());
+    // new Command2());
     // Command1 and Command2 will run in parallel.
 
     // A command group will require all of the subsystems that each member

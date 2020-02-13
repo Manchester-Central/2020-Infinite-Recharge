@@ -8,8 +8,9 @@
 package frc.robot.commands.turret;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.commands.util.DoneCommand;
 
-public class AimTurret extends CommandBase {
+public class AimTurret extends DoneCommand {
   public AimTurret() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
@@ -29,6 +30,10 @@ public class AimTurret extends CommandBase {
   @Override
   public boolean isFinished() {
     return false;
+  }
+
+  public boolean getDone() {
+    return true; // TODO: set true when turret is aligned
   }
 
   // Called once after isFinished returns true or when interrupted
