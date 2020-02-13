@@ -8,6 +8,7 @@
 package frc.robot.commands.turret;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.commands.util.*;
 
 public class Shoot extends CommandGroup {
@@ -23,7 +24,7 @@ public class Shoot extends CommandGroup {
       // addSequential(new PrepareFlywheel());
     }
 
-    addSequential(new ShootOnce());
+    new RunCommand(new ShootOnce());
 
   }
 

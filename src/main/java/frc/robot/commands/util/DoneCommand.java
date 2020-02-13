@@ -23,6 +23,6 @@ public abstract class DoneCommand extends CommandBase {
     return false;
   }
 
-  public abstract boolean getDone();
+  public abstract boolean isDone();
 
 }

@@ -32,7 +32,7 @@ public class AimTurret extends DoneCommand {
     return false;
   }
 
-  public boolean getDone() {
+  public boolean isDone() {
     return true; // TODO: set true when turret is aligned
   }
 

@@ -14,6 +14,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.ControlType;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.commands.serializer.*;
 import frc.robot.Robot;
 import frc.robot.RobotConstants2020;
@@ -21,7 +22,7 @@ import frc.robot.RobotConstants2020;
 /**
  * Add your docs here.
  */
-public class Serializer extends Subsystem {
+public class Serializer extends SubsystemBase {
 
   private CANSparkMax turnTable;
   private CANSparkMax ejector;
@@ -99,6 +100,8 @@ public class Serializer extends Subsystem {
     SmartDashboard.putNumber("Feed Forward", kFF);
     SmartDashboard.putNumber("Max Output", kMaxOutput);
     SmartDashboard.putNumber("Min Output", kMinOutput);
+
+    setDefaultCommand(new SerializerDefault());
   }
 
   @Override
@@ -186,11 +189,4 @@ public class Serializer extends Subsystem {
 
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-
-  @Override
-  public void initDefaultCommand() {
-    setDefaultCommand(new SerializerDefault());
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
-  }
 }

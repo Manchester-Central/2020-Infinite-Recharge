@@ -9,8 +9,9 @@ package frc.robot.commands.turret;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.commands.util.DoneCommand;
 
-public class ShootOnce extends CommandBase {
+public class ShootOnce extends DoneCommand {
   public ShootOnce() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
@@ -29,6 +30,10 @@ public class ShootOnce extends CommandBase {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   public boolean isFinished() {
+    return false;
+  }
+
+  public boolean isDone() {
     return false;
   }
 

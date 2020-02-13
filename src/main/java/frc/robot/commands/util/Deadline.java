@@ -38,7 +38,7 @@ public class Deadline extends CommandBase {
   @Override
   public boolean isFinished() {
     for (DoneCommand command : commands) {
-      if (!command.getDone()){
+      if (!command.isDone()){
         return false;
       }
     }

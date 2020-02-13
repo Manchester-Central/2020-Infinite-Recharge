@@ -32,7 +32,7 @@ public class PrepareFlywheel extends DoneCommand {
     return false;
   }
 
-  public boolean getDone() {
+  public boolean isDone() {
     return true; // TODO: return true once the flywheel is up to speed 
   }
 

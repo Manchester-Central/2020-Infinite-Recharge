@@ -65,6 +65,10 @@ public class NavXTurnRobot extends DoneCommand {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   public boolean isFinished() {
+    return isDone();
+  }
+
+  public boolean isDone() {
     return Robot.driveBase.isAtTarget();
   }
 
