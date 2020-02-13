@@ -7,7 +7,6 @@
 
 package frc.robot.commands.turret;
 
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.commands.util.DoneCommand;
 

@@ -8,13 +8,13 @@
 package com.chaos131;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import edu.wpi.first.wpilibj.buttons.POVButton;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.POVButton;
 
 /**
  * Add your docs here.
  */
-public class LogitechF310 extends edu.wpi.first.wpilibj.Joystick{
+public class LogitechF310 extends Joystick{
     public LogitechF310 (int port){
         super(port);
         xButton = new JoystickButton(this, LEFT_X);
@@ -94,7 +94,6 @@ public class LogitechF310 extends edu.wpi.first.wpilibj.Joystick{
 
     private double calculateAngle(double x, double y) {
         return -Math.toDegrees(Math.atan2(-x, y));
-        
     }
 
     public double getRightJoystickAngle(){

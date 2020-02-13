@@ -10,14 +10,14 @@ package frc.robot.auto.commands;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.auto.ParseCommand;
 import frc.robot.auto.conditions.*;
 
 /**
  * Holds conditions that will be run.
  */
-public abstract class BaseAutoCommand extends Command {
+public abstract class BaseAutoCommand extends CommandBase {
 
     // a list (advanced array) of called conditions
     // the conditions in this list will depend on the parameters set in "value" of SmartDashboard
@@ -42,7 +42,7 @@ public abstract class BaseAutoCommand extends Command {
 
     // for each condition in the list of conditions, initialize them.
     @Override
-    protected void initialize() {
+    public void initialize() {
         for (IAutoCondition condition : conditions) {
             condition.init();
         }
@@ -52,7 +52,7 @@ public abstract class BaseAutoCommand extends Command {
     // if there are no more conditions, stop autonomous.
     // if all isDone() methods from called "conditions" are true, stop auto
     @Override
-    protected boolean isFinished() {
+    public boolean isFinished() {
 
         if (conditions.size() == 0) {
             return true;

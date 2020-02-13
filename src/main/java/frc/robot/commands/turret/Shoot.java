@@ -7,24 +7,26 @@
 
 package frc.robot.commands.turret;
 
-import edu.wpi.first.wpilibj.command.CommandGroup;
-import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import frc.robot.commands.util.*;
 
-public class Shoot extends CommandGroup {
+public class Shoot extends SequentialCommandGroup {
   public Shoot(boolean aim) {
     // aim = turret needs to aim to target before shooting
    
     if (aim) {
       DoneCommand aimTurret = new AimTurret();
       DoneCommand flyWheel = new PrepareFlywheel();
-      new Deadline(aimTurret, flyWheel).deadlineWith(aimTurret, flyWheel);
+      ParallelDeadlineGroup deadline = new Deadline(aimTurret, flyWheel).deadlineWith(aimTurret, flyWheel);
+      addCommands(deadline);
 
     } else {
+      // TODO implement non-aiming mode
       // addSequential(new PrepareFlywheel());
     }
 
-    new RunCommand(new ShootOnce());
+    addCommands(new ShootOnce());
 
   }
 
