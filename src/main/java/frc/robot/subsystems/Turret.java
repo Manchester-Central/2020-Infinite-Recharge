@@ -32,6 +32,10 @@ public class Turret extends SubsystemBase {
 
     slope = 1; // TODO: CHANGE!!!
     intercept = 1; // TODO: CHANGE!!!
+
+    int channel = 0; // TODO: CHANGE!!!!!!!!!!!!!!!!!!!!
+
+    anglePot = new AnalogPotentiometer(channel, slope, intercept);
   }
 
   private double xP, xI, xD, yP, yI, yD;
