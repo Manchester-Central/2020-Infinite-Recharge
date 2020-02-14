@@ -87,7 +87,6 @@ public class DriveBase extends SubsystemBase {
         double navxAngle = Robot.navx.getNavYaw();
         odometer = new DifferentialDriveOdometry(Rotation2d.fromDegrees(navxAngle));
 
-        setDefaultCommand(new TankDrive());
     }
 
     private void setupRaft() {

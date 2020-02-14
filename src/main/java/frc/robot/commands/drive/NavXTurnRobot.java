@@ -9,8 +9,6 @@ package frc.robot.commands.drive;
 
 import frc.robot.Robot;
 import frc.robot.commands.util.DoneCommand;
-import frc.robot.subsystems.DriveBase;
-import frc.robot.subsystems.NavX;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 

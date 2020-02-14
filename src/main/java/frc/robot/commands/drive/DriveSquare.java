@@ -7,9 +7,9 @@
 
 package frc.robot.commands.drive;
 
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
-public class DriveSquare extends ParallelCommandGroup {
+public class DriveSquare extends SequentialCommandGroup {
   /**
    * Add your docs here.
    */

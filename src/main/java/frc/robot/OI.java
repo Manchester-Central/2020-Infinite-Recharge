@@ -81,7 +81,9 @@ public class OI {
         driver.dPadRight.whenPressed(new MoveClimbtake(0.5));
 
         // driver leftBump - NavX mode
-        driver.leftBumper.whenPressed(new NavXTurnRobot());
+        driver.leftBumper.whileHeld(new NavXTurnRobot());
+
+        driver.selectButton.whileHeld(new ResetNavX(driver.startButton));
 
         // TEST: Parallel Group test, delete after
         // TODO commented out because DriveRunAfterReady removed
@@ -145,14 +147,16 @@ public class OI {
 
         // SmartDashboard Buttons
         SmartDashboard.putData("Reset Odometry", new ResetOdometry());
+
+        Robot.driveBase.setDefaultCommand(new TankDrive());
     }
 
     public double getRobotTargetAngle() {
-        return operator.getRightJoystickAngle();
+        return driver.getRightJoystickAngle();
     }
 
     public boolean shouldUseRobotTargetAngle() {
-        return (Math.abs(Robot.oi.operator.getRightX()) > 0.1) || (Math.abs(Robot.oi.operator.getRightY()) > 0.1);
+        return (Math.abs(Robot.oi.driver.getRightX()) > 0.1) || (Math.abs(Robot.oi.driver.getRightY()) > 0.1);
     }
 
     public double getLeftSpeed() {
