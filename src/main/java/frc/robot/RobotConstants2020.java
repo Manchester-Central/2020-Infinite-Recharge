@@ -10,4 +10,7 @@ public class RobotConstants2020 {
 
     public final static int TURN_TABLE_SPARKMAX = 5; // CAN
     public final static int EJECTER_SPARKMAX = 6; // CAN
+
+    public final static int CLIMB_SPARKMAX = 7; // CAN
+    public final static int ARM_SPARKMAX = 8; // CAN
 }
