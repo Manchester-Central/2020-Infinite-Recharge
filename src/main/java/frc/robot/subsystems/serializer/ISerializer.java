@@ -5,31 +5,14 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.subsystems.turret;
+package frc.robot.subsystems.serializer;
 
 import edu.wpi.first.wpilibj2.command.Subsystem;
 
 /**
  * Add your docs here.
  */
-public interface ITurret extends Subsystem {
-  public double getXPosition();
+public interface ISerializer extends Subsystem {
 
-  public void setXTarget(double target);
-
-  public void setXSpeedUnsafe(double speed);
-
-  public void setYSpeedUnsafe(double speed);
-
-  public void setHoodSpeed(double speed);
-
-  public double getHoodAngle();
-
-  public void setHoodTargetAngle(double angle);
-
-  public void PIDDriveY();
-
-  public void addTurretSmartDashboard();
-
-  public void PIDDrive();
+    public void driveTurnTable(SerializerSpeed speed, boolean ejectorOn);
 }

@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.subsystems;
+package frc.robot.subsystems.camera;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -17,7 +17,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
  * Add your docs here.
  */
 
-public class Camera extends SubsystemBase{
+public class Camera extends SubsystemBase implements ICamera{
 
     NetworkTableEntry tv, tx, ty, ta, ts, tl, tshort, tlong, thor, tvert, getpipe, camtran, pipeline, ledMode;
     double robotHeight, totalHeight, offsetAngle;

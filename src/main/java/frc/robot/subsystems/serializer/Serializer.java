@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.subsystems;
+package frc.robot.subsystems.serializer;
 
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANPIDController;
@@ -21,7 +21,7 @@ import frc.robot.RobotConstants2020;
 /**
  * Add your docs here.
  */
-public class Serializer extends SubsystemBase {
+public class Serializer extends SubsystemBase implements ISerializer{
 
   private CANSparkMax turnTable;
   private CANSparkMax ejector;
@@ -112,7 +112,7 @@ public class Serializer extends SubsystemBase {
     return (counts * gearRatio) / ticksPerRev;
   }
 
-  public void driveTurnTable(Speed speed, boolean ejectorOn) {
+  public void driveTurnTable(SerializerSpeed speed, boolean ejectorOn) {
     if (type != Robot.RobotType.chaos2020) {
       return;
     }
@@ -153,7 +153,7 @@ public class Serializer extends SubsystemBase {
       kMaxOutput = max;
     }
 
-    if (speed == Speed.fast) {
+    if (speed == SerializerSpeed.fast) {
       setPoint = FAST_SPEED;
     }else {
       setPoint = SLOW_SPEED;

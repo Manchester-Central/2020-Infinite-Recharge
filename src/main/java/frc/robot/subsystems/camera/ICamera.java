@@ -5,10 +5,30 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.subsystems;
+package frc.robot.subsystems.camera;
+
+import edu.wpi.first.wpilibj2.command.Subsystem;
 
 /**
  * Add your docs here.
  */
-public class ICamera {
+public interface ICamera extends Subsystem{
+    public double getXAngle();
+    
+    public double getYAngle();
+
+    public boolean hasTarget();
+
+    public void setPipeline(double pipeline);
+
+    public double getPipeline();
+
+    // public void turnRobot(double angle) {
+
+    // }
+
+    public void updateDashboard();
+    // Calculates angle
+    // 2-degree offset hardcoded for raft testing
+    public double getDistance();
 }
