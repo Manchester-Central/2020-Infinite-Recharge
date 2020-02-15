@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj.TimedRobot;
 import frc.robot.auto.AutoBuilder;
 import frc.robot.subsystems.*;
+import frc.robot.subsystems.flywheel.*;
 import frc.robot.commands.drive.*;
 
 import java.net.InetAddress;
@@ -59,7 +60,7 @@ public class Robot extends TimedRobot {
     public static Serializer serializer;
     public static ClimbTake19 climbTake19;
     public static ClimbTake2020 climbTake;
-    public static Flywheel flywheel;
+    public static IFlywheel flywheel;
     public static Turret turret;
 
     /**
@@ -98,14 +99,17 @@ public class Robot extends TimedRobot {
         if (hardware == RobotType.chaos2020) {
             turret = new Turret(hardware);
             climbTake = new ClimbTake2020();
+            flywheel = new Flywheel();
         }
 
         if (hardware == RobotType.chaos2019) {
             climbTake19 = new ClimbTake19();
+            flywheel = new DummyFlywheel();
         }
 
         if (hardware == RobotType.raft) {
             trackWidth = 26;
+            flywheel = new DummyFlywheel();
         }
 
         new DifferentialDriveKinematics(Units.inchesToMeters(trackWidth));

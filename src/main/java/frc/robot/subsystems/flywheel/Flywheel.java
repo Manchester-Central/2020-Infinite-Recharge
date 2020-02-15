@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.subsystems;
+package frc.robot.subsystems.flywheel;
 
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANPIDController;
@@ -21,36 +21,26 @@ import frc.robot.RobotConstants2020;
 /**
  * Add your docs here.
  */
-public class Flywheel extends SubsystemBase {
+public class Flywheel extends SubsystemBase implements IFlywheel {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
   private CANPIDController m_pidController;
   private CANEncoder m_encoder;
-  private Robot.RobotType type;
   public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxRPM, setPoint;
 
-  public Flywheel(Robot.RobotType robotType) {
+  public Flywheel() {
 
-    if (type == Robot.RobotType.raft) {
-      return;
-
-    }
-    if (type == Robot.RobotType.chaos2019) {
-      return;
-
-    }
-    if (type == Robot.RobotType.chaos2020) {
-      flywheelA = new CANSparkMax(RobotConstants2020.FLYWHEELA_SPARKMAX, CANSparkMax.MotorType.kBrushless);
-      flywheelB = new CANSparkMax(RobotConstants2020.FLYWHEELB_SPARKMAX, CANSparkMax.MotorType.kBrushless);
-      // TODO: assign in RobotConstants2020
-      flywheelA.setInverted(false);
-      flywheelB.follow(flywheelA, true);
-    }
+    flywheelA = new CANSparkMax(RobotConstants2020.FLYWHEELA_SPARKMAX, CANSparkMax.MotorType.kBrushless);
+    flywheelB = new CANSparkMax(RobotConstants2020.FLYWHEELB_SPARKMAX, CANSparkMax.MotorType.kBrushless);
+    // TODO: assign in RobotConstants2020
+    flywheelA.setInverted(false);
+    flywheelB.follow(flywheelA, true);
+    
 
     m_pidController = flywheelA.getPIDController();
-
-    type = robotType;// PID coefficients
+  
+    // PID coefficients
     kP = 0.00005;
     kI = 0.000001;
     kD = 0;
