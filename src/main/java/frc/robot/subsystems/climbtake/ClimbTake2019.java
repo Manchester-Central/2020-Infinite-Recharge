@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotConstants2019;
-import frc.robot.subsystems.Camera;
+import frc.robot.subsystems.camera.ICamera;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 
 /**
@@ -27,7 +27,7 @@ public class ClimbTake2019 extends SubsystemBase implements IClimbTake2019 {
 
   WPI_TalonSRX rotate0;
   WPI_VictorSPX rotate1;
-  Camera limelight;
+  ICamera limelight;
   AnalogPotentiometer anglePot;
   PIDController pid;
   SpeedControllerGroup speedController;

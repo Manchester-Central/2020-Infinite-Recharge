@@ -9,7 +9,8 @@ package frc.robot.commands.serializer;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
-import frc.robot.subsystems.Serializer.Speed;
+import frc.robot.subsystems.serializer.SerializerSpeed;
+import frc.robot.subsystems.serializer.Serializer.Speed;
 
 public class SerializerFeed extends CommandBase {
   public SerializerFeed() {
@@ -25,7 +26,7 @@ public class SerializerFeed extends CommandBase {
   // Called repeatedly when this Command is scheduled to run
   @Override
   public void execute() {
-    Robot.serializer.driveTurnTable(Speed.fast, true);
+    Robot.serializer.driveTurnTable(SerializerSpeed.fast, true);
   }
 
   // Make this return true when this Command no longer needs to run execute()
