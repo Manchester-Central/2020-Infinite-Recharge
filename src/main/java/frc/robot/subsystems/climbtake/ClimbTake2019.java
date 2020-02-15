@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.subsystems;
+package frc.robot.subsystems.climbtake;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX; 
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
@@ -14,13 +14,14 @@ import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotConstants2019;
+import frc.robot.subsystems.Camera;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 
 /**
  * 2 speed controllers + potentiometer Make PID that takes arm angle from
  * potentiometer + angle from limelight to adjust
  */
-public class ClimbTake19 extends SubsystemBase {
+public class ClimbTake2019 extends SubsystemBase implements IClimbTake2019 {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
@@ -34,7 +35,7 @@ public class ClimbTake19 extends SubsystemBase {
   private double minAngle, maxAngle;
   private double p, i, d;
 
-  public ClimbTake19() {
+  public ClimbTake2019() {
     p = 0.07;
     i = 0;
     d = 0;

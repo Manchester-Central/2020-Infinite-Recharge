@@ -5,9 +5,8 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.subsystems;
+package frc.robot.subsystems.climbtake;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.revrobotics.CANSparkMax;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -16,7 +15,7 @@ import frc.robot.RobotConstants2020;
 /**
  * Add your docs here.
  */
-public class ClimbTake2020 extends SubsystemBase {
+public class ClimbTake2020 extends SubsystemBase implements IClimbTake2020 {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 

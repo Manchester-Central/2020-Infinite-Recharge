@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj.TimedRobot;
 import frc.robot.auto.AutoBuilder;
 import frc.robot.subsystems.*;
+import frc.robot.subsystems.climbtake.*;
 import frc.robot.subsystems.flywheel.*;
 import frc.robot.subsystems.navx.*;
 import frc.robot.commands.drive.*;
@@ -59,8 +60,8 @@ public class Robot extends TimedRobot {
     public static OI oi;
     public static DriveBase driveBase;
     public static Serializer serializer;
-    public static ClimbTake19 climbTake19;
-    public static ClimbTake2020 climbTake;
+    public static IClimbTake2019 climbTake19;
+    public static IClimbTake2020 climbTake;
     public static IFlywheel flywheel;
     public static Turret turret;
 
@@ -99,12 +100,14 @@ public class Robot extends TimedRobot {
         if (hardware == RobotType.chaos2020) {
             turret = new Turret(hardware);
             climbTake = new ClimbTake2020();
+            climbTake19 = new DummyClimbTake();
             flywheel = new Flywheel();
             navx = new NavX();
         }
 
         if (hardware == RobotType.chaos2019) {
-            climbTake19 = new ClimbTake19();
+            climbTake19 = new ClimbTake2019();
+            climbTake = new DummyClimbTake();
             flywheel = new DummyFlywheel();
             navx = new DummyNavX();
         }
@@ -113,6 +116,8 @@ public class Robot extends TimedRobot {
             trackWidth = 26;
             flywheel = new DummyFlywheel();
             navx = new DummyNavX();
+            climbTake = new DummyClimbTake();
+            climbTake19 = new DummyClimbTake();
         }
 
         new DifferentialDriveKinematics(Units.inchesToMeters(trackWidth));
