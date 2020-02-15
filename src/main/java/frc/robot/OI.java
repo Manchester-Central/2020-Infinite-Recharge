@@ -10,23 +10,21 @@
 
 package frc.robot;
 
-import frc.robot.commands.climbtake.*;
-import frc.robot.commands.drive.*;
-import frc.robot.commands.inputs.*;
-import frc.robot.commands.robot2019.*;
-import frc.robot.commands.serializer.*;
-import frc.robot.commands.turret.*;
-import frc.robot.commands.util.*;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj.Joystick;
-import frc.robot.subsystems.*;
-import frc.robot.commands.serializer.*;
-import frc.robot.commands.robot2019.*;
-import frc.robot.commands.turret.*;
-import frc.robot.commands.drive.*;
 import com.chaos131.LogitechF310;
+
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Robot.RobotType;
+import frc.robot.commands.climbtake.SetExtensionPosition;
+import frc.robot.commands.drive.ResetOdometry;
+import frc.robot.commands.drive.TankDrive;
+import frc.robot.commands.serializer.SerializerDefault;
+import frc.robot.commands.serializer.SerializerFeed;
+import frc.robot.commands.turret.AimTurret;
+import frc.robot.commands.turret.ManualTurret;
+import frc.robot.commands.turret.PrepareFlywheel;
+import frc.robot.commands.util.Deadline;
+import frc.robot.commands.util.DoneCommand;
+import frc.robot.commands.util.RamseteFactory;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -64,13 +62,18 @@ public class OI {
     private LogitechF310 driver;
     private LogitechF310 operator;
 
-    DoneCommand aim = new AimTurret();
-    DoneCommand flywheel = new PrepareFlywheel();
+    DoneCommand aim, flywheel;
     
 
     public OI() {
         driver = new LogitechF310(0);
         operator = new LogitechF310(1);
+        var ramseteFactory = new RamseteFactory();
+        
+        if (Robot.hardware == RobotType.chaos2020) {
+            aim = new AimTurret();
+            flywheel = new PrepareFlywheel();
+        }
 
         /*
 
@@ -88,6 +91,8 @@ public class OI {
         driver.selectButton.whileHeld(new ResetNavX(driver.startButton));
 
         */
+
+        driver.xButton.whileHeld(ramseteFactory.getCircleCommand());
 
         driver.aButton.whileHeld(new SerializerDefault());
 
@@ -198,6 +203,7 @@ public class OI {
     public double getSpeedDuringNavX(){
         return driver.getLeftY();
     }
+
 
     public double getTankDriveSpeedScale() {
         if (driver.rightBumper.get()){

@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
+import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.smartdashboard.*;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.Encoder;
@@ -292,6 +293,15 @@ public class DriveBase extends SubsystemBase {
 
     }
 
+    
+    public PIDController getPIDLeft(){
+        return PIDLeft;
+    }
+
+    public PIDController getPIDRight(){
+        return PIDRight;
+    }
+
     public void setTarget(double left, double right) {
         setpointLeft = left;
         setpointRight = right;
@@ -334,6 +344,21 @@ public class DriveBase extends SubsystemBase {
         double navxAngle = Robot.navx.getNavYaw();
         Rotation2d rotation = Rotation2d.fromDegrees(navxAngle);
         odometer.resetPosition(new Pose2d(0, 0, rotation), rotation);
+    }
+
+    public Pose2d getPose() {
+        return odometer.getPoseMeters();
+    }
+
+    public DifferentialDriveWheelSpeeds getWheelSpeeds() {
+        if (type == RobotType.raft)
+            return new DifferentialDriveWheelSpeeds(left4.getSensorCollection().getQuadratureVelocity(),
+                    right4.getSensorCollection().getQuadratureVelocity());
+        else if (type == RobotType.chaos2019 || type == RobotType.chaos2020) {
+        return new DifferentialDriveWheelSpeeds(left4.getSensorCollection().getQuadratureVelocity(),
+                right4.getSensorCollection().getQuadratureVelocity()); // TODO: separate and clean up
+        }
+        return null;
     }
 
     @Override
