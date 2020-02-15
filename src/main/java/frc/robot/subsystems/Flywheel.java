@@ -7,8 +7,11 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.CANSparkMax;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
+import frc.robot.RobotConstants2020;
 
 /**
  * Add your docs here.
@@ -32,12 +35,23 @@ public class Flywheel extends SubsystemBase {
 
     }
     if (type == Robot.RobotType.chaos2020) {
-      // flywheelLeft = new CANSparkMax(RobotConstants2020.FLYWHEEL1_SPARKMAX, CANSparkMax.MotorType.kBrushless);
-      // flywheelRight = new CANSparkMax(RobotConstants2020.FLYWHEEL2_SPARKMAX, CANSparkMax.MotorType.kBrushless);
+      flywheelA = new CANSparkMax(RobotConstants2020.FLYWHEELA_SPARKMAX, CANSparkMax.MotorType.kBrushless);
+      flywheelB = new CANSparkMax(RobotConstants2020.FLYWHEELB_SPARKMAX, CANSparkMax.MotorType.kBrushless);
       // TODO: figure out port for FlywheelLeft and FlywheelRight, assign in RobotConstants2020, also verify motor is brushless
       return ;
       
     }
 
   }
+
+  CANSparkMax flywheelA, flywheelB;
+
+  public void setTargetSpeed(double speed) {
+
+  }
+
+  public void setFlywheelTargetDirect(double speed) {
+
+  }
+
 }

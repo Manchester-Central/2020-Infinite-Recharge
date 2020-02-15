@@ -86,7 +86,7 @@ public class OI {
         driver.selectButton.whileHeld(new ResetNavX(driver.startButton));
 
         // TEST: Parallel Group test, delete after
-        // TODO commented out because DriveRunAfterReady removed
+        // TODO: commented out because DriveRunAfterReady removed
         //driver.xButton.whenPressed(new ParallelCommandGroup(new Wait(2000), new DriveRunAfterReady()));
 
         // driver.yButton.whenPressed(new DriveDistancePID(12));
@@ -149,10 +149,23 @@ public class OI {
         SmartDashboard.putData("Reset Odometry", new ResetOdometry());
 
         Robot.driveBase.setDefaultCommand(new TankDrive());
+        Robot.turret.setDefaultCommand(new ManualTurret());
     }
 
     public double getRobotTargetAngle() {
         return driver.getRightJoystickAngle();
+    }
+
+    public double getTurretPanTarget() {
+        return operator.getLeftX();
+    }
+
+    public double getTurretHoodTarget() {
+        return operator.getLeftY();
+    }
+
+    public double getFlywheelTarget() {
+        return operator.getRightY();
     }
 
     public boolean shouldUseRobotTargetAngle() {

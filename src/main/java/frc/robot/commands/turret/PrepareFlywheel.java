@@ -8,10 +8,12 @@
 package frc.robot.commands.turret;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Robot;
 import frc.robot.commands.util.DoneCommand;
 
 public class PrepareFlywheel extends DoneCommand {
   public PrepareFlywheel() {
+    addRequirements(Robot.flywheel);
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }

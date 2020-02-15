@@ -59,7 +59,7 @@ public class Robot extends TimedRobot {
     public static Serializer serializer;
     public static ClimbTake19 climbTake;
     public static Flywheel flywheel;
-
+    public static Turret turret;
 
     /**
      * This function is run when the robot is first started up and should be used
@@ -70,23 +70,23 @@ public class Robot extends TimedRobot {
 
         String macAddress = getMACAddress();
 
-        if (macAddress.equals(RobotConstantsRaft.MAC_ADDRESS)){
+        if (macAddress.equals(RobotConstantsRaft.MAC_ADDRESS)) {
             hardware = RobotType.raft;
-        }else if (macAddress.equals(RobotConstants2019.MAC_ADDRESS)){
+        } else if (macAddress.equals(RobotConstants2019.MAC_ADDRESS)) {
             hardware = RobotType.chaos2019;
-        }else if (macAddress.equals(RobotConstants2020.MAC_ADDRESS)){
+        } else if (macAddress.equals(RobotConstants2020.MAC_ADDRESS)) {
             hardware = RobotType.chaos2020;
-        }else if (macAddress.equals(RobotConstantsSim.MAC_ADDRESS)){
+        } else if (macAddress.equals(RobotConstantsSim.MAC_ADDRESS)) {
             hardware = RobotType.simulator;
-        }else{
+        } else {
             hardware = RobotType.chaos2020;
         }
 
         System.out.println("RobotType = " + hardware);
 
         camera = new Camera(34, 47, 2);
-        //detectedColor = new ColorSensor();
-        //detectedColor.addColorMatch();
+        // detectedColor = new ColorSensor();
+        // detectedColor.addColorMatch();
         autoBuilder = new AutoBuilder();
         navx = new NavX();
 
@@ -94,11 +94,15 @@ public class Robot extends TimedRobot {
         driveBase = new DriveBase(hardware);
         serializer = new Serializer(hardware);
 
+        if (hardware == RobotType.chaos2020) {
+            turret = new Turret(hardware);
+        }
+
         if (hardware == RobotType.chaos2019) {
             climbTake = new ClimbTake19();
         }
 
-        if (hardware == RobotType.raft){
+        if (hardware == RobotType.raft) {
             trackWidth = 26;
         }
 
@@ -201,6 +205,7 @@ public class Robot extends TimedRobot {
         camera.updateDashboard();
         camera.getDistance();
         navx.updateNavDashboard();
+        turret.addTurretSmartDashboard();
 
         if (!cameraPipelineSet) {
             camera.setPipeline(9);
