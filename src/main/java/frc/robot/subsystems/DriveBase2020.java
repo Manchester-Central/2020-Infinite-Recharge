@@ -34,40 +34,53 @@ import frc.robot.Robot.RobotType;
 /**
  *
  */
-public abstract class DriveBase extends SubsystemBase {
+public class DriveBase2020 extends DriveBase {
 
-
+    private Victor left1;
+    private Victor left2;
+    private Victor left3;
+    private WPI_TalonSRX left4 = null;
     private SpeedControllerGroup leftDrive;
+    private Victor right1;
+    private Victor right2;
+    private Victor right3;
+    private WPI_TalonSRX right4 = null;
     private SpeedControllerGroup rightDrive;
     public DifferentialDrive differentialDrive1;
     public DifferentialDriveOdometry odometer;
     private PIDController PIDRight;
     private PIDController PIDLeft;
+    private CANSparkMax leftSpark1;
+    private CANSparkMax leftSpark2;
+    private CANSparkMax rightSpark1;
+    private CANSparkMax rightSpark2;
+    private Robot.RobotType type;
+    private Encoder sim_encoder_l;
+    private Encoder sim_encoder_r;
     private double setpointLeft, setpointRight;
 
-    public DriveBase() {
-        setup();
+    public DriveBase2020() {     
+
+        leftSpark1 = new CANSparkMax(RobotConstants2020.DRIVE_LEFT_SPARKMAX_A, CANSparkMax.MotorType.kBrushless);
+        // addChild("Left1", leftSpark1);
+        leftSpark1.setInverted(false);
+
+        leftSpark2 = new CANSparkMax(RobotConstants2020.DRIVE_LEFT_SPARKMAX_B, CANSparkMax.MotorType.kBrushless);
+        // addChild("Left2", leftSpark2);
+        leftSpark2.setInverted(false);
+
+        rightSpark1 = new CANSparkMax(RobotConstants2020.DRIVE_RIGHT_SPARKMAX_A, CANSparkMax.MotorType.kBrushless);
+        // addChild("Right1", rightSpark1);
+        rightSpark1.setInverted(false);
+
+        rightSpark2 = new CANSparkMax(RobotConstants2020.DRIVE_RIGHT_SPARKMAX_B, CANSparkMax.MotorType.kBrushless);
+        // addChild("Right2", rightSpark2);
+        rightSpark2.setInverted(false);
+
+        leftDrive = new SpeedControllerGroup(leftSpark1, leftSpark2);
+		rightDrive = new SpeedControllerGroup(rightSpark1, rightSpark2);
 
     }
-
-    public void setup() {
-        leftDrive = getLeftDrive();
-        rightDrive = getRightDrive();
-        
-        addChild("LeftDrive", leftDrive);
-        addChild("RightDrive", rightDrive);
-        differentialDrive1 = new DifferentialDrive(leftDrive, rightDrive);
-        addChild("Differential Drive 1", differentialDrive1);
-        differentialDrive1.setSafetyEnabled(true);
-        differentialDrive1.setExpiration(0.1);
-        differentialDrive1.setMaxOutput(1.0);
-        double navxAngle = Robot.navx.getNavYaw();
-        odometer = new DifferentialDriveOdometry(Rotation2d.fromDegrees(navxAngle));
-    }
-    
-    protected abstract SpeedControllerGroup getLeftDrive();
-
-    protected abstract SpeedControllerGroup getRightDrive();
 
     private double encoderInches(WPI_TalonSRX driveInput) {
         if (driveInput == null) {

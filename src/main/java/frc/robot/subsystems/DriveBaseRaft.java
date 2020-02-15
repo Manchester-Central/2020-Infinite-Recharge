@@ -34,40 +34,58 @@ import frc.robot.Robot.RobotType;
 /**
  *
  */
-public abstract class DriveBase extends SubsystemBase {
+public class DriveBaseRaft extends DriveBase {
 
+    private Victor left1;
+    private Victor left2;
+    private Victor left3;
+    private WPI_TalonSRX left4 = null;
+    private Victor right1;
+    private Victor right2;
+    private Victor right3;
+    private WPI_TalonSRX right4 = null;
+   
 
-    private SpeedControllerGroup leftDrive;
-    private SpeedControllerGroup rightDrive;
-    public DifferentialDrive differentialDrive1;
-    public DifferentialDriveOdometry odometer;
-    private PIDController PIDRight;
-    private PIDController PIDLeft;
-    private double setpointLeft, setpointRight;
-
-    public DriveBase() {
-        setup();
-
-    }
-
-    public void setup() {
-        leftDrive = getLeftDrive();
-        rightDrive = getRightDrive();
+    public DriveBaseRaft() {
         
-        addChild("LeftDrive", leftDrive);
-        addChild("RightDrive", rightDrive);
-        differentialDrive1 = new DifferentialDrive(leftDrive, rightDrive);
-        addChild("Differential Drive 1", differentialDrive1);
-        differentialDrive1.setSafetyEnabled(true);
-        differentialDrive1.setExpiration(0.1);
-        differentialDrive1.setMaxOutput(1.0);
-        double navxAngle = Robot.navx.getNavYaw();
-        odometer = new DifferentialDriveOdometry(Rotation2d.fromDegrees(navxAngle));
-    }
-    
-    protected abstract SpeedControllerGroup getLeftDrive();
+        PIDRight = new PIDController(0.1, 0.01, 0.01);
+        PIDLeft = new PIDController(0.1, 0.01, 0.01);
 
-    protected abstract SpeedControllerGroup getRightDrive();
+        left1 = new Victor(RobotConstantsRaft.DRIVE_LEFT_VICTOR_A);
+        addChild("Left1", left1);
+        left1.setInverted(false);
+
+        left2 = new Victor(RobotConstantsRaft.DRIVE_LEFT_VICTOR_B);
+        addChild("Left2", left2);
+        left2.setInverted(false);
+
+        left3 = new Victor(RobotConstantsRaft.DRIVE_LEFT_VICTOR_C);
+        addChild("Left3", left3);
+        left3.setInverted(false);
+
+        left4 = new WPI_TalonSRX(RobotConstantsRaft.DRIVE_LEFT_TALONSRX);
+        addChild("Left4", left4);
+        left4.setInverted(false);
+
+        right1 = new Victor(RobotConstantsRaft.DRIVE_RIGHT_VICTOR_A);
+        addChild("Right1", right1);
+        right1.setInverted(false);
+
+        right2 = new Victor(RobotConstantsRaft.DRIVE_RIGHT_VICTOR_B);
+        addChild("Right2", right2);
+        right2.setInverted(false);
+
+        right3 = new Victor(RobotConstantsRaft.DRIVE_RIGHT_VICTOR_C);
+        addChild("Right3", right3);
+        right3.setInverted(false);
+
+        right4 = new WPI_TalonSRX(RobotConstantsRaft.DRIVE_RIGHT_TALONSRX);
+        addChild("Right4", right4);
+        right4.setInverted(false);
+
+        leftDrive = new SpeedControllerGroup(left1, left2, left3, left4);
+        rightDrive = new SpeedControllerGroup(right1, right2, right3, right4);
+    }
 
     private double encoderInches(WPI_TalonSRX driveInput) {
         if (driveInput == null) {
