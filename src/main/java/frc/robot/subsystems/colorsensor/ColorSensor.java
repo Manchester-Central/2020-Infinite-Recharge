@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.subsystems;
+package frc.robot.subsystems.colorsensor;
 
 import com.revrobotics.ColorMatch;
 import com.revrobotics.ColorMatchResult;
@@ -17,7 +17,7 @@ import edu.wpi.first.wpilibj.util.Color;
 /**
  * Add your docs here.
  */
-public class ColorSensor {
+public class ColorSensor implements IColorSensor {
 
   Color detectedColor;
   public final I2C.Port i2cPort = I2C.Port.kOnboard;

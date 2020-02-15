@@ -23,6 +23,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import frc.robot.auto.AutoBuilder;
 import frc.robot.subsystems.*;
 import frc.robot.subsystems.climbtake.*;
+import frc.robot.subsystems.colorsensor.*;
 import frc.robot.subsystems.flywheel.*;
 import frc.robot.subsystems.navx.*;
 import frc.robot.commands.drive.*;
@@ -44,7 +45,6 @@ public class Robot extends TimedRobot {
     public static Camera camera;
     Command autonomousCommand;
     SendableChooser<Command> chooser = new SendableChooser<>();
-    // ColorSensor detectedColor;
     AutoBuilder autoBuilder;
 
     private double trackWidth;
@@ -64,6 +64,7 @@ public class Robot extends TimedRobot {
     public static IClimbTake2020 climbTake;
     public static IFlywheel flywheel;
     public static Turret turret;
+    public static IColorSensor colorSensor;
 
     /**
      * This function is run when the robot is first started up and should be used
@@ -89,7 +90,6 @@ public class Robot extends TimedRobot {
         System.out.println("RobotType = " + hardware);
 
         camera = new Camera(34, 47, 2);
-        // detectedColor = new ColorSensor();
         // detectedColor.addColorMatch();
         autoBuilder = new AutoBuilder();
 
@@ -103,6 +103,7 @@ public class Robot extends TimedRobot {
             climbTake19 = new DummyClimbTake();
             flywheel = new Flywheel();
             navx = new NavX();
+            colorSensor = new DummyColorSensor();
         }
 
         if (hardware == RobotType.chaos2019) {
@@ -110,6 +111,7 @@ public class Robot extends TimedRobot {
             climbTake = new DummyClimbTake();
             flywheel = new DummyFlywheel();
             navx = new DummyNavX();
+            colorSensor = new DummyColorSensor();
         }
 
         if (hardware == RobotType.raft) {
@@ -118,6 +120,7 @@ public class Robot extends TimedRobot {
             navx = new DummyNavX();
             climbTake = new DummyClimbTake();
             climbTake19 = new DummyClimbTake();
+            colorSensor = new DummyColorSensor();
         }
 
         new DifferentialDriveKinematics(Units.inchesToMeters(trackWidth));
