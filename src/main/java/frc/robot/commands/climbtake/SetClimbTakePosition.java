@@ -5,14 +5,12 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.turret;
+package frc.robot.commands.climbtake;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Robot;
 
-public class ManualTurret extends CommandBase {
-  public ManualTurret() {
-    addRequirements(Robot.turret, Robot.flywheel);
+public class SetClimbTakePosition extends CommandBase {
+  public SetClimbTakePosition() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }
@@ -25,19 +23,12 @@ public class ManualTurret extends CommandBase {
   // Called repeatedly when this Command is scheduled to run
   @Override
   public void execute() {
-    Robot.turret.setXSpeedUnsafe(Robot.oi.getTurretPanTarget());
-    Robot.turret.setYSpeedUnsafe(Robot.oi.getTurretHoodTarget());
-    Robot.flywheel.setFlywheelTargetDirect(Robot.oi.getFlywheelTarget());
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   public boolean isFinished() {
     return false;
-  }
-
-  public boolean isDone() {
-    return true; 
   }
 
   // Called once after isFinished returns true or when interrupted

@@ -57,7 +57,8 @@ public class Robot extends TimedRobot {
     public static OI oi;
     public static DriveBase driveBase;
     public static Serializer serializer;
-    public static ClimbTake19 climbTake;
+    public static ClimbTake19 climbTake19;
+    public static ClimbTake2020 climbTake;
     public static Flywheel flywheel;
     public static Turret turret;
 
@@ -96,10 +97,11 @@ public class Robot extends TimedRobot {
 
         if (hardware == RobotType.chaos2020) {
             turret = new Turret(hardware);
+            climbTake = new ClimbTake2020();
         }
 
         if (hardware == RobotType.chaos2019) {
-            climbTake = new ClimbTake19();
+            climbTake19 = new ClimbTake19();
         }
 
         if (hardware == RobotType.raft) {

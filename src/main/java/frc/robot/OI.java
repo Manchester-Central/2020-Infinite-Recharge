@@ -72,6 +72,8 @@ public class OI {
         driver = new LogitechF310(0);
         operator = new LogitechF310(1);
 
+        /*
+
         driver.aButton.whileHeld(new Deadline(aim, flywheel).deadlineWith(aim, flywheel));
 
         // driver left - climbarm left
@@ -84,6 +86,12 @@ public class OI {
         driver.leftBumper.whileHeld(new NavXTurnRobot());
 
         driver.selectButton.whileHeld(new ResetNavX(driver.startButton));
+
+        */
+
+        driver.aButton.whileHeld(new SerializerDefault());
+
+        driver.yButton.whileHeld(new SerializerFeed());
 
         // TEST: Parallel Group test, delete after
         // TODO: commented out because DriveRunAfterReady removed
@@ -99,6 +107,7 @@ public class OI {
         // driver.leftTrigger.whenPressed(new SetPipeline());
         // driver.rightBumper.whileHeld(new SerializerFeed());
 
+        /* TODO: remove this comment
 
         // operator up - move arm up to climb + extend
         operator.dPadUp.whenPressed(new SetClimber());
@@ -118,9 +127,6 @@ public class OI {
         // op b - reverse intake
         operator.bButton.whenPressed(new SetIntake(-0.5));
 
-        // op x - turret to 1pt pos
-        operator.xButton.whenPressed(new SetTurretTilt(0.0));
-
         // op y - turret to 2pt pos
         operator.yButton.whenPressed(new SetTurretTilt(75.0));
 
@@ -135,12 +141,16 @@ public class OI {
 
         // op rightTrig - shoot (hold)
         operator.rightTrigger.whileHeld(new Shoot(true));
-
+        
         // op select - colorwheel spin to amt
         operator.selectButton.whenPressed(new MoveColorWheelAmt());
 
         // op start - colorwheel spin to color
-        operator.startButton.whenPressed(new MoveColorWheelToColor());
+        operator.startButton.whenPressed(new MoveColorWheelToColor()); 
+
+        TODO: and this one */
+
+        operator.xButton.whileHeld(new SetExtensionPosition());
 
         // operator.leftBumper.whileHeld(new NavXTurnRobot());
         // operator.xButton.whenPressed(new ResetNavX());
@@ -150,6 +160,7 @@ public class OI {
 
         Robot.driveBase.setDefaultCommand(new TankDrive());
         Robot.turret.setDefaultCommand(new ManualTurret());
+        // Robot.serializer.setDefaultCommand(new SerializerDefault());
     }
 
     public double getRobotTargetAngle() {
@@ -165,6 +176,10 @@ public class OI {
     }
 
     public double getFlywheelTarget() {
+        return operator.getRightY();
+    }
+
+    public double getExtensionTarget() {
         return operator.getRightY();
     }
 

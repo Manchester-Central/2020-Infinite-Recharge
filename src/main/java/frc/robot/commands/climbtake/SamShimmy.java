@@ -9,8 +9,8 @@ package frc.robot.commands.climbtake;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class MoveClimbtake extends CommandBase {
-  public MoveClimbtake(double speed) {
+public class SamShimmy extends CommandBase {
+  public SamShimmy(double speed) {
     // speed = direction of motor
 
     // Use requires() here to declare subsystem dependencies

@@ -8,9 +8,11 @@
 package frc.robot.commands.climbtake;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Robot;
 
-public class SetClimber extends CommandBase {
-  public SetClimber() {
+public class SetExtensionPosition extends CommandBase {
+  public SetExtensionPosition() {
+    addRequirements(Robot.climbTake19, Robot.flywheel);
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }
@@ -18,11 +20,13 @@ public class SetClimber extends CommandBase {
   // Called just before this Command runs the first time
   @Override
   public void initialize() {
+    Robot.flywheel.setFlywheelTargetDirect(0);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   public void execute() {
+    Robot.climbTake.setExtensionPositionUNSAFE(Robot.oi.getExtensionTarget());
   }
 
   // Make this return true when this Command no longer needs to run execute()

@@ -10,10 +10,10 @@
 | Down | |
 | Left | Move on climbarm left |
 | Right | Move on climbarm right |
-| A | |
+| A | Serializer slow (testing) |
 | B | |
 | X | |
-| Y | |
+| Y | Serializer fast w/ ejector(testing)|
 | LB | NavX mode (right joystick turn, left joystick straight forward/backward) |
 | LT | |
 | RB | Slow drive speed |
@@ -23,15 +23,15 @@
 
 | Control | Action |
 | --- | --- | 
-| Left Analog Stick  |  |
-| Right Analog Stick |  |
+| Left Analog Stick  | Manual turret (testing) |
+| Right Analog Stick | Manual flywheel (testing) |
 | Up | Move arm up to climb position + extend climber arm |
 | Down | Move arm up to climb position + retract climber arm |
 | Left | Move arm to intake position |
 | Right | Move arm to colorwheel position?!?!?!?  |
 | A | Forward direction intake |
 | B | Reverse direction intake |
-| X | Move turret to 1pt position (manual) |
+| X | Activates climber mode for testing(gives right analog stick direct motor control) |
 | Y | Move turret to 2pt position (manual) | 
 | LB | Hold to toggle on auto turret |
 | LT | Shoot once (override aim) |

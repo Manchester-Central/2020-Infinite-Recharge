@@ -29,8 +29,8 @@ public class AimClimbtake extends CommandBase {
   public void execute() {
     if (Robot.camera.hasTarget()) {
       targetAngle = Robot.camera.getYAngle();
-      Robot.climbTake.setTargetAngle(targetAngle + offset);
-      Robot.climbTake.PIDDrive();
+      Robot.climbTake19.setTargetAngle(targetAngle + offset);
+      Robot.climbTake19.PIDDrive();
     }
   }
 

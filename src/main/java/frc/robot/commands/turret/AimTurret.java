@@ -37,7 +37,7 @@ public class AimTurret extends DoneCommand {
       Robot.flywheel.setTargetSpeed(tableTargetSpeed);
 
       targetAngleX = Robot.camera.getXAngle();
-      Robot.turret.setXTarget(turretAngleX);
+      Robot.turret.setXTarget(targetAngleX);
       Robot.turret.PIDDrive();
     }
   }
