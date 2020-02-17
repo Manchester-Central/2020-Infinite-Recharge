@@ -8,7 +8,7 @@
 // update. Deleting the comments indicating the section will prevent
 // it from being updated in the future.
 
-package frc.robot.subsystems;
+package frc.robot.subsystems.drivebase;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.CANSparkMax;
@@ -94,22 +94,17 @@ public class DriveBase2019 extends DriveBase {
         return counts * ratio;
     }
 
-    private double encoderInches(CANSparkMax driveInput) {
+    public double encoderInches(CANSparkMax driveInput) {
         if (driveInput == null) {
             return 0;
         }
         double wheelDiameter = 4.0;
         double gearRatio = (double) 1 / 1; // ratio of the axel the wheel lies on to the axel the encoder reads
-        if (type == Robot.RobotType.chaos2019)
-        {
-            wheelDiameter = 4.0;
-            gearRatio = (double) 60 / 8.62;
-        }
-        if (type == Robot.RobotType.chaos2020)
-        {
-            wheelDiameter = 4.0;
-            gearRatio = (double) 1 / 1;
-        }
+
+        // specific to 2019 robot
+        wheelDiameter = 4.0;
+        gearRatio = (double) 60 / 8.62;
+
         int ticksPerRev = 42; // amount of ticks in one revolution of the encoder axel
         double counts = driveInput.getEncoder().getPosition();
         double ratio = (gearRatio * wheelDiameter * Math.PI) / ticksPerRev;
@@ -141,35 +136,11 @@ public class DriveBase2019 extends DriveBase {
     }
 
     public double getRightPosition() {
-        if (type == Robot.RobotType.raft) {
-            return encoderInches(right4);
-        }
-        if (type == Robot.RobotType.chaos2019) {
-            return -encoderInches(rightSpark1);
-        }
-        if (type == Robot.RobotType.chaos2020) {
-            return encoderInches(rightSpark1);
-        }
-        if (type == Robot.RobotType.simulator) {
-            return sim_encoder_r.get();
-        }                 
-        return 0;
+        return -encoderInches(rightSpark1);
     }
 
     public double getLeftPosition() {
-        if (type == Robot.RobotType.raft) {
-            return -encoderInches(left4);
-        }
-        if (type == Robot.RobotType.chaos2019) {
-            return encoderInches(leftSpark1); // inverted for consistency with robot direction
-        }
-        if (type == Robot.RobotType.chaos2020) {
-            return -encoderInches(leftSpark1);
-        } 
-        if (type == Robot.RobotType.simulator) {
-            return sim_encoder_l.get();
-        }         
-        return 0;
+        return encoderInches(leftSpark1); // inverted for consistency with robot direction
     }
 
     public void PIDDrive() {
@@ -229,14 +200,8 @@ public class DriveBase2019 extends DriveBase {
     }
 
     public void resetOdometry(){
-        if(type == RobotType.raft){
-            left4.getSensorCollection().setQuadraturePosition(0, 0);
-            right4.getSensorCollection().setQuadraturePosition(0, 0);
-        }
-        if(type == RobotType.chaos2019 || type == RobotType.chaos2020){
-            leftSpark1.getEncoder().setPosition(0);
-            rightSpark1.getEncoder().setPosition(0);
-        }
+        leftSpark1.getEncoder().setPosition(0);
+        rightSpark1.getEncoder().setPosition(0);
 
         double navxAngle = Robot.navx.getNavYaw();
         Rotation2d rotation = Rotation2d.fromDegrees(navxAngle);
@@ -248,14 +213,8 @@ public class DriveBase2019 extends DriveBase {
     }
 
     public DifferentialDriveWheelSpeeds getWheelSpeeds() {
-        if (type == RobotType.raft)
-            return new DifferentialDriveWheelSpeeds(left4.getSensorCollection().getQuadratureVelocity(),
-                    right4.getSensorCollection().getQuadratureVelocity());
-        else if (type == RobotType.chaos2019 || type == RobotType.chaos2020) {
         return new DifferentialDriveWheelSpeeds(left4.getSensorCollection().getQuadratureVelocity(),
                 right4.getSensorCollection().getQuadratureVelocity()); // TODO: separate and clean up
-        }
-        return null;
     }
 
     @Override
@@ -275,6 +234,16 @@ public class DriveBase2019 extends DriveBase {
 
         SmartDashboard.putNumber("Odometer x", translation.getX());
         SmartDashboard.putNumber("Odometer y", translation.getY());
+    }
+
+    @Override
+    public SpeedControllerGroup getLeftDrive() {
+        return new SpeedControllerGroup(left1, left2, left3, left4);
+    }
+
+    @Override
+    public SpeedControllerGroup getRightDrive() {
+        return new SpeedControllerGroup(right1, right2, right3, right4);
     }
 
     // Put methods for controlling this subsystem

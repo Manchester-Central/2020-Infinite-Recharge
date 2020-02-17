@@ -8,7 +8,7 @@
 // update. Deleting the comments indicating the section will prevent
 // it from being updated in the future.
 
-package frc.robot.subsystems;
+package frc.robot.subsystems.drivebase;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.CANSparkMax;
@@ -37,13 +37,13 @@ import frc.robot.Robot.RobotType;
 public abstract class DriveBase extends SubsystemBase {
 
 
-    private SpeedControllerGroup leftDrive;
-    private SpeedControllerGroup rightDrive;
+    protected SpeedControllerGroup leftDrive;
+    protected SpeedControllerGroup rightDrive;
     public DifferentialDrive differentialDrive1;
     public DifferentialDriveOdometry odometer;
-    private PIDController PIDRight;
-    private PIDController PIDLeft;
-    private double setpointLeft, setpointRight;
+    protected PIDController PIDRight; // TODO: should these be protected? (originally private)
+    protected PIDController PIDLeft;
+    protected double setpointLeft, setpointRight;
 
     public DriveBase() {
         setup();
@@ -65,9 +65,9 @@ public abstract class DriveBase extends SubsystemBase {
         odometer = new DifferentialDriveOdometry(Rotation2d.fromDegrees(navxAngle));
     }
     
-    protected abstract SpeedControllerGroup getLeftDrive();
+    public abstract SpeedControllerGroup getLeftDrive();
 
-    protected abstract SpeedControllerGroup getRightDrive();
+    public abstract SpeedControllerGroup getRightDrive();
 
     private double encoderInches(WPI_TalonSRX driveInput) {
         if (driveInput == null) {
@@ -81,27 +81,7 @@ public abstract class DriveBase extends SubsystemBase {
         return counts * ratio;
     }
 
-    private double encoderInches(CANSparkMax driveInput) {
-        if (driveInput == null) {
-            return 0;
-        }
-        double wheelDiameter = 4.0;
-        double gearRatio = (double) 1 / 1; // ratio of the axel the wheel lies on to the axel the encoder reads
-        if (type == Robot.RobotType.chaos2019)
-        {
-            wheelDiameter = 4.0;
-            gearRatio = (double) 60 / 8.62;
-        }
-        if (type == Robot.RobotType.chaos2020)
-        {
-            wheelDiameter = 4.0;
-            gearRatio = (double) 1 / 1;
-        }
-        int ticksPerRev = 42; // amount of ticks in one revolution of the encoder axel
-        double counts = driveInput.getEncoder().getPosition();
-        double ratio = (gearRatio * wheelDiameter * Math.PI) / ticksPerRev;
-        return counts * ratio;
-    }
+    public abstract double encoderInches(CANSparkMax driveInput);
 
     public double speedToVolts(double speed){
         double volts = 12;
@@ -127,37 +107,9 @@ public abstract class DriveBase extends SubsystemBase {
 
     }
 
-    public double getRightPosition() {
-        if (type == Robot.RobotType.raft) {
-            return encoderInches(right4);
-        }
-        if (type == Robot.RobotType.chaos2019) {
-            return -encoderInches(rightSpark1);
-        }
-        if (type == Robot.RobotType.chaos2020) {
-            return encoderInches(rightSpark1);
-        }
-        if (type == Robot.RobotType.simulator) {
-            return sim_encoder_r.get();
-        }                 
-        return 0;
-    }
+    public abstract double getRightPosition();
 
-    public double getLeftPosition() {
-        if (type == Robot.RobotType.raft) {
-            return -encoderInches(left4);
-        }
-        if (type == Robot.RobotType.chaos2019) {
-            return encoderInches(leftSpark1); // inverted for consistency with robot direction
-        }
-        if (type == Robot.RobotType.chaos2020) {
-            return -encoderInches(leftSpark1);
-        } 
-        if (type == Robot.RobotType.simulator) {
-            return sim_encoder_l.get();
-        }         
-        return 0;
-    }
+    public abstract double getLeftPosition();
 
     public void PIDDrive() {
         double maxSpeed = 0.7;
@@ -215,35 +167,13 @@ public abstract class DriveBase extends SubsystemBase {
         return (setpointLeft < Robot.driveBase.getLeftPosition() + error) && (setpointLeft > Robot.driveBase.getLeftPosition() - error);
     }
 
-    public void resetOdometry(){
-        if(type == RobotType.raft){
-            left4.getSensorCollection().setQuadraturePosition(0, 0);
-            right4.getSensorCollection().setQuadraturePosition(0, 0);
-        }
-        if(type == RobotType.chaos2019 || type == RobotType.chaos2020){
-            leftSpark1.getEncoder().setPosition(0);
-            rightSpark1.getEncoder().setPosition(0);
-        }
-
-        double navxAngle = Robot.navx.getNavYaw();
-        Rotation2d rotation = Rotation2d.fromDegrees(navxAngle);
-        odometer.resetPosition(new Pose2d(0, 0, rotation), rotation);
-    }
+    public abstract void resetOdometry();
 
     public Pose2d getPose() {
         return odometer.getPoseMeters();
     }
 
-    public DifferentialDriveWheelSpeeds getWheelSpeeds() {
-        if (type == RobotType.raft)
-            return new DifferentialDriveWheelSpeeds(left4.getSensorCollection().getQuadratureVelocity(),
-                    right4.getSensorCollection().getQuadratureVelocity());
-        else if (type == RobotType.chaos2019 || type == RobotType.chaos2020) {
-        return new DifferentialDriveWheelSpeeds(left4.getSensorCollection().getQuadratureVelocity(),
-                right4.getSensorCollection().getQuadratureVelocity()); // TODO: separate and clean up
-        }
-        return null;
-    }
+    public abstract DifferentialDriveWheelSpeeds getWheelSpeeds();
 
     @Override
     public void periodic() {

@@ -8,7 +8,7 @@
 // update. Deleting the comments indicating the section will prevent
 // it from being updated in the future.
 
-package frc.robot.subsystems;
+package frc.robot.subsystems.drivebase;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.CANSparkMax;
@@ -34,52 +34,57 @@ import frc.robot.Robot.RobotType;
 /**
  *
  */
-public class DriveBase2020 extends DriveBase {
+public class DriveBaseRaft extends DriveBase {
 
     private Victor left1;
     private Victor left2;
     private Victor left3;
     private WPI_TalonSRX left4 = null;
-    private SpeedControllerGroup leftDrive;
     private Victor right1;
     private Victor right2;
     private Victor right3;
     private WPI_TalonSRX right4 = null;
-    private SpeedControllerGroup rightDrive;
-    public DifferentialDrive differentialDrive1;
-    public DifferentialDriveOdometry odometer;
-    private PIDController PIDRight;
-    private PIDController PIDLeft;
-    private CANSparkMax leftSpark1;
-    private CANSparkMax leftSpark2;
-    private CANSparkMax rightSpark1;
-    private CANSparkMax rightSpark2;
-    private Robot.RobotType type;
-    private Encoder sim_encoder_l;
-    private Encoder sim_encoder_r;
-    private double setpointLeft, setpointRight;
+   
 
-    public DriveBase2020() {     
+    public DriveBaseRaft() {
+        
+        PIDRight = new PIDController(0.1, 0.01, 0.01);
+        PIDLeft = new PIDController(0.1, 0.01, 0.01);
 
-        leftSpark1 = new CANSparkMax(RobotConstants2020.DRIVE_LEFT_SPARKMAX_A, CANSparkMax.MotorType.kBrushless);
-        // addChild("Left1", leftSpark1);
-        leftSpark1.setInverted(false);
+        left1 = new Victor(RobotConstantsRaft.DRIVE_LEFT_VICTOR_A);
+        addChild("Left1", left1);
+        left1.setInverted(false);
 
-        leftSpark2 = new CANSparkMax(RobotConstants2020.DRIVE_LEFT_SPARKMAX_B, CANSparkMax.MotorType.kBrushless);
-        // addChild("Left2", leftSpark2);
-        leftSpark2.setInverted(false);
+        left2 = new Victor(RobotConstantsRaft.DRIVE_LEFT_VICTOR_B);
+        addChild("Left2", left2);
+        left2.setInverted(false);
 
-        rightSpark1 = new CANSparkMax(RobotConstants2020.DRIVE_RIGHT_SPARKMAX_A, CANSparkMax.MotorType.kBrushless);
-        // addChild("Right1", rightSpark1);
-        rightSpark1.setInverted(false);
+        left3 = new Victor(RobotConstantsRaft.DRIVE_LEFT_VICTOR_C);
+        addChild("Left3", left3);
+        left3.setInverted(false);
 
-        rightSpark2 = new CANSparkMax(RobotConstants2020.DRIVE_RIGHT_SPARKMAX_B, CANSparkMax.MotorType.kBrushless);
-        // addChild("Right2", rightSpark2);
-        rightSpark2.setInverted(false);
+        left4 = new WPI_TalonSRX(RobotConstantsRaft.DRIVE_LEFT_TALONSRX);
+        addChild("Left4", left4);
+        left4.setInverted(false);
 
-        leftDrive = new SpeedControllerGroup(leftSpark1, leftSpark2);
-		rightDrive = new SpeedControllerGroup(rightSpark1, rightSpark2);
+        right1 = new Victor(RobotConstantsRaft.DRIVE_RIGHT_VICTOR_A);
+        addChild("Right1", right1);
+        right1.setInverted(false);
 
+        right2 = new Victor(RobotConstantsRaft.DRIVE_RIGHT_VICTOR_B);
+        addChild("Right2", right2);
+        right2.setInverted(false);
+
+        right3 = new Victor(RobotConstantsRaft.DRIVE_RIGHT_VICTOR_C);
+        addChild("Right3", right3);
+        right3.setInverted(false);
+
+        right4 = new WPI_TalonSRX(RobotConstantsRaft.DRIVE_RIGHT_TALONSRX);
+        addChild("Right4", right4);
+        right4.setInverted(false);
+
+        leftDrive = new SpeedControllerGroup(left1, left2, left3, left4);
+        rightDrive = new SpeedControllerGroup(right1, right2, right3, right4);
     }
 
     private double encoderInches(WPI_TalonSRX driveInput) {
@@ -94,22 +99,13 @@ public class DriveBase2020 extends DriveBase {
         return counts * ratio;
     }
 
-    private double encoderInches(CANSparkMax driveInput) {
+    public double encoderInches(CANSparkMax driveInput) {
         if (driveInput == null) {
             return 0;
         }
         double wheelDiameter = 4.0;
         double gearRatio = (double) 1 / 1; // ratio of the axel the wheel lies on to the axel the encoder reads
-        if (type == Robot.RobotType.chaos2019)
-        {
-            wheelDiameter = 4.0;
-            gearRatio = (double) 60 / 8.62;
-        }
-        if (type == Robot.RobotType.chaos2020)
-        {
-            wheelDiameter = 4.0;
-            gearRatio = (double) 1 / 1;
-        }
+
         int ticksPerRev = 42; // amount of ticks in one revolution of the encoder axel
         double counts = driveInput.getEncoder().getPosition();
         double ratio = (gearRatio * wheelDiameter * Math.PI) / ticksPerRev;
@@ -141,35 +137,11 @@ public class DriveBase2020 extends DriveBase {
     }
 
     public double getRightPosition() {
-        if (type == Robot.RobotType.raft) {
-            return encoderInches(right4);
-        }
-        if (type == Robot.RobotType.chaos2019) {
-            return -encoderInches(rightSpark1);
-        }
-        if (type == Robot.RobotType.chaos2020) {
-            return encoderInches(rightSpark1);
-        }
-        if (type == Robot.RobotType.simulator) {
-            return sim_encoder_r.get();
-        }                 
-        return 0;
+        return encoderInches(right4);
     }
 
     public double getLeftPosition() {
-        if (type == Robot.RobotType.raft) {
-            return -encoderInches(left4);
-        }
-        if (type == Robot.RobotType.chaos2019) {
-            return encoderInches(leftSpark1); // inverted for consistency with robot direction
-        }
-        if (type == Robot.RobotType.chaos2020) {
-            return -encoderInches(leftSpark1);
-        } 
-        if (type == Robot.RobotType.simulator) {
-            return sim_encoder_l.get();
-        }         
-        return 0;
+        return -encoderInches(left4);
     }
 
     public void PIDDrive() {
@@ -229,14 +201,8 @@ public class DriveBase2020 extends DriveBase {
     }
 
     public void resetOdometry(){
-        if(type == RobotType.raft){
-            left4.getSensorCollection().setQuadraturePosition(0, 0);
-            right4.getSensorCollection().setQuadraturePosition(0, 0);
-        }
-        if(type == RobotType.chaos2019 || type == RobotType.chaos2020){
-            leftSpark1.getEncoder().setPosition(0);
-            rightSpark1.getEncoder().setPosition(0);
-        }
+        left4.getSensorCollection().setQuadraturePosition(0, 0);
+        right4.getSensorCollection().setQuadraturePosition(0, 0);
 
         double navxAngle = Robot.navx.getNavYaw();
         Rotation2d rotation = Rotation2d.fromDegrees(navxAngle);
@@ -248,14 +214,8 @@ public class DriveBase2020 extends DriveBase {
     }
 
     public DifferentialDriveWheelSpeeds getWheelSpeeds() {
-        if (type == RobotType.raft)
-            return new DifferentialDriveWheelSpeeds(left4.getSensorCollection().getQuadratureVelocity(),
-                    right4.getSensorCollection().getQuadratureVelocity());
-        else if (type == RobotType.chaos2019 || type == RobotType.chaos2020) {
         return new DifferentialDriveWheelSpeeds(left4.getSensorCollection().getQuadratureVelocity(),
-                right4.getSensorCollection().getQuadratureVelocity()); // TODO: separate and clean up
-        }
-        return null;
+                right4.getSensorCollection().getQuadratureVelocity());
     }
 
     @Override
@@ -275,6 +235,16 @@ public class DriveBase2020 extends DriveBase {
 
         SmartDashboard.putNumber("Odometer x", translation.getX());
         SmartDashboard.putNumber("Odometer y", translation.getY());
+    }
+
+    @Override
+    public SpeedControllerGroup getLeftDrive() {
+        return new SpeedControllerGroup(left1, left2, left3, left4);
+    }
+
+    @Override
+    public SpeedControllerGroup getRightDrive() {
+        return new SpeedControllerGroup(right1, right2, right3, right4);
     }
 
     // Put methods for controlling this subsystem
