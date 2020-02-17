@@ -14,8 +14,8 @@ public class RobotConstants2020 {
     public final static int CLIMB_SPARKMAX = 7; // CAN
     public final static int ARM_SPARKMAX = 8; // CAN
 
-    public final static int TURRET_PAN = 9; // CAN TODO: change
-    public final static int TURRET_HOOD = 10; // CAN TODO: change
+    public final static int TURRET_PAN = 9; // CAN
+    public final static int TURRET_HOOD = 10; // CAN
     
     public final static int FLYWHEELA_SPARKMAX = 11; // CAN, left, closest to "Lime"
     public final static int FLYWHEELB_SPARKMAX = 12; // CAN, right, closest to "Light"

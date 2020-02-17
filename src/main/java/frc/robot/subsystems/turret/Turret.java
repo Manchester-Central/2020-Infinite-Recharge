@@ -22,10 +22,10 @@ import com.revrobotics.CANSparkMax;
 /**
  * Add your docs here.
  */
-public class Turret extends SubsystemBase {
+public class Turret extends SubsystemBase implements ITurret {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-  public Turret(Robot.RobotType robotType) {
+  public Turret() {
     xP = 0;
     xI = 0;
     xD = 0;
@@ -43,9 +43,6 @@ public class Turret extends SubsystemBase {
     int channelX = RobotConstants2020.ANGLE_POT_X; // TODO: CHANGE!!!!!!!!!!!!!!!!!!!!
     int channelY = RobotConstants2020.ANGLE_POT_Y; // TODO: CHANGE!!!!!!!!!!!!!!!!!!!!
 
-    anglePotX = new AnalogPotentiometer(channelX, slopeX, interceptX);
-    anglePotY = new AnalogPotentiometer(channelY, slopeY, interceptY);
-
     speedControllerX = new WPI_TalonSRX(RobotConstants2020.TURRET_PAN);
     speedControllerY = new WPI_TalonSRX(RobotConstants2020.TURRET_HOOD);
 
@@ -59,7 +56,6 @@ public class Turret extends SubsystemBase {
   private double minAngleX, minAngleY, maxAngleX, maxAngleY;
   private double slopeX, slopeY, interceptX, interceptY;
   PIDController pidX, pidY;
-  AnalogPotentiometer anglePotX, anglePotY;
   WPI_TalonSRX speedControllerX, speedControllerY;
 
   private double turretXDegrees(CANSparkMax input) {
@@ -70,7 +66,8 @@ public class Turret extends SubsystemBase {
   }
 
   public double getXPosition() {
-    return anglePotX.get(); // make sure the slope and intercept are accounted for
+    // make sure the slope and intercept are accounted for
+    return speedControllerX.getSensorCollection().getAnalogIn();
   }
 
   public void setXTarget(double target) {
@@ -87,15 +84,15 @@ public class Turret extends SubsystemBase {
     speedControllerX.set(speed);
   }
 
-  public void setXSpeedUnsafe(double speed) {
+  public void setXSpeedUnsafe(double speed) { // pan
     speedControllerX.set(speed); // DANGER!!
   }
 
-  public void setYSpeedUnsafe(double speed) {
+  public void setYSpeedUnsafe(double speed) { // tilt
     speedControllerY.set(speed); // DANGER!!
   }
 
-  private void PIDDriveX() {
+  private void PIDDriveX() { // pan
     double maxSpeed = 0.4;
     double speed = pidX.calculate(getXPosition());
     setXSpeed(speed * maxSpeed);
@@ -113,7 +110,7 @@ public class Turret extends SubsystemBase {
   }
 
   public double getHoodAngle() {
-    return anglePotY.get();
+    return speedControllerY.getSensorCollection().getAnalogIn();
   }
 
   public void setHoodTargetAngle(double angle) {
@@ -121,7 +118,7 @@ public class Turret extends SubsystemBase {
     pidY.setSetpoint(mathAngle);
   }
 
-  public void PIDDriveY() {
+  public void PIDDriveY() { // tilt
     double maxSpeed = 0.4;
     double speed = pidY.calculate(getHoodAngle());
     setHoodSpeed(speed * maxSpeed);

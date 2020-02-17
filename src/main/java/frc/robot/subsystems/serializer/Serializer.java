@@ -38,26 +38,14 @@ public class Serializer extends SubsystemBase implements ISerializer{
   private final double FAST_SPEED = 1500;
   private final double SLOW_SPEED = 500;
 
-  public Serializer(Robot.RobotType robotType) {
-    type = robotType;
-
-    if (type == Robot.RobotType.raft) {
-      return ;
-      // turnTable = new CANSparkMax(RobotConstantsRaft.TURN_TABLE_SPARKMAX, MotorType.kBrushless);
-    }
-    if (type == Robot.RobotType.chaos2019) {
-      // turnTable = new CANSparkMax(RobotConstants2019.TURN_TABLE_SPARKMAX,
-      // CANSparkMax.MotorType.kBrushless);
-      return;
-    }
-    if (type == Robot.RobotType.chaos2020) {
-      turnTable = new CANSparkMax(RobotConstants2020.TURN_TABLE_SPARKMAX, CANSparkMax.MotorType.kBrushless);
-      turnTable.setInverted(true);
-      m_encoder = turnTable.getEncoder();
-      m_encoder.setInverted(true);
-      ejector = new CANSparkMax(RobotConstants2020.EJECTER_SPARKMAX, MotorType.kBrushless);
-      ejector.setInverted(true);
-    }
+  public Serializer() {
+    turnTable = new CANSparkMax(RobotConstants2020.TURN_TABLE_SPARKMAX, CANSparkMax.MotorType.kBrushless);
+    turnTable.setInverted(true);
+    m_encoder = turnTable.getEncoder();
+    m_encoder.setInverted(true);
+    ejector = new CANSparkMax(RobotConstants2020.EJECTER_SPARKMAX, MotorType.kBrushless);
+    ejector.setInverted(true);
+    
     /**
      * The RestoreFactoryDefaults method can be used to reset the configuration
      * parameters in the SPARK MAX to their factory default state. If no argument is
