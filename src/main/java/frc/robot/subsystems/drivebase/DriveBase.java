@@ -50,7 +50,7 @@ public abstract class DriveBase extends SubsystemBase {
 
     }
 
-    public void setup() {
+    protected void setup() {
         leftDrive = getLeftDrive();
         rightDrive = getRightDrive();
         

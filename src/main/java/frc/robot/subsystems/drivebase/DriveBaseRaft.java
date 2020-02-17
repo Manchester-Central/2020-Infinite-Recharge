@@ -46,7 +46,9 @@ public class DriveBaseRaft extends DriveBase {
     private WPI_TalonSRX right4 = null;
    
 
-    public DriveBaseRaft() {
+    public DriveBaseRaft() { }
+
+    protected void setup() {
         
         PIDRight = new PIDController(0.1, 0.01, 0.01);
         PIDLeft = new PIDController(0.1, 0.01, 0.01);
@@ -85,6 +87,8 @@ public class DriveBaseRaft extends DriveBase {
 
         leftDrive = new SpeedControllerGroup(left1, left2, left3, left4);
         rightDrive = new SpeedControllerGroup(right1, right2, right3, right4);
+
+        super.setup();
     }
 
     private double encoderInches(WPI_TalonSRX driveInput) {

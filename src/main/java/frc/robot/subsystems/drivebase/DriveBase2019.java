@@ -59,7 +59,9 @@ public class DriveBase2019 extends DriveBase {
     private Encoder sim_encoder_r;
     private double setpointLeft, setpointRight;
 
-    public DriveBase2019() {
+    public DriveBase2019() { }
+
+    protected void setup() {
 
         leftSpark1 = new CANSparkMax(RobotConstants2019.DRIVE_LEFT_SPARKMAX_A, CANSparkMax.MotorType.kBrushless);
         // addChild("Left1", leftSpark1);
@@ -79,6 +81,8 @@ public class DriveBase2019 extends DriveBase {
 
         leftDrive = new SpeedControllerGroup(leftSpark1, leftSpark2);
         rightDrive = new SpeedControllerGroup(rightSpark1, rightSpark2);
+
+        super.setup();
 
     }
 
