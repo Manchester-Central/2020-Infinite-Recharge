@@ -17,18 +17,46 @@ public class ManualTurret extends CommandBase {
     // eg. requires(chassis);
   }
 
+  double minAngleX;
+  double maxAngleX;
+  double minAngleY;
+  double maxAngleY;
+  double speedX, speedY;
+
   // Called just before this Command runs the first time
   @Override
   public void initialize() {
+    minAngleX = 0;
+    maxAngleX = 0;
+    minAngleY = 0;
+    maxAngleY = 0;
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   public void execute() {
-    Robot.turret.setXSpeedUnsafe(Robot.oi.getTurretPanTarget());
-    Robot.turret.setYSpeedUnsafe(Robot.oi.getTurretHoodTarget());
+  
+    speedX = Robot.oi.getTurretPanTarget();
+    speedY = Robot.oi.getTurretHoodTarget();
+
+    if (Robot.turret.getXPosition() < minAngleX && speedX < 0) {
+      speedX = 0;
+    }
+    if (Robot.turret.getXPosition() > maxAngleX && speedX > 0) {
+      speedX = 0;
+    }
+    Robot.turret.setXSpeedUnsafe(speedX);
+
+    if (Robot.turret.getHoodAngle() < minAngleY && speedY < 0) {
+      speedY = 0;
+    }
+    if (Robot.turret.getHoodAngle() > maxAngleY && speedY > 0) {
+      speedY = 0;
+    }
+    Robot.turret.setYSpeedUnsafe(speedY);
+
     Robot.flywheel.setFlywheelTargetDirect(Robot.oi.getFlywheelTarget());
-  }
+    }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override

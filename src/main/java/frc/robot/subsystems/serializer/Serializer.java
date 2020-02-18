@@ -40,11 +40,11 @@ public class Serializer extends SubsystemBase implements ISerializer{
 
   public Serializer() {
     turnTable = new CANSparkMax(RobotConstants2020.TURN_TABLE_SPARKMAX, CANSparkMax.MotorType.kBrushless);
-    turnTable.setInverted(true);
+    // turnTable.setInverted(true);
     m_encoder = turnTable.getEncoder();
-    m_encoder.setInverted(true);
+    // m_encoder.setInverted(true);
     ejector = new CANSparkMax(RobotConstants2020.EJECTER_SPARKMAX, MotorType.kBrushless);
-    ejector.setInverted(true);
+    // ejector.setInverted(true);
     
     /**
      * The RestoreFactoryDefaults method can be used to reset the configuration

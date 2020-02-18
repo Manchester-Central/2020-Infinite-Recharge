@@ -85,11 +85,16 @@ public class Turret extends SubsystemBase implements ITurret {
   }
 
   public void setXSpeedUnsafe(double speed) { // pan
-    speedControllerX.set(speed); // DANGER!!
+    double multiplier = 0.05;
+
+    speedControllerX.set(speed * multiplier); // DANGER!!
+    SmartDashboard.putNumber("Pan (X) speed joystick", speed);
   }
 
   public void setYSpeedUnsafe(double speed) { // tilt
-    speedControllerY.set(speed); // DANGER!!
+    double multiplier = 0.5;
+    speedControllerY.set(speed * multiplier); // DANGER!!
+    SmartDashboard.putNumber("Tilt (Y) speed joystick", speed);
   }
 
   private void PIDDriveX() { // pan
@@ -126,8 +131,8 @@ public class Turret extends SubsystemBase implements ITurret {
   }
 
   public void addTurretSmartDashboard(){
-    SmartDashboard.putNumber("Y Potentiometer", getHoodAngle());
-    SmartDashboard.putNumber("X Potentiometer", getXPosition());
+    SmartDashboard.putNumber("Y Potentiometer, tilt", getHoodAngle());
+    SmartDashboard.putNumber("X Potentiometer, pan", getXPosition());
   }
 
   public void PIDDrive() {

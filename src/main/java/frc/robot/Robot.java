@@ -25,6 +25,7 @@ import edu.wpi.first.wpilibj.util.Units;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.auto.AutoBuilder;
+import frc.robot.auto.commands.NullCommand;
 import frc.robot.commands.drive.DriveSquare;
 import frc.robot.subsystems.drivebase.*;
 import frc.robot.subsystems.camera.*;
@@ -78,17 +79,19 @@ public class Robot extends TimedRobot {
 
         String macAddress = getMACAddress();
 
-        if (macAddress.equals(RobotConstantsRaft.MAC_ADDRESS)) {
-            hardware = RobotType.raft;
-        } else if (macAddress.equals(RobotConstants2019.MAC_ADDRESS)) {
-            hardware = RobotType.chaos2019;
-        } else if (macAddress.equals(RobotConstants2020.MAC_ADDRESS)) {
-            hardware = RobotType.chaos2020;
-        } else if (macAddress.equals(RobotConstantsSim.MAC_ADDRESS)) {
-            hardware = RobotType.simulator;
-        } else {
-            hardware = RobotType.chaos2020;
-        }
+        // if (macAddress.equals(RobotConstantsRaft.MAC_ADDRESS)) {
+        //     hardware = RobotType.raft;
+        // } else if (macAddress.equals(RobotConstants2019.MAC_ADDRESS)) {
+        //     hardware = RobotType.chaos2019;
+        // } else if (macAddress.equals(RobotConstants2020.MAC_ADDRESS)) {
+        //     hardware = RobotType.chaos2020;
+        // } else if (macAddress.equals(RobotConstantsSim.MAC_ADDRESS)) {
+        //     hardware = RobotType.simulator;
+        // } else {
+        //     hardware = RobotType.chaos2020;
+        // }
+
+        hardware = RobotType.chaos2020;
 
         System.out.println("RobotType = " + hardware);
 
@@ -106,7 +109,7 @@ public class Robot extends TimedRobot {
             colorSensor = new DummyColorSensor();
             camera = new Camera(34, 47, 2);
             serializer = new Serializer();
-            driveBase = new DriveBase2020();
+            //driveBase = new DriveBase2020();
         }
 
         if (hardware == RobotType.chaos2019) {
@@ -145,7 +148,7 @@ public class Robot extends TimedRobot {
         HAL.report(tResourceType.kResourceType_Framework, tInstances.kFramework_RobotBuilder);
 
         // Add commands to Autonomous Sendable Chooser
-        chooser.setDefaultOption("Autonomous Command", new DriveSquare(15));
+        chooser.setDefaultOption("Autonomous Command", new NullCommand());
         SmartDashboard.putData("Auto mode", chooser);
     }
 
@@ -224,7 +227,7 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopPeriodic() {
         CommandScheduler.getInstance().run();
-        driveBase.reportPosition();
+//        driveBase.reportPosition();
 
     }
 

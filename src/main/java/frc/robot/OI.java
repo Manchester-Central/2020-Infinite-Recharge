@@ -68,12 +68,12 @@ public class OI {
     public OI() {
         driver = new LogitechF310(0);
         operator = new LogitechF310(1);
-        var ramseteFactory = new RamseteFactory();
+        // var ramseteFactory = new RamseteFactory();
         
-        if (Robot.hardware == RobotType.chaos2020) {
-            aim = new AimTurret();
-            flywheel = new PrepareFlywheel();
-        }
+        // if (Robot.hardware == RobotType.chaos2020) {
+        //     aim = new AimTurret();
+        //     flywheel = new PrepareFlywheel();
+        // }
 
         /*
 
@@ -92,11 +92,7 @@ public class OI {
 
         */
 
-        driver.xButton.whileHeld(ramseteFactory.getCircleCommand());
-
-        driver.aButton.whileHeld(new SerializerDefault());
-
-        driver.yButton.whileHeld(new SerializerFeed());
+        // driver.xButton.whileHeld(ramseteFactory.getCircleCommand());
 
         // TEST: Parallel Group test, delete after
         // TODO: commented out because DriveRunAfterReady removed
@@ -155,15 +151,19 @@ public class OI {
 
         TODO: and this one */
 
-        operator.xButton.whileHeld(new SetExtensionPosition());
+        // operator.xButton.whileHeld(new SetExtensionPosition());
+
+        operator.yButton.whileHeld(new SerializerFeed());
+
+        operator.aButton.whileHeld(new SerializerDefault());
 
         // operator.leftBumper.whileHeld(new NavXTurnRobot());
         // operator.xButton.whenPressed(new ResetNavX());
 
         // SmartDashboard Buttons
-        SmartDashboard.putData("Reset Odometry", new ResetOdometry());
+        //SmartDashboard.putData("Reset Odometry", new ResetOdometry());
 
-        Robot.driveBase.setDefaultCommand(new TankDrive());
+        //Robot.driveBase.setDefaultCommand(new TankDrive());
         Robot.turret.setDefaultCommand(new ManualTurret());
         // Robot.serializer.setDefaultCommand(new SerializerDefault());
     }

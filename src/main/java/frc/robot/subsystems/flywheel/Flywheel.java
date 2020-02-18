@@ -35,7 +35,7 @@ public class Flywheel extends SubsystemBase implements IFlywheel {
     flywheelB = new CANSparkMax(RobotConstants2020.FLYWHEELB_SPARKMAX, CANSparkMax.MotorType.kBrushless);
     // TODO: assign in RobotConstants2020
     flywheelA.setInverted(false);
-    flywheelB.follow(flywheelA, true);
+    // flywheelB.follow(flywheelA, true);
     
 
     m_pidController = flywheelA.getPIDController();
@@ -124,7 +124,7 @@ public class Flywheel extends SubsystemBase implements IFlywheel {
   }
 
   public void setFlywheelTargetDirect(double speed) {
-    flywheelA.set(speed);
+    // flywheelA.set(speed);
   }
 
   public void addFlywheelSmartDashboard() {

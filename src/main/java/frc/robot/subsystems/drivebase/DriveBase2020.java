@@ -124,7 +124,7 @@ public class DriveBase2020 extends DriveBase {
         double rightVolts = speedToVolts(rightSpeed);
         leftDrive.setVoltage(leftVolts);
         rightDrive.setVoltage(-rightVolts);
-        differentialDrive1.feed();
+        // differentialDrive1.feed();
     }
 
     public double angleToDist(double angle) {
@@ -228,14 +228,14 @@ public class DriveBase2020 extends DriveBase {
         double leftInches = getLeftPosition();
         double navxAngle = Robot.navx.getNavYaw();
         // converts raw encoder readout to inches
-        odometer.update(Rotation2d.fromDegrees(navxAngle), leftInches, rightInches);
+        // odometer.update(Rotation2d.fromDegrees(navxAngle), leftInches, rightInches);
         SmartDashboard.putNumber("Right Position", rightInches);
         SmartDashboard.putNumber("Left Position", leftInches);
 
-        Translation2d translation = odometer.getPoseMeters().getTranslation();
+        // Translation2d translation = odometer.getPoseMeters().getTranslation();
 
-        SmartDashboard.putNumber("Odometer x", translation.getX());
-        SmartDashboard.putNumber("Odometer y", translation.getY());
+        // SmartDashboard.putNumber("Odometer x", translation.getX());
+        // SmartDashboard.putNumber("Odometer y", translation.getY());
     }
 
     @Override
