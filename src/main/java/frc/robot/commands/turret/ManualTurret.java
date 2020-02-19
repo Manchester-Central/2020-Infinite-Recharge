@@ -39,21 +39,9 @@ public class ManualTurret extends CommandBase {
     speedX = Robot.oi.getTurretPanTarget();
     speedY = Robot.oi.getTurretHoodTarget();
 
-    if (Robot.turret.getXPosition() < minAngleX && speedX < 0) {
-      speedX = 0;
-    }
-    if (Robot.turret.getXPosition() > maxAngleX && speedX > 0) {
-      speedX = 0;
-    }
-    Robot.turret.setXSpeedUnsafe(speedX);
+    Robot.turret.setXSpeed(speedX);
 
-    if (Robot.turret.getHoodAngle() < minAngleY && speedY < 0) {
-      speedY = 0;
-    }
-    if (Robot.turret.getHoodAngle() > maxAngleY && speedY > 0) {
-      speedY = 0;
-    }
-    Robot.turret.setYSpeedUnsafe(speedY);
+    Robot.turret.setHoodSpeed(speedY);
 
     Robot.flywheel.setFlywheelTargetDirect(Robot.oi.getFlywheelTarget());
     }

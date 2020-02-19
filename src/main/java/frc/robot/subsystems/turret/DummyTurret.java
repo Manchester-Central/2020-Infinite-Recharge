@@ -23,6 +23,9 @@ public class DummyTurret extends SubsystemBase implements ITurret {
   public void setXTarget(double target) {
   }
 
+  public void setXSpeed(double speed){
+  }
+
   public void setXSpeedUnsafe(double speed) {
   }
 
