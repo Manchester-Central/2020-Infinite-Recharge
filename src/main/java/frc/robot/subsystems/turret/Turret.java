@@ -75,10 +75,10 @@ public class Turret extends SubsystemBase implements ITurret {
   }
 
   private void setXSpeed(double speed) {
-    if (getXPosition() < minAngleX && speed < 0) {
+    if (speedControllerX.getSensorCollection().getAnalogInRaw() < minAngleX && speed < 0) {
       speed = 0;
     }
-    if (getXPosition() > maxAngleX && speed > 0) {
+    if (speedControllerX.getSensorCollection().getAnalogInRaw() > maxAngleX && speed > 0) {
       speed = 0;
     }
     speedControllerX.set(speed);
@@ -105,10 +105,10 @@ public class Turret extends SubsystemBase implements ITurret {
   }
 
   public void setHoodSpeed(double speed) {
-    if (getHoodAngle() < minAngleY && speed < 0) {
+    if (speedControllerY.getSensorCollection().getAnalogInRaw() < minAngleY && speed < 0) {
       speed = 0;
     }
-    if (getHoodAngle() > maxAngleY && speed > 0) {
+    if (speedControllerY.getSensorCollection().getAnalogInRaw() > maxAngleY && speed > 0) {
       speed = 0;
     }
     speedControllerY.set(speed);
@@ -133,6 +133,8 @@ public class Turret extends SubsystemBase implements ITurret {
   public void addTurretSmartDashboard(){
     SmartDashboard.putNumber("Y Potentiometer, tilt", getHoodAngle());
     SmartDashboard.putNumber("X Potentiometer, pan", getXPosition());
+    SmartDashboard.putNumber("Pan Raw", speedControllerX.getSensorCollection().getAnalogInRaw());
+    SmartDashboard.putNumber("Tilt Raw", speedControllerY.getSensorCollection().getAnalogInRaw());
   }
 
   public void PIDDrive() {
