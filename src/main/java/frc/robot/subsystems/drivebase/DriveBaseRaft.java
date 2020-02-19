@@ -91,7 +91,7 @@ public class DriveBaseRaft extends DriveBase {
         super.setup();
     }
 
-    private double encoderInches(WPI_TalonSRX driveInput) {
+    protected double encoderInches(WPI_TalonSRX driveInput) {
         if (driveInput == null) {
             return 0;
         }

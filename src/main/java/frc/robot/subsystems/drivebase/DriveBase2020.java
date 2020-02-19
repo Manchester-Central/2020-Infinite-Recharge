@@ -86,7 +86,7 @@ public class DriveBase2020 extends DriveBase {
 
     }
 
-    private double encoderInches(WPI_TalonSRX driveInput) {
+    protected double encoderInches(WPI_TalonSRX driveInput) {
         if (driveInput == null) {
             return 0;
         }
@@ -120,11 +120,14 @@ public class DriveBase2020 extends DriveBase {
     }
 
     public void tankDriveVolts(double leftSpeed, double rightSpeed){
-        double leftVolts = speedToVolts(leftSpeed);
-        double rightVolts = speedToVolts(rightSpeed);
-        leftDrive.setVoltage(leftVolts);
-        rightDrive.setVoltage(-rightVolts);
-        // differentialDrive1.feed();
+        // double leftVolts = speedToVolts(leftSpeed);
+        // double rightVolts = speedToVolts(rightSpeed);
+        // leftDrive.setVoltage(leftVolts);
+        // rightDrive.setVoltage(-rightVolts);
+
+        // // differentialDrive1.feed(); commented out from before
+
+        differentialDrive1.tankDrive(leftSpeed, rightSpeed);
     }
 
     public double angleToDist(double angle) {
