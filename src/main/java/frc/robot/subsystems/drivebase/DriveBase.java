@@ -69,109 +69,43 @@ public abstract class DriveBase extends SubsystemBase {
 
     public abstract SpeedControllerGroup getRightDrive();
 
-    private double encoderInches(WPI_TalonSRX driveInput) {
-        if (driveInput == null) {
-            return 0;
-        }
-        double wheelDiameter = 4.0;
-        double gearRatio = (double) 1 / 1; // ratio of the axel the wheel lies on to the axel the encoder reads
-        int ticksPerRev = 4096; // amount of ticks in one revolution of the encoder axel
-        double counts = driveInput.getSensorCollection().getQuadraturePosition();
-        double ratio = (gearRatio * wheelDiameter * Math.PI) / ticksPerRev;
-        return counts * ratio;
-    }
+    protected abstract double encoderInches(WPI_TalonSRX driveInput);
 
     public abstract double encoderInches(CANSparkMax driveInput);
 
-    public double speedToVolts(double speed){
-        double volts = 12;
-        double speedFactor = 1;
-        return speed * volts * speedFactor;
-    }
+    public abstract double speedToVolts(double speed);
 
-    public void tankDriveVolts(double leftSpeed, double rightSpeed){
-        double leftVolts = speedToVolts(leftSpeed);
-        double rightVolts = speedToVolts(rightSpeed);
-        leftDrive.setVoltage(leftVolts);
-        rightDrive.setVoltage(-rightVolts);
-        differentialDrive1.feed();
-    }
+    public abstract void tankDriveVolts(double leftSpeed, double rightSpeed);
 
-    public double angleToDist(double angle) {
-        double inchPerRev = 92.45; // constant equal to the total distance the wheels move for one full revolution
-        return (inchPerRev * angle) / 360;
-    }
+    public abstract double angleToDist(double angle);
 
 
-    public void reportPosition() {
-
-    }
+    public abstract void reportPosition();
 
     public abstract double getRightPosition();
 
     public abstract double getLeftPosition();
 
-    public void PIDDrive() {
-        double maxSpeed = 0.7;
-        double minSpeed = 0.3;
-        double right = PIDRight.calculate(getRightPosition());
-        double left = PIDLeft.calculate(getLeftPosition());
-        double leftSign = left / Math.abs(left);
-        double rightSign = right / Math.abs(right);
-
-        right = Math.min(maxSpeed, Math.max(minSpeed, Math.abs(right))) * rightSign;
-        left = Math.min(maxSpeed, Math.max(minSpeed, Math.abs(left))) * leftSign;
-
-        right = isAtRightTarget() ? 0 : right;
-        left = isAtLeftTarget() ? 0 : left;
-
-        differentialDrive1.tankDrive(left, right);
-
-    }
+    public abstract void PIDDrive();
 
     
-    public PIDController getPIDLeft(){
-        return PIDLeft;
-    }
+    public abstract PIDController getPIDLeft();
 
-    public PIDController getPIDRight(){
-        return PIDRight;
-    }
+    public abstract PIDController getPIDRight();
 
-    public void setTarget(double left, double right) {
-        setpointLeft = left;
-        setpointRight = right;
-        PIDLeft.setSetpoint(left);
-        PIDRight.setSetpoint(right);
-    }
+    public abstract void setTarget(double left, double right);
 
-    public void setTargetAngle(double targetAngle) {
-        double delta = angleToDist(targetAngle);
-        double targetLeft = getLeftPosition() + delta;
-        double targetRight = getRightPosition() - delta;
-        Robot.driveBase.setTarget(targetLeft, targetRight);
-        System.out.println("setTargetAngle initialized, target left = " + targetLeft + " target right = " + targetRight);
-    }
+    public abstract void setTargetAngle(double targetAngle);
 
-    public boolean isAtTarget() {
-        return isAtLeftTarget() && isAtRightTarget();
-    }
+    public abstract boolean isAtTarget();
 
-    public boolean isAtRightTarget() {
-        double error = 2;
-        return (setpointRight < Robot.driveBase.getRightPosition() + error) && (setpointRight > Robot.driveBase.getRightPosition() - error);
-    }
+    public abstract boolean isAtRightTarget();
 
-    public boolean isAtLeftTarget() {
-        double error = 2;
-        return (setpointLeft < Robot.driveBase.getLeftPosition() + error) && (setpointLeft > Robot.driveBase.getLeftPosition() - error);
-    }
+    public abstract boolean isAtLeftTarget();
 
     public abstract void resetOdometry();
 
-    public Pose2d getPose() {
-        return odometer.getPoseMeters();
-    }
+    public abstract Pose2d getPose();
 
     public abstract DifferentialDriveWheelSpeeds getWheelSpeeds();
 

@@ -86,7 +86,7 @@ public class DriveBase2019 extends DriveBase {
 
     }
 
-    private double encoderInches(WPI_TalonSRX driveInput) {
+    protected double encoderInches(WPI_TalonSRX driveInput) {
         if (driveInput == null) {
             return 0;
         }
