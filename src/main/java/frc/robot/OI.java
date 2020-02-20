@@ -17,8 +17,7 @@ import frc.robot.Robot.RobotType;
 import frc.robot.commands.climbtake.SetExtensionPosition;
 import frc.robot.commands.drive.ResetOdometry;
 import frc.robot.commands.drive.TankDrive;
-import frc.robot.commands.serializer.SerializerDefault;
-import frc.robot.commands.serializer.SerializerFeed;
+import frc.robot.commands.serializer.*;
 import frc.robot.commands.turret.AimTurret;
 import frc.robot.commands.turret.ManualTurret;
 import frc.robot.commands.turret.PrepareFlywheel;
@@ -163,9 +162,9 @@ public class OI {
         // SmartDashboard Buttons
         //SmartDashboard.putData("Reset Odometry", new ResetOdometry());
 
-        //Robot.driveBase.setDefaultCommand(new TankDrive());
+        Robot.driveBase.setDefaultCommand(new TankDrive());
         Robot.turret.setDefaultCommand(new ManualTurret());
-        // Robot.serializer.setDefaultCommand(new SerializerDefault());
+        Robot.serializer.setDefaultCommand(new SerializerStop()); // TODO: change to default
     }
 
     public double getRobotTargetAngle() {

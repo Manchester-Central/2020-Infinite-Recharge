@@ -109,7 +109,7 @@ public class Robot extends TimedRobot {
             colorSensor = new DummyColorSensor();
             camera = new Camera(34, 47, 2);
             serializer = new Serializer();
-            //driveBase = new DriveBase2020();
+            driveBase = new DriveBase2020();
         }
 
         if (hardware == RobotType.chaos2019) {

@@ -33,8 +33,8 @@ public class RobotConstants2020 {
     public final static double MAX_ANGLE_TURRET_HOOD = 1; // TODO: change
     public final static double MIN_ANGLE_TURRET_HOOD = 1; // TODO: change
 
-    public final static int MIN_HOOD_RAW = 68;
-    public final static int MAX_HOOD_RAW = 169;
+    public final static int MIN_HOOD_RAW = 83; // 68
+    public final static int MAX_HOOD_RAW = 154; // 169
     public final static int MIN_PAN_RAW = 1; // TODO: change!!
     public final static int MAX_PAN_RAW = 1; // TODO: change!!
 }

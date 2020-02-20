@@ -59,10 +59,8 @@ public class DriveBase2020 extends DriveBase {
     private Encoder sim_encoder_r;
     private double setpointLeft, setpointRight;
 
-    public DriveBase2020() {     }
-
-    protected void setup() {
-
+    public DriveBase2020() {   
+        
         leftSpark1 = new CANSparkMax(RobotConstants2020.DRIVE_LEFT_SPARKMAX_A, CANSparkMax.MotorType.kBrushless);
         // addChild("Left1", leftSpark1);
         leftSpark1.setInverted(false);
@@ -80,7 +78,40 @@ public class DriveBase2020 extends DriveBase {
         rightSpark2.setInverted(false);
 
         leftDrive = new SpeedControllerGroup(leftSpark1, leftSpark2);
-        rightDrive = new SpeedControllerGroup(rightSpark1, rightSpark2);
+        rightDrive = new SpeedControllerGroup(rightSpark1, rightSpark2); 
+        
+        addChild("LeftDrive", leftDrive);
+        addChild("RightDrive", rightDrive);
+        differentialDrive1 = new DifferentialDrive(leftDrive, rightDrive);
+        addChild("Differential Drive 1", differentialDrive1);
+        differentialDrive1.setSafetyEnabled(true);
+        differentialDrive1.setExpiration(0.1);
+        differentialDrive1.setMaxOutput(1.0);
+        double navxAngle = Robot.navx.getNavYaw();
+        odometer = new DifferentialDriveOdometry(Rotation2d.fromDegrees(navxAngle));
+    
+    }
+
+    protected void setup() {
+/*
+        leftSpark1 = new CANSparkMax(RobotConstants2020.DRIVE_LEFT_SPARKMAX_A, CANSparkMax.MotorType.kBrushless);
+        // addChild("Left1", leftSpark1);
+        leftSpark1.setInverted(false);
+
+        leftSpark2 = new CANSparkMax(RobotConstants2020.DRIVE_LEFT_SPARKMAX_B, CANSparkMax.MotorType.kBrushless);
+        // addChild("Left2", leftSpark2);
+        leftSpark2.setInverted(false);
+
+        rightSpark1 = new CANSparkMax(RobotConstants2020.DRIVE_RIGHT_SPARKMAX_A, CANSparkMax.MotorType.kBrushless);
+        // addChild("Right1", rightSpark1);
+        rightSpark1.setInverted(false);
+
+        rightSpark2 = new CANSparkMax(RobotConstants2020.DRIVE_RIGHT_SPARKMAX_B, CANSparkMax.MotorType.kBrushless);
+        // addChild("Right2", rightSpark2);
+        rightSpark2.setInverted(false);
+
+        leftDrive = new SpeedControllerGroup(leftSpark1, leftSpark2);
+        rightDrive = new SpeedControllerGroup(rightSpark1, rightSpark2); */
         
         super.setup();
 

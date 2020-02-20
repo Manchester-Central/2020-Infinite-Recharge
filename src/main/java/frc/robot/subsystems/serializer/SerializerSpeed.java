@@ -11,5 +11,5 @@ package frc.robot.subsystems.serializer;
  * Add your docs here.
  */
 public enum SerializerSpeed {
-    fast, slow
+    fast, slow, stop
 }

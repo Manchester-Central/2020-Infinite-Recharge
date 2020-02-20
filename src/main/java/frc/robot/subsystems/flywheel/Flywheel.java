@@ -35,7 +35,7 @@ public class Flywheel extends SubsystemBase implements IFlywheel {
     flywheelB = new CANSparkMax(RobotConstants2020.FLYWHEELB_SPARKMAX, CANSparkMax.MotorType.kBrushless);
     // TODO: assign in RobotConstants2020
     flywheelA.setInverted(false);
-    // flywheelB.follow(flywheelA, true);
+    flywheelB.setInverted(true);
     
 
     m_pidController = flywheelA.getPIDController();
@@ -76,10 +76,13 @@ public class Flywheel extends SubsystemBase implements IFlywheel {
     double p = SmartDashboard.getNumber("P Gain", 0);
     double i = SmartDashboard.getNumber("I Gain", 0);
     double d = SmartDashboard.getNumber("D Gain", 0);
+
+    /*
     double iz = SmartDashboard.getNumber("I Zone", 0);
     double ff = SmartDashboard.getNumber("Feed Forward", 0);
     double max = SmartDashboard.getNumber("Max Output", 0);
     double min = SmartDashboard.getNumber("Min Output", 0);
+    */
 
     // if PID coefficients on SmartDashboard have changed, write new values to
     // controller
@@ -95,6 +98,8 @@ public class Flywheel extends SubsystemBase implements IFlywheel {
       m_pidController.setD(d);
       kD = d;
     }
+
+    /*
     if ((iz != kIz)) {
       m_pidController.setIZone(iz);
       kIz = iz;
@@ -108,6 +113,7 @@ public class Flywheel extends SubsystemBase implements IFlywheel {
       kMinOutput = min;
       kMaxOutput = max;
     }
+    */
 
     setPoint = speed * maxRPM;
 
@@ -124,12 +130,19 @@ public class Flywheel extends SubsystemBase implements IFlywheel {
   }
 
   public void setFlywheelTargetDirect(double speed) {
-    // flywheelA.set(speed);
+    flywheelA.set(speed);
+    flywheelB.set(speed);
   }
 
   public void addFlywheelSmartDashboard() {
     SmartDashboard.putNumber("Flywheel A", flywheelA.getEncoder().getPosition());
     SmartDashboard.putNumber("Flywheel B", flywheelB.getEncoder().getPosition());
+    SmartDashboard.putBoolean("FollowerMode", flywheelB.isFollower());
+  }
+
+  @Override
+  public void periodic(){
+    addFlywheelSmartDashboard();
   }
 
 }

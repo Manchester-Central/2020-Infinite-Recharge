@@ -25,7 +25,6 @@ public class Serializer extends SubsystemBase implements ISerializer{
 
   private CANSparkMax turnTable;
   private CANSparkMax ejector;
-  private Robot.RobotType type;
 
   public enum Speed {
     fast, slow
@@ -35,16 +34,16 @@ public class Serializer extends SubsystemBase implements ISerializer{
   private CANEncoder m_encoder;
   public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxRPM;
   private double setPoint;
-  private final double FAST_SPEED = 1500;
-  private final double SLOW_SPEED = 500;
+  private final double FAST_SPEED = -1500;
+  private final double SLOW_SPEED = -200;
 
   public Serializer() {
     turnTable = new CANSparkMax(RobotConstants2020.TURN_TABLE_SPARKMAX, CANSparkMax.MotorType.kBrushless);
-    // turnTable.setInverted(true);
+    //turnTable.setInverted(true);
     m_encoder = turnTable.getEncoder();
     // m_encoder.setInverted(true);
     ejector = new CANSparkMax(RobotConstants2020.EJECTER_SPARKMAX, MotorType.kBrushless);
-    // ejector.setInverted(true);
+    ejector.setInverted(true);
     
     /**
      * The RestoreFactoryDefaults method can be used to reset the configuration
@@ -101,17 +100,17 @@ public class Serializer extends SubsystemBase implements ISerializer{
   }
 
   public void driveTurnTable(SerializerSpeed speed, boolean ejectorOn) {
-    if (type != Robot.RobotType.chaos2020) {
-      return;
-    }
     // read PID coefficients from SmartDashboard
     double p = SmartDashboard.getNumber("P Gain Serializer", 0);
     double i = SmartDashboard.getNumber("I Gain Serializer", 0);
     double d = SmartDashboard.getNumber("D Gain Serializer", 0);
+
+    /*
     double iz = SmartDashboard.getNumber("I Zone Serializer", 0);
     double ff = SmartDashboard.getNumber("Feed Forward Serializer", 0);
     double max = SmartDashboard.getNumber("Max Output Serializer", 0);
     double min = SmartDashboard.getNumber("Min Output Serializer", 0);
+    */
 
     // if PID coefficients on SmartDashboard have changed, write new values to
     // controller
@@ -127,6 +126,7 @@ public class Serializer extends SubsystemBase implements ISerializer{
       m_pidController.setD(d);
       kD = d;
     }
+    /*
     if ((iz != kIz)) {
       m_pidController.setIZone(iz);
       kIz = iz;
@@ -140,15 +140,22 @@ public class Serializer extends SubsystemBase implements ISerializer{
       kMinOutput = min;
       kMaxOutput = max;
     }
+    */
 
-    if (speed == SerializerSpeed.fast) {
+    switch (speed) {
+      case fast:
       setPoint = FAST_SPEED;
-    }else {
+      break;
+      case slow:
       setPoint = SLOW_SPEED;
+      break;
+      case stop:
+      setPoint = 0;
+      break;
     }
 
     if (ejectorOn){
-      ejector.set(1);
+      ejector.set(0.10);
     }else {
       ejector.set(0);
     }
@@ -168,8 +175,8 @@ public class Serializer extends SubsystemBase implements ISerializer{
      */
     m_pidController.setReference(setPoint, ControlType.kVelocity);
 
-    SmartDashboard.putNumber("SetPoint", setPoint);
-    SmartDashboard.putNumber("ProcessVariable", m_encoder.getVelocity());
+    SmartDashboard.putNumber("SerializerSetpoint", setPoint);
+    SmartDashboard.putNumber("Serializer Encoder", m_encoder.getVelocity());
   }
 
   // Put methods for controlling this subsystem

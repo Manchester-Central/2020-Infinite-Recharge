@@ -46,7 +46,7 @@ public abstract class DriveBase extends SubsystemBase {
     protected double setpointLeft, setpointRight;
 
     public DriveBase() {
-        setup();
+        // setup();
 
     }
 
