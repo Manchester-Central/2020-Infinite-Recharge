@@ -14,6 +14,8 @@ import com.chaos131.LogitechF310;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot.RobotType;
+import frc.robot.commands.ManualThroat;
+import frc.robot.commands.ManualThroatZero;
 import frc.robot.commands.climbtake.SetExtensionPosition;
 import frc.robot.commands.drive.ResetOdometry;
 import frc.robot.commands.drive.TankDrive;
@@ -150,7 +152,11 @@ public class OI {
 
         TODO: and this one */
 
-        // operator.xButton.whileHeld(new SetExtensionPosition());
+        operator.leftTrigger.whileHeld(new ManualThroat());
+        
+        operator.leftBumper.whileHeld(new ManualThroatZero());
+
+        operator.xButton.whileHeld(new SetExtensionPosition());
 
         operator.yButton.whileHeld(new SerializerFeed());
 
@@ -185,6 +191,10 @@ public class OI {
 
     public double getExtensionTarget() {
         return operator.getRightY();
+    }
+    
+    public double getPivotTarget() {
+        return operator.getLeftY();
     }
 
     public boolean shouldUseRobotTargetAngle() {

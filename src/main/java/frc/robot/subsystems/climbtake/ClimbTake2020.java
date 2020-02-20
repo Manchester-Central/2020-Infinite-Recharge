@@ -37,14 +37,14 @@ public class ClimbTake2020 extends SubsystemBase implements IClimbTake2020 {
   }
 
   public void setPivotPositionUNSAFE(double target) {
-    pivot.set(target);
+    double speedScale = 0.25;
+    pivot.set(target * speedScale);
   } 
 
   public void setExtensionPositionUNSAFE(double target) {
-    extension.set(target);
+    double speedScale = 0.25;
+    extension.set(target * speedScale);
   }
-
-  
 
   public double getPivotPosition() {
     return 0;

@@ -5,14 +5,14 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.climbtake;
+package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 
-public class SetExtensionPosition extends CommandBase {
-  public SetExtensionPosition() {
-    addRequirements(Robot.climbTake, Robot.flywheel, Robot.turret);
+public class ManualThroat extends CommandBase {
+  public ManualThroat() {
+    addRequirements(Robot.serializer);
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }
@@ -20,16 +20,12 @@ public class SetExtensionPosition extends CommandBase {
   // Called just before this Command runs the first time
   @Override
   public void initialize() {
-    Robot.flywheel.setFlywheelTargetDirect(0);
-    Robot.turret.setHoodSpeed(0);
-    Robot.turret.setXSpeed(0);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   public void execute() {
-    Robot.climbTake.setExtensionPositionUNSAFE(Robot.oi.getExtensionTarget());
-    Robot.climbTake.setPivotPositionUNSAFE(Robot.oi.getPivotTarget());
+    Robot.serializer.ejectorSpeed(1);
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -38,8 +34,10 @@ public class SetExtensionPosition extends CommandBase {
     return false;
   }
 
-  // Called once after isFinished returns true or when interrupted
+  // Called once after isFinished returns true
   @Override
   public void end(boolean interrupted) {
+    Robot.serializer.ejectorSpeed(0);
   }
+  
 }

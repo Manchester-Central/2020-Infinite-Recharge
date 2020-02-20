@@ -155,7 +155,7 @@ public class Serializer extends SubsystemBase implements ISerializer{
     }
 
     if (ejectorOn){
-      ejector.set(0.10);
+      ejector.set(1);
     }else {
       ejector.set(0);
     }
@@ -177,6 +177,10 @@ public class Serializer extends SubsystemBase implements ISerializer{
 
     SmartDashboard.putNumber("SerializerSetpoint", setPoint);
     SmartDashboard.putNumber("Serializer Encoder", m_encoder.getVelocity());
+  }
+
+  public void ejectorSpeed(double speed) {
+    ejector.set(speed);
   }
 
   // Put methods for controlling this subsystem

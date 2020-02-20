@@ -15,4 +15,6 @@ import edu.wpi.first.wpilibj2.command.Subsystem;
 public interface ISerializer extends Subsystem {
 
     public void driveTurnTable(SerializerSpeed speed, boolean ejectorOn);
+
+    public void ejectorSpeed(double speed);
 }
