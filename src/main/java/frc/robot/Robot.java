@@ -70,6 +70,8 @@ public class Robot extends TimedRobot {
     public static IColorSensor colorSensor;
     public static ISerializer serializer;
 
+    public static FlywheelTable flywheelTable;
+
     /**
      * This function is run when the robot is first started up and should be used
      * for any initialization code.
@@ -136,6 +138,8 @@ public class Robot extends TimedRobot {
             serializer = new DummySerializer();
             driveBase = new DriveBaseRaft();
         }
+
+        flywheelTable = new FlywheelTable();
 
         new DifferentialDriveKinematics(Units.inchesToMeters(trackWidth));
 
