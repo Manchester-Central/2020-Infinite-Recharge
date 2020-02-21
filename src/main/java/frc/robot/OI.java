@@ -61,7 +61,7 @@ public class OI {
     // button.whenReleased(new ExampleCommand());
 
     private LogitechF310 driver;
-    private LogitechF310 operator;
+    public LogitechF310 operator;
 
     DoneCommand aim, flywheel;
     
@@ -75,6 +75,10 @@ public class OI {
         //     aim = new AimTurret();
         //     flywheel = new PrepareFlywheel();
         // }
+        
+        driver.leftTrigger.whileHeld(new ManualThroat());
+        
+        driver.leftBumper.whileHeld(new ManualThroatZero());
 
         /*
 
@@ -152,9 +156,9 @@ public class OI {
 
         TODO: and this one */
 
-        operator.leftTrigger.whileHeld(new ManualThroat());
+        // operator.leftTrigger.whileHeld(new ManualThroat());
         
-        operator.leftBumper.whileHeld(new ManualThroatZero());
+        // operator.leftBumper.whileHeld(new ManualThroatZero());
 
         operator.xButton.whileHeld(new SetExtensionPosition());
 
@@ -168,7 +172,7 @@ public class OI {
         // SmartDashboard Buttons
         //SmartDashboard.putData("Reset Odometry", new ResetOdometry());
 
-        Robot.driveBase.setDefaultCommand(new TankDrive());
+        // Robot.driveBase.setDefaultCommand(new TankDrive());
         Robot.turret.setDefaultCommand(new ManualTurret());
         Robot.serializer.setDefaultCommand(new SerializerStop()); // TODO: change to default
     }
@@ -176,6 +180,17 @@ public class OI {
     public double getRobotTargetAngle() {
         return driver.getRightJoystickAngle();
     }
+
+    
+    public double getSerializerTarget() {
+        return driver.getRightY();
+    }
+    
+    public double getThroatTarget() {
+        return driver.getLeftY();
+    }
+
+
 
     public double getTurretPanTarget() {
         return operator.getLeftX();

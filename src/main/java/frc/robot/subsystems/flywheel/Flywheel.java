@@ -130,6 +130,9 @@ public class Flywheel extends SubsystemBase implements IFlywheel {
   }
 
   public void setFlywheelTargetDirect(double speed) {
+    if (Math.abs(speed) > 0.1) {
+      System.out.println("Flywheel Speed: " + speed);
+    }
     flywheelA.set(speed);
     flywheelB.set(speed);
   }

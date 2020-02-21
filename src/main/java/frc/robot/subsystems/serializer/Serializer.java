@@ -154,6 +154,8 @@ public class Serializer extends SubsystemBase implements ISerializer{
       break;
     }
 
+
+
     if (ejectorOn){
       ejector.set(1);
     }else {
@@ -177,6 +179,16 @@ public class Serializer extends SubsystemBase implements ISerializer{
 
     SmartDashboard.putNumber("SerializerSetpoint", setPoint);
     SmartDashboard.putNumber("Serializer Encoder", m_encoder.getVelocity());
+  }
+
+  public void manualSpeed(double speed) {
+    if (Math.abs(speed) < 0.1) {
+      m_pidController.setReference(0, ControlType.kCurrent);
+      return;
+    }
+    speed = speed * 1200;
+    m_pidController.setReference(speed, ControlType.kVelocity);
+    
   }
 
   public void ejectorSpeed(double speed) {

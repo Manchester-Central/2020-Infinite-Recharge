@@ -12,7 +12,7 @@ import frc.robot.Robot;
 
 public class ManualThroat extends CommandBase {
   public ManualThroat() {
-    addRequirements(Robot.serializer);
+    addRequirements(Robot.serializer, Robot.driveBase);
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }
@@ -25,7 +25,12 @@ public class ManualThroat extends CommandBase {
   // Called repeatedly when this Command is scheduled to run
   @Override
   public void execute() {
-    Robot.serializer.ejectorSpeed(1);
+    Robot.serializer.ejectorSpeed(Robot.oi.getThroatTarget());
+    Robot.serializer.manualSpeed((Robot.oi.getSerializerTarget() > 0.5) ? 1.0 : 0);
+    double speed = Robot.oi.getSerializerTarget();
+    if (Math.abs(speed) > 0.1) {
+      System.out.println("Serializer Speed: " + speed);
+    }
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -39,5 +44,5 @@ public class ManualThroat extends CommandBase {
   public void end(boolean interrupted) {
     Robot.serializer.ejectorSpeed(0);
   }
-  
+
 }

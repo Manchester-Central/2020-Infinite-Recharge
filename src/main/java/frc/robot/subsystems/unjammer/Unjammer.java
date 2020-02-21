@@ -5,18 +5,15 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.subsystems.serializer;
+package frc.robot.subsystems.unjammer;
 
-import edu.wpi.first.wpilibj2.command.Subsystem;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 /**
  * Add your docs here.
  */
-public interface ISerializer extends Subsystem {
+public class Unjammer extends SubsystemBase implements IUnjammer{
+  // Put methods for controlling this subsystem
+  // here. Call these from Commands.
 
-    public void driveTurnTable(SerializerSpeed speed, boolean ejectorOn);
-
-    public void ejectorSpeed(double speed);
-
-    public void manualSpeed(double speed);
 }
