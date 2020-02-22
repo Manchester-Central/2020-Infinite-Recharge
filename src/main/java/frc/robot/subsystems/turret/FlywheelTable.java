@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import edu.wpi.first.wpilibj.Filesystem;
@@ -23,6 +24,11 @@ import edu.wpi.first.wpilibj.Filesystem;
  */
 public class FlywheelTable {
 
+    // TODOS:
+    // tune feeder system so it works
+    // use camera pos to manually tune shooter
+        // want to know power setting + hood position to go thru back port at every pos (into table)
+
     String row;
     BufferedReader csvReader;
     final String PATH = "flywheelTable.csv";
@@ -31,7 +37,7 @@ public class FlywheelTable {
     Path realPath = Filesystem.getDeployDirectory().toPath().resolve(PATH);
 
     // holds an ArrayList with a key (distance) as reference to [key]
-    Map<Double, Double[]> flyTable = new HashMap<Double, Double[]>();
+    ArrayList<TableData> flyTable = new ArrayList<TableData>();
 
     public FlywheelTable() {
         readCSV(PATH);
@@ -62,7 +68,7 @@ public class FlywheelTable {
                     double speed = doubleData[1];
                     double angle = doubleData[2];
 
-                    addData(distance, speed, angle);
+                    addData(new TableData(distance, speed, angle));
 
                 } else {
                     System.out.println("ERROR: Flywheel Table data less than 3 values at " + row);
@@ -74,26 +80,58 @@ public class FlywheelTable {
     }
 
     // takes raw data, adds to data structure
-    public void addData(double distance, double speed, double angle) {
+    public void addData(TableData data) {
 
-        System.out.println(distance + " " + speed + " " + angle);
+        System.out.println(data.getDistance() + " " + data.getSpeed() + " " + data.getAngle());
             
-        // 2 size array that holds speed and angle
-        Double[] returnValues = {speed, angle};
-        flyTable.put(distance, returnValues);
+        flyTable.add(data);
+
 
     }
-    
-    public double getDistance() {
-        return 0;
+
+    public TableData getTableData(int index) {
+        return flyTable.get(index);
     }
 
-    public double getSpeed() {
-        return 0;
+    public double getDistance(int index) {
+        return getTableData(index).getDistance();
     }
 
-    public double getAngle() {
-        return 0;
+    public double getSpeed(int index) {
+        return getTableData(index).getSpeed();
+    }
+
+    public double getAngle(int index) {
+        return getTableData(index).getAngle();
+    }
+
+    public int findIndex(double distance) {
+        
+        for (int i = 0; i < flyTable.size(); i++) {
+            if (distance < getDistance(i)) {
+                return i;
+            }
+        }
+        return flyTable.size() - 1;
+    }
+
+    public double getInterpolatedValue(double x1, double x2, double y1, double y2, double distance) {
+        double slope = (y2 - y1) / (x2 - x1);
+        double intercept = y1 - (slope * x1);
+
+        return (slope * distance) + intercept;
+    }
+
+    public TableData getIdealTarget(double distance) {
+
+        int topIndex = findIndex(distance);
+        int botIndex = topIndex - 1;
+
+        double idealSpeed = getInterpolatedValue(getDistance(topIndex), getDistance(botIndex), getSpeed(topIndex), getSpeed(botIndex), distance);
+        double idealAngle = getInterpolatedValue(getDistance(topIndex), getDistance(botIndex), getAngle(topIndex), getAngle(botIndex), distance);
+
+        return new TableData(distance, idealSpeed, idealAngle);
+
     }
 
     public void printArrayTest() {
