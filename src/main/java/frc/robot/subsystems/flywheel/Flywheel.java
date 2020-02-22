@@ -147,9 +147,16 @@ public class Flywheel extends SubsystemBase implements IFlywheel {
   }
 
   public void driveWithPID() {
-    double PIDSpeed = m_pidController.calculate(getFlywheelSpeed());
-    flywheelA.set(PIDSpeed);
-    flywheelB.set(PIDSpeed);
+    double pidSpeed = m_pidController.calculate(getFlywheelSpeed());
+
+    if (pidSpeed > 0.5) {
+      pidSpeed = 0.5;
+    } else if (pidSpeed < 0) {
+      pidSpeed = 0;
+    }
+
+    flywheelA.set(pidSpeed);
+    flywheelB.set(pidSpeed);
   }
 
   public void setFlywheelTargetDashboard() {

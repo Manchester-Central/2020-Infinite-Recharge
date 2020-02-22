@@ -118,7 +118,7 @@ public abstract class DriveBase extends SubsystemBase {
         double leftInches = getLeftPosition();
         double navxAngle = Robot.navx.getNavYaw();
         // converts raw encoder readout to inches
-        odometer.update(Rotation2d.fromDegrees(navxAngle), leftInches, rightInches);
+        // odometer.update(Rotation2d.fromDegrees(navxAngle), leftInches, rightInches);
         SmartDashboard.putNumber("Right Position", rightInches);
         SmartDashboard.putNumber("Left Position", leftInches);
 
