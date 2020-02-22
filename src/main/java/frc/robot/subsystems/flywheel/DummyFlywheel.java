@@ -28,7 +28,7 @@ public class DummyFlywheel extends SubsystemBase implements IFlywheel {
   public DummyFlywheel() {
   }
 
-  public void setTargetSpeed(double speed) {
+  public void setTargetSetpoint(double speed) {
   }
 
   

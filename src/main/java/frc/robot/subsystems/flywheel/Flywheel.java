@@ -76,7 +76,7 @@ public class Flywheel extends SubsystemBase implements IFlywheel {
   CANSparkMax flywheelA, flywheelB;
 
   // takes in RPM
-  public void setTargetSpeed(double setPoint) {
+  public void setTargetSetpoint(double setPoint) {
     // read PID coefficients from SmartDashboard
     double p = SmartDashboard.getNumber("P Gain Flywheel", 0);
     double i = SmartDashboard.getNumber("I Gain Flywheel", 0);
@@ -138,8 +138,6 @@ public class Flywheel extends SubsystemBase implements IFlywheel {
   }
 
   public void setFlywheelTargetDirect(double speed) {
-
-    SmartDashboard.putNumber("Flywheel RPM", getFlywheelSpeed());
     flywheelA.set(speed);
     flywheelB.set(speed);
   }
@@ -148,7 +146,6 @@ public class Flywheel extends SubsystemBase implements IFlywheel {
     double pidSpeed = m_pidController.calculate(getFlywheelSpeed());
 
     SmartDashboard.putNumber("Flywheel pidSpeed", pidSpeed);
-    SmartDashboard.putNumber("Flywheel RPM", getFlywheelSpeed());
 
     if (pidSpeed > 0.5) {
       pidSpeed = 0.5;
@@ -161,13 +158,15 @@ public class Flywheel extends SubsystemBase implements IFlywheel {
   }
 
   public void setFlywheelTargetDashboard() {
-    setTargetSpeed(SmartDashboard.getNumber("Flywheel target speed RPM", 0));
+    setTargetSetpoint(SmartDashboard.getNumber("Flywheel target speed RPM", 0));
     driveWithPID();
   }
 
   public void addFlywheelSmartDashboard() {
     SmartDashboard.putNumber("Flywheel A", flywheelA.getEncoder().getPosition());
     SmartDashboard.putNumber("Flywheel B", flywheelB.getEncoder().getPosition());
+
+    SmartDashboard.putNumber("Flywheel RPM", getFlywheelSpeed());
   }
 
   @Override

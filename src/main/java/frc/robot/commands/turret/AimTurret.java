@@ -34,7 +34,7 @@ public class AimTurret extends DoneCommand {
       targetAngleY = Robot.camera.getYAngle();
       // add conversion from camera output to setpoint target using table
       Robot.turret.setHoodTargetAngle(tableTargetAngle);
-      Robot.flywheel.setTargetSpeed(tableTargetSpeed);
+      Robot.flywheel.setTargetSetpoint(tableTargetSpeed);
 
       targetAngleX = Robot.camera.getXAngle();
       Robot.turret.setXTarget(targetAngleX);

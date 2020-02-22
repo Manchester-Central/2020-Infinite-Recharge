@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj2.command.Subsystem;
  * Add your docs here.
  */
 public interface IFlywheel extends Subsystem {
-    public void setTargetSpeed(double speed);
+    public void setTargetSetpoint(double setpoint);
     
     public double getFlywheelSpeed();
   
