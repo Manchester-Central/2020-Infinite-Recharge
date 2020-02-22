@@ -26,7 +26,7 @@ public class ManualThroat extends CommandBase {
   @Override
   public void execute() {
     Robot.serializer.ejectorSpeed(Robot.oi.getThroatTarget());
-    Robot.serializer.manualSpeed((Robot.oi.getSerializerTarget() > 0.5) ? 1.0 : 0);
+    Robot.serializer.manualSpeed(true);
     double speed = Robot.oi.getSerializerTarget();
     if (Math.abs(speed) > 0.1) {
       System.out.println("Serializer Speed: " + speed);
@@ -43,6 +43,7 @@ public class ManualThroat extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     Robot.serializer.ejectorSpeed(0);
+    Robot.serializer.manualSpeed(false);
   }
 
 }

@@ -18,5 +18,5 @@ public interface ISerializer extends Subsystem {
 
     public void ejectorSpeed(double speed);
 
-    public void manualSpeed(double speed);
+    public void manualSpeed(boolean on);
 }

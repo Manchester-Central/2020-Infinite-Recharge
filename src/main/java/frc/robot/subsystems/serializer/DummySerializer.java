@@ -21,6 +21,6 @@ public class DummySerializer extends SubsystemBase implements ISerializer {
   public void ejectorSpeed(double speed){
   }
   
-  public void manualSpeed(double speed){
+  public void manualSpeed(boolean on){
   }
 }

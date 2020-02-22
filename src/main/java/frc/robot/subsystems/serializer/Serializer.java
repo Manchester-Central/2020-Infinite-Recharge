@@ -36,6 +36,7 @@ public class Serializer extends SubsystemBase implements ISerializer{
   private double setPoint;
   private final double FAST_SPEED = -1500;
   private final double SLOW_SPEED = -200;
+  private double manualSpeedTarget;
 
   public Serializer() {
     turnTable = new CANSparkMax(RobotConstants2020.TURN_TABLE_SPARKMAX, CANSparkMax.MotorType.kBrushless);
@@ -69,6 +70,8 @@ public class Serializer extends SubsystemBase implements ISerializer{
     kMaxOutput = 0.25;
     kMinOutput = -0.25;
     maxRPM = 1500;
+    setPoint = 0;
+    manualSpeedTarget = 900;
 
     // set PID coefficients
     m_pidController.setP(kP);
@@ -86,10 +89,8 @@ public class Serializer extends SubsystemBase implements ISerializer{
     SmartDashboard.putNumber("Feed Forward Serializer", kFF);
     SmartDashboard.putNumber("Max Output Serializer", kMaxOutput);
     SmartDashboard.putNumber("Min Output Serializer", kMinOutput); */
-  }
 
-  @Override
-  public void periodic() {
+    SmartDashboard.putNumber("Serializer Target", manualSpeedTarget);
   }
 
   private double turnTableDegrees(CANSparkMax input) {
@@ -176,19 +177,22 @@ public class Serializer extends SubsystemBase implements ISerializer{
      * com.revrobotics.ControlType.kVoltage
      */
     m_pidController.setReference(setPoint, ControlType.kVelocity);
-
-    SmartDashboard.putNumber("SerializerSetpoint", setPoint);
-    SmartDashboard.putNumber("Serializer Encoder", m_encoder.getVelocity());
   }
 
-  public void manualSpeed(double speed) {
-    if (Math.abs(speed) < 0.1) {
-      m_pidController.setReference(0, ControlType.kCurrent);
+  public void manualSpeed(boolean on) {
+    if (!on) {
+      turnTable.set(0);
       return;
     }
-    speed = speed * 1200;
-    m_pidController.setReference(speed, ControlType.kVelocity);
+    manualSpeedTarget = SmartDashboard.getNumber("Serializer Target", 0);
+    m_pidController.setReference(manualSpeedTarget, ControlType.kVelocity);
     
+  }
+
+  @Override
+  public void periodic(){
+    SmartDashboard.putNumber("SerializerSetpoint", setPoint);
+    SmartDashboard.putNumber("Serializer Encoder", m_encoder.getVelocity());
   }
 
   public void ejectorSpeed(double speed) {
