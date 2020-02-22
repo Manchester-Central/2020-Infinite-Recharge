@@ -121,6 +121,8 @@ public class Flywheel extends SubsystemBase implements IFlywheel {
 
     SmartDashboard.putNumber("SetPoint", setPoint);
     SmartDashboard.putNumber("ProcessVariable", m_encoder.getVelocity());
+    SmartDashboard.putNumber("Flywheel current speed", getFlywheelSpeed());
+
   }
 
   
@@ -135,6 +137,10 @@ public class Flywheel extends SubsystemBase implements IFlywheel {
     }
     flywheelA.set(speed);
     flywheelB.set(speed);
+  }
+
+  public void setFlywheelTargetDashboard() {
+    setFlywheelTargetDirect(SmartDashboard.getNumber("Flywheel target speed", 0));
   }
 
   public void addFlywheelSmartDashboard() {

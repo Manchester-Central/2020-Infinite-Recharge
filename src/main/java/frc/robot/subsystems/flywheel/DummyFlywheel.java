@@ -43,4 +43,9 @@ public class DummyFlywheel extends SubsystemBase implements IFlywheel {
   public void addFlywheelSmartDashboard() {
   }
 
+  @Override
+  public void setFlywheelTargetDashboard() {
+
+  }
+
 }
