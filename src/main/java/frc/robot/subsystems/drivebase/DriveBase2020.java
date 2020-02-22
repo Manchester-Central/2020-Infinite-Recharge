@@ -248,6 +248,25 @@ public class DriveBase2020 extends DriveBase {
         return odometer.getPoseMeters();
     }
 
+    @Override
+    public void periodic() {
+        //SmartDashboard.putNumber("Right Encoder", right4.getSensorCollection().getQuadraturePosition());
+        //SmartDashboard.putNumber("Left Encoder", -left4.getSensorCollection().getQuadraturePosition());
+        // Put code here to be run every loop
+        double rightInches = getRightPosition();
+        double leftInches = getLeftPosition();
+        double navxAngle = Robot.navx.getNavYaw();
+        // converts raw encoder readout to inches
+        odometer.update(Rotation2d.fromDegrees(navxAngle), leftInches, rightInches);
+        SmartDashboard.putNumber("Right Position", rightInches);
+        SmartDashboard.putNumber("Left Position", leftInches);
+
+        // Translation2d translation = odometer.getPoseMeters().getTranslation();
+
+        // SmartDashboard.putNumber("Odometer x", translation.getX()); TODO: potentially re-enable
+        // SmartDashboard.putNumber("Odometer y", translation.getY());
+    }
+    
     public DifferentialDriveWheelSpeeds getWheelSpeeds() {
         return new DifferentialDriveWheelSpeeds(left4.getSensorCollection().getQuadratureVelocity(),
                 right4.getSensorCollection().getQuadratureVelocity()); // TODO: separate and clean up
