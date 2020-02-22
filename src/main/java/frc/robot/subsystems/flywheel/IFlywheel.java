@@ -18,6 +18,8 @@ public interface IFlywheel extends Subsystem {
     public double getFlywheelSpeed();
   
     public void setFlywheelTargetDirect(double speed);
+
+    public void setFlywheelTargetDashboard();
   
     public void addFlywheelSmartDashboard();
 }

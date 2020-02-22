@@ -26,6 +26,7 @@ import frc.robot.commands.turret.PrepareFlywheel;
 import frc.robot.commands.util.Deadline;
 import frc.robot.commands.util.DoneCommand;
 import frc.robot.commands.util.RamseteFactory;
+import frc.robot.subsystems.flywheel.Flywheel;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -165,6 +166,8 @@ public class OI {
         operator.yButton.whileHeld(new SerializerFeed());
 
         operator.aButton.whileHeld(new SerializerDefault());
+
+        operator.bButton.whileHeld(() -> Robot.flywheel.setFlywheelTargetDashboard());
 
         // operator.leftBumper.whileHeld(new NavXTurnRobot());
         // operator.xButton.whenPressed(new ResetNavX());

@@ -124,7 +124,9 @@ public class FlywheelTable {
 
     public TableData getIdealTarget(double distance) {
 
-        int topIndex = findIndex(distance);
+        int initialIndex = findIndex(distance);
+
+        int topIndex = initialIndex == 0 ? 1 : findIndex(distance);
         int botIndex = topIndex - 1;
 
         double idealSpeed = getInterpolatedValue(getDistance(topIndex), getDistance(botIndex), getSpeed(topIndex), getSpeed(botIndex), distance);
