@@ -25,8 +25,8 @@ public class ManualThroat extends CommandBase {
   // Called repeatedly when this Command is scheduled to run
   @Override
   public void execute() {
-    Robot.serializer.ejectorSpeed(Robot.oi.getThroatTarget());
-    Robot.serializer.manualSpeed(true);
+    Robot.serializer.ejectorSpeed(Robot.oi.driver.rightTrigger.get());
+    Robot.serializer.manualSpeed(Robot.oi.driver.bButton.get());
     double speed = Robot.oi.getSerializerTarget();
     if (Math.abs(speed) > 0.1) {
       System.out.println("Serializer Speed: " + speed);
@@ -42,7 +42,7 @@ public class ManualThroat extends CommandBase {
   // Called once after isFinished returns true
   @Override
   public void end(boolean interrupted) {
-    Robot.serializer.ejectorSpeed(0);
+    Robot.serializer.ejectorSpeed(false);
     Robot.serializer.manualSpeed(false);
   }
 

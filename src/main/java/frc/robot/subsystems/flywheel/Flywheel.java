@@ -41,8 +41,8 @@ public class Flywheel extends SubsystemBase implements IFlywheel {
     m_pidController = new PIDController(kP, kI, kD);
   
     // PID coefficients
-    kP = 0.00005;
-    kI = 0.000001;
+    kP = 0.0002;
+    kI = 0.0002;
     kD = 0;
     kIz = 0;
     kFF = 0;

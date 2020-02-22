@@ -61,7 +61,7 @@ public class OI {
     // until it is finished as determined by it's isFinished method.
     // button.whenReleased(new ExampleCommand());
 
-    private LogitechF310 driver;
+    public LogitechF310 driver;
     public LogitechF310 operator;
 
     DoneCommand aim, flywheel;

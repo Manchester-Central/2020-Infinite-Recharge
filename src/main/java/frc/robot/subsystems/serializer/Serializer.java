@@ -90,7 +90,7 @@ public class Serializer extends SubsystemBase implements ISerializer{
     SmartDashboard.putNumber("Max Output Serializer", kMaxOutput);
     SmartDashboard.putNumber("Min Output Serializer", kMinOutput); */
 
-    SmartDashboard.putNumber("Serializer Target", manualSpeedTarget);
+    SmartDashboard.putNumber("Serializer Target", 0);
   }
 
   private double turnTableDegrees(CANSparkMax input) {
@@ -192,11 +192,16 @@ public class Serializer extends SubsystemBase implements ISerializer{
   @Override
   public void periodic(){
     SmartDashboard.putNumber("SerializerSetpoint", setPoint);
+    SmartDashboard.putNumber("ManualSpeedTarget", manualSpeedTarget);
     SmartDashboard.putNumber("Serializer Encoder", m_encoder.getVelocity());
   }
 
-  public void ejectorSpeed(double speed) {
-    ejector.set(speed);
+  public void ejectorSpeed(boolean on) {
+    if (!on) {
+      ejector.set(0);
+      return;
+    }
+    ejector.set(1);
   }
 
   // Put methods for controlling this subsystem
