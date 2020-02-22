@@ -11,7 +11,7 @@ import com.revrobotics.CANEncoder;
 import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.ControlType;
-
+import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -25,9 +25,9 @@ public class Flywheel extends SubsystemBase implements IFlywheel {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
-  private CANPIDController m_pidController;
+  private PIDController m_pidController;
   private CANEncoder m_encoder;
-  public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxRPM, setPoint;
+  public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxRPM;
 
   public Flywheel() {
 
@@ -38,7 +38,7 @@ public class Flywheel extends SubsystemBase implements IFlywheel {
     flywheelB.setInverted(true);
     
 
-    m_pidController = flywheelA.getPIDController();
+    m_pidController = new PIDController(kP, kI, kD);
   
     // PID coefficients
     kP = 0.00005;
@@ -54,9 +54,12 @@ public class Flywheel extends SubsystemBase implements IFlywheel {
     m_pidController.setP(kP);
     m_pidController.setI(kI);
     m_pidController.setD(kD);
-    m_pidController.setIZone(kIz);
-    m_pidController.setFF(kFF);
-    m_pidController.setOutputRange(kMinOutput, kMaxOutput);
+
+    // m_pidController.setIntegratorRange(minimumIntegral, maximumIntegral);
+    // m_pidController.setIZone(kIz);
+
+    // m_pidController.setFF(kFF);
+    // m_pidController.setOutputRange(kMinOutput, kMaxOutput);
 
     // display PID coefficients on SmartDashboard
     SmartDashboard.putNumber("P Gain Flywheel", kP);
@@ -71,7 +74,8 @@ public class Flywheel extends SubsystemBase implements IFlywheel {
 
   CANSparkMax flywheelA, flywheelB;
 
-  public void setTargetSpeed(double speed) {
+  // takes in RPM
+  public void setTargetSpeed(double setPoint) {
     // read PID coefficients from SmartDashboard
     double p = SmartDashboard.getNumber("P Gain", 0);
     double i = SmartDashboard.getNumber("I Gain", 0);
@@ -115,9 +119,12 @@ public class Flywheel extends SubsystemBase implements IFlywheel {
     }
     */
 
-    setPoint = speed * maxRPM;
+    // setPoint = speed * maxRPM;
 
-    m_pidController.setReference(setPoint, ControlType.kVelocity);
+    setPoint = Math.min(setPoint, maxRPM);
+    m_pidController.setSetpoint(setPoint);
+
+    // m_pidController.setReference(setPoint, ControlType.kVelocity);
 
     SmartDashboard.putNumber("SetPoint", setPoint);
     SmartDashboard.putNumber("ProcessVariable", m_encoder.getVelocity());
@@ -139,8 +146,15 @@ public class Flywheel extends SubsystemBase implements IFlywheel {
     flywheelB.set(speed);
   }
 
+  public void driveWithPID() {
+    double PIDSpeed = m_pidController.calculate(getFlywheelSpeed());
+    flywheelA.set(PIDSpeed);
+    flywheelB.set(PIDSpeed);
+  }
+
   public void setFlywheelTargetDashboard() {
-    setFlywheelTargetDirect(SmartDashboard.getNumber("Flywheel target speed", 0));
+    setTargetSpeed(SmartDashboard.getNumber("Flywheel target speed RPM", 0));
+    driveWithPID();
   }
 
   public void addFlywheelSmartDashboard() {

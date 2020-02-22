@@ -14,8 +14,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
 import frc.robot.RobotConstants2020;
 
-import javax.swing.text.StyleContext.SmallAttributeSet;
-
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.CANSparkMax;
 
