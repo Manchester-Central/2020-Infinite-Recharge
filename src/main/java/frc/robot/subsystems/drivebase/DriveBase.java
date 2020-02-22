@@ -122,10 +122,10 @@ public abstract class DriveBase extends SubsystemBase {
         SmartDashboard.putNumber("Right Position", rightInches);
         SmartDashboard.putNumber("Left Position", leftInches);
 
-        Translation2d translation = odometer.getPoseMeters().getTranslation();
+        // Translation2d translation = odometer.getPoseMeters().getTranslation();
 
-        SmartDashboard.putNumber("Odometer x", translation.getX());
-        SmartDashboard.putNumber("Odometer y", translation.getY());
+        // SmartDashboard.putNumber("Odometer x", translation.getX()); TODO: potentially re-enable
+        // SmartDashboard.putNumber("Odometer y", translation.getY());
     }
 
     // Put methods for controlling this subsystem

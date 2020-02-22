@@ -65,10 +65,10 @@ public class Flywheel extends SubsystemBase implements IFlywheel {
     SmartDashboard.putNumber("P Gain Flywheel", kP);
     SmartDashboard.putNumber("I Gain Flywheel", kI);
     SmartDashboard.putNumber("D Gain Flywheel", kD);
-    SmartDashboard.putNumber("I Zone Flywheel", kIz);
-    SmartDashboard.putNumber("Feed Forward Flywheel", kFF);
-    SmartDashboard.putNumber("Max Output Flywheel", kMaxOutput);
-    SmartDashboard.putNumber("Min Output Flywheel", kMinOutput);
+    // SmartDashboard.putNumber("I Zone Flywheel", kIz);
+    // SmartDashboard.putNumber("Feed Forward Flywheel", kFF);
+    // SmartDashboard.putNumber("Max Output Flywheel", kMaxOutput);
+    // SmartDashboard.putNumber("Min Output Flywheel", kMinOutput);
 
   }
 
@@ -160,7 +160,6 @@ public class Flywheel extends SubsystemBase implements IFlywheel {
   public void addFlywheelSmartDashboard() {
     SmartDashboard.putNumber("Flywheel A", flywheelA.getEncoder().getPosition());
     SmartDashboard.putNumber("Flywheel B", flywheelB.getEncoder().getPosition());
-    SmartDashboard.putBoolean("FollowerMode", flywheelB.isFollower());
   }
 
   @Override

@@ -88,12 +88,12 @@ public class Camera extends SubsystemBase implements ICamera{
         SmartDashboard.putNumber("LimelightArea", ta.getDouble(0.0));
         SmartDashboard.putNumber("LimelightSkew", ts.getDouble(0.0)); // not useful
 
-        SmartDashboard.putNumber("LimelightShort", tshort.getDouble(0.0));
-        SmartDashboard.putNumber("LimelightLong", tlong.getDouble(0.0));
-        SmartDashboard.putNumber("LimelightHorizSidelen", thor.getDouble(0.0));
-        SmartDashboard.putNumber("LimelightVerticalSidelen", tvert.getDouble(0.0));
-        SmartDashboard.putNumber("LimelightCamtran", camtran.getDouble(0.0));
-        SmartDashboard.putNumber("LimelightPipe", getpipe.getDouble(0.0));
+        // SmartDashboard.putNumber("LimelightShort", tshort.getDouble(0.0));
+        // SmartDashboard.putNumber("LimelightLong", tlong.getDouble(0.0));
+        // SmartDashboard.putNumber("LimelightHorizSidelen", thor.getDouble(0.0));
+        // SmartDashboard.putNumber("LimelightVerticalSidelen", tvert.getDouble(0.0));
+        // SmartDashboard.putNumber("LimelightCamtran", camtran.getDouble(0.0));
+        // SmartDashboard.putNumber("LimelightPipe", getpipe.getDouble(0.0));
 
     }
 

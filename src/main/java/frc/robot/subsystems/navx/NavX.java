@@ -45,12 +45,9 @@ public class NavX extends SubsystemBase implements INavX {
   public void updateNavDashboard() {
 
     // post to smart dashboard periodically
-    SmartDashboard.putNumber("NavX Angle", getNavAngle());
-    SmartDashboard.putNumber("NavX Pitch", getNavPitch());
-    SmartDashboard.putNumber("currentYaw", getNavYaw());
-    SmartDashboard.putBoolean("Callibrating?", sensor.isCalibrating()); // not necessary long term
-    if (sensor.isCalibrating()) {
-      SmartDashboard.putBoolean("Callibrated?", sensor.isCalibrating());
-    }
+    // SmartDashboard.putNumber("NavX Angle", getNavAngle());
+    // SmartDashboard.putNumber("NavX Pitch", getNavPitch());
+    // SmartDashboard.putNumber("currentYaw", getNavYaw());
+    // SmartDashboard.putBoolean("Callibrating?", sensor.isCalibrating()); // not necessary long term
   }
 }

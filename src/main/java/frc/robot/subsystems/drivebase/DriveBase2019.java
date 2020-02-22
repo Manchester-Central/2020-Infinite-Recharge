@@ -222,25 +222,6 @@ public class DriveBase2019 extends DriveBase {
     }
 
     @Override
-    public void periodic() {
-        //SmartDashboard.putNumber("Right Encoder", right4.getSensorCollection().getQuadraturePosition());
-        //SmartDashboard.putNumber("Left Encoder", -left4.getSensorCollection().getQuadraturePosition());
-        // Put code here to be run every loop
-        double rightInches = getRightPosition();
-        double leftInches = getLeftPosition();
-        double navxAngle = Robot.navx.getNavYaw();
-        // converts raw encoder readout to inches
-        odometer.update(Rotation2d.fromDegrees(navxAngle), leftInches, rightInches);
-        SmartDashboard.putNumber("Right Position", rightInches);
-        SmartDashboard.putNumber("Left Position", leftInches);
-
-        Translation2d translation = odometer.getPoseMeters().getTranslation();
-
-        SmartDashboard.putNumber("Odometer x", translation.getX());
-        SmartDashboard.putNumber("Odometer y", translation.getY());
-    }
-
-    @Override
     public SpeedControllerGroup getLeftDrive() {
         return new SpeedControllerGroup(left1, left2, left3, left4);
     }
