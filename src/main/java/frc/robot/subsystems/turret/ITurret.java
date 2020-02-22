@@ -34,4 +34,6 @@ public interface ITurret extends Subsystem {
   public void addTurretSmartDashboard();
 
   public void PIDDrive();
+
+  public void smartDashboardConstants();
 }
