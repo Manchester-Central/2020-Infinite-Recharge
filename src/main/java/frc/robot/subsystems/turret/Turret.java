@@ -50,6 +50,26 @@ public class Turret extends SubsystemBase implements ITurret {
     maxAngleX = RobotConstants2020.MAX_ANGLE_TURRET_PAN;
     minAngleY = RobotConstants2020.MIN_ANGLE_TURRET_HOOD;
     maxAngleY = RobotConstants2020.MAX_ANGLE_TURRET_HOOD;
+
+    // set PID coefficients
+    pidX.setP(xP);
+    pidX.setI(xI);
+    pidX.setD(xD);
+
+    // display PID coefficients on SmartDashboard
+    SmartDashboard.putNumber("P Gain PAN", xP);
+    SmartDashboard.putNumber("I Gain PAN", xI);
+    SmartDashboard.putNumber("D Gain PAN", xD);
+
+    // set PID coefficients
+    pidY.setP(yP);
+    pidY.setI(yI);
+    pidY.setD(yD);
+
+    // display PID coefficients on SmartDashboard
+    SmartDashboard.putNumber("P Gain TILT", yP);
+    SmartDashboard.putNumber("I Gain TILT", yI);
+    SmartDashboard.putNumber("D Gain TILT", yD);
   }
 
   private double xP, xI, xD, yP, yI, yD;
@@ -136,6 +156,44 @@ public class Turret extends SubsystemBase implements ITurret {
     SmartDashboard.putNumber("X Potentiometer, pan", getXPosition());
     SmartDashboard.putNumber("Pan Raw", speedControllerX.getSensorCollection().getAnalogInRaw());
     SmartDashboard.putNumber("Tilt Raw", speedControllerY.getSensorCollection().getAnalogInRaw());
+  }
+
+  public void smartDashboardConstants() {
+    double kXP = SmartDashboard.getNumber("P Gain PAN", 0);
+    double kXI = SmartDashboard.getNumber("I Gain PAN", 0);
+    double kXD = SmartDashboard.getNumber("D Gain PAN", 0);
+
+    double kYP = SmartDashboard.getNumber("P Gain TILT", 0);
+    double kYI = SmartDashboard.getNumber("I Gain TILT", 0);
+    double kYD = SmartDashboard.getNumber("D Gain TILT", 0);
+
+    
+    if ((kXP != xP)) {
+      pidX.setP(kXP);
+      xP = kXP;
+    }
+    if ((kXI != xI)) {
+      pidX.setI(kXI);
+      xI = kXI;
+    }
+    if ((kXD != xD)) {
+      pidX.setD(kXD);
+      xD = kXD;
+    }
+
+    if ((kYP != yP)) {
+      pidY.setP(kYP);
+      yP = kYP;
+    }
+    if ((kYI != yI)) {
+      pidY.setI(kYI);
+      yI = kYI;
+    }
+    if ((kYD != yD)) {
+      pidY.setD(kYD);
+      yD = kYD;
+    }
+
   }
 
   public void PIDDrive() {

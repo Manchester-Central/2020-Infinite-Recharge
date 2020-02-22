@@ -50,4 +50,7 @@ public class DummyTurret extends SubsystemBase implements ITurret {
 
   public void PIDDrive() {
   }
+  
+  public void smartDashboardConstants(){
+  }
 }
