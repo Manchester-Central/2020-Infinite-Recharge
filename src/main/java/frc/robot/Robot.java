@@ -151,9 +151,6 @@ public class Robot extends TimedRobot {
 
         HAL.report(tResourceType.kResourceType_Framework, tInstances.kFramework_RobotBuilder);
 
-        // Add commands to Autonomous Sendable Chooser
-        chooser.setDefaultOption("Autonomous Command", new NullCommand());
-        SmartDashboard.putData("Auto mode", chooser);
     }
 
     /**
@@ -199,11 +196,6 @@ public class Robot extends TimedRobot {
 
     @Override
     public void autonomousInit() {
-        autonomousCommand = chooser.getSelected();
-        // schedule the autonomous command (example)
-        if (autonomousCommand != null) {
-            // autonomousCommand.start();
-        }
         autoBuilder.init();
         autoBuilder.getAutoCommand().schedule();
     }
@@ -242,6 +234,7 @@ public class Robot extends TimedRobot {
         camera.getDistance();
         navx.updateNavDashboard();
         turret.addTurretSmartDashboard();
+        turret.smartDashboardConstants();
 
         if (!cameraPipelineSet) {
             camera.setPipeline(9);

@@ -49,10 +49,10 @@ public class NavXTurnRobot extends DoneCommand {
     }
 
     // visualize data
-    SmartDashboard.putNumber("Joy Delta", delta);
+    /* SmartDashboard.putNumber("Joy Delta", delta);
     SmartDashboard.putNumber("Right Angle", currentRightJoystickAngle);
-    SmartDashboard.putNumber("Calc Yaw", currentYaw);
-    Robot.driveBase.setTargetAngle(delta);
+    SmartDashboard.putNumber("Calc Yaw", currentYaw); TODO: re-enable
+    Robot.driveBase.setTargetAngle(delta); */
 
     // tells robot to drive
     Robot.driveBase.PIDDrive();

@@ -74,18 +74,18 @@ public class Serializer extends SubsystemBase implements ISerializer{
     m_pidController.setP(kP);
     m_pidController.setI(kI);
     m_pidController.setD(kD);
-    m_pidController.setIZone(kIz);
+    /* m_pidController.setIZone(kIz);
     m_pidController.setFF(kFF);
-    m_pidController.setOutputRange(kMinOutput, kMaxOutput);
+    m_pidController.setOutputRange(kMinOutput, kMaxOutput); */
 
     // display PID coefficients on SmartDashboard
     SmartDashboard.putNumber("P Gain Serializer", kP);
     SmartDashboard.putNumber("I Gain Serializer", kI);
     SmartDashboard.putNumber("D Gain Serializer", kD);
-    SmartDashboard.putNumber("I Zone Serializer", kIz);
+    /* SmartDashboard.putNumber("I Zone Serializer", kIz);
     SmartDashboard.putNumber("Feed Forward Serializer", kFF);
     SmartDashboard.putNumber("Max Output Serializer", kMaxOutput);
-    SmartDashboard.putNumber("Min Output Serializer", kMinOutput);
+    SmartDashboard.putNumber("Min Output Serializer", kMinOutput); */
   }
 
   @Override
