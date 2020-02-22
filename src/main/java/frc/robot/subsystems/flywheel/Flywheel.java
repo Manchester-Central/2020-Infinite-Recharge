@@ -65,6 +65,7 @@ public class Flywheel extends SubsystemBase implements IFlywheel {
     SmartDashboard.putNumber("P Gain Flywheel", kP);
     SmartDashboard.putNumber("I Gain Flywheel", kI);
     SmartDashboard.putNumber("D Gain Flywheel", kD);
+    SmartDashboard.putNumber("Flywheel target speed RPM", 0);
     // SmartDashboard.putNumber("I Zone Flywheel", kIz);
     // SmartDashboard.putNumber("Feed Forward Flywheel", kFF);
     // SmartDashboard.putNumber("Max Output Flywheel", kMaxOutput);
@@ -77,9 +78,9 @@ public class Flywheel extends SubsystemBase implements IFlywheel {
   // takes in RPM
   public void setTargetSpeed(double setPoint) {
     // read PID coefficients from SmartDashboard
-    double p = SmartDashboard.getNumber("P Gain", 0);
-    double i = SmartDashboard.getNumber("I Gain", 0);
-    double d = SmartDashboard.getNumber("D Gain", 0);
+    double p = SmartDashboard.getNumber("P Gain Flywheel", 0);
+    double i = SmartDashboard.getNumber("I Gain Flywheel", 0);
+    double d = SmartDashboard.getNumber("D Gain Flywheel", 0);
 
     /*
     double iz = SmartDashboard.getNumber("I Zone", 0);
@@ -127,7 +128,6 @@ public class Flywheel extends SubsystemBase implements IFlywheel {
     // m_pidController.setReference(setPoint, ControlType.kVelocity);
 
     SmartDashboard.putNumber("SetPoint", setPoint);
-    SmartDashboard.putNumber("Flywheel RPM", getFlywheelSpeed());
 
   }
 
@@ -138,15 +138,17 @@ public class Flywheel extends SubsystemBase implements IFlywheel {
   }
 
   public void setFlywheelTargetDirect(double speed) {
-    if (Math.abs(speed) > 0.1) {
-      System.out.println("Flywheel Speed: " + speed);
-    }
+
+    SmartDashboard.putNumber("Flywheel RPM", getFlywheelSpeed());
     flywheelA.set(speed);
     flywheelB.set(speed);
   }
 
   public void driveWithPID() {
     double pidSpeed = m_pidController.calculate(getFlywheelSpeed());
+
+    SmartDashboard.putNumber("Flywheel pidSpeed", pidSpeed);
+    SmartDashboard.putNumber("Flywheel RPM", getFlywheelSpeed());
 
     if (pidSpeed > 0.5) {
       pidSpeed = 0.5;

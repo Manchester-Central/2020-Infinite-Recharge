@@ -167,9 +167,9 @@ public class OI {
 
         operator.aButton.whileHeld(new SerializerDefault());
 
-        operator.bButton.whileHeld(() -> Robot.flywheel.setFlywheelTargetDashboard());
+        operator.bButton.whileHeld(() -> Robot.flywheel.setFlywheelTargetDashboard(), Robot.flywheel);
 
-        
+
 
         // operator.leftBumper.whileHeld(new NavXTurnRobot());
         // operator.xButton.whenPressed(new ResetNavX());
