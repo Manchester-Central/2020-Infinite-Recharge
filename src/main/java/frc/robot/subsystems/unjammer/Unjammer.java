@@ -7,13 +7,29 @@
 
 package frc.robot.subsystems.unjammer;
 
+import com.revrobotics.CANSparkMax;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 /**
  * Add your docs here.
  */
 public class Unjammer extends SubsystemBase implements IUnjammer{
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
+
+  // CANSparkMax unjammer = new CANSparkMax(deviceID, type);
+
+  // mini NEO -> sparkMax
+
+  public Unjammer() {
+  }
+
+  @Override
+  public void spin(boolean on) {
+
+    // TODO: finish this logic
+    // direction = (number here);
+    // (something).setSpeed...
+  }
+
 
 }

@@ -7,13 +7,16 @@
 
 package frc.robot.subsystems.unjammer;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 /**
  * Add your docs here.
  */
 public class DummyUnjammer extends SubsystemBase implements IUnjammer{
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
 
+  @Override
+  public void spin(boolean on) {
+    SmartDashboard.putBoolean("Unjammer on", on);
+  }
 }

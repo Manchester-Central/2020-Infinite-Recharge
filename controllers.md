@@ -17,21 +17,21 @@
 | LB | |
 | LT | Operator Climb enable | 
 | RB | Slow drive speed | done |
-| RT | Intake (while held) | done |
+| RT | Intake (while held) | done, logic not done in ClimbTake2020 |
 
 ## Operator
 
-| Control | Action |
-| --- | --- | 
+| Control | Action | Status |
+| --- | --- | --- |
 | Left Analog Stick  | Pan/Tilt (manual, heavily reduced to 5%) |
 | Right Analog Stick |  |
 | Up | Move arm up to climb position + extend climber arm |
 | Down | Move arm up to intake position |
 | Left | Move arm to climb position |
 | Right | Move arm to climb position + retract climber arm |
-| A | Forward direction intake |
-| B | Reverse direction intake |
-| X | Unjam |
+| A | Forward direction intake | done, logic not done in ClimbTake2020 |
+| B | Reverse direction intake | done, logic not done in ClimbTake2020 |
+| X | Unjam | done, logic not done in Unjammer |
 | Y | Long shot (pipeline change, while held, default back to other pipeline) | 
 | LB | Hold to toggle on auto turret |
 | LT | Launcher for bumper shot (manual) |

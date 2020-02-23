@@ -13,6 +13,9 @@ package frc.robot;
 import com.chaos131.LogitechF310;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.Robot.RobotType;
 import frc.robot.commands.ManualThroat;
 import frc.robot.commands.ManualThroatZero;
@@ -74,7 +77,7 @@ public class OI {
         // Driver
         Robot.driveBase.setDefaultCommand(new TankDrive(1));
         Robot.climbTake.setDefaultCommand(new SetIntake(0));
-        
+
         driver.rightBumper.whileHeld(new TankDrive(0.5));
         driver.rightTrigger.whileHeld(new SetIntake(1));
 
@@ -88,10 +91,14 @@ public class OI {
         */
 
         // Operator
+        operator.aButton.whileHeld(new SetIntake(1));
+        operator.bButton.whileHeld(new SetIntake(-1));
+        operator.xButton.whileHeld(() -> Robot.unjammer.spin(true), Robot.unjammer);
 
         // Default Commands
         Robot.flywheel.setDefaultCommand(new FlywheelZero());
         Robot.serializer.setDefaultCommand(new SerializerStop()); // TODO: change to default
+        Robot.unjammer.setDefaultCommand(new RunCommand(() -> Robot.unjammer.spin(false), Robot.unjammer));
     }
 
     public double getRobotTargetAngle() {

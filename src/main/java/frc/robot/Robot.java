@@ -37,6 +37,7 @@ import frc.robot.subsystems.navx.*;
 import frc.robot.subsystems.serializer.*;
 import frc.robot.subsystems.throat.*;
 import frc.robot.subsystems.turret.*;
+import frc.robot.subsystems.unjammer.*;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -72,6 +73,7 @@ public class Robot extends TimedRobot {
     public static IColorSensor colorSensor;
     public static ISerializer serializer;
     public static IThroat throat;
+    public static IUnjammer unjammer;
 
     public static FlywheelTable flywheelTable;
 
@@ -116,6 +118,7 @@ public class Robot extends TimedRobot {
             serializer = new Serializer();
             driveBase = new DriveBase2020();
             throat = new Throat();
+            unjammer = new Unjammer();
         }
 
         if (hardware == RobotType.chaos2019) {
@@ -129,6 +132,8 @@ public class Robot extends TimedRobot {
             serializer = new DummySerializer();
             driveBase = new DriveBase2019();
             throat = new DummyThroat();
+            unjammer = new DummyUnjammer();
+
         }
 
         if (hardware == RobotType.raft) {
@@ -143,6 +148,7 @@ public class Robot extends TimedRobot {
             serializer = new DummySerializer();
             driveBase = new DriveBaseRaft();
             throat = new DummyThroat();
+            unjammer = new DummyUnjammer();
         }
 
         flywheelTable = new FlywheelTable();
