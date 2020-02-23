@@ -8,7 +8,6 @@
 package frc.robot.commands.turret;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import frc.robot.commands.util.*;
 
 public class Shoot extends SequentialCommandGroup {
@@ -18,7 +17,7 @@ public class Shoot extends SequentialCommandGroup {
     if (aim) {
       DoneCommand aimTurret = new AimTurret();
       DoneCommand flyWheel = new PrepareFlywheel();
-      ParallelDeadlineGroup deadline = new Deadline(aimTurret, flyWheel).deadlineWith(aimTurret, flyWheel);
+      var deadline = Deadline.createDeadline(aimTurret, flyWheel);
       addCommands(deadline);
 
     } else {

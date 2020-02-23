@@ -9,19 +9,26 @@ package frc.robot.commands.util;
 
 import java.util.ArrayList;
 
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class Deadline extends CommandBase {
-  public Deadline(DoneCommand ... commandList) {
+  private Deadline(DoneCommand ... commandList) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     commands = new ArrayList<DoneCommand>();
     for (DoneCommand command : commandList) {
       commands.add(command);
+      // this.deadlineWith(commands);
     }
   }
 
   ArrayList<DoneCommand> commands;
+
+  public static Command createDeadline(DoneCommand ... commandList) {
+    var deadLine = new Deadline(commandList);
+    return deadLine.deadlineWith(commandList);
+  }
 
   // Called just before this Command runs the first time
   @Override

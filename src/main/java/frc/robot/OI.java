@@ -66,9 +66,6 @@ public class OI {
     public LogitechF310 driver;
     public LogitechF310 operator;
 
-    DoneCommand aim, flywheel;
-    
-
     public OI() {
         driver = new LogitechF310(0);
         operator = new LogitechF310(1);
@@ -83,9 +80,11 @@ public class OI {
         
         driver.leftBumper.whileHeld(new ManualThroatZero());
 
-        /*
+        
 
-        driver.aButton.whileHeld(new Deadline(aim, flywheel).deadlineWith(aim, flywheel));
+        driver.aButton.whileHeld(Deadline.createDeadline(new AimTurret(), new PrepareFlywheel()));
+        
+        /*
 
         // driver left - climbarm left
         driver.dPadLeft.whenPressed(new MoveClimbtake(-0.5));
