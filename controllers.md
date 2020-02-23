@@ -14,31 +14,31 @@
 | B | |
 | X | |
 | Y | |
-| LB | NavX mode (right joystick turn, left joystick straight forward/backward) |
-| LT | |
+| LB | |
+| LT | Operator Climb enable |
 | RB | Slow drive speed |
-| RT | Fast drive speed |
+| RT | Intake (while held) |
 
 ## Operator
 
 | Control | Action |
 | --- | --- | 
-| Left Analog Stick  |  |
+| Left Analog Stick  | Pan/Tilt (manual, heavily reduced to 5%) |
 | Right Analog Stick |  |
 | Up | Move arm up to climb position + extend climber arm |
-| Down | Move arm up to climb position + retract climber arm |
-| Left | Move arm to intake position |
-| Right | Move arm to colorwheel position?!?!?!?  |
+| Down | Move arm up to intake position |
+| Left | Move arm to climb position |
+| Right | Move arm to climb position + retract climber arm |
 | A | Forward direction intake |
 | B | Reverse direction intake |
-| X | Move turret to 1pt position (manual) |
-| Y | Move turret to 2pt position (manual) | 
+| X | Unjam |
+| Y | Long shot (pipeline change, while held, default back to other pipeline) | 
 | LB | Hold to toggle on auto turret |
-| LT | Shoot once (override aim) |
-| RB | Shoot once (needs aim) |
-| RT | Shoot while held |
-| Select | Colorwheel: turn specific amt. of times |
-| Start | Colorwheel: align to color |
+| LT | Launcher for bumper shot (manual) |
+| RB | Spin up shooter |
+| RT | (if spinner at speed, go thru launcher seq) Shoot while held |
+| Select |  |
+| Start |  |
 
 # Driver
 Drive
