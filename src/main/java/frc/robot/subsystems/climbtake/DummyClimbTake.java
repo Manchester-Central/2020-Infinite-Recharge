@@ -69,9 +69,5 @@ public class DummyClimbTake implements IClimbTake2019, IClimbTake2020 {
 
   }
 
-  @Override
-  public void setSpeedIntake(double speed) {
-    SmartDashboard.putNumber("Intake speed", speed);
-  }
 
 }
