@@ -15,7 +15,7 @@
 | X | |
 | Y | |
 | LB | |
-| LT | Operator Climb enable | 
+| LT | Operator Climb enable | done |
 | RB | Slow drive speed | done |
 | RT | Intake (while held) | done, logic not done in ClimbTake2020 |
 
@@ -32,7 +32,7 @@
 | A | Forward direction intake | done, logic not done in ClimbTake2020 |
 | B | Reverse direction intake | done, logic not done in ClimbTake2020 |
 | X | Unjam | done, logic not done in Unjammer |
-| Y | Long shot (pipeline change, while held, default back to other pipeline) | 
+| Y | Long shot (pipeline change, while held, default back to other pipeline) | done |
 | LB | Hold to toggle on auto turret |
 | LT | Launcher for bumper shot (manual) |
 | RB | Spin up shooter |

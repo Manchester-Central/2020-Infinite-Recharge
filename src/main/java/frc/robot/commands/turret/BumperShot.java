@@ -5,18 +5,14 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.inputs;
+package frc.robot.commands.turret;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Robot;
 
-public class SetPipeline extends CommandBase {
-
-  double pipeline;
-
-  public SetPipeline(int pipeline) {
-    addRequirements(Robot.camera);
-    this.pipeline = pipeline;
+public class BumperShot extends CommandBase {
+  public BumperShot() {
+    // Use requires() here to declare subsystem dependencies
+    // eg. requires(chassis);
   }
 
   // Called just before this Command runs the first time
@@ -27,9 +23,6 @@ public class SetPipeline extends CommandBase {
   // Called repeatedly when this Command is scheduled to run
   @Override
   public void execute() {
-    if (Robot.camera.getPipeline() != pipeline) {
-      Robot.camera.setPipeline(pipeline);
-    }
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -38,8 +31,9 @@ public class SetPipeline extends CommandBase {
     return false;
   }
 
-  // Called once after isFinished returns true or when interrupted
+  // Called once after isFinished returns true
   @Override
-  public void end(boolean interrupted) {
+  public void end(boolean interrputed) {
   }
+
 }

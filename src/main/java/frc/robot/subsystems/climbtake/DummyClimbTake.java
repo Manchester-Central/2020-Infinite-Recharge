@@ -15,11 +15,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class DummyClimbTake implements IClimbTake2020 {
 
   public void setPivotPosition(double target) {
-
+    SmartDashboard.putNumber("Pivot Position", target);
   }
 
   public void setExtenderPosition(double target) {
-    
+    SmartDashboard.putNumber("Extender Position", target);
   }
 
   public void setPivotPositionUNSAFE(double target) {

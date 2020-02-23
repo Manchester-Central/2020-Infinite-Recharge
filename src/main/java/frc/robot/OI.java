@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.commands.climbtake.SetClimbTakePosition;
 import frc.robot.commands.climbtake.SetIntake;
 import frc.robot.commands.drive.TankDrive;
+import frc.robot.commands.inputs.SetPipeline;
 import frc.robot.commands.serializer.SerializerStop;
 import frc.robot.commands.turret.FlywheelZero;
 import frc.robot.commands.turret.ManualTurret;
@@ -61,13 +62,9 @@ public class OI {
         operator = new LogitechF310(1);
 
         // Driver
-        Robot.driveBase.setDefaultCommand(new TankDrive(1));
-        Robot.climbTake.setDefaultCommand(new SetIntake(0));
-
         driver.rightBumper.whileHeld(new TankDrive(0.5));
         driver.rightTrigger.whileHeld(new SetIntake(1));
 
-       
         /* Operator Testing
         operator.rightTrigger.whileHeld(() -> Robot.serializer.driveTurnTable(SerializerSpeed.fast), Robot.serializer);
 
@@ -80,15 +77,17 @@ public class OI {
         operator.aButton.whileHeld(new SetIntake(1));
         operator.bButton.whileHeld(new SetIntake(-1));
         operator.xButton.whileHeld(() -> Robot.unjammer.spin(true), Robot.unjammer);
-        operator.dPadUp.whileHeld(new SetClimbTakePosition(RobotConstants2020.CLIMB_POSITION, true));
+        operator.yButton.whileHeld(new SetPipeline(8));
+
+        operator.dPadUp.and(driver.leftTrigger).whileActiveContinuous(new SetClimbTakePosition(RobotConstants2020.CLIMB_POSITION, true));
         operator.dPadDown.whileHeld(new SetClimbTakePosition(RobotConstants2020.INTAKE_POSITION, false));
         operator.dPadLeft.whileHeld(new SetClimbTakePosition(RobotConstants2020.CLIMB_POSITION, false));
         operator.dPadRight.whileHeld(new SetClimbTakePosition(RobotConstants2020.CLIMB_POSITION, false));
 
-        
-
-
         // Default Commands
+        Robot.driveBase.setDefaultCommand(new TankDrive(1));
+        Robot.intake.setDefaultCommand(new SetIntake(0));
+        Robot.camera.setDefaultCommand(new SetPipeline(9));
         Robot.flywheel.setDefaultCommand(new FlywheelZero());
         Robot.serializer.setDefaultCommand(new SerializerStop()); // TODO: change to default
         Robot.unjammer.setDefaultCommand(new RunCommand(() -> Robot.unjammer.spin(false), Robot.unjammer));
