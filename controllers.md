@@ -2,22 +2,22 @@
 
 ## Driver
 
-| Control | Action |
-| --- | --- |
-| Left Analog Stick  | Tank Drive Left  |
-| Right Analog Stick | Tank Drive Right |
+| Control | Action | Status |
+| --- | --- | --- |
+| Left Analog Stick  | Tank Drive Left  | done |
+| Right Analog Stick | Tank Drive Right | done |
 | Up | |
 | Down | |
-| Left | Move on climbarm left |
-| Right | Move on climbarm right |
-| A | Serializer slow (testing) |
+<!-- | Left | Move on climbarm left |
+| Right | Move on climbarm right | -->
+| A | |
 | B | |
 | X | |
 | Y | |
 | LB | |
-| LT | Operator Climb enable |
-| RB | Slow drive speed |
-| RT | Intake (while held) |
+| LT | Operator Climb enable | 
+| RB | Slow drive speed | done |
+| RT | Intake (while held) | done |
 
 ## Operator
 

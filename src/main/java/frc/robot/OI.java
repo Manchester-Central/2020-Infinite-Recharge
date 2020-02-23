@@ -17,6 +17,7 @@ import frc.robot.Robot.RobotType;
 import frc.robot.commands.ManualThroat;
 import frc.robot.commands.ManualThroatZero;
 import frc.robot.commands.climbtake.SetExtensionPosition;
+import frc.robot.commands.climbtake.SetIntake;
 import frc.robot.commands.drive.ResetOdometry;
 import frc.robot.commands.drive.TankDrive;
 import frc.robot.commands.serializer.*;
@@ -69,51 +70,11 @@ public class OI {
     public OI() {
         driver = new LogitechF310(0);
         operator = new LogitechF310(1);
-        // var ramseteFactory = new RamseteFactory();
-        
-        // if (Robot.hardware == RobotType.chaos2020) {
-        //     aim = new AimTurret();
-        //     flywheel = new PrepareFlywheel();
-        // }
-        
-        driver.leftTrigger.whileHeld(new ManualThroat());
-        
-        driver.leftBumper.whileHeld(new ManualThroatZero());
 
-        
-
-        driver.aButton.whileHeld(Deadline.createDeadline(new AimTurret(), new PrepareFlywheel()));
-        
-        /*
-
-        // driver left - climbarm left
-        driver.dPadLeft.whenPressed(new MoveClimbtake(-0.5));
-
-        // driver right - climbarm right
-        driver.dPadRight.whenPressed(new MoveClimbtake(0.5));
-
-        // driver leftBump - NavX mode
-        driver.leftBumper.whileHeld(new NavXTurnRobot());
-
-        driver.selectButton.whileHeld(new ResetNavX(driver.startButton));
-
-        */
-
-        // driver.xButton.whileHeld(ramseteFactory.getCircleCommand());
-
-        // TEST: Parallel Group test, delete after
-        // TODO: commented out because DriveRunAfterReady removed
-        //driver.xButton.whenPressed(new ParallelCommandGroup(new Wait(2000), new DriveRunAfterReady()));
-
-        // driver.yButton.whenPressed(new DriveDistancePID(12));
-        // driver.bButton.whenPressed(new TurnAnglePID(90));
-        // driver.aButton.whenPressed(new DriveDistancePID(-12));
-        // driver.xButton.whenPressed(new TurnAnglePID(-90));
-        // driver.startButton.whileHeld(new DriveSquare(12));
-        // driver.selectButton.whileHeld(new AimClimbtake());
-        // driver.leftBumper.whenPressed(new TurnToTarget());
-        // driver.leftTrigger.whenPressed(new SetPipeline());
-        // driver.rightBumper.whileHeld(new SerializerFeed());
+        // Driver
+        Robot.driveBase.setDefaultCommand(new TankDrive(1));
+        driver.rightBumper.whileHeld(new TankDrive(0.5));
+        driver.rightTrigger.whileHeld(new SetIntake(1));
 
         /* TODO: remove this comment
 
@@ -182,7 +143,6 @@ public class OI {
         // SmartDashboard Buttons
         //SmartDashboard.putData("Reset Odometry", new ResetOdometry());
 
-        // Robot.driveBase.setDefaultCommand(new TankDrive());
         // Robot.turret.setDefaultCommand(new ManualTurret());
         Robot.flywheel.setDefaultCommand(new FlywheelZero());
         Robot.serializer.setDefaultCommand(new SerializerStop()); // TODO: change to default
@@ -237,16 +197,5 @@ public class OI {
 
     public double getSpeedDuringNavX(){
         return driver.getLeftY();
-    }
-
-
-    public double getTankDriveSpeedScale() {
-        if (driver.rightBumper.get()){
-            return 0.25; // slow speed
-        }else if (driver.rightTrigger.get()){
-            return 1; // fast speed
-        }else{
-            return 0.5; // normal speed
-        }
     }
 }
