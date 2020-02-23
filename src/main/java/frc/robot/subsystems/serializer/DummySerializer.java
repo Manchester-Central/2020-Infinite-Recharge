@@ -7,6 +7,7 @@
 
 package frc.robot.subsystems.serializer;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
 
@@ -15,9 +16,11 @@ import frc.robot.Robot;
  */
 public class DummySerializer extends SubsystemBase implements ISerializer {
 
-  public void driveTurnTable(SerializerSpeed speed, boolean ejectorOn) {
+  public void driveTurnTable(SerializerSpeed speed) {
+    SmartDashboard.putString("Serializer speed", speed.toString());
   }
 
   public void manualSpeed(boolean on){
+    SmartDashboard.putBoolean("Serializer manual on", on);
   }
 }

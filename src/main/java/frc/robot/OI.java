@@ -168,7 +168,7 @@ public class OI {
 
         // operator.aButton.whileHeld(new SerializerDefault());
 
-        operator.rightTrigger.whileHeld(() -> Robot.serializer.driveTurnTable(SerializerSpeed.fast, false), Robot.serializer);
+        operator.rightTrigger.whileHeld(() -> Robot.serializer.driveTurnTable(SerializerSpeed.fast), Robot.serializer);
 
         operator.rightBumper.whileHeld(() -> Robot.throat.ejectorSpeed(true), Robot.throat);
 

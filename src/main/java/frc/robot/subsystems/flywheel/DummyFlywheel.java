@@ -7,16 +7,8 @@
 
 package frc.robot.subsystems.flywheel;
 
-import com.revrobotics.CANEncoder;
-import com.revrobotics.CANPIDController;
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.ControlType;
-
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Robot;
-import frc.robot.RobotConstants2020;
 
 /**
  * Add your docs here.
@@ -28,16 +20,19 @@ public class DummyFlywheel extends SubsystemBase implements IFlywheel {
   public DummyFlywheel() {
   }
 
-  public void setTargetSetpoint(double speed) {
-  }
+  public void setTargetSetpoint(double setPoint) {
 
-  
+    SmartDashboard.putNumber("Flywheel setPoint", setPoint);
+
+  }
 
   public double getFlywheelSpeed() {
     return 0;
   }
 
   public void setFlywheelTargetDirect(double speed) {
+    SmartDashboard.putNumber("Flywheel target speed", speed);
+
   }
 
   public void addFlywheelSmartDashboard() {
@@ -45,7 +40,7 @@ public class DummyFlywheel extends SubsystemBase implements IFlywheel {
 
   @Override
   public void setFlywheelTargetDashboard() {
-
+    setTargetSetpoint(SmartDashboard.getNumber("Flywheel target speed RPM", 0));
   }
 
 }

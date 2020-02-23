@@ -97,7 +97,7 @@ public class Serializer extends SubsystemBase implements ISerializer{
     return (counts * gearRatio) / ticksPerRev;
   }
 
-  public void driveTurnTable(SerializerSpeed speed, boolean ejectorOn) {
+  public void driveTurnTable(SerializerSpeed speed) {
     // read PID coefficients from SmartDashboard
     double p = SmartDashboard.getNumber("P Gain Serializer", 0);
     double i = SmartDashboard.getNumber("I Gain Serializer", 0);

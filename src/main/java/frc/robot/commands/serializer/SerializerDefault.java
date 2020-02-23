@@ -25,7 +25,7 @@ public class SerializerDefault extends CommandBase {
   // Called repeatedly when this Command is scheduled to run
   @Override
   public void execute() {
-    Robot.serializer.driveTurnTable(SerializerSpeed.slow, false);
+    Robot.serializer.driveTurnTable(SerializerSpeed.slow);
   }
 
   // Make this return true when this Command no longer needs to run execute()
