@@ -20,5 +20,9 @@ public class DummyThroat extends SubsystemBase implements IThroat{
   public void ejectorSpeed(boolean on){
     SmartDashboard.putBoolean("Throat on?", on);
   }
+
+  public void unJam() {
+    SmartDashboard.putBoolean("Unjamming Throat", true);
+  }
   
 }

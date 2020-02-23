@@ -13,12 +13,10 @@ package frc.robot;
 import com.chaos131.LogitechF310;
 
 import edu.wpi.first.wpilibj2.command.RunCommand;
-import frc.robot.commands.climbtake.SetClimbTakePosition;
-import frc.robot.commands.climbtake.SetIntake;
+import frc.robot.commands.climbtake.*;
 import frc.robot.commands.drive.TankDrive;
-import frc.robot.commands.serializer.SerializerStop;
-import frc.robot.commands.turret.FlywheelZero;
-import frc.robot.commands.turret.ManualTurret;
+import frc.robot.commands.serializer.*;
+import frc.robot.commands.turret.*;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -79,7 +77,7 @@ public class OI {
         // Operator
         operator.aButton.whileHeld(new SetIntake(1));
         operator.bButton.whileHeld(new SetIntake(-1));
-        operator.xButton.whileHeld(() -> Robot.unjammer.spin(true), Robot.unjammer);
+        operator.xButton.whileHeld(new Unjam());
         operator.dPadUp.whileHeld(new SetClimbTakePosition(RobotConstants2020.CLIMB_POSITION, true));
         operator.dPadDown.whileHeld(new SetClimbTakePosition(RobotConstants2020.INTAKE_POSITION, false));
         operator.dPadLeft.whileHeld(new SetClimbTakePosition(RobotConstants2020.CLIMB_POSITION, false));

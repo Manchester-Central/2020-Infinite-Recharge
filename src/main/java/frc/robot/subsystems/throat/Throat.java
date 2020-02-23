@@ -44,6 +44,10 @@ public class Throat extends SubsystemBase implements IThroat{
     ejector.set(1);
   }
 
+  public void unJam() {
+    ejector.set(-1);
+  }
+
 
   // Put methods for controlling this subsystem
   // here. Call these from Commands.

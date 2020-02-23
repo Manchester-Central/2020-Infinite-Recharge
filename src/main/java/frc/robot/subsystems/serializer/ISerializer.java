@@ -16,6 +16,7 @@ public interface ISerializer extends Subsystem {
 
     public void driveTurnTable(SerializerSpeed speed);
 
+    public void unJam();
 
     public void manualSpeed(boolean on);
 }
