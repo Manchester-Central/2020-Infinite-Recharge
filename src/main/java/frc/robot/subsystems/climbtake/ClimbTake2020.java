@@ -31,8 +31,8 @@ public class ClimbTake2020 extends SubsystemBase implements IClimbTake2020 {
     
   } 
 
-  public void setExtensionPosition(double target) {
-
+  public void setExtenderPosition(double target){
+    
   }
 
   public void setPivotPositionUNSAFE(double target) {

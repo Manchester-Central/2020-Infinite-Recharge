@@ -25,7 +25,7 @@ public class DummyTurret extends SubsystemBase implements ITurret {
     SmartDashboard.putNumber("Pan Target", target);
   }
 
-  public void setXSpeed(double speed) {
+  public void setPanSpeed(double speed) {
     SmartDashboard.putNumber("Pan Speed", speed);
   }
 
@@ -37,7 +37,7 @@ public class DummyTurret extends SubsystemBase implements ITurret {
     SmartDashboard.putNumber("Hood Speed", speed);
   }
 
-  public void setHoodSpeed(double speed) {
+  public void setTiltSpeed(double speed) {
     SmartDashboard.putNumber("Hood Speed", speed);
   }
 

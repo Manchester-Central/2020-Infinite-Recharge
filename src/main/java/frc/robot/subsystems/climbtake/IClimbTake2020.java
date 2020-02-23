@@ -16,7 +16,7 @@ public interface IClimbTake2020 extends Subsystem {
 
   public void setPivotPosition(double target);
 
-  public void setExtensionPosition(double target);
+  public void setExtenderPosition(double target);
 
   public void setPivotPositionUNSAFE(double target);
 

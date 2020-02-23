@@ -12,12 +12,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  * Add your docs here.
  */
-public class DummyClimbTake implements IClimbTake2019, IClimbTake2020 {
+public class DummyClimbTake implements IClimbTake2020 {
 
   public void setPivotPosition(double target) {
+
   }
 
-  public void setExtensionPosition(double target) {
+  public void setExtenderPosition(double target) {
+    
   }
 
   public void setPivotPositionUNSAFE(double target) {
@@ -46,28 +48,4 @@ public class DummyClimbTake implements IClimbTake2019, IClimbTake2020 {
   public void periodic() {
     
   }
-
-  @Override
-  public void setArmSpeed(double speed) {
-
-  }
-
-  @Override
-  public double getAngle() {
-    return 0;
-  }
-
-  @Override
-  public void setTargetAngle(double angle) {
-
-    SmartDashboard.putNumber("ClimbTake Target Angle", angle);
-
-  }
-
-  @Override
-  public void PIDDrive() {
-
-  }
-
-
 }

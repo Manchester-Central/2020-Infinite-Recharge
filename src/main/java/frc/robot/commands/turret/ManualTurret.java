@@ -12,38 +12,26 @@ import frc.robot.Robot;
 
 public class ManualTurret extends CommandBase {
   public ManualTurret() {
-    addRequirements(Robot.turret, Robot.flywheel);
+    addRequirements(Robot.turret);
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }
 
-  double minAngleX;
-  double maxAngleX;
-  double minAngleY;
-  double maxAngleY;
-  double speedX, speedY;
-
   // Called just before this Command runs the first time
   @Override
   public void initialize() {
-    minAngleX = 0;
-    maxAngleX = 0;
-    minAngleY = 0;
-    maxAngleY = 0;
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   public void execute() {
-    speedX = Robot.oi.getTurretPanTarget();
-    speedY = Robot.oi.getTurretHoodTarget();
 
-    Robot.turret.setXSpeed(speedX);
+    double xSpeedScale = 0.05;
+    double ySpeedScale = 0.5;
 
-    Robot.turret.setHoodSpeed(speedY);
-
-    Robot.flywheel.setFlywheelTargetDirect(Robot.oi.getFlywheelTarget());
-    }
+    Robot.turret.setPanSpeed(Robot.oi.getTurretPanTarget() * xSpeedScale);
+    Robot.turret.setTiltSpeed(Robot.oi.getTurretTiltTarget() * ySpeedScale);
+  }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
@@ -52,7 +40,7 @@ public class ManualTurret extends CommandBase {
   }
 
   public boolean isDone() {
-    return true; 
+    return true;
   }
 
   // Called once after isFinished returns true or when interrupted

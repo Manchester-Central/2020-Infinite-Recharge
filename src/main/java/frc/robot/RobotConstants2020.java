@@ -39,4 +39,11 @@ public class RobotConstants2020 {
     public final static int MAX_HOOD_RAW = 169; // 169
     public final static int MIN_PAN_RAW = 1; // TODO: change!!
     public final static int MAX_PAN_RAW = 1; // TODO: change!!
+
+    public final static int EXTENDER_OUT = 1; // TODO: change!! 
+    public final static int EXTENDER_IN = 1; // TODO: change!!    
+    public final static int INTAKE_POSITION = 1; // TODO: change!!    
+    public final static int CLIMB_POSITION = 1; // TODO: change!!    
+
+
 }

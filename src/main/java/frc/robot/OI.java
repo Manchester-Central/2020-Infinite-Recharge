@@ -12,27 +12,13 @@ package frc.robot;
 
 import com.chaos131.LogitechF310;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
-import frc.robot.Robot.RobotType;
-import frc.robot.commands.ManualThroat;
-import frc.robot.commands.ManualThroatZero;
-import frc.robot.commands.climbtake.SetExtensionPosition;
+import frc.robot.commands.climbtake.SetClimbTakePosition;
 import frc.robot.commands.climbtake.SetIntake;
-import frc.robot.commands.drive.ResetOdometry;
 import frc.robot.commands.drive.TankDrive;
-import frc.robot.commands.serializer.*;
-import frc.robot.commands.turret.AimTurret;
+import frc.robot.commands.serializer.SerializerStop;
 import frc.robot.commands.turret.FlywheelZero;
 import frc.robot.commands.turret.ManualTurret;
-import frc.robot.commands.turret.PrepareFlywheel;
-import frc.robot.commands.util.Deadline;
-import frc.robot.commands.util.DoneCommand;
-import frc.robot.commands.util.RamseteFactory;
-import frc.robot.subsystems.flywheel.Flywheel;
-import frc.robot.subsystems.serializer.SerializerSpeed;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -94,50 +80,28 @@ public class OI {
         operator.aButton.whileHeld(new SetIntake(1));
         operator.bButton.whileHeld(new SetIntake(-1));
         operator.xButton.whileHeld(() -> Robot.unjammer.spin(true), Robot.unjammer);
+        operator.dPadUp.whileHeld(new SetClimbTakePosition(RobotConstants2020.CLIMB_POSITION, true));
+        operator.dPadDown.whileHeld(new SetClimbTakePosition(RobotConstants2020.INTAKE_POSITION, false));
+        operator.dPadLeft.whileHeld(new SetClimbTakePosition(RobotConstants2020.CLIMB_POSITION, false));
+        operator.dPadRight.whileHeld(new SetClimbTakePosition(RobotConstants2020.CLIMB_POSITION, false));
+
+        
+
 
         // Default Commands
         Robot.flywheel.setDefaultCommand(new FlywheelZero());
         Robot.serializer.setDefaultCommand(new SerializerStop()); // TODO: change to default
         Robot.unjammer.setDefaultCommand(new RunCommand(() -> Robot.unjammer.spin(false), Robot.unjammer));
+        Robot.turret.setDefaultCommand(new ManualTurret());
     }
-
-    public double getRobotTargetAngle() {
-        return driver.getRightJoystickAngle();
-    }
-
-    
-    public double getSerializerTarget() {
-        return driver.getRightY();
-    }
-    
-    public double getThroatTarget() {
-        return driver.getLeftY();
-    }
-
 
 
     public double getTurretPanTarget() {
         return operator.getLeftX();
     }
 
-    public double getTurretHoodTarget() {
+    public double getTurretTiltTarget() {
         return operator.getLeftY();
-    }
-
-    public double getFlywheelTarget() {
-        return operator.getRightY();
-    }
-
-    public double getExtensionTarget() {
-        return operator.getRightY();
-    }
-    
-    public double getPivotTarget() {
-        return operator.getLeftY();
-    }
-
-    public boolean shouldUseRobotTargetAngle() {
-        return (Math.abs(Robot.oi.driver.getRightX()) > 0.1) || (Math.abs(Robot.oi.driver.getRightY()) > 0.1);
     }
 
     public double getLeftSpeed() {
@@ -146,9 +110,5 @@ public class OI {
 
     public double getRightSpeed() {
         return driver.getRightY();
-    }
-
-    public double getSpeedDuringNavX(){
-        return driver.getLeftY();
     }
 }

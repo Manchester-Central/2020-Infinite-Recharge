@@ -8,11 +8,20 @@
 package frc.robot.commands.climbtake;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Robot;
+import frc.robot.RobotConstants2019;
+import frc.robot.RobotConstants2020;
 
 public class SetClimbTakePosition extends CommandBase {
-  public SetClimbTakePosition() {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
+
+  double target;
+  boolean extended;
+
+  public SetClimbTakePosition(double target, boolean extended) {
+    addRequirements(Robot.climbTake);
+
+    this.target = target;
+    this.extended = extended;
   }
 
   // Called just before this Command runs the first time
@@ -23,6 +32,13 @@ public class SetClimbTakePosition extends CommandBase {
   // Called repeatedly when this Command is scheduled to run
   @Override
   public void execute() {
+    Robot.climbTake.setPivotPosition(target);
+
+    if (extended) {
+      Robot.climbTake.setExtenderPosition(RobotConstants2020.EXTENDER_OUT);
+    } else {
+      Robot.climbTake.setExtenderPosition(RobotConstants2020.EXTENDER_IN);
+    }
   }
 
   // Make this return true when this Command no longer needs to run execute()

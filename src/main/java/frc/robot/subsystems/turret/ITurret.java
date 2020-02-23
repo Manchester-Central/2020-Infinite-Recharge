@@ -17,13 +17,13 @@ public interface ITurret extends Subsystem {
 
   public void setXTarget(double target);
 
-  public void setXSpeed(double speed);
+  public void setPanSpeed(double speed);
 
   public void setXSpeedUnsafe(double speed);
 
   public void setYSpeedUnsafe(double speed);
 
-  public void setHoodSpeed(double speed);
+  public void setTiltSpeed(double speed);
 
   public double getHoodAngle();
 

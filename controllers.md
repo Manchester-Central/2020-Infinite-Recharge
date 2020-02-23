@@ -23,12 +23,12 @@
 
 | Control | Action | Status |
 | --- | --- | --- |
-| Left Analog Stick  | Pan/Tilt (manual, heavily reduced to 5%) |
+| Left Analog Stick  | Pan/Tilt (manual, heavily reduced to 5%) | done |
 | Right Analog Stick |  |
-| Up | Move arm up to climb position + extend climber arm |
-| Down | Move arm up to intake position |
-| Left | Move arm to climb position |
-| Right | Move arm to climb position + retract climber arm |
+| Up | Move arm up to climb position + extend climber arm | done, need values |
+| Down | Move arm up to intake position | done, need values |
+| Left | Move arm to climb position | done, need values |
+| Right | Move arm to climb position + retract climber arm | done, need values |
 | A | Forward direction intake | done, logic not done in ClimbTake2020 |
 | B | Reverse direction intake | done, logic not done in ClimbTake2020 |
 | X | Unjam | done, logic not done in Unjammer |

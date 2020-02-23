@@ -67,7 +67,6 @@ public class Robot extends TimedRobot {
 
     public static OI oi;
     public static DriveBase driveBase;
-    public static IClimbTake2019 climbTake19;
     public static IClimbTake2020 climbTake;
     public static IFlywheel flywheel;
     public static ITurret turret;
@@ -112,7 +111,6 @@ public class Robot extends TimedRobot {
         if (hardware == RobotType.chaos2020) {
             turret = new Turret();
             climbTake = new ClimbTake2020();
-            climbTake19 = new DummyClimbTake();
             flywheel = new Flywheel();
             navx = new DummyNavX(); // testing
             colorSensor = new DummyColorSensor();
@@ -126,7 +124,6 @@ public class Robot extends TimedRobot {
 
         if (hardware == RobotType.chaos2019) {
             turret = new DummyTurret();
-            climbTake19 = new ClimbTake2019();
             climbTake = new DummyClimbTake();
             flywheel = new DummyFlywheel();
             navx = new DummyNavX();
@@ -146,7 +143,6 @@ public class Robot extends TimedRobot {
             turret = new DummyTurret();
             navx = new DummyNavX();
             climbTake = new DummyClimbTake();
-            climbTake19 = new DummyClimbTake();
             colorSensor = new DummyColorSensor();
             camera = new DummyCamera();
             serializer = new DummySerializer();

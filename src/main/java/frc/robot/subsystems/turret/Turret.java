@@ -94,7 +94,7 @@ public class Turret extends SubsystemBase implements ITurret {
     pidX.setSetpoint(target);
   }
 
-  public void setXSpeed(double speed) {
+  public void setPanSpeed(double speed) {
     if (speedControllerX.getSensorCollection().getAnalogInRaw() <= RobotConstants2020.MIN_PAN_RAW && speed < 0) {
       speed = 0;
     }
@@ -119,11 +119,11 @@ public class Turret extends SubsystemBase implements ITurret {
   private void PIDDriveX() { // pan
     double maxSpeed = 0.4;
     double speed = pidX.calculate(getXPosition());
-    setXSpeed(speed * maxSpeed);
+    setPanSpeed(speed * maxSpeed);
     System.out.println("Turret pan angle: " + getXPosition() + " pan speed: " + speed);
   }
 
-  public void setHoodSpeed(double speed) {
+  public void setTiltSpeed(double speed) {
     if (speedControllerY.getSensorCollection().getAnalogInRaw() <= RobotConstants2020.MIN_HOOD_RAW && speed < 0) {
       speed = 0;
     }
@@ -150,7 +150,7 @@ public class Turret extends SubsystemBase implements ITurret {
   public void PIDDriveY() { // tilt
     double maxSpeed = 0.4;
     double speed = pidY.calculate(getHoodAngle());
-    setHoodSpeed(speed * maxSpeed);
+    setTiltSpeed(speed * maxSpeed);
     System.out.println("Hood angle: " + getHoodAngle() + " hood speed: " + speed);
   }
 
