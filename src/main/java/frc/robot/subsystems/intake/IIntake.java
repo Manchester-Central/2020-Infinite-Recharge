@@ -5,25 +5,15 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.subsystems.climbtake;
+package frc.robot.subsystems.intake;
 
 import edu.wpi.first.wpilibj2.command.Subsystem;
 
 /**
  * Add your docs here.
  */
-public interface IClimbTake2020 extends Subsystem {
-
-  public void setPivotPosition(double target);
-
-  public void setExtensionPosition(double target);
-
-  public void setPivotPositionUNSAFE(double target);
-
-  public void setExtensionPositionUNSAFE(double target);
-
-  public double getPivotPosition();
-
-  public double getExtensionPosition();
-
+public interface IIntake extends Subsystem{
+    
+  public void setSpeedIntake(double speed);
+  
 }

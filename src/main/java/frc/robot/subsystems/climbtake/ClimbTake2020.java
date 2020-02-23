@@ -19,8 +19,7 @@ public class ClimbTake2020 extends SubsystemBase implements IClimbTake2020 {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
-  CANSparkMax pivot, extension, intake;
-  // WPI_VictorSPX intake;
+  CANSparkMax pivot, extension;
 
   public ClimbTake2020(){
     pivot = new CANSparkMax(RobotConstants2020.ARM_SPARKMAX, CANSparkMax.MotorType.kBrushless);
@@ -54,9 +53,5 @@ public class ClimbTake2020 extends SubsystemBase implements IClimbTake2020 {
     return 0;
   }
 
-  @Override
-  public void setSpeedIntake(double speed) {
-
-  }
 
 }

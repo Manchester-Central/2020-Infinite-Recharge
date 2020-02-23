@@ -5,25 +5,19 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.subsystems.climbtake;
+package frc.robot.subsystems.intake;
 
-import edu.wpi.first.wpilibj2.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 /**
  * Add your docs here.
  */
-public interface IClimbTake2020 extends Subsystem {
+public class DummyIntake extends SubsystemBase implements IIntake{
+  // Put methods for controlling this subsystem
+  // here. Call these from Commands.
 
-  public void setPivotPosition(double target);
-
-  public void setExtensionPosition(double target);
-
-  public void setPivotPositionUNSAFE(double target);
-
-  public void setExtensionPositionUNSAFE(double target);
-
-  public double getPivotPosition();
-
-  public double getExtensionPosition();
-
+  public void setSpeedIntake(double speed) {
+    SmartDashboard.putNumber("Intake speed", speed);
+  }
 }
