@@ -7,6 +7,7 @@
 
 package frc.robot.subsystems.turret;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 /**
@@ -21,18 +22,23 @@ public class DummyTurret extends SubsystemBase implements ITurret {
   }
 
   public void setXTarget(double target) {
+    SmartDashboard.putNumber("Pan Target", target);
   }
 
-  public void setXSpeed(double speed){
+  public void setXSpeed(double speed) {
+    SmartDashboard.putNumber("Pan Speed", speed);
   }
 
   public void setXSpeedUnsafe(double speed) {
+    SmartDashboard.putNumber("Pan Speed", speed);
   }
-
+  
   public void setYSpeedUnsafe(double speed) {
+    SmartDashboard.putNumber("Hood Speed", speed);
   }
 
   public void setHoodSpeed(double speed) {
+    SmartDashboard.putNumber("Hood Speed", speed);
   }
 
   public double getHoodAngle() {
@@ -40,22 +46,23 @@ public class DummyTurret extends SubsystemBase implements ITurret {
   }
 
   public void setHoodTargetAngle(double angle) {
+    SmartDashboard.putNumber("HoodTarget", angle);
   }
 
   public void PIDDriveY() {
   }
 
-  public void addTurretSmartDashboard(){
+  public void addTurretSmartDashboard() {
   }
 
   public void PIDDrive() {
-  }
-  
-  public void smartDashboardConstants(){
+    PIDDriveY();
   }
 
-@Override
-public void setTurretAngleDashboard() {
+  public void smartDashboardConstants() {
+  }
+
+  public void setTurretAngleDashboard() {
   }
 
 }

@@ -75,6 +75,8 @@ public class Turret extends SubsystemBase implements ITurret {
   private double slopeX, slopeY, interceptX, interceptY;
   PIDController pidX, pidY;
   WPI_TalonSRX speedControllerX, speedControllerY;
+  
+  double panMultiplier = 0.05;
 
   private double turretXDegrees(CANSparkMax input) {
     double gearRatio = (double) 10 / 1; // ratio of the axel the turntable lies on to the axel the encoder reads
@@ -103,9 +105,8 @@ public class Turret extends SubsystemBase implements ITurret {
   }
 
   public void setXSpeedUnsafe(double speed) { // pan
-    double multiplier = 0.05;
 
-    speedControllerX.set(speed * multiplier); // DANGER!!
+    speedControllerX.set(speed * panMultiplier); // DANGER!!
     SmartDashboard.putNumber("Pan (X) speed joystick", speed);
   }
 
