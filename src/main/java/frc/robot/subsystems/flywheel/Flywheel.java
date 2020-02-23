@@ -28,6 +28,8 @@ public class Flywheel extends SubsystemBase implements IFlywheel {
   private CANPIDController m_pidControllerA, m_pidControllerB;
   private CANEncoder m_encoder;
   public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxRPM;
+  CANSparkMax flywheelA, flywheelB;
+  private final String FLYWHEEL_TARGET = "Flywheel target speed RPM";
 
   public Flywheel() {
 
@@ -80,7 +82,7 @@ public class Flywheel extends SubsystemBase implements IFlywheel {
     SmartDashboard.putNumber("P Gain Flywheel", kP);
     SmartDashboard.putNumber("I Gain Flywheel", kI);
     SmartDashboard.putNumber("D Gain Flywheel", kD);
-    SmartDashboard.putNumber("Flywheel target speed RPM", 0);
+    SmartDashboard.putNumber(FLYWHEEL_TARGET, 0);
 
     SmartDashboard.putNumber("I Zone Flywheel", kIz);
     SmartDashboard.putNumber("Feed Forward Flywheel", kFF);
@@ -89,10 +91,13 @@ public class Flywheel extends SubsystemBase implements IFlywheel {
 
   }
 
-  CANSparkMax flywheelA, flywheelB;
+  public void setTarget(double target) {
+    SmartDashboard.putNumber(FLYWHEEL_TARGET, target);
+  }
 
   // takes in RPM
-  public void setTargetSetpoint(double setPoint) {
+  public void accelerateToSetPoint() {
+    double setPoint = SmartDashboard.getNumber(FLYWHEEL_TARGET, 0);
     // read PID coefficients from SmartDashboard
     double p = SmartDashboard.getNumber("P Gain Flywheel", 0);
     double i = SmartDashboard.getNumber("I Gain Flywheel", 0);
@@ -174,11 +179,6 @@ public class Flywheel extends SubsystemBase implements IFlywheel {
     flywheelA.set(pidSpeed);
     flywheelB.set(pidSpeed);
   } */
-
-  public void setFlywheelTargetDashboard() {
-    setTargetSetpoint(SmartDashboard.getNumber("Flywheel target speed RPM", 0));
-    // driveWithPID();
-  }
 
   public void addFlywheelSmartDashboard() {
     SmartDashboard.putNumber("Flywheel A", flywheelA.getEncoder().getVelocity());

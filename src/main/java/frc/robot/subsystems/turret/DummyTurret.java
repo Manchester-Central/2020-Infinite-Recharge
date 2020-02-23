@@ -41,7 +41,7 @@ public class DummyTurret extends SubsystemBase implements ITurret {
     SmartDashboard.putNumber("Hood Speed", speed);
   }
 
-  public double getHoodAngle() {
+  public double getTiltAngle() {
     return 0;
   }
 

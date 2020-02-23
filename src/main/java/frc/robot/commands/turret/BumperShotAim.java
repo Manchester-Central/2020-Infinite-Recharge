@@ -12,7 +12,7 @@ import frc.robot.Robot;
 
 public class BumperShotAim extends CommandBase {
   public BumperShotAim() {
-    addRequirements(Robot.turret, Robot.flywheel);
+    addRequirements(Robot.turret);
   }
 
   private final double FLYWHEEL_SPEED = 4500;
@@ -21,13 +21,14 @@ public class BumperShotAim extends CommandBase {
   // Called just before this Command runs the first time
   @Override
   public void initialize() {
+    Robot.turret.setTiltTargetAngle(TURRET_TILT);
+    Robot.flywheel.setTarget(FLYWHEEL_SPEED);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   public void execute() {
-    Robot.turret.setTiltTargetAngle(TURRET_TILT);
-    Robot.flywheel.setTargetSetpoint(FLYWHEEL_SPEED);
+    Robot.turret.PIDDrive();
   }
 
   // Make this return true when this Command no longer needs to run execute()

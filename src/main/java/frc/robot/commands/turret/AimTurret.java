@@ -23,6 +23,8 @@ public class AimTurret extends DoneCommand {
   // Called just before this Command runs the first time
   @Override
   public void initialize() {
+    Robot.turret.setPanTarget(Robot.turret.getPanAngle());
+    Robot.turret.setTiltTargetAngle(Robot.turret.getTiltAngle());
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -36,8 +38,10 @@ public class AimTurret extends DoneCommand {
 
       limelightXAngle = Robot.camera.getXAngle();
       Robot.turret.setPanTarget(limelightXAngle + Robot.turret.getPanAngle());
-      Robot.turret.PIDDrive();
+
+      Robot.flywheel.setTarget(targetData.getSpeed());
     }
+    Robot.turret.PIDDrive();
   }
 
   // Make this return true when this Command no longer needs to run execute()

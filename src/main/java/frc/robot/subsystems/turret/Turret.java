@@ -134,7 +134,7 @@ public class Turret extends SubsystemBase implements ITurret {
     speedControllerY.set(speed);
   }
 
-  public double getHoodAngle() {
+  public double getTiltAngle() {
     return speedControllerY.getSensorCollection().getAnalogIn();
   }
 
@@ -149,13 +149,13 @@ public class Turret extends SubsystemBase implements ITurret {
 
   public void PIDDriveY() { // tilt
     double maxSpeed = 0.4;
-    double speed = pidY.calculate(getHoodAngle());
+    double speed = pidY.calculate(getTiltAngle());
     setTiltSpeed(speed * maxSpeed);
-    System.out.println("Hood angle: " + getHoodAngle() + " hood speed: " + speed);
+    System.out.println("Hood angle: " + getTiltAngle() + " hood speed: " + speed);
   }
 
   public void addTurretSmartDashboard(){
-    SmartDashboard.putNumber("Y Potentiometer, tilt", getHoodAngle());
+    SmartDashboard.putNumber("Y Potentiometer, tilt", getTiltAngle());
     SmartDashboard.putNumber("X Potentiometer, pan", getPanAngle());
     SmartDashboard.putNumber("Pan Raw", speedControllerX.getSensorCollection().getAnalogInRaw());
     SmartDashboard.putNumber("Tilt Raw", speedControllerY.getSensorCollection().getAnalogInRaw());

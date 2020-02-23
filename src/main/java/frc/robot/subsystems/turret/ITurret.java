@@ -25,7 +25,7 @@ public interface ITurret extends Subsystem {
 
   public void setTiltSpeed(double speed);
 
-  public double getHoodAngle();
+  public double getTiltAngle();
 
   public void setTiltTargetAngle(double angle);
 

@@ -17,11 +17,12 @@ public class DummyFlywheel extends SubsystemBase implements IFlywheel {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
+  double setPoint;
+
   public DummyFlywheel() {
   }
 
-  public void setTargetSetpoint(double setPoint) {
-
+  public void accelerateToSetPoint() {
     SmartDashboard.putNumber("Flywheel setPoint", setPoint);
 
   }
@@ -39,8 +40,7 @@ public class DummyFlywheel extends SubsystemBase implements IFlywheel {
   }
 
   @Override
-  public void setFlywheelTargetDashboard() {
-    setTargetSetpoint(SmartDashboard.getNumber("Flywheel target speed RPM", 0));
+  public void setTarget(double target) {
+    setPoint = target;
   }
-
 }
