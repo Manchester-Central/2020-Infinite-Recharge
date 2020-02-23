@@ -24,7 +24,6 @@ import frc.robot.RobotConstants2020;
 public class Serializer extends SubsystemBase implements ISerializer{
 
   private CANSparkMax turnTable;
-  private CANSparkMax ejector;
 
   public enum Speed {
     fast, slow
@@ -43,8 +42,6 @@ public class Serializer extends SubsystemBase implements ISerializer{
     //turnTable.setInverted(true);
     m_encoder = turnTable.getEncoder();
     // m_encoder.setInverted(true);
-    ejector = new CANSparkMax(RobotConstants2020.EJECTER_SPARKMAX, MotorType.kBrushless);
-    ejector.setInverted(true);
     
     /**
      * The RestoreFactoryDefaults method can be used to reset the configuration
@@ -155,15 +152,6 @@ public class Serializer extends SubsystemBase implements ISerializer{
       break;
     }
 
-
-
-    if (ejectorOn){
-      ejector.set(1);
-    }else {
-      ejector.set(0);
-    }
-
-
     /**
      * PIDController objects are commanded to a set point using the SetReference()
      * method.
@@ -195,15 +183,7 @@ public class Serializer extends SubsystemBase implements ISerializer{
     SmartDashboard.putNumber("ManualSpeedTarget", manualSpeedTarget);
     SmartDashboard.putNumber("Serializer Encoder", m_encoder.getVelocity());
   }
-
-  public void ejectorSpeed(boolean on) {
-    if (!on) {
-      ejector.set(0);
-      return;
-    }
-    ejector.set(1);
-  }
-
+  
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 }

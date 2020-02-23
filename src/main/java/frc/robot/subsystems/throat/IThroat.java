@@ -7,8 +7,12 @@
 
 package frc.robot.subsystems.throat;
 
+import edu.wpi.first.wpilibj2.command.Subsystem;
+
 /**
  * Add your docs here.
  */
-public interface IThroat {
+public interface IThroat extends Subsystem{
+    
+    public void ejectorSpeed(boolean on);
 }

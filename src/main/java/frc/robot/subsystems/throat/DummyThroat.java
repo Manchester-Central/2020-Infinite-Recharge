@@ -15,5 +15,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class DummyThroat extends SubsystemBase implements IThroat{
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-
+  
+  public void ejectorSpeed(boolean on){
+  }
+  
 }

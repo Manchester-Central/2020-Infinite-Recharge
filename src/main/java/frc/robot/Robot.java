@@ -35,6 +35,7 @@ import frc.robot.subsystems.colorsensor.*;
 import frc.robot.subsystems.flywheel.*;
 import frc.robot.subsystems.navx.*;
 import frc.robot.subsystems.serializer.*;
+import frc.robot.subsystems.throat.*;
 import frc.robot.subsystems.turret.*;
 
 /**
@@ -70,6 +71,7 @@ public class Robot extends TimedRobot {
     public static ITurret turret;
     public static IColorSensor colorSensor;
     public static ISerializer serializer;
+    public static IThroat throat;
 
     public static FlywheelTable flywheelTable;
 
@@ -113,6 +115,7 @@ public class Robot extends TimedRobot {
             camera = new Camera(34, 47, 2);
             serializer = new Serializer();
             driveBase = new DriveBase2020();
+            throat = new Throat();
         }
 
         if (hardware == RobotType.chaos2019) {
@@ -125,6 +128,7 @@ public class Robot extends TimedRobot {
             camera = new Camera(34, 47, 2);
             serializer = new DummySerializer();
             driveBase = new DriveBase2019();
+            throat = new DummyThroat();
         }
 
         if (hardware == RobotType.raft) {
@@ -138,6 +142,7 @@ public class Robot extends TimedRobot {
             camera = new DummyCamera();
             serializer = new DummySerializer();
             driveBase = new DriveBaseRaft();
+            throat = new DummyThroat();
         }
 
         flywheelTable = new FlywheelTable();

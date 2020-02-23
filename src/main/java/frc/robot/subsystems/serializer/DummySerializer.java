@@ -18,9 +18,6 @@ public class DummySerializer extends SubsystemBase implements ISerializer {
   public void driveTurnTable(SerializerSpeed speed, boolean ejectorOn) {
   }
 
-  public void ejectorSpeed(boolean on){
-  }
-  
   public void manualSpeed(boolean on){
   }
 }
