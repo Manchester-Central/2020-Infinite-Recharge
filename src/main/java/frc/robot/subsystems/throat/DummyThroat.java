@@ -7,6 +7,7 @@
 
 package frc.robot.subsystems.throat;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 /**
@@ -17,6 +18,7 @@ public class DummyThroat extends SubsystemBase implements IThroat{
   // here. Call these from Commands.
   
   public void ejectorSpeed(boolean on){
+    SmartDashboard.putBoolean("Throat on?", on);
   }
   
 }
