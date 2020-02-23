@@ -8,12 +8,15 @@
 package frc.robot.commands.turret;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Robot;
 
-public class BumperShot extends CommandBase {
-  public BumperShot() {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
+public class BumperShotAim extends CommandBase {
+  public BumperShotAim() {
+    addRequirements(Robot.turret, Robot.flywheel);
   }
+
+  private final double FLYWHEEL_SPEED = 4500;
+  private final double TURRET_TILT = 65; 
 
   // Called just before this Command runs the first time
   @Override
@@ -23,6 +26,8 @@ public class BumperShot extends CommandBase {
   // Called repeatedly when this Command is scheduled to run
   @Override
   public void execute() {
+    Robot.turret.setTiltTargetAngle(TURRET_TILT);
+    Robot.flywheel.setTargetSetpoint(FLYWHEEL_SPEED);
   }
 
   // Make this return true when this Command no longer needs to run execute()

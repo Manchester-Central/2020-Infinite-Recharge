@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj2.command.Subsystem;
 public interface ITurret extends Subsystem {
   public double getXPosition();
 
-  public void setXTarget(double target);
+  public void setPanTarget(double target);
 
   public void setPanSpeed(double speed);
 
@@ -27,7 +27,7 @@ public interface ITurret extends Subsystem {
 
   public double getHoodAngle();
 
-  public void setHoodTargetAngle(double angle);
+  public void setTiltTargetAngle(double angle);
 
   public void PIDDriveY();
 

@@ -80,7 +80,7 @@ public class FlywheelTable {
     }
 
     // takes raw data, adds to data structure
-    public void addData(TableData data) {
+    private void addData(TableData data) {
 
         System.out.println(data.getDistance() + " " + data.getSpeed() + " " + data.getAngle());
             
@@ -89,23 +89,23 @@ public class FlywheelTable {
 
     }
 
-    public TableData getTableData(int index) {
+    private TableData getTableData(int index) {
         return flyTable.get(index);
     }
 
-    public double getDistance(int index) {
+    private double getDistance(int index) {
         return getTableData(index).getDistance();
     }
 
-    public double getSpeed(int index) {
+    private double getSpeed(int index) {
         return getTableData(index).getSpeed();
     }
 
-    public double getAngle(int index) {
+    private double getAngle(int index) {
         return getTableData(index).getAngle();
     }
 
-    public int findIndex(double distance) {
+    private int findIndex(double distance) {
         
         for (int i = 0; i < flyTable.size(); i++) {
             if (distance < getDistance(i)) {
@@ -115,7 +115,7 @@ public class FlywheelTable {
         return flyTable.size() - 1;
     }
 
-    public double getInterpolatedValue(double x1, double x2, double y1, double y2, double distance) {
+    private double getInterpolatedValue(double x1, double x2, double y1, double y2, double distance) {
         double slope = (y2 - y1) / (x2 - x1);
         double intercept = y1 - (slope * x1);
 

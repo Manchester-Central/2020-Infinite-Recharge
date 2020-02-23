@@ -18,6 +18,7 @@ import frc.robot.commands.climbtake.SetIntake;
 import frc.robot.commands.drive.TankDrive;
 import frc.robot.commands.inputs.SetPipeline;
 import frc.robot.commands.serializer.SerializerStop;
+import frc.robot.commands.turret.BumperShotAim;
 import frc.robot.commands.turret.FlywheelZero;
 import frc.robot.commands.turret.ManualTurret;
 
@@ -83,6 +84,8 @@ public class OI {
         operator.dPadDown.whileHeld(new SetClimbTakePosition(RobotConstants2020.INTAKE_POSITION, false));
         operator.dPadLeft.whileHeld(new SetClimbTakePosition(RobotConstants2020.CLIMB_POSITION, false));
         operator.dPadRight.whileHeld(new SetClimbTakePosition(RobotConstants2020.CLIMB_POSITION, false));
+
+        operator.leftTrigger.whileHeld(new BumperShotAim());
 
         // Default Commands
         Robot.driveBase.setDefaultCommand(new TankDrive(1));

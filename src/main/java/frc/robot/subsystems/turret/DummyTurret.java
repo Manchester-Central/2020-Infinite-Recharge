@@ -21,7 +21,7 @@ public class DummyTurret extends SubsystemBase implements ITurret {
     return 0;
   }
 
-  public void setXTarget(double target) {
+  public void setPanTarget(double target) {
     SmartDashboard.putNumber("Pan Target", target);
   }
 
@@ -45,7 +45,7 @@ public class DummyTurret extends SubsystemBase implements ITurret {
     return 0;
   }
 
-  public void setHoodTargetAngle(double angle) {
+  public void setTiltTargetAngle(double angle) {
     SmartDashboard.putNumber("HoodTarget", angle);
   }
 

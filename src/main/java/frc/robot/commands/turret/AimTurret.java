@@ -17,27 +17,25 @@ public class AimTurret extends DoneCommand {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }
-  private double targetAngleX, targetAngleY;
+  private double limelightXAngle, limelightYAngle;
   private double offsetX;
-  private double tableTargetAngle, tableTargetSpeed;
 
   // Called just before this Command runs the first time
   @Override
   public void initialize() {
-    Robot.camera.setPipeline(9); // TODO: change!!!
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   public void execute() {
     if (Robot.camera.hasTarget()) {
-      targetAngleY = Robot.camera.getYAngle();
-      // add conversion from camera output to setpoint target using table
-      Robot.turret.setHoodTargetAngle(tableTargetAngle);
-      Robot.flywheel.setTargetSetpoint(tableTargetSpeed);
+      limelightYAngle = Robot.camera.getYAngle();
 
-      targetAngleX = Robot.camera.getXAngle();
-      Robot.turret.setXTarget(targetAngleX);
+      var targetData = Robot.flywheelTable.getIdealTarget(limelightYAngle);
+      Robot.turret.setTiltTargetAngle(targetData.getAngle());
+
+      limelightXAngle = Robot.camera.getXAngle();
+      Robot.turret.setPanTarget(limelightXAngle);
       Robot.turret.PIDDrive();
     }
   }
