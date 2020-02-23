@@ -17,6 +17,7 @@ import java.net.SocketException;
 import edu.wpi.first.hal.HAL;
 import edu.wpi.first.hal.FRCNetComm.tInstances;
 import edu.wpi.first.hal.FRCNetComm.tResourceType;
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -245,5 +246,6 @@ public class Robot extends TimedRobot {
         // System.out.println(camera.getPipeline());
 
         // detectedColor.updateColorDashboard();
+        SmartDashboard.putNumber("Battery (v)", RobotController.getBatteryVoltage());
     }
 }

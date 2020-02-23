@@ -21,12 +21,14 @@ import frc.robot.commands.drive.ResetOdometry;
 import frc.robot.commands.drive.TankDrive;
 import frc.robot.commands.serializer.*;
 import frc.robot.commands.turret.AimTurret;
+import frc.robot.commands.turret.FlywheelZero;
 import frc.robot.commands.turret.ManualTurret;
 import frc.robot.commands.turret.PrepareFlywheel;
 import frc.robot.commands.util.Deadline;
 import frc.robot.commands.util.DoneCommand;
 import frc.robot.commands.util.RamseteFactory;
 import frc.robot.subsystems.flywheel.Flywheel;
+import frc.robot.subsystems.serializer.SerializerSpeed;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -161,15 +163,19 @@ public class OI {
         
         // operator.leftBumper.whileHeld(new ManualThroatZero());
 
-        operator.xButton.whileHeld(new SetExtensionPosition());
+        // operator.xButton.whileHeld(new SetExtensionPosition());
 
-        operator.yButton.whileHeld(new SerializerFeed());
+        // operator.yButton.whileHeld(new SerializerFeed());
 
-        operator.aButton.whileHeld(new SerializerDefault());
+        // operator.aButton.whileHeld(new SerializerDefault());
+
+        operator.rightTrigger.whileHeld(() -> Robot.serializer.driveTurnTable(SerializerSpeed.fast, false), Robot.serializer);
+
+        operator.rightBumper.whileHeld(() -> Robot.serializer.ejectorSpeed(true), Robot.serializer);
 
         operator.bButton.whileHeld(() -> Robot.flywheel.setFlywheelTargetDashboard(), Robot.flywheel);
 
-        operator.leftBumper.whileHeld(() -> Robot.turret.setTurretAngleDashboard(), Robot.turret);
+        // operator.leftBumper.whileHeld(() -> Robot.turret.setTurretAngleDashboard(), Robot.turret);
 
         // operator.leftBumper.whileHeld(new NavXTurnRobot());
         // operator.xButton.whenPressed(new ResetNavX());
@@ -178,7 +184,8 @@ public class OI {
         //SmartDashboard.putData("Reset Odometry", new ResetOdometry());
 
         // Robot.driveBase.setDefaultCommand(new TankDrive());
-        Robot.turret.setDefaultCommand(new ManualTurret());
+        // Robot.turret.setDefaultCommand(new ManualTurret());
+        Robot.flywheel.setDefaultCommand(new FlywheelZero());
         Robot.serializer.setDefaultCommand(new SerializerStop()); // TODO: change to default
     }
 

@@ -5,39 +5,26 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.serializer;
+package frc.robot.commands.turret;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
-import frc.robot.subsystems.serializer.SerializerSpeed;
 
-public class SerializerStop extends CommandBase {
-  public SerializerStop() {
-    addRequirements(Robot.serializer);
+public class FlywheelZero extends CommandBase {
+  public FlywheelZero() {
+    addRequirements(Robot.flywheel);
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-  }
-
-  // Called just before this Command runs the first time
-  @Override
-  public void initialize() {
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   public void execute() {
-    // Robot.serializer.driveTurnTable(SerializerSpeed.stop, false);
-    Robot.serializer.manualSpeed(false);
-    Robot.serializer.ejectorSpeed(false);
+    Robot.flywheel.setFlywheelTargetDirect(0);
   }
 
-  // Make this return true when this Command no longer needs to run execute()
-  @Override
-  public boolean isFinished() {
-    return false;
-  }
 
-  // Called once after isFinished returns true or when interrupted
+  // Called once after isFinished returns true
   @Override
   public void end(boolean interrupted) {
   }

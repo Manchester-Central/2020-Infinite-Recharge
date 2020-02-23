@@ -34,8 +34,8 @@ public class Serializer extends SubsystemBase implements ISerializer{
   private CANEncoder m_encoder;
   public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxRPM;
   private double setPoint;
-  private final double FAST_SPEED = -1500;
-  private final double SLOW_SPEED = -200;
+  private final double FAST_SPEED = 2000;
+  private final double SLOW_SPEED = 200;
   private double manualSpeedTarget;
 
   public Serializer() {
@@ -62,8 +62,8 @@ public class Serializer extends SubsystemBase implements ISerializer{
     // Encoder object created to display position values
 
     // PID coefficients
-    kP = 0.00005;
-    kI = 0.000001;
+    kP = 0.00013;
+    kI = 0.0;
     kD = 0;
     kIz = 0;
     kFF = 0;
@@ -90,7 +90,7 @@ public class Serializer extends SubsystemBase implements ISerializer{
     SmartDashboard.putNumber("Max Output Serializer", kMaxOutput);
     SmartDashboard.putNumber("Min Output Serializer", kMinOutput); */
 
-    SmartDashboard.putNumber("Serializer Target", 0);
+    SmartDashboard.putNumber("Serializer Target", manualSpeedTarget);
   }
 
   private double turnTableDegrees(CANSparkMax input) {
