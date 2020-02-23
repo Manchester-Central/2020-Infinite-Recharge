@@ -10,13 +10,25 @@
 
 package frc.robot;
 
-import frc.robot.commands.*;
-import frc.robot.commands.groups.ParallelGroup;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.subsystems.*;
 import com.chaos131.LogitechF310;
+
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Robot.RobotType;
+import frc.robot.commands.ManualThroat;
+import frc.robot.commands.ManualThroatZero;
+import frc.robot.commands.climbtake.SetExtensionPosition;
+import frc.robot.commands.drive.ResetOdometry;
+import frc.robot.commands.drive.TankDrive;
+import frc.robot.commands.serializer.*;
+import frc.robot.commands.turret.AimTurret;
+import frc.robot.commands.turret.FlywheelZero;
+import frc.robot.commands.turret.ManualTurret;
+import frc.robot.commands.turret.PrepareFlywheel;
+import frc.robot.commands.util.Deadline;
+import frc.robot.commands.util.DoneCommand;
+import frc.robot.commands.util.RamseteFactory;
+import frc.robot.subsystems.flywheel.Flywheel;
+import frc.robot.subsystems.serializer.SerializerSpeed;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -51,13 +63,29 @@ public class OI {
     // until it is finished as determined by it's isFinished method.
     // button.whenReleased(new ExampleCommand());
 
-    private LogitechF310 driver;
-    private LogitechF310 operator;
+    public LogitechF310 driver;
+    public LogitechF310 operator;
+
+    DoneCommand aim, flywheel;
     
 
     public OI() {
         driver = new LogitechF310(0);
         operator = new LogitechF310(1);
+        // var ramseteFactory = new RamseteFactory();
+        
+        // if (Robot.hardware == RobotType.chaos2020) {
+        //     aim = new AimTurret();
+        //     flywheel = new PrepareFlywheel();
+        // }
+        
+        driver.leftTrigger.whileHeld(new ManualThroat());
+        
+        driver.leftBumper.whileHeld(new ManualThroatZero());
+
+        /*
+
+        driver.aButton.whileHeld(new Deadline(aim, flywheel).deadlineWith(aim, flywheel));
 
         // driver left - climbarm left
         driver.dPadLeft.whenPressed(new MoveClimbtake(-0.5));
@@ -66,10 +94,17 @@ public class OI {
         driver.dPadRight.whenPressed(new MoveClimbtake(0.5));
 
         // driver leftBump - NavX mode
-        driver.leftBumper.whenPressed(new NavXTurnRobot());
+        driver.leftBumper.whileHeld(new NavXTurnRobot());
+
+        driver.selectButton.whileHeld(new ResetNavX(driver.startButton));
+
+        */
+
+        // driver.xButton.whileHeld(ramseteFactory.getCircleCommand());
 
         // TEST: Parallel Group test, delete after
-        driver.xButton.whenPressed(new ParallelGroup(new Wait(2000), new DriveRunAfterReady()));
+        // TODO: commented out because DriveRunAfterReady removed
+        //driver.xButton.whenPressed(new ParallelCommandGroup(new Wait(2000), new DriveRunAfterReady()));
 
         // driver.yButton.whenPressed(new DriveDistancePID(12));
         // driver.bButton.whenPressed(new TurnAnglePID(90));
@@ -81,6 +116,7 @@ public class OI {
         // driver.leftTrigger.whenPressed(new SetPipeline());
         // driver.rightBumper.whileHeld(new SerializerFeed());
 
+        /* TODO: remove this comment
 
         // operator up - move arm up to climb + extend
         operator.dPadUp.whenPressed(new SetClimber());
@@ -100,9 +136,6 @@ public class OI {
         // op b - reverse intake
         operator.bButton.whenPressed(new SetIntake(-0.5));
 
-        // op x - turret to 1pt pos
-        operator.xButton.whenPressed(new SetTurretTilt(0.0));
-
         // op y - turret to 2pt pos
         operator.yButton.whenPressed(new SetTurretTilt(75.0));
 
@@ -117,26 +150,82 @@ public class OI {
 
         // op rightTrig - shoot (hold)
         operator.rightTrigger.whileHeld(new Shoot(true));
-
+        
         // op select - colorwheel spin to amt
         operator.selectButton.whenPressed(new MoveColorWheelAmt());
 
         // op start - colorwheel spin to color
-        operator.startButton.whenPressed(new MoveColorWheelToColor());
+        operator.startButton.whenPressed(new MoveColorWheelToColor()); 
+
+        TODO: and this one */
+
+        // operator.leftTrigger.whileHeld(new ManualThroat());
+        
+        // operator.leftBumper.whileHeld(new ManualThroatZero());
+
+        // operator.xButton.whileHeld(new SetExtensionPosition());
+
+        // operator.yButton.whileHeld(new SerializerFeed());
+
+        // operator.aButton.whileHeld(new SerializerDefault());
+
+        operator.rightTrigger.whileHeld(() -> Robot.serializer.driveTurnTable(SerializerSpeed.fast, false), Robot.serializer);
+
+        operator.rightBumper.whileHeld(() -> Robot.serializer.ejectorSpeed(true), Robot.serializer);
+
+        operator.bButton.whileHeld(() -> Robot.flywheel.setFlywheelTargetDashboard(), Robot.flywheel);
+
+        // operator.leftBumper.whileHeld(() -> Robot.turret.setTurretAngleDashboard(), Robot.turret);
 
         // operator.leftBumper.whileHeld(new NavXTurnRobot());
         // operator.xButton.whenPressed(new ResetNavX());
 
         // SmartDashboard Buttons
-        SmartDashboard.putData("Autonomous Command", new AutonomousCommand());
+        //SmartDashboard.putData("Reset Odometry", new ResetOdometry());
+
+        // Robot.driveBase.setDefaultCommand(new TankDrive());
+        // Robot.turret.setDefaultCommand(new ManualTurret());
+        Robot.flywheel.setDefaultCommand(new FlywheelZero());
+        Robot.serializer.setDefaultCommand(new SerializerStop()); // TODO: change to default
     }
 
     public double getRobotTargetAngle() {
-        return operator.getRightJoystickAngle();
+        return driver.getRightJoystickAngle();
+    }
+
+    
+    public double getSerializerTarget() {
+        return driver.getRightY();
+    }
+    
+    public double getThroatTarget() {
+        return driver.getLeftY();
+    }
+
+
+
+    public double getTurretPanTarget() {
+        return operator.getLeftX();
+    }
+
+    public double getTurretHoodTarget() {
+        return operator.getLeftY();
+    }
+
+    public double getFlywheelTarget() {
+        return operator.getRightY();
+    }
+
+    public double getExtensionTarget() {
+        return operator.getRightY();
+    }
+    
+    public double getPivotTarget() {
+        return operator.getLeftY();
     }
 
     public boolean shouldUseRobotTargetAngle() {
-        return (Math.abs(Robot.oi.operator.getRightX()) > 0.1) || (Math.abs(Robot.oi.operator.getRightY()) > 0.1);
+        return (Math.abs(Robot.oi.driver.getRightX()) > 0.1) || (Math.abs(Robot.oi.driver.getRightY()) > 0.1);
     }
 
     public double getLeftSpeed() {
@@ -150,6 +239,7 @@ public class OI {
     public double getSpeedDuringNavX(){
         return driver.getLeftY();
     }
+
 
     public double getTankDriveSpeedScale() {
         if (driver.rightBumper.get()){

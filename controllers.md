@@ -10,7 +10,7 @@
 | Down | |
 | Left | Move on climbarm left |
 | Right | Move on climbarm right |
-| A | |
+| A | Serializer slow (testing) |
 | B | |
 | X | |
 | Y | |

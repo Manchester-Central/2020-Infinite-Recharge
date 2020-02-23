@@ -21,19 +21,19 @@ public class AutoDrive extends BaseAutoCommand {
 
     public AutoDrive(ParseCommand parsedCommand) {
         super(parsedCommand);
-        requires(Robot.driveBase);
+        addRequirements(Robot.driveBase);
 
         this.distance = Double.parseDouble(parsedCommand.getArgument("distanceIn"));
     }
 
     @Override
-    protected void initialize() {
+    public void initialize() {
         Robot.driveBase.setTarget(distance, distance);
     }
 
     // sets the robot to drive at speed from arguments of parsedCommand
     @Override
-    protected void execute() {
+    public void execute() {
         Robot.driveBase.PIDDrive();
     }
 

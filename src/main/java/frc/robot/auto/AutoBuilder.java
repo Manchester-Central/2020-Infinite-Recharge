@@ -8,8 +8,8 @@
 package frc.robot.auto;
 
 import edu.wpi.first.wpilibj.Preferences;
-import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.auto.commands.*;
 
 /**
@@ -18,10 +18,9 @@ import frc.robot.auto.commands.*;
 public class AutoBuilder {
 
     Preferences prefs = Preferences.getInstance();
-    CommandGroup commandList = new CommandGroup(); // sequence of commands to run
+    SequentialCommandGroup commandList = new SequentialCommandGroup(); // sequence of commands to run
 
     public void init() {
-
         int i = 1;
         // if there is an autoX in robot preferences, keep running!!!!!
         while (prefs.containsKey("auto" + i)) {
@@ -35,9 +34,8 @@ public class AutoBuilder {
             i++;
 
             Command command = this.getCommand(parsedCommand); // assigns current command to command
-            commandList.addSequential(command); // add current command to queue of next commands
+            commandList.addCommands(command); // add current command to queue of next commands
         }
-
     }
 
     // makes commandList public for use outside AutoBuilder
@@ -59,8 +57,6 @@ public class AutoBuilder {
         default:
             System.out.println("Auto command not recognized: " + parsedCommand);
             return new NullCommand();
-
         }
     }
-
 }

@@ -8,9 +8,7 @@
 package frc.robot.auto.commands;
 
 import frc.robot.auto.ParseCommand;
-import frc.robot.commands.TurnAnglePID;
 import frc.robot.Robot;
-import frc.robot.Robot.*;
 
 public class TurnAngleRobot extends BaseAutoCommand {
   
@@ -25,13 +23,13 @@ public class TurnAngleRobot extends BaseAutoCommand {
   }
 
   @Override
-  protected void initialize() {
+  public void initialize() {
     Robot.driveBase.setTargetAngle(angle);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
-  protected void execute() {
+  public void execute() {
     Robot.driveBase.PIDDrive();
   }
 
