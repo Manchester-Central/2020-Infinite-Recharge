@@ -73,6 +73,8 @@ public class OI {
 
         // Driver
         Robot.driveBase.setDefaultCommand(new TankDrive(1));
+        Robot.climbTake.setDefaultCommand(new SetIntake(0));
+        
         driver.rightBumper.whileHeld(new TankDrive(0.5));
         driver.rightTrigger.whileHeld(new SetIntake(1));
 

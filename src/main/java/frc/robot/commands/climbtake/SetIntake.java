@@ -30,8 +30,7 @@ public class SetIntake extends CommandBase {
   @Override
   public void execute() {
 
-    
-
+    Robot.climbTake.setSpeedIntake(speed);
   }
 
   // Make this return true when this Command no longer needs to run execute()
