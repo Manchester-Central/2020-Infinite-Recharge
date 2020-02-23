@@ -46,7 +46,9 @@ public class DriveBaseRaft extends DriveBase {
     private WPI_TalonSRX right4 = null;
    
 
-    public DriveBaseRaft() { }
+    public DriveBaseRaft() { 
+        setup();
+    }
 
     protected void setup() {
         

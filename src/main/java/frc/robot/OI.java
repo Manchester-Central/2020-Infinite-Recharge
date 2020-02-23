@@ -76,74 +76,18 @@ public class OI {
         driver.rightBumper.whileHeld(new TankDrive(0.5));
         driver.rightTrigger.whileHeld(new SetIntake(1));
 
-        /* TODO: remove this comment
-
-        // operator up - move arm up to climb + extend
-        operator.dPadUp.whenPressed(new SetClimber());
-
-        // operator down - move arm up to climb + retract
-        operator.dPadDown.whenPressed(new SetClimber());
-
-        // operator left - move arm to intake
-        operator.dPadLeft.whenPressed(new SetClimber());
-
-        // op right - move arm to colorwheel
-        operator.dPadRight.whenPressed(new SetClimber());
-
-        // op a - forward intake
-        operator.aButton.whenPressed(new SetIntake(0.5));
-
-        // op b - reverse intake
-        operator.bButton.whenPressed(new SetIntake(-0.5));
-
-        // op y - turret to 2pt pos
-        operator.yButton.whenPressed(new SetTurretTilt(75.0));
-
-        // op leftBump - turn on auto turret (hold) "aim"
-        operator.leftBumper.whileHeld(new AimTurret()); //TODO: move flywheel when aiming turret (experiment)
-
-        // op leftTrig - shoot (override: doesn't need to be aimed)
-        operator.leftTrigger.whenPressed(new Shoot(false));
-
-        // op rightBump - shoot once (needs to be aimed)
-        operator.rightBumper.whenPressed(new Shoot(true));
-
-        // op rightTrig - shoot (hold)
-        operator.rightTrigger.whileHeld(new Shoot(true));
-        
-        // op select - colorwheel spin to amt
-        operator.selectButton.whenPressed(new MoveColorWheelAmt());
-
-        // op start - colorwheel spin to color
-        operator.startButton.whenPressed(new MoveColorWheelToColor()); 
-
-        TODO: and this one */
-
-        // operator.leftTrigger.whileHeld(new ManualThroat());
-        
-        // operator.leftBumper.whileHeld(new ManualThroatZero());
-
-        // operator.xButton.whileHeld(new SetExtensionPosition());
-
-        // operator.yButton.whileHeld(new SerializerFeed());
-
-        // operator.aButton.whileHeld(new SerializerDefault());
-
+       
+        /* Operator Testing
         operator.rightTrigger.whileHeld(() -> Robot.serializer.driveTurnTable(SerializerSpeed.fast), Robot.serializer);
 
         operator.rightBumper.whileHeld(() -> Robot.throat.ejectorSpeed(true), Robot.throat);
 
         operator.bButton.whileHeld(() -> Robot.flywheel.setFlywheelTargetDashboard(), Robot.flywheel);
+        */
 
-        // operator.leftBumper.whileHeld(() -> Robot.turret.setTurretAngleDashboard(), Robot.turret);
+        // Operator
 
-        // operator.leftBumper.whileHeld(new NavXTurnRobot());
-        // operator.xButton.whenPressed(new ResetNavX());
-
-        // SmartDashboard Buttons
-        //SmartDashboard.putData("Reset Odometry", new ResetOdometry());
-
-        // Robot.turret.setDefaultCommand(new ManualTurret());
+        // Default Commands
         Robot.flywheel.setDefaultCommand(new FlywheelZero());
         Robot.serializer.setDefaultCommand(new SerializerStop()); // TODO: change to default
     }

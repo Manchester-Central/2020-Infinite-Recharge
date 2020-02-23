@@ -30,4 +30,6 @@ public interface IClimbTake2020 extends Subsystem {
 
   public double getExtensionPosition();
 
+  public void setSpeedIntake(double speed);
+
 }

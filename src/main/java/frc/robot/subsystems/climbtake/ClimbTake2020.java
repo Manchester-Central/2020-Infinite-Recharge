@@ -54,4 +54,9 @@ public class ClimbTake2020 extends SubsystemBase implements IClimbTake2020 {
     return 0;
   }
 
+  @Override
+  public void setSpeedIntake(double speed) {
+
+  }
+
 }

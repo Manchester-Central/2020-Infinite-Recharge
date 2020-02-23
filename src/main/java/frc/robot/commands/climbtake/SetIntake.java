@@ -8,13 +8,17 @@
 package frc.robot.commands.climbtake;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Robot;
 
 public class SetIntake extends CommandBase {
+
+  double speed;
+
   public SetIntake(double speed) {
-    // speed = direction
-    
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
+
+    addRequirements(Robot.climbTake);
+
+    this.speed = speed;
   }
 
   // Called just before this Command runs the first time
@@ -25,6 +29,9 @@ public class SetIntake extends CommandBase {
   // Called repeatedly when this Command is scheduled to run
   @Override
   public void execute() {
+
+    
+
   }
 
   // Make this return true when this Command no longer needs to run execute()
