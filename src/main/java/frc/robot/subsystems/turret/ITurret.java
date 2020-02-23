@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj2.command.Subsystem;
  * Add your docs here.
  */
 public interface ITurret extends Subsystem {
-  public double getXPosition();
+  public double getPanAngle();
 
   public void setPanTarget(double target);
 

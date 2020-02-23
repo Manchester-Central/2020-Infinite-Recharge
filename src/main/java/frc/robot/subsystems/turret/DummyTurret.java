@@ -17,7 +17,7 @@ public class DummyTurret extends SubsystemBase implements ITurret {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
-  public double getXPosition() {
+  public double getPanAngle() {
     return 0;
   }
 

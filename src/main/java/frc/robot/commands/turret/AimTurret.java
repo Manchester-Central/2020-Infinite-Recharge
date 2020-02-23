@@ -35,7 +35,7 @@ public class AimTurret extends DoneCommand {
       Robot.turret.setTiltTargetAngle(targetData.getAngle());
 
       limelightXAngle = Robot.camera.getXAngle();
-      Robot.turret.setPanTarget(limelightXAngle);
+      Robot.turret.setPanTarget(limelightXAngle + Robot.turret.getPanAngle());
       Robot.turret.PIDDrive();
     }
   }

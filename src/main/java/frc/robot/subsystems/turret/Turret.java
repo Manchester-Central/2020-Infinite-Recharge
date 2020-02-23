@@ -85,7 +85,7 @@ public class Turret extends SubsystemBase implements ITurret {
     return (counts * gearRatio) / ticksPerRev;
   }
 
-  public double getXPosition() {
+  public double getPanAngle() {
     // make sure the slope and intercept are accounted for
     return speedControllerX.getSensorCollection().getAnalogIn();
   }
@@ -118,9 +118,9 @@ public class Turret extends SubsystemBase implements ITurret {
 
   private void PIDDriveX() { // pan
     double maxSpeed = 0.4;
-    double speed = pidX.calculate(getXPosition());
+    double speed = pidX.calculate(getPanAngle());
     setPanSpeed(speed * maxSpeed);
-    System.out.println("Turret pan angle: " + getXPosition() + " pan speed: " + speed);
+    System.out.println("Turret pan angle: " + getPanAngle() + " pan speed: " + speed);
   }
 
   public void setTiltSpeed(double speed) {
@@ -156,7 +156,7 @@ public class Turret extends SubsystemBase implements ITurret {
 
   public void addTurretSmartDashboard(){
     SmartDashboard.putNumber("Y Potentiometer, tilt", getHoodAngle());
-    SmartDashboard.putNumber("X Potentiometer, pan", getXPosition());
+    SmartDashboard.putNumber("X Potentiometer, pan", getPanAngle());
     SmartDashboard.putNumber("Pan Raw", speedControllerX.getSensorCollection().getAnalogInRaw());
     SmartDashboard.putNumber("Tilt Raw", speedControllerY.getSensorCollection().getAnalogInRaw());
   }
