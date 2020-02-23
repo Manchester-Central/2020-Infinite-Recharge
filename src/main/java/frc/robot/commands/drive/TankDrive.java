@@ -14,14 +14,16 @@ import frc.robot.OI;
 import frc.robot.Robot.RobotType;
 
 public class TankDrive extends CommandBase {
-  public TankDrive() {
+  public TankDrive(double speedScale) {
     addRequirements(Robot.driveBase);
+
+    this.speedScale = speedScale;
 
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }
 
-  double speedScale, hardwareScale;
+  double speedScale;
 
   // Called just before this Command runs the first time
   @Override
@@ -31,23 +33,13 @@ public class TankDrive extends CommandBase {
   // Called repeatedly when this Command is scheduled to run
   @Override
   public void execute() {
-    speedScale = Robot.oi.getTankDriveSpeedScale();
-    hardwareScale = 1;
-    if (Robot.hardware == Robot.RobotType.chaos2020) {
-      hardwareScale = 1;
-    }
-    if (Robot.hardware == Robot.RobotType.chaos2019) {
-      hardwareScale = 0.3;
-    }
-    double leftSpeed = Robot.oi.getLeftSpeed() * speedScale * hardwareScale;
-    double rightSpeed = Robot.oi.getRightSpeed() * speedScale * hardwareScale;
+    double leftSpeed = Robot.oi.getLeftSpeed() * speedScale;
+    double rightSpeed = Robot.oi.getRightSpeed() * speedScale;
+
     // SmartDashboard.putNumber("Left Speed", leftSpeed); TODO: re-enable 
     // SmartDashboard.putNumber("Right Speed", rightSpeed); TODO: re-enable
-    Robot.driveBase.tankDriveVolts(leftSpeed, rightSpeed);
-    //Robot.driveBase.differentialDrive1.tankDrive(leftSpeed, rightSpeed);
-    // Robot.driveBase.differentialDrive1.curvatureDrive(leftSpeed,
-    // Robot.oi.driver.getRawAxis(2),
-    // Robot.oi.driver.getRawButton(OI.RIGHT_BUMPER));
+    // Robot.driveBase.tankDriveVolts(leftSpeed, rightSpeed);
+    Robot.driveBase.differentialDrive1.tankDrive(leftSpeed, rightSpeed);
   }
 
   // Make this return true when this Command no longer needs to run execute()
