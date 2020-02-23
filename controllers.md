@@ -8,9 +8,9 @@
 | Right Analog Stick | Tank Drive Right |
 | Up | |
 | Down | |
-| Left | Move on climbarm left |
-| Right | Move on climbarm right |
-| A | Serializer slow (testing) |
+| Left | |
+| Right | |
+| A | |
 | B | |
 | X | |
 | Y | |
