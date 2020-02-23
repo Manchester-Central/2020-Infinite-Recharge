@@ -33,6 +33,7 @@ import frc.robot.subsystems.camera.*;
 import frc.robot.subsystems.climbtake.*;
 import frc.robot.subsystems.colorsensor.*;
 import frc.robot.subsystems.flywheel.*;
+import frc.robot.subsystems.intake.*;
 import frc.robot.subsystems.navx.*;
 import frc.robot.subsystems.serializer.*;
 import frc.robot.subsystems.throat.*;
@@ -74,6 +75,7 @@ public class Robot extends TimedRobot {
     public static ISerializer serializer;
     public static IThroat throat;
     public static IUnjammer unjammer;
+    public static IIntake intake;
 
     public static FlywheelTable flywheelTable;
 
@@ -119,6 +121,7 @@ public class Robot extends TimedRobot {
             driveBase = new DriveBase2020();
             throat = new Throat();
             unjammer = new Unjammer();
+            intake = new Intake();
         }
 
         if (hardware == RobotType.chaos2019) {
@@ -133,6 +136,7 @@ public class Robot extends TimedRobot {
             driveBase = new DriveBase2019();
             throat = new DummyThroat();
             unjammer = new DummyUnjammer();
+            intake = new DummyIntake();
 
         }
 
@@ -149,6 +153,8 @@ public class Robot extends TimedRobot {
             driveBase = new DriveBaseRaft();
             throat = new DummyThroat();
             unjammer = new DummyUnjammer();
+            intake = new DummyIntake();
+
         }
 
         flywheelTable = new FlywheelTable();

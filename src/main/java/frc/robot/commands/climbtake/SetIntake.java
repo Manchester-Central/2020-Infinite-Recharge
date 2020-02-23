@@ -16,7 +16,7 @@ public class SetIntake extends CommandBase {
 
   public SetIntake(double speed) {
 
-    addRequirements(Robot.climbTake);
+    addRequirements(Robot.intake);
 
     this.speed = speed;
   }
@@ -30,7 +30,7 @@ public class SetIntake extends CommandBase {
   @Override
   public void execute() {
 
-    Robot.climbTake.setSpeedIntake(speed);
+    Robot.intake.setSpeedIntake(speed);
   }
 
   // Make this return true when this Command no longer needs to run execute()
