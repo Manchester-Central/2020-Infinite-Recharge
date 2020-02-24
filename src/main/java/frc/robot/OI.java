@@ -17,11 +17,8 @@ import frc.robot.commands.climbtake.*;
 import frc.robot.commands.drive.TankDrive;
 import frc.robot.commands.inputs.SetPipeline;
 import frc.robot.commands.serializer.SerializerStop;
-<<<<<<< HEAD
 import frc.robot.commands.turret.AimTurret;
-=======
 import frc.robot.commands.serializer.Unjam;
->>>>>>> d69710abd46893a2f2f014e9c6756bd2fa13e68d
 import frc.robot.commands.turret.BumperShotAim;
 import frc.robot.commands.turret.FlywheelZero;
 import frc.robot.commands.turret.ManualTurret;
