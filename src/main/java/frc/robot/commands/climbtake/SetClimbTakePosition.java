@@ -15,13 +15,13 @@ import frc.robot.RobotConstants2020;
 public class SetClimbTakePosition extends CommandBase {
 
   double target;
-  boolean extended;
+  double position;
 
-  public SetClimbTakePosition(double target, boolean extended) {
+  public SetClimbTakePosition(double target, double position) {
     addRequirements(Robot.climbTake);
 
     this.target = target;
-    this.extended = extended;
+    this.position = position;
   }
 
   // Called just before this Command runs the first time
@@ -33,12 +33,7 @@ public class SetClimbTakePosition extends CommandBase {
   @Override
   public void execute() {
     Robot.climbTake.setPivotPosition(target);
-
-    if (extended) {
-      Robot.climbTake.setExtenderPosition(RobotConstants2020.EXTENDER_OUT);
-    } else {
-      Robot.climbTake.setExtenderPosition(RobotConstants2020.EXTENDER_IN);
-    }
+    Robot.climbTake.setExtenderPosition(position);
   }
 
   // Make this return true when this Command no longer needs to run execute()

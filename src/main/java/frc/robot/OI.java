@@ -15,16 +15,12 @@ import com.chaos131.LogitechF310;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.commands.climbtake.*;
 import frc.robot.commands.drive.TankDrive;
-<<<<<<< HEAD
-import frc.robot.commands.serializer.*;
-import frc.robot.commands.turret.*;
-=======
 import frc.robot.commands.inputs.SetPipeline;
 import frc.robot.commands.serializer.SerializerStop;
+import frc.robot.commands.serializer.Unjam;
 import frc.robot.commands.turret.BumperShotAim;
 import frc.robot.commands.turret.FlywheelZero;
 import frc.robot.commands.turret.ManualTurret;
->>>>>>> refs/remotes/origin/master
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -70,29 +66,31 @@ public class OI {
         driver.rightBumper.whileHeld(new TankDrive(0.5));
         driver.rightTrigger.whileHeld(new SetIntake(1));
 
-        /* Operator Testing
-        operator.rightTrigger.whileHeld(() -> Robot.serializer.driveTurnTable(SerializerSpeed.fast), Robot.serializer);
-
-        operator.rightBumper.whileHeld(() -> Robot.throat.ejectorSpeed(true), Robot.throat);
-
-        operator.bButton.whileHeld(() -> Robot.flywheel.setFlywheelTargetDashboard(), Robot.flywheel);
-        */
+        /*
+         * Operator Testing operator.rightTrigger.whileHeld(() ->
+         * Robot.serializer.driveTurnTable(SerializerSpeed.fast), Robot.serializer);
+         * 
+         * operator.rightBumper.whileHeld(() -> Robot.throat.ejectorSpeed(true),
+         * Robot.throat);
+         * 
+         * operator.bButton.whileHeld(() -> Robot.flywheel.setFlywheelTargetDashboard(),
+         * Robot.flywheel);
+         */
 
         // Operator
         operator.aButton.whileHeld(new SetIntake(1));
         operator.bButton.whileHeld(new SetIntake(-1));
-<<<<<<< HEAD
         operator.xButton.whileHeld(new Unjam());
-        operator.dPadUp.whileHeld(new SetClimbTakePosition(RobotConstants2020.CLIMB_POSITION, true));
-=======
-        operator.xButton.whileHeld(() -> Robot.unjammer.spin(true), Robot.unjammer);
         operator.yButton.whileHeld(new SetPipeline(8));
 
-        operator.dPadUp.and(driver.leftTrigger).whileActiveContinuous(new SetClimbTakePosition(RobotConstants2020.CLIMB_POSITION, true));
->>>>>>> refs/remotes/origin/master
-        operator.dPadDown.whileHeld(new SetClimbTakePosition(RobotConstants2020.INTAKE_POSITION, false));
-        operator.dPadLeft.whileHeld(new SetClimbTakePosition(RobotConstants2020.CLIMB_POSITION, false));
-        operator.dPadRight.whileHeld(new SetClimbTakePosition(RobotConstants2020.CLIMB_POSITION, false));
+        operator.dPadUp.and(driver.leftTrigger).whileActiveContinuous(
+                new SetClimbTakePosition(RobotConstants2020.CLIMB_POSITION, RobotConstants2020.EXTENDER_OUT));
+        operator.dPadDown.whileHeld(
+                new SetClimbTakePosition(RobotConstants2020.INTAKE_POSITION, RobotConstants2020.EXTENDER_ZERO));
+        operator.dPadLeft.whileHeld(
+                new SetClimbTakePosition(RobotConstants2020.CLIMB_POSITION, RobotConstants2020.EXTENDER_ZERO));
+        operator.dPadRight.whileHeld(
+                new SetClimbTakePosition(RobotConstants2020.CLIMB_POSITION, RobotConstants2020.EXTENDER_IN));
 
         operator.leftTrigger.whileHeld(new BumperShotAim());
 
@@ -105,7 +103,6 @@ public class OI {
         Robot.unjammer.setDefaultCommand(new RunCommand(() -> Robot.unjammer.spin(false), Robot.unjammer));
         Robot.turret.setDefaultCommand(new ManualTurret());
     }
-
 
     public double getTurretPanTarget() {
         return operator.getLeftX();
