@@ -5,23 +5,16 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.climbtake;
+package frc.robot.commands.serializer;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
-import frc.robot.RobotConstants2019;
-import frc.robot.RobotConstants2020;
 
-public class SetClimbTakePosition extends CommandBase {
-
-  double target;
-  double position;
-
-  public SetClimbTakePosition(double target, double position) {
-    addRequirements(Robot.climbTake);
-
-    this.target = target;
-    this.position = position;
+public class Unjam extends CommandBase {
+  public Unjam() {
+    addRequirements(Robot.serializer, Robot.throat);
+    // Use requires() here to declare subsystem dependencies
+    // eg. requires(chassis);
   }
 
   // Called just before this Command runs the first time
@@ -32,8 +25,8 @@ public class SetClimbTakePosition extends CommandBase {
   // Called repeatedly when this Command is scheduled to run
   @Override
   public void execute() {
-    Robot.climbTake.setPivotPosition(target);
-    Robot.climbTake.setExtenderPosition(position);
+    Robot.throat.unJam();
+    Robot.serializer.unJam();
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -42,8 +35,9 @@ public class SetClimbTakePosition extends CommandBase {
     return false;
   }
 
-  // Called once after isFinished returns true or when interrupted
+  // Called once after isFinished returns true
   @Override
   public void end(boolean interrupted) {
   }
+
 }

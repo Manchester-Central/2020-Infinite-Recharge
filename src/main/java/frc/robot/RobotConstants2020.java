@@ -20,6 +20,8 @@ public class RobotConstants2020 {
     public final static int FLYWHEELA_SPARKMAX = 11; // CAN, left, closest to "Lime"
     public final static int FLYWHEELB_SPARKMAX = 12; // CAN, right, closest to "Light"
 
+    // public final static int UNJAMMER_SPARKMAX = ?;
+
     // public final static int INTAKE_SPARKMAX = ?;
 
     public final static int ANGLE_POT_X = 0; // TODO: change!
@@ -40,10 +42,11 @@ public class RobotConstants2020 {
     public final static int MIN_PAN_RAW = 1; // TODO: change!!
     public final static int MAX_PAN_RAW = 1; // TODO: change!!
 
-    public final static int EXTENDER_OUT = 1; // TODO: change!! 
-    public final static int EXTENDER_IN = 0; // TODO: change!!    
-    public final static int INTAKE_POSITION = 0; // TODO: change!!    
-    public final static int CLIMB_POSITION = 1; // TODO: change!!    
+    public final static double EXTENDER_OUT = 0.5; // TODO: change!! 
+    public final static double EXTENDER_IN = 1; // TODO: change!!    
+    public final static double EXTENDER_ZERO = 0; // TODO: change!!    
+    public final static double INTAKE_POSITION = 0; // TODO: change!!    
+    public final static double CLIMB_POSITION = 1; // TODO: change!!    
 
 
 }

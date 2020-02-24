@@ -8,6 +8,7 @@
 package frc.robot.subsystems.unjammer;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -16,16 +17,16 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
  */
 public class Unjammer extends SubsystemBase implements IUnjammer{
 
-  // CANSparkMax unjammer = new CANSparkMax(deviceID, type);
+  CANSparkMax unjammer;
 
   // mini NEO -> sparkMax
 
   public Unjammer() {
+    // unjammer = new CANSparkMax(UNJAMMER_SPARKMAX, MotorType.kBrushless);
   }
 
   @Override
   public void spin(boolean on) {
-
     // TODO: finish this logic
     // direction = (number here);
     // (something).setSpeed...

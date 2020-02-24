@@ -15,4 +15,6 @@ import edu.wpi.first.wpilibj2.command.Subsystem;
 public interface IThroat extends Subsystem{
     
     public void ejectorSpeed(boolean on);
+
+    public void unJam();
 }
