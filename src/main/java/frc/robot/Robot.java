@@ -99,7 +99,7 @@ public class Robot extends TimedRobot {
             hardware = RobotType.chaos2020;
         }
 
-        // hardware = RobotType.chaos2020;
+        hardware = RobotType.raft;
 
         System.out.println("RobotType = " + hardware);
 
@@ -153,6 +153,8 @@ public class Robot extends TimedRobot {
 
         }
 
+ 
+
         flywheelTable = new FlywheelTable();
 
         new DifferentialDriveKinematics(Units.inchesToMeters(trackWidth));
@@ -181,6 +183,10 @@ public class Robot extends TimedRobot {
         try {
 
             NetworkInterface network = NetworkInterface.getByName("eth0");
+
+            if (network == null) {
+                return "";
+            }
 
             byte[] mac = network.getHardwareAddress();
 
