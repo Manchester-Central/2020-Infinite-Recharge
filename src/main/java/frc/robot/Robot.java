@@ -250,12 +250,6 @@ public class Robot extends TimedRobot {
         turret.addTurretSmartDashboard();
         turret.smartDashboardConstants();
 
-        if (!cameraPipelineSet) {
-            camera.setPipeline(9);
-            if (camera.getPipeline() == 9) {
-                cameraPipelineSet = true;
-            }
-        }
         // System.out.println(camera.getPipeline());
 
         // detectedColor.updateColorDashboard();

@@ -15,8 +15,16 @@ import com.chaos131.LogitechF310;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.commands.climbtake.*;
 import frc.robot.commands.drive.TankDrive;
+<<<<<<< HEAD
 import frc.robot.commands.serializer.*;
 import frc.robot.commands.turret.*;
+=======
+import frc.robot.commands.inputs.SetPipeline;
+import frc.robot.commands.serializer.SerializerStop;
+import frc.robot.commands.turret.BumperShotAim;
+import frc.robot.commands.turret.FlywheelZero;
+import frc.robot.commands.turret.ManualTurret;
+>>>>>>> refs/remotes/origin/master
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -59,13 +67,9 @@ public class OI {
         operator = new LogitechF310(1);
 
         // Driver
-        Robot.driveBase.setDefaultCommand(new TankDrive(1));
-        Robot.climbTake.setDefaultCommand(new SetIntake(0));
-
         driver.rightBumper.whileHeld(new TankDrive(0.5));
         driver.rightTrigger.whileHeld(new SetIntake(1));
 
-       
         /* Operator Testing
         operator.rightTrigger.whileHeld(() -> Robot.serializer.driveTurnTable(SerializerSpeed.fast), Robot.serializer);
 
@@ -77,16 +81,25 @@ public class OI {
         // Operator
         operator.aButton.whileHeld(new SetIntake(1));
         operator.bButton.whileHeld(new SetIntake(-1));
+<<<<<<< HEAD
         operator.xButton.whileHeld(new Unjam());
         operator.dPadUp.whileHeld(new SetClimbTakePosition(RobotConstants2020.CLIMB_POSITION, true));
+=======
+        operator.xButton.whileHeld(() -> Robot.unjammer.spin(true), Robot.unjammer);
+        operator.yButton.whileHeld(new SetPipeline(8));
+
+        operator.dPadUp.and(driver.leftTrigger).whileActiveContinuous(new SetClimbTakePosition(RobotConstants2020.CLIMB_POSITION, true));
+>>>>>>> refs/remotes/origin/master
         operator.dPadDown.whileHeld(new SetClimbTakePosition(RobotConstants2020.INTAKE_POSITION, false));
         operator.dPadLeft.whileHeld(new SetClimbTakePosition(RobotConstants2020.CLIMB_POSITION, false));
         operator.dPadRight.whileHeld(new SetClimbTakePosition(RobotConstants2020.CLIMB_POSITION, false));
 
-        
-
+        operator.leftTrigger.whileHeld(new BumperShotAim());
 
         // Default Commands
+        Robot.driveBase.setDefaultCommand(new TankDrive(1));
+        Robot.intake.setDefaultCommand(new SetIntake(0));
+        Robot.camera.setDefaultCommand(new SetPipeline(9));
         Robot.flywheel.setDefaultCommand(new FlywheelZero());
         Robot.serializer.setDefaultCommand(new SerializerStop()); // TODO: change to default
         Robot.unjammer.setDefaultCommand(new RunCommand(() -> Robot.unjammer.spin(false), Robot.unjammer));

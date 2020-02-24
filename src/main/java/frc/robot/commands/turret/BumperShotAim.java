@@ -5,31 +5,30 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.inputs;
+package frc.robot.commands.turret;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 
-public class SetPipeline extends CommandBase {
-
-  double pipeline;
-
-  public SetPipeline(int pipeline) {
-    addRequirements(Robot.camera);
-    this.pipeline = pipeline;
+public class BumperShotAim extends CommandBase {
+  public BumperShotAim() {
+    addRequirements(Robot.turret);
   }
+
+  private final double FLYWHEEL_SPEED = 4500;
+  private final double TURRET_TILT = 65; 
 
   // Called just before this Command runs the first time
   @Override
   public void initialize() {
+    Robot.turret.setTiltTargetAngle(TURRET_TILT);
+    Robot.flywheel.setTarget(FLYWHEEL_SPEED);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   public void execute() {
-    if (Robot.camera.getPipeline() != pipeline) {
-      Robot.camera.setPipeline(pipeline);
-    }
+    Robot.turret.PIDDrive();
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -38,8 +37,9 @@ public class SetPipeline extends CommandBase {
     return false;
   }
 
-  // Called once after isFinished returns true or when interrupted
+  // Called once after isFinished returns true
   @Override
-  public void end(boolean interrupted) {
+  public void end(boolean interrputed) {
   }
+
 }

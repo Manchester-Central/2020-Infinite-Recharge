@@ -85,12 +85,12 @@ public class Turret extends SubsystemBase implements ITurret {
     return (counts * gearRatio) / ticksPerRev;
   }
 
-  public double getXPosition() {
+  public double getPanAngle() {
     // make sure the slope and intercept are accounted for
     return speedControllerX.getSensorCollection().getAnalogIn();
   }
 
-  public void setXTarget(double target) {
+  public void setPanTarget(double target) {
     pidX.setSetpoint(target);
   }
 
@@ -118,9 +118,9 @@ public class Turret extends SubsystemBase implements ITurret {
 
   private void PIDDriveX() { // pan
     double maxSpeed = 0.4;
-    double speed = pidX.calculate(getXPosition());
+    double speed = pidX.calculate(getPanAngle());
     setPanSpeed(speed * maxSpeed);
-    System.out.println("Turret pan angle: " + getXPosition() + " pan speed: " + speed);
+    System.out.println("Turret pan angle: " + getPanAngle() + " pan speed: " + speed);
   }
 
   public void setTiltSpeed(double speed) {
@@ -134,7 +134,7 @@ public class Turret extends SubsystemBase implements ITurret {
     speedControllerY.set(speed);
   }
 
-  public double getHoodAngle() {
+  public double getTiltAngle() {
     return speedControllerY.getSensorCollection().getAnalogIn();
   }
 
@@ -142,27 +142,27 @@ public class Turret extends SubsystemBase implements ITurret {
     return speedControllerY.getSensorCollection().getAnalogInVel();
   }
 
-  public void setHoodTargetAngle(double angle) {
+  public void setTiltTargetAngle(double angle) {
     double mathAngle = angle;
     pidY.setSetpoint(mathAngle);
   }
 
   public void PIDDriveY() { // tilt
     double maxSpeed = 0.4;
-    double speed = pidY.calculate(getHoodAngle());
+    double speed = pidY.calculate(getTiltAngle());
     setTiltSpeed(speed * maxSpeed);
-    System.out.println("Hood angle: " + getHoodAngle() + " hood speed: " + speed);
+    System.out.println("Hood angle: " + getTiltAngle() + " hood speed: " + speed);
   }
 
   public void addTurretSmartDashboard(){
-    SmartDashboard.putNumber("Y Potentiometer, tilt", getHoodAngle());
-    SmartDashboard.putNumber("X Potentiometer, pan", getXPosition());
+    SmartDashboard.putNumber("Y Potentiometer, tilt", getTiltAngle());
+    SmartDashboard.putNumber("X Potentiometer, pan", getPanAngle());
     SmartDashboard.putNumber("Pan Raw", speedControllerX.getSensorCollection().getAnalogInRaw());
     SmartDashboard.putNumber("Tilt Raw", speedControllerY.getSensorCollection().getAnalogInRaw());
   }
 
   public void setTurretAngleDashboard() {
-    setHoodTargetAngle(SmartDashboard.getNumber("Y Potentiometer, tilt", 0));
+    setTiltTargetAngle(SmartDashboard.getNumber("Y Potentiometer, tilt", 0));
     PIDDriveY();
   }
 

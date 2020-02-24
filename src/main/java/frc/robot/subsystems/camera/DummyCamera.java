@@ -35,6 +35,7 @@ public class DummyCamera extends SubsystemBase implements ICamera{
     }
 
     public void setPipeline(double pipeline) {
+        SmartDashboard.putNumber("Pipeline", pipeline);
     }
 
     public double getPipeline() {

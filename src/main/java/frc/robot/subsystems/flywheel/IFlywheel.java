@@ -13,13 +13,13 @@ import edu.wpi.first.wpilibj2.command.Subsystem;
  * Add your docs here.
  */
 public interface IFlywheel extends Subsystem {
-    public void setTargetSetpoint(double setpoint);
+    public void accelerateToSetPoint();
+
+    public void setTarget(double target);
     
     public double getFlywheelSpeed();
   
     public void setFlywheelTargetDirect(double speed);
-
-    public void setFlywheelTargetDashboard();
   
     public void addFlywheelSmartDashboard();
 }

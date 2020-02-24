@@ -17,11 +17,11 @@ public class DummyTurret extends SubsystemBase implements ITurret {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
-  public double getXPosition() {
+  public double getPanAngle() {
     return 0;
   }
 
-  public void setXTarget(double target) {
+  public void setPanTarget(double target) {
     SmartDashboard.putNumber("Pan Target", target);
   }
 
@@ -41,11 +41,11 @@ public class DummyTurret extends SubsystemBase implements ITurret {
     SmartDashboard.putNumber("Hood Speed", speed);
   }
 
-  public double getHoodAngle() {
+  public double getTiltAngle() {
     return 0;
   }
 
-  public void setHoodTargetAngle(double angle) {
+  public void setTiltTargetAngle(double angle) {
     SmartDashboard.putNumber("HoodTarget", angle);
   }
 
