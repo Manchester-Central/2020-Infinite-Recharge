@@ -74,6 +74,12 @@ public class FlywheelTable {
                     System.out.println("ERROR: Flywheel Table data less than 3 values at " + row);
                 }
             }
+
+            flyTable.sort(TableData.getComparator());
+            for (TableData data : flyTable) {
+                System.out.println(data.getDistance() + " " + data.getSpeed() + " " + data.getAngle());
+            }
+
         } catch (IOException ie) {
             ie.printStackTrace();
         }
@@ -82,7 +88,7 @@ public class FlywheelTable {
     // takes raw data, adds to data structure
     private void addData(TableData data) {
 
-        System.out.println(data.getDistance() + " " + data.getSpeed() + " " + data.getAngle());
+        // System.out.println(data.getDistance() + " " + data.getSpeed() + " " + data.getAngle());
             
         flyTable.add(data);
 

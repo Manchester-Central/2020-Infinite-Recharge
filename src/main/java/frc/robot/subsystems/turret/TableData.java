@@ -7,6 +7,8 @@
 
 package frc.robot.subsystems.turret;
 
+import java.util.Comparator;
+
 /**
  * Add your docs here.
  */
@@ -24,6 +26,15 @@ public class TableData {
 
     }
 
+    public static Comparator<TableData> getComparator() {
+        return new Comparator<TableData>() {
+            @Override
+            public int compare(TableData arg0, TableData arg1) {
+                return arg1.getDistance() < arg0.getDistance() ? 1 : -1;
+            }
+        };
+    }
+
     public double getDistance() {
         return distance;
     }
@@ -35,5 +46,6 @@ public class TableData {
     public double getAngle() {
         return angle;
     }
+
 
 }

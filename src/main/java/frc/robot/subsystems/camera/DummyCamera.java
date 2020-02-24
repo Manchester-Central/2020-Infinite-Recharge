@@ -20,6 +20,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 public class DummyCamera extends SubsystemBase implements ICamera{
 
     public DummyCamera() {
+        SmartDashboard.putNumber("y angle camera", 0);
     }
 
     public double getXAngle() {
@@ -27,11 +28,11 @@ public class DummyCamera extends SubsystemBase implements ICamera{
     }
 
     public double getYAngle() {
-        return 0;
+        return SmartDashboard.getNumber("y angle camera", 0);
     }
 
     public boolean hasTarget() {
-        return false;
+        return true;
     }
 
     public void setPipeline(double pipeline) {
