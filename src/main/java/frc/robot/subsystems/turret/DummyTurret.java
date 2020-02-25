@@ -65,16 +65,4 @@ public class DummyTurret extends SubsystemBase implements ITurret {
   public void setTurretAngleDashboard() {
   }
 
-  @Override
-  public double getTiltTarget() {
-    // TODO Auto-generated method stub
-    return 0;
-  }
-
-  @Override
-  public double getPanTarget() {
-    // TODO Auto-generated method stub
-    return 0;
-  }
-
 }

@@ -53,10 +53,7 @@ public class AimTurret extends DoneCommand {
   // this is run when done
   public boolean isDone() {
     boolean tilt = Robot.turret.getTiltAngle() == Robot.turret.getTiltTarget();
-
-    double panTarget = Robot.turret.getPanTarget();
-    double panCurrent = Robot.turret.getPanAngle();
-    boolean pan = ((panTarget - 2) < panCurrent) && (panCurrent < (panTarget + 2));
+    boolean pan = Robot.turret.getPanAngle() == Robot.turret.getPanTarget();
 
     return (tilt && pan);
     // return true; // TODO: set true when turret is aligned
