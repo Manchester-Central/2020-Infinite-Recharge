@@ -151,10 +151,9 @@ public class Turret extends SubsystemBase implements ITurret {
   }
 
   public void addTurretSmartDashboard(){
-    SmartDashboard.putNumber("Y Potentiometer, tilt", getTiltAngle());
-    SmartDashboard.putNumber("X Potentiometer, pan", getPanAngle());
-    SmartDashboard.putNumber("Pan Raw", speedControllerX.getSensorCollection().getAnalogInRaw());
-    SmartDashboard.putNumber("Tilt Raw", speedControllerY.getSensorCollection().getAnalogInRaw());
+    SmartDashboard.putNumber("Pan Angle", getPanAngle());
+    SmartDashboard.putNumber("Pan Angle Raw", speedControllerX.getSensorCollection().getAnalogInRaw());
+    SmartDashboard.putNumber("Tilt Angle", getTiltAngle());
   }
 
   public void setTurretAngleDashboard() {
