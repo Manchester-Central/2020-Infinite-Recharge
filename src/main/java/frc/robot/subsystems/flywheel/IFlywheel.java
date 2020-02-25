@@ -13,6 +13,9 @@ import edu.wpi.first.wpilibj2.command.Subsystem;
  * Add your docs here.
  */
 public interface IFlywheel extends Subsystem {
+
+    public String FLYWHEEL_TARGET = "Flywheel target speed RPM";
+
     public void accelerateToSetPoint();
 
     public void setTarget(double target);
@@ -22,4 +25,8 @@ public interface IFlywheel extends Subsystem {
     public void setFlywheelTargetDirect(double speed);
   
     public void addFlywheelSmartDashboard();
+
+    public void coastFlywheel();
+
+    public double getCurrentFlywheelRPM();
 }

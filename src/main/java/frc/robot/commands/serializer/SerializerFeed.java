@@ -9,10 +9,11 @@ package frc.robot.commands.serializer;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
+import frc.robot.commands.util.DoneCommand;
 import frc.robot.subsystems.serializer.SerializerSpeed;
 import frc.robot.subsystems.serializer.Serializer.Speed;
 
-public class SerializerFeed extends CommandBase {
+public class SerializerFeed extends DoneCommand {
   public SerializerFeed() {
     // Use requires() here to declare subsystem dependencies
     addRequirements(Robot.serializer);
@@ -27,6 +28,8 @@ public class SerializerFeed extends CommandBase {
   @Override
   public void execute() {
     Robot.serializer.driveTurnTable(SerializerSpeed.fast);
+    Robot.throat.ejectorSpeed(true);
+
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -38,5 +41,11 @@ public class SerializerFeed extends CommandBase {
   // Called once after isFinished returns true or when interrupted
   @Override
   public void end(boolean interrupted) {
+  }
+
+  @Override
+  public boolean isDone() {
+    // TODO Auto-generated method stub
+    return false;
   }
 }

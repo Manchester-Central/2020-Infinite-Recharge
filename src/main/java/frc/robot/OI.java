@@ -22,6 +22,9 @@ import frc.robot.commands.serializer.Unjam;
 import frc.robot.commands.turret.BumperShotAim;
 import frc.robot.commands.turret.FlywheelZero;
 import frc.robot.commands.turret.ManualTurret;
+import frc.robot.commands.turret.PrepareFlywheel;
+import frc.robot.commands.turret.Shoot;
+import frc.robot.commands.util.Deadline;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -95,15 +98,22 @@ public class OI {
 
         operator.leftTrigger.whileHeld(new BumperShotAim());
         operator.leftBumper.whileHeld(new AimTurret());
+        operator.rightBumper.whileHeld(new PrepareFlywheel());
+        operator.rightTrigger.whileHeld(new Shoot());
+
+        // Framework for deadline commandGroup
+        // operator.leftBumper.whileHeld(Deadline.createDeadline(new AimTurret(), new PrepareFlywheel()));
 
         // Default Commands
         Robot.driveBase.setDefaultCommand(new TankDrive(1));
         Robot.intake.setDefaultCommand(new SetIntake(0));
         Robot.camera.setDefaultCommand(new SetPipeline(9));
-        Robot.flywheel.setDefaultCommand(new FlywheelZero());
+        // Robot.flywheel.setDefaultCommand(new FlywheelZero());
+        Robot.flywheel.setDefaultCommand(new RunCommand(() -> Robot.flywheel.coastFlywheel(), Robot.flywheel));
         Robot.serializer.setDefaultCommand(new SerializerStop()); // TODO: change to default
         Robot.unjammer.setDefaultCommand(new RunCommand(() -> Robot.unjammer.spin(false), Robot.unjammer));
         Robot.turret.setDefaultCommand(new ManualTurret());
+
     }
 
     public double getTurretPanTarget() {

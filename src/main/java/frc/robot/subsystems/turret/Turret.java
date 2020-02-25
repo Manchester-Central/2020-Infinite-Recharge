@@ -204,6 +204,14 @@ public class Turret extends SubsystemBase implements ITurret {
 
   }
 
+  public double getTiltTarget() {
+    return pidY.getSetpoint();
+  }
+
+  public double getPanTarget() {
+    return pidX.getSetpoint();
+  }
+  
   public void PIDDrive() {
     PIDDriveX();
     PIDDriveY();

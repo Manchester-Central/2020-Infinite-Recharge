@@ -29,7 +29,7 @@ public class Flywheel extends SubsystemBase implements IFlywheel {
   private CANEncoder m_encoder;
   public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxRPM;
   CANSparkMax flywheelA, flywheelB;
-  private final String FLYWHEEL_TARGET = "Flywheel target speed RPM";
+  public final String FLYWHEEL_TARGET = "Flywheel target speed RPM";
 
   public Flywheel() {
 
@@ -151,9 +151,19 @@ public class Flywheel extends SubsystemBase implements IFlywheel {
     // m_pidController.setReference(setPoint, ControlType.kVelocity);
 
     SmartDashboard.putNumber("SetPoint", setPoint);
+    SmartDashboard.putNumber("Current Flywheel RPM", m_encoder.getVelocity());
 
   }
 
+  public void coastFlywheel() {
+    flywheelA.set(0);
+    flywheelB.set(0);
+    SmartDashboard.putNumber("Current Flywheel RPM", m_encoder.getVelocity());
+  }
+
+  public double getCurrentFlywheelRPM() {
+    return m_encoder.getVelocity();
+  }
   
 
   public double getFlywheelSpeed() {
