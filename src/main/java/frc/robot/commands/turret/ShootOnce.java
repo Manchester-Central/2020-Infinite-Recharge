@@ -8,12 +8,10 @@
 package frc.robot.commands.turret;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Robot;
 import frc.robot.commands.util.DoneCommand;
 
-public class PrepareFlywheel extends DoneCommand {
-  public PrepareFlywheel() {
-    addRequirements(Robot.flywheel);
+public class ShootOnce extends DoneCommand {
+  public ShootOnce() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }
@@ -35,7 +33,7 @@ public class PrepareFlywheel extends DoneCommand {
   }
 
   public boolean isDone() {
-    return true; // TODO: return true once the flywheel is up to speed 
+    return false;
   }
 
   // Called once after isFinished returns true or when interrupted

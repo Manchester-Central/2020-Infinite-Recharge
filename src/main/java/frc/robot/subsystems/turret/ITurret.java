@@ -38,9 +38,4 @@ public interface ITurret extends Subsystem {
   public void smartDashboardConstants();
 
   public void setTurretAngleDashboard();
-
-  public double getTiltTarget();
-  
-  public double getPanTarget();
-
 }

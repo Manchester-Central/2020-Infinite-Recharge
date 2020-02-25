@@ -33,9 +33,9 @@
 | B | Reverse direction intake | done, logic not done in ClimbTake2020 |
 | X | Unjam | done, logic not done in Unjammer |
 | Y | Long shot (pipeline change, while held, default back to other pipeline) | done |
-| LB | Hold to toggle on auto turret | done, test if math is right |
-| LT | Launcher for bumper shot (manual) | done, test |
-| RB | Spin up shooter | done, test |
+| LB | Hold to toggle on auto turret |
+| LT | Launcher for bumper shot (manual) |
+| RB | Spin up shooter |
 | RT | (if spinner at speed, go thru launcher seq) Shoot while held |
 | Select |  |
 | Start |  |
