@@ -39,7 +39,6 @@ public class Flywheel extends SubsystemBase implements IFlywheel {
     flywheelA.restoreFactoryDefaults();
     flywheelB.restoreFactoryDefaults();
 
-    // TODO: assign in RobotConstants2020
     flywheelA.setInverted(false);
     flywheelB.setInverted(true);
     

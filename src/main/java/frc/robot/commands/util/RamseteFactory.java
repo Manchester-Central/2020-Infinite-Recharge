@@ -30,7 +30,7 @@ public class RamseteFactory {
     private final double KA = 0.0393;
     private final double RSQUARED = 0.987;
     private final double TRACK_WIDTH = 117.072;
-    private final double MAX_VOLTAGE = 10; // TODO: probably move to a constant file or something
+    private final double MAX_VOLTAGE = 10;
 
     private RamseteCommand makeRamseteCommand(String jsonPath) {
 

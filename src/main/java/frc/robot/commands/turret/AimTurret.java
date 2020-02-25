@@ -58,7 +58,6 @@ public class AimTurret extends DoneCommand {
     boolean pan = ((panTarget - 2) < panCurrent) && (panCurrent < (panTarget + 2));
 
     return (tilt && pan);
-    // return true; // TODO: set true when turret is aligned
   }
 
   // Called once after isFinished returns true or when interrupted

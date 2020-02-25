@@ -33,9 +33,6 @@ public class Unjammer extends SubsystemBase implements IUnjammer {
     } else {
       unjammer.set(0);
     }
-    // TODO: finish this logic
-    // direction = (number here);
-    // (something).setSpeed...
   }
 
 }

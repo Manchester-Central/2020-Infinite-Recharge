@@ -218,7 +218,7 @@ public class DriveBase2019 extends DriveBase {
 
     public DifferentialDriveWheelSpeeds getWheelSpeeds() {
         return new DifferentialDriveWheelSpeeds(left4.getSensorCollection().getQuadratureVelocity(),
-                right4.getSensorCollection().getQuadratureVelocity()); // TODO: separate and clean up
+                right4.getSensorCollection().getQuadratureVelocity());
     }
 
     @Override

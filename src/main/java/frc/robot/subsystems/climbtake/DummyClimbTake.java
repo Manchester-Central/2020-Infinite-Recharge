@@ -51,13 +51,11 @@ public class DummyClimbTake implements IClimbTake2020 {
 
   @Override
   public void goToLimit() {
-    // TODO Auto-generated method stub
 
   }
 
   @Override
   public boolean getLimitSwitchState() {
-    // TODO Auto-generated method stub
     return false;
   }
 }
