@@ -26,4 +26,8 @@ public interface IClimbTake2020 extends Subsystem {
 
   public double getExtensionPosition();
 
+  public void goToLimit();
+
+  public boolean getLimitSwitchState();
+
 }

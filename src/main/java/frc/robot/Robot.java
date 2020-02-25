@@ -26,6 +26,7 @@ import edu.wpi.first.wpilibj.util.Units;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.auto.AutoBuilder;
+import frc.robot.auto.commands.FindLimitClimbtake;
 import frc.robot.auto.commands.NullCommand;
 import frc.robot.commands.drive.DriveSquare;
 import frc.robot.subsystems.drivebase.*;
@@ -56,6 +57,8 @@ public class Robot extends TimedRobot {
     AutoBuilder autoBuilder;
 
     private double trackWidth;
+
+    private Command findLimitClimbtake;
 
     public enum RobotType {
         raft, chaos2019, chaos2020, simulator
@@ -156,6 +159,7 @@ public class Robot extends TimedRobot {
  
 
         flywheelTable = new FlywheelTable();
+        findLimitClimbtake = new FindLimitClimbtake();
 
         new DifferentialDriveKinematics(Units.inchesToMeters(trackWidth));
 
@@ -222,6 +226,9 @@ public class Robot extends TimedRobot {
     public void autonomousInit() {
         autoBuilder.init();
         autoBuilder.getAutoCommand().schedule();
+
+        // TODO: check direction
+        // findLimitClimbtake.schedule(false);
     }
 
     /**

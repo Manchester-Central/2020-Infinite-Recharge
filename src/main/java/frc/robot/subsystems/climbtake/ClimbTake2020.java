@@ -9,6 +9,7 @@ package frc.robot.subsystems.climbtake;
 
 import com.revrobotics.CANSparkMax;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -22,10 +23,13 @@ public class ClimbTake2020 extends SubsystemBase implements IClimbTake2020 {
   // here. Call these from Commands.
 
   CANSparkMax pivot, extension;
+  DigitalInput limitSwitch;
+  double pivotBottomPosition, extensionBottomPosition;
 
   public ClimbTake2020() {
     pivot = new CANSparkMax(RobotConstants2020.ARM_SPARKMAX, CANSparkMax.MotorType.kBrushless);
     extension = new CANSparkMax(RobotConstants2020.CLIMB_SPARKMAX, CANSparkMax.MotorType.kBrushless);
+    limitSwitch = new DigitalInput(RobotConstants2020.LIMIT_SWITCH); // TODO: check if DI or ADD
     
     pivotP = 0;
     pivotI = 0;
@@ -42,6 +46,8 @@ public class ClimbTake2020 extends SubsystemBase implements IClimbTake2020 {
     SmartDashboard.putNumber("Extension P", extendP);
     SmartDashboard.putNumber("Extension I", extendI);
     SmartDashboard.putNumber("Extension D", extendD);
+
+    extensionBottomPosition = getExtensionPosition();
 
   }
 
@@ -106,23 +112,46 @@ public class ClimbTake2020 extends SubsystemBase implements IClimbTake2020 {
   }
 
   public double getPivotPosition() {
-    return 0;
+    return pivot.getEncoder().getPosition();
   }
 
   public double getExtensionPosition() {
-    return 0;
+    return extension.getEncoder().getPosition();
+  }
+
+  public void setPivotSpeed(double speed) {
+    if (getLimitSwitchState() && speed < 0) { // check direction of speed
+      pivot.set(0);
+    } else {
+      pivot.set(speed);
+    }
+  }
+
+  public void setExtenderSpeed(double speed) {
+    extension.set(speed);
+  }
+
+  public boolean getLimitSwitchState() {
+    return limitSwitch.get();
+  }
+
+  public void goToLimit() {
+    if (!getLimitSwitchState()) {
+      double speed = -0.25;
+      setPivotSpeed(speed * maxPivotSpeed);
+    } else {
+      pivotBottomPosition = getPivotPosition();
+    }
   }
   
   public void PIDDriveExtend() {
     double speed = pidExtend.calculate(getExtensionPosition());
-    setExtenderPosition(speed * maxExtendSpeed);
-    System.out.println("Hood angle: " + getExtensionPosition() + " hood speed: " + speed);
+    setExtenderSpeed(speed * maxExtendSpeed);
   }
   
   public void PIDDrivePivot() {
     double speed = pidExtend.calculate(getPivotPosition());
-    setPivotPosition(speed * maxPivotSpeed);
-    System.out.println("Hood angle: " + getPivotPosition() + " hood speed: " + speed);
+    setPivotSpeed(speed * maxPivotSpeed);
   }
 
 }

@@ -48,4 +48,16 @@ public class DummyClimbTake implements IClimbTake2020 {
   public void periodic() {
     
   }
+
+  @Override
+  public void goToLimit() {
+    // TODO Auto-generated method stub
+
+  }
+
+  @Override
+  public boolean getLimitSwitchState() {
+    // TODO Auto-generated method stub
+    return false;
+  }
 }

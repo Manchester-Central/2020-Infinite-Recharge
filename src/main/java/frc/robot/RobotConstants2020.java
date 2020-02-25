@@ -22,6 +22,8 @@ public class RobotConstants2020 {
 
     public final static int UNJAMMER_SPARKMAX = 13;
 
+    public final static int LIMIT_SWITCH = 14; // TODO: find this value!
+
     // public final static int INTAKE_FALCON = ?;
 
     public final static double ANGLE_POT_SLOPE_X = 1; // TODO: change!!
