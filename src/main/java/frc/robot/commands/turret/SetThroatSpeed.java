@@ -9,8 +9,9 @@ package frc.robot.commands.turret;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
+import frc.robot.commands.util.DoneCommand;
 
-public class SetThroatSpeed extends CommandBase {
+public class SetThroatSpeed extends DoneCommand {
   /**
    * Creates a new SetThroatSpeed.
    */
@@ -47,4 +48,9 @@ public class SetThroatSpeed extends CommandBase {
   public boolean isFinished() {
     return false;
   }
+
+@Override
+public boolean isDone() {
+	return true; //TODO: create isDone()
+}
 }

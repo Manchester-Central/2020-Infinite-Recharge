@@ -98,7 +98,9 @@ public class OI {
 
         operator.leftTrigger.whileHeld(new BumperShotAim());
         operator.leftBumper.whileHeld(new AimTurret());
-        operator.rightBumper.whileHeld(new PrepareFlywheel());
+
+        operator.rightBumper.and(operator.rightTrigger.negate()).whileActiveContinuous(new PrepareFlywheel());
+        // operator.rightBumper.whileHeld(new PrepareFlywheel());
         operator.rightTrigger.whileHeld(new Shoot());
 
         // Framework for deadline commandGroup

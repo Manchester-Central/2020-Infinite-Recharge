@@ -33,6 +33,8 @@ public class PrepareFlywheel extends DoneCommand {
   @Override
   public void execute() {
 
+    currentFlywheelRPM = Robot.flywheel.getCurrentFlywheelRPM();
+    targetFlywheelRPM = SmartDashboard.getNumber("Flywheel target speed RPM", 0);
     Robot.flywheel.accelerateToSetPoint();
 
   }

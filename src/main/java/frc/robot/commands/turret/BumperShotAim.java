@@ -22,6 +22,7 @@ public class BumperShotAim extends CommandBase {
   @Override
   public void initialize() {
     Robot.turret.setTiltTargetAngle(TURRET_TILT);
+    Robot.turret.setPanTarget(0);
     Robot.flywheel.setTarget(FLYWHEEL_SPEED);
   }
 

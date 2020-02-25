@@ -87,19 +87,19 @@ public class Robot extends TimedRobot {
 
         String macAddress = getMACAddress();
 
-        // if (macAddress.equals(RobotConstantsRaft.MAC_ADDRESS)) {
-        //     hardware = RobotType.raft;
-        // } else if (macAddress.equals(RobotConstants2019.MAC_ADDRESS)) {
-        //     hardware = RobotType.chaos2019;
-        // } else if (macAddress.equals(RobotConstants2020.MAC_ADDRESS)) {
-        //     hardware = RobotType.chaos2020;
-        // } else if (macAddress.equals(RobotConstantsSim.MAC_ADDRESS)) {
-        //     hardware = RobotType.simulator;
-        // } else {
-        //     hardware = RobotType.chaos2020;
-        // }
+        if (macAddress.equals(RobotConstantsRaft.MAC_ADDRESS)) {
+            hardware = RobotType.raft;
+        } else if (macAddress.equals(RobotConstants2019.MAC_ADDRESS)) {
+            hardware = RobotType.chaos2019;
+        } else if (macAddress.equals(RobotConstants2020.MAC_ADDRESS)) {
+            hardware = RobotType.chaos2020;
+        } else if (macAddress.equals(RobotConstantsSim.MAC_ADDRESS)) {
+            hardware = RobotType.simulator;
+        } else {
+            hardware = RobotType.chaos2020;
+        }
 
-        hardware = RobotType.raft;
+        // hardware = RobotType.raft;
 
         System.out.println("RobotType = " + hardware);
 

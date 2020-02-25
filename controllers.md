@@ -35,7 +35,7 @@
 | Y | Long shot (pipeline change, while held, default back to other pipeline) | done |
 | LB | Hold to toggle on auto turret | done, test if math is right |
 | LT | Launcher for bumper shot (manual) | done, test |
-| RB | Spin up shooter | done, test |
+| RB | Spin up flywheel | done, test |
 | RT | (if spinner at speed, go thru launcher seq) Shoot while held |
 | Select |  |
 | Start |  |
