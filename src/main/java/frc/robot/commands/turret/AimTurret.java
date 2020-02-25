@@ -50,6 +50,7 @@ public class AimTurret extends DoneCommand {
     return false;
   }
 
+  // this is run when done
   public boolean isDone() {
     boolean tilt = Robot.turret.getTiltAngle() == Robot.turret.getTiltTarget();
 
