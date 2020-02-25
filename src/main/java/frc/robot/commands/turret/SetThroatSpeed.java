@@ -7,6 +7,7 @@
 
 package frc.robot.commands.turret;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 import frc.robot.commands.util.DoneCommand;
@@ -35,6 +36,7 @@ public class SetThroatSpeed extends DoneCommand {
   public void execute() {
 
     Robot.throat.ejectorSpeed(on);
+    SmartDashboard.putNumber("Throat RPM", Robot.throat.getThroatSpeed());
 
   }
 
@@ -51,6 +53,7 @@ public class SetThroatSpeed extends DoneCommand {
 
 @Override
 public boolean isDone() {
-	return true; //TODO: create isDone()
+  double currentSpeed = Robot.throat.getThroatSpeed();
+  return currentSpeed > 500;
 }
 }

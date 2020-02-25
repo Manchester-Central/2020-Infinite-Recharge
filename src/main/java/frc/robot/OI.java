@@ -61,6 +61,9 @@ public class OI {
 
     public LogitechF310 driver;
     public LogitechF310 operator;
+    public LogitechF310 tester;
+
+    public boolean testMode = true;
 
     public OI() {
         driver = new LogitechF310(0);
@@ -102,6 +105,23 @@ public class OI {
         operator.rightBumper.and(operator.rightTrigger.negate()).whileActiveContinuous(new PrepareFlywheel());
         // operator.rightBumper.whileHeld(new PrepareFlywheel());
         operator.rightTrigger.whileHeld(new Shoot());
+
+
+        //Tester
+        if (testMode) {
+            tester = new LogitechF310(2);
+            
+            tester.dPadUp.whileHeld(() -> Robot.climbTake.setExtenderSpeed(0.25));
+            tester.dPadDown.whileHeld(() -> Robot.climbTake.setExtenderSpeed(-0.25));
+            tester.dPadLeft.whileHeld(() -> Robot.climbTake.setPivotSpeed(-0.25));
+            tester.dPadLeft.whileHeld(() -> Robot.climbTake.setPivotSpeed(0.25));
+
+            tester.aButton.whileHeld(() -> Robot.unjammer.spin(false));
+            tester.bButton.whileHeld(() -> Robot.unjammer.spin(true));
+
+            
+
+        }
 
         // Framework for deadline commandGroup
         // operator.leftBumper.whileHeld(Deadline.createDeadline(new AimTurret(), new PrepareFlywheel()));

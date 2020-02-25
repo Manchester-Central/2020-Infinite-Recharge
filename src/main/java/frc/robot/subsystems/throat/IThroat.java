@@ -17,4 +17,6 @@ public interface IThroat extends Subsystem{
     public void ejectorSpeed(boolean on);
 
     public void unJam();
+
+    public double getThroatSpeed();
 }

@@ -58,4 +58,14 @@ public class DummyClimbTake implements IClimbTake2020 {
   public boolean getLimitSwitchState() {
     return false;
   }
+
+  @Override
+  public void setExtenderSpeed(double speed) {
+
+  }
+
+  @Override
+  public void setPivotSpeed(double speed) {
+
+  }
 }
