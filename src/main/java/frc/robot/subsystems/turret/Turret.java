@@ -35,19 +35,16 @@ public class Turret extends SubsystemBase implements ITurret {
 
     slopeX = RobotConstants2020.ANGLE_POT_SLOPE_X; // TODO: CHANGE!!!
     interceptX = RobotConstants2020.ANGLE_POT_INTERCEPT_X; // TODO: CHANGE!!!
-    slopeY = RobotConstants2020.ANGLE_POT_SLOPE_Y; // TODO: CHANGE!!!
-    interceptY = RobotConstants2020.ANGLE_POT_INTERCEPT_Y; // TODO: CHANGE!!!
-
-    int channelX = RobotConstants2020.ANGLE_POT_X; // TODO: CHANGE!!!!!!!!!!!!!!!!!!!!
-    int channelY = RobotConstants2020.ANGLE_POT_Y; // TODO: CHANGE!!!!!!!!!!!!!!!!!!!!
 
     speedControllerX = new WPI_TalonSRX(RobotConstants2020.TURRET_PAN);
     speedControllerY = new WPI_TalonSRX(RobotConstants2020.TURRET_HOOD);
 
     minAngleX = RobotConstants2020.MIN_ANGLE_TURRET_PAN;
     maxAngleX = RobotConstants2020.MAX_ANGLE_TURRET_PAN;
-    minAngleY = RobotConstants2020.MIN_ANGLE_TURRET_HOOD;
-    maxAngleY = RobotConstants2020.MAX_ANGLE_TURRET_HOOD;
+    minRawX = RobotConstants2020.MIN_PAN_RAW;
+    maxRawX = RobotConstants2020.MAX_PAN_RAW;
+    minRawY = RobotConstants2020.MIN_HOOD_RAW;
+    maxRawY = RobotConstants2020.MAX_HOOD_RAW;
 
     // set PID coefficients
     pidX.setP(xP);
@@ -71,7 +68,7 @@ public class Turret extends SubsystemBase implements ITurret {
   }
 
   private double xP, xI, xD, yP, yI, yD;
-  private double minAngleX, minAngleY, maxAngleX, maxAngleY;
+  private double minAngleX, minRawY, maxAngleX, maxRawY, minRawX, maxRawX;
   private double slopeX, slopeY, interceptX, interceptY;
   PIDController pidX, pidY;
   WPI_TalonSRX speedControllerX, speedControllerY;
@@ -95,17 +92,16 @@ public class Turret extends SubsystemBase implements ITurret {
   }
 
   public void setPanSpeed(double speed) {
-    if (speedControllerX.getSensorCollection().getAnalogInRaw() <= RobotConstants2020.MIN_PAN_RAW && speed < 0) {
+    if (speedControllerX.getSensorCollection().getAnalogInRaw() <= minRawX && speed < 0) {
       speed = 0;
     }
-    if (speedControllerX.getSensorCollection().getAnalogInRaw() >= RobotConstants2020.MAX_PAN_RAW && speed > 0) {
+    if (speedControllerX.getSensorCollection().getAnalogInRaw() >= maxRawX && speed > 0) {
       speed = 0;
     }
     speedControllerX.set(speed);
   }
 
   public void setXSpeedUnsafe(double speed) { // pan
-
     speedControllerX.set(speed * panMultiplier); // DANGER!!
     SmartDashboard.putNumber("Pan (X) speed joystick", speed);
   }
@@ -124,10 +120,10 @@ public class Turret extends SubsystemBase implements ITurret {
   }
 
   public void setTiltSpeed(double speed) {
-    if (speedControllerY.getSensorCollection().getAnalogInRaw() <= RobotConstants2020.MIN_HOOD_RAW && speed < 0) {
+    if (speedControllerY.getSensorCollection().getAnalogInRaw() <= minRawY && speed < 0) {
       speed = 0;
     }
-    if (speedControllerY.getSensorCollection().getAnalogInRaw() >= RobotConstants2020.MAX_HOOD_RAW && speed > 0) {
+    if (speedControllerY.getSensorCollection().getAnalogInRaw() >= maxRawY && speed > 0) {
       speed = 0;
     }
     SmartDashboard.putNumber("Turret Y Speed", speed);

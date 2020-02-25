@@ -11,6 +11,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.RobotConstants2020;
 
 /**
  * Add your docs here.
@@ -22,7 +23,7 @@ public class Unjammer extends SubsystemBase implements IUnjammer{
   // mini NEO -> sparkMax
 
   public Unjammer() {
-    // unjammer = new CANSparkMax(UNJAMMER_SPARKMAX, MotorType.kBrushless);
+    // unjammer = new CANSparkMax(RobotConstants2020.UNJAMMER_SPARKMAX, MotorType.kBrushless);
   }
 
   @Override
