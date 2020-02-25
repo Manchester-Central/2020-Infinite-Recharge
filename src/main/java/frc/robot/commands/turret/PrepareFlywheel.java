@@ -7,6 +7,7 @@
 
 package frc.robot.commands.turret;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 import frc.robot.commands.util.DoneCommand;
@@ -18,14 +19,22 @@ public class PrepareFlywheel extends DoneCommand {
     // eg. requires(chassis);
   }
 
+  private double limelightYAngle;
+  double currentFlywheelRPM, targetFlywheelRPM;
+
   // Called just before this Command runs the first time
   @Override
   public void initialize() {
+    currentFlywheelRPM = Robot.flywheel.getCurrentFlywheelRPM();
+    targetFlywheelRPM = SmartDashboard.getNumber("Flywheel target speed RPM", 0);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   public void execute() {
+
+    Robot.flywheel.accelerateToSetPoint();
+
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -35,7 +44,7 @@ public class PrepareFlywheel extends DoneCommand {
   }
 
   public boolean isDone() {
-    return true; // TODO: return true once the flywheel is up to speed 
+    return (((targetFlywheelRPM - 100) < currentFlywheelRPM) && (currentFlywheelRPM < (targetFlywheelRPM + 100)));
   }
 
   // Called once after isFinished returns true or when interrupted

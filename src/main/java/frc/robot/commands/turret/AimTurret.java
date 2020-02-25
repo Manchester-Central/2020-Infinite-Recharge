@@ -13,7 +13,7 @@ import frc.robot.commands.util.DoneCommand;
 
 public class AimTurret extends DoneCommand {
   public AimTurret() {
-    addRequirements(Robot.turret, Robot.flywheel);
+    addRequirements(Robot.turret);
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }
@@ -51,7 +51,14 @@ public class AimTurret extends DoneCommand {
   }
 
   public boolean isDone() {
-    return true; // TODO: set true when turret is aligned
+    boolean tilt = Robot.turret.getTiltAngle() == Robot.turret.getTiltTarget();
+
+    double panTarget = Robot.turret.getPanTarget();
+    double panCurrent = Robot.turret.getPanAngle();
+    boolean pan = ((panTarget - 2) < panCurrent) && (panCurrent < (panTarget + 2));
+
+    return (tilt && pan);
+    // return true; // TODO: set true when turret is aligned
   }
 
   // Called once after isFinished returns true or when interrupted

@@ -32,7 +32,7 @@ public class DummyFlywheel extends SubsystemBase implements IFlywheel {
   }
 
   public void setFlywheelTargetDirect(double speed) {
-    SmartDashboard.putNumber("Flywheel target speed", speed);
+    SmartDashboard.putNumber("Flywheel target speed RPM", speed);
 
   }
 
@@ -42,5 +42,17 @@ public class DummyFlywheel extends SubsystemBase implements IFlywheel {
   @Override
   public void setTarget(double target) {
     setPoint = target;
+    SmartDashboard.putNumber("Flywheel target speed RPM", target);
+  }
+
+  @Override
+  public void coastFlywheel() {
+    SmartDashboard.putNumber("Current Flywheel RPM", setPoint);
+  }
+
+  @Override
+  public double getCurrentFlywheelRPM() {
+    // TODO Auto-generated method stub
+    return 0;
   }
 }
