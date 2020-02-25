@@ -20,7 +20,7 @@ public class RobotConstants2020 {
     public final static int FLYWHEELA_SPARKMAX = 11; // CAN, left, closest to "Lime"
     public final static int FLYWHEELB_SPARKMAX = 12; // CAN, right, closest to "Light"
 
-    // public final static int UNJAMMER_SPARKMAX = ?;
+    public final static int UNJAMMER_SPARKMAX = 13;
 
     // public final static int INTAKE_FALCON = ?;
 

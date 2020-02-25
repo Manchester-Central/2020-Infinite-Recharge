@@ -8,7 +8,6 @@
 package frc.robot.auto.conditions;
 
 import frc.robot.Robot;
-import frc.robot.Robot.*;
 
 /**
  * Add your docs here.
