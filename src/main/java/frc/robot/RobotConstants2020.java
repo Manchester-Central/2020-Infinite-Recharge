@@ -20,27 +20,22 @@ public class RobotConstants2020 {
     public final static int FLYWHEELA_SPARKMAX = 11; // CAN, left, closest to "Lime"
     public final static int FLYWHEELB_SPARKMAX = 12; // CAN, right, closest to "Light"
 
-    // public final static int UNJAMMER_SPARKMAX = ?;
+    public final static int UNJAMMER_SPARKMAX = 13;
 
-    // public final static int INTAKE_SPARKMAX = ?;
+    public final static int LIMIT_SWITCH = 14; // TODO: find this value!
 
-    public final static int ANGLE_POT_X = 0; // TODO: change!
+    // public final static int INTAKE_FALCON = ?;
+
     public final static double ANGLE_POT_SLOPE_X = 1; // TODO: change!!
     public final static double ANGLE_POT_INTERCEPT_X = 1; // TODO: change!!
 
-    public final static int ANGLE_POT_Y = 0; // TODO: change!
-    public final static double ANGLE_POT_SLOPE_Y = 1; // TODO: change!!
-    public final static double ANGLE_POT_INTERCEPT_Y = 1; // TODO: change!!
-
     public final static double MAX_ANGLE_TURRET_PAN = 1; // TODO: change
     public final static double MIN_ANGLE_TURRET_PAN = 1; // TODO: change
-    public final static double MAX_ANGLE_TURRET_HOOD = 1; // TODO: change
-    public final static double MIN_ANGLE_TURRET_HOOD = 1; // TODO: change
+    public final static int MIN_PAN_RAW = 10;
+    public final static int MAX_PAN_RAW = 681;
 
     public final static int MIN_HOOD_RAW = 68; // 68
     public final static int MAX_HOOD_RAW = 169; // 169
-    public final static int MIN_PAN_RAW = 1; // TODO: change!!
-    public final static int MAX_PAN_RAW = 1; // TODO: change!!
 
     public final static double EXTENDER_OUT = 0.5; // TODO: change!! 
     public final static double EXTENDER_IN = 1; // TODO: change!!    

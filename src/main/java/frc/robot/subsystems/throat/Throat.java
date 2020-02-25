@@ -26,16 +26,6 @@ public class Throat extends SubsystemBase implements IThroat{
   
   }
 
-  /*
-
-  if (ejectorOn){
-    ejector.set(1);
-  }else {
-    ejector.set(0);
-  }
-
-  */
-
   public void ejectorSpeed(boolean on) {
     if (!on) {
       ejector.set(0);

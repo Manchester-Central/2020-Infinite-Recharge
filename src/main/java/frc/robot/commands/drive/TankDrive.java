@@ -36,8 +36,6 @@ public class TankDrive extends CommandBase {
     double leftSpeed = Robot.oi.getLeftSpeed() * speedScale;
     double rightSpeed = Robot.oi.getRightSpeed() * speedScale;
 
-    // SmartDashboard.putNumber("Left Speed", leftSpeed); TODO: re-enable 
-    // SmartDashboard.putNumber("Right Speed", rightSpeed); TODO: re-enable
     // Robot.driveBase.tankDriveVolts(leftSpeed, rightSpeed);
     Robot.driveBase.differentialDrive1.tankDrive(leftSpeed, rightSpeed);
   }

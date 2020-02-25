@@ -11,26 +11,31 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.RobotConstants2020;
 
 /**
  * Add your docs here.
  */
-public class Unjammer extends SubsystemBase implements IUnjammer{
+public class Unjammer extends SubsystemBase implements IUnjammer {
 
   CANSparkMax unjammer;
-
-  // mini NEO -> sparkMax
+  double unjammerSpeed;
 
   public Unjammer() {
-    // unjammer = new CANSparkMax(UNJAMMER_SPARKMAX, MotorType.kBrushless);
+    unjammer = new CANSparkMax(RobotConstants2020.UNJAMMER_SPARKMAX, MotorType.kBrushless);
+    unjammerSpeed = 1;
   }
 
   @Override
   public void spin(boolean on) {
+    if (on) {
+      unjammer.set(unjammerSpeed);
+    } else {
+      unjammer.set(0);
+    }
     // TODO: finish this logic
     // direction = (number here);
     // (something).setSpeed...
   }
-
 
 }
