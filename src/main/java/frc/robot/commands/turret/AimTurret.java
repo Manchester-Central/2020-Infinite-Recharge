@@ -17,9 +17,11 @@ public class AimTurret extends DoneCommand {
     addRequirements(Robot.turret);
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
+    SmartDashboard.putNumber("Pan Trim", panTrim);
   }
   private double limelightXAngle, limelightYAngle;
   private double offsetX;
+  private double panTrim = -2.5;
 
   // Called just before this Command runs the first time
   @Override
@@ -37,8 +39,10 @@ public class AimTurret extends DoneCommand {
       var targetData = Robot.flywheelTable.getIdealTarget(limelightYAngle);
       Robot.turret.setTiltTargetAngle(targetData.getAngle());
 
+      panTrim = SmartDashboard.getNumber("Pan Trim", panTrim);
+
       limelightXAngle = Robot.camera.getXAngle();
-      Robot.turret.setPanTarget(limelightXAngle + Robot.turret.getPanAngle());
+      Robot.turret.setPanTarget(limelightXAngle + Robot.turret.getPanAngle() + panTrim);
 
       Robot.flywheel.setTarget(targetData.getSpeed());
     }
