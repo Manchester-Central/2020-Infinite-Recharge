@@ -29,10 +29,12 @@ public class RobotConstants2020 {
     public final static double ANGLE_POT_SLOPE_X = 1; // TODO: change!!
     public final static double ANGLE_POT_INTERCEPT_X = 1; // TODO: change!!
 
-    public final static double MAX_ANGLE_TURRET_PAN = 1; // TODO: change
-    public final static double MIN_ANGLE_TURRET_PAN = 1; // TODO: change
-    public final static int MIN_PAN_RAW = 10;
-    public final static int MAX_PAN_RAW = 681;
+    public final static double MAX_ANGLE_PAN = 1; // TODO: change
+    public final static double MIN_ANGLE_PAN = 1; // TODO: change
+    public final static int MIN_PAN_RAW = 10; // 136
+    public final static int MAX_PAN_RAW = 681; // 329
+    public final static int PAN_ZERO_RAW = 227; // TODO: change
+    public final static int PAN_BACKWARD_RAW = 0; // TODO: change
 
     public final static int MIN_HOOD_RAW = 68; // 68
     public final static int MAX_HOOD_RAW = 169; // 169

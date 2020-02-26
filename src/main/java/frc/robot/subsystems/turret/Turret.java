@@ -15,7 +15,6 @@ import frc.robot.Robot;
 import frc.robot.RobotConstants2020;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import com.revrobotics.CANSparkMax;
 
 /**
  * Add your docs here.
@@ -39,12 +38,13 @@ public class Turret extends SubsystemBase implements ITurret {
     speedControllerX = new WPI_TalonSRX(RobotConstants2020.TURRET_PAN);
     speedControllerY = new WPI_TalonSRX(RobotConstants2020.TURRET_HOOD);
 
-    minAngleX = RobotConstants2020.MIN_ANGLE_TURRET_PAN;
-    maxAngleX = RobotConstants2020.MAX_ANGLE_TURRET_PAN;
+    minAngleX = RobotConstants2020.MIN_ANGLE_PAN;
+    maxAngleX = RobotConstants2020.MAX_ANGLE_PAN;
     minRawX = RobotConstants2020.MIN_PAN_RAW;
     maxRawX = RobotConstants2020.MAX_PAN_RAW;
     minRawY = RobotConstants2020.MIN_HOOD_RAW;
     maxRawY = RobotConstants2020.MAX_HOOD_RAW;
+    zeroRawX = RobotConstants2020.PAN_ZERO_RAW;
 
     // set PID coefficients
     pidX.setP(xP);
@@ -68,23 +68,26 @@ public class Turret extends SubsystemBase implements ITurret {
   }
 
   private double xP, xI, xD, yP, yI, yD;
-  private double minAngleX, minRawY, maxAngleX, maxRawY, minRawX, maxRawX;
-  private double slopeX, slopeY, interceptX, interceptY;
+  private int minRawY, maxRawY, minRawX, maxRawX;
+  private double minAngleX, maxAngleX, zeroRawX;
+  private double slopeX, interceptX;
   PIDController pidX, pidY;
   WPI_TalonSRX speedControllerX, speedControllerY;
   
   double panMultiplier = 0.05;
 
-  private double turretXDegrees(CANSparkMax input) {
-    double gearRatio = (double) 10 / 1; // ratio of the axel the turntable lies on to the axel the encoder reads
-    int ticksPerRev = 42; // amount of ticks in one revolution of the encoder axel
-    double counts = input.getEncoder().getPosition();
-    return (counts * gearRatio) / ticksPerRev;
+  private double turretPanDegrees(double raw) {
+    int rawRange = maxRawX - minRawX;
+    double angleRange = maxAngleX - minAngleX;
+    slopeX = rawRange/angleRange;
+    interceptX = minAngleX + zeroRawX;
+    return raw * slopeX + interceptX;
   }
 
   public double getPanAngle() {
-    // make sure the slope and intercept are accounted for
-    return speedControllerX.getSensorCollection().getAnalogIn();
+    double raw = speedControllerX.getSensorCollection().getAnalogIn();
+    // TODO: make sure the slope and intercept are accounted for
+    return turretPanDegrees(raw);
   }
 
   public void setPanTarget(double target) {
