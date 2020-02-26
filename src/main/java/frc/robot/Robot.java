@@ -266,6 +266,9 @@ public class Robot extends TimedRobot {
         navx.updateNavDashboard();
         turret.addTurretSmartDashboard();
         turret.smartDashboardConstants();
+        SmartDashboard.putBoolean("Limit Switch on?", climbTake.getLimitSwitchState());
+
+        climbTake.addToDashboard();
 
         // System.out.println(camera.getPipeline());
 

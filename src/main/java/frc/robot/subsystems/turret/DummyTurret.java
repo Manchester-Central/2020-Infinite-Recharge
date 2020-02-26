@@ -67,13 +67,11 @@ public class DummyTurret extends SubsystemBase implements ITurret {
 
   @Override
   public double getTiltTarget() {
-    // TODO Auto-generated method stub
     return 0;
   }
 
   @Override
   public double getPanTarget() {
-    // TODO Auto-generated method stub
     return 0;
   }
 

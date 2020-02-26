@@ -30,4 +30,9 @@ public interface IClimbTake2020 extends Subsystem {
 
   public boolean getLimitSwitchState();
 
+  public void setExtenderSpeed(double speed);
+
+  public void setPivotSpeed(double speed);
+
+  public void addToDashboard();
 }

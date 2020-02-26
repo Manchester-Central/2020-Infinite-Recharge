@@ -7,17 +7,20 @@
 
 package frc.robot.commands.turret;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 import frc.robot.commands.util.DoneCommand;
 
-public class AimTurret extends DoneCommand {
-  public AimTurret() {
+public class AimTurretDashboard extends CommandBase {
+  public AimTurretDashboard() {
     addRequirements(Robot.turret);
+
+    SmartDashboard.putNumber("Tilt Turret PID target", 0);
+    SmartDashboard.putNumber("Pan Turret PID target", 0);
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }
-  private double limelightXAngle, limelightYAngle;
   private double offsetX;
 
   // Called just before this Command runs the first time
@@ -30,17 +33,11 @@ public class AimTurret extends DoneCommand {
   // Called repeatedly when this Command is scheduled to run
   @Override
   public void execute() {
-    if (Robot.camera.hasTarget()) {
-      limelightYAngle = Robot.camera.getYAngle();
 
-      var targetData = Robot.flywheelTable.getIdealTarget(limelightYAngle);
-      Robot.turret.setTiltTargetAngle(targetData.getAngle());
+    Robot.turret.setTiltTargetAngle(SmartDashboard.getNumber("Tilt Turret PID target", 0));
 
-      limelightXAngle = Robot.camera.getXAngle();
-      Robot.turret.setPanTarget(limelightXAngle + Robot.turret.getPanAngle());
+    Robot.turret.setPanTarget(SmartDashboard.getNumber("Pan Turret PID target", 0));
 
-      Robot.flywheel.setTarget(targetData.getSpeed());
-    }
     Robot.turret.PIDDrive();
   }
 

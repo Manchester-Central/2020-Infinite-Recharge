@@ -29,7 +29,8 @@ public class ClimbTake2020 extends SubsystemBase implements IClimbTake2020 {
   public ClimbTake2020() {
     pivot = new CANSparkMax(RobotConstants2020.ARM_SPARKMAX, CANSparkMax.MotorType.kBrushless);
     extension = new CANSparkMax(RobotConstants2020.CLIMB_SPARKMAX, CANSparkMax.MotorType.kBrushless);
-    limitSwitch = new DigitalInput(RobotConstants2020.LIMIT_SWITCH); // TODO: check if DI or ADD
+    limitSwitch = new DigitalInput(RobotConstants2020.LIMIT_SWITCH);
+    pivot.setInverted(true);
     
     pivotP = 0;
     pivotI = 0;
@@ -153,5 +154,12 @@ public class ClimbTake2020 extends SubsystemBase implements IClimbTake2020 {
     double speed = pidExtend.calculate(getPivotPosition());
     setPivotSpeed(speed * maxPivotSpeed);
   }
+
+  public void addToDashboard() {
+    SmartDashboard.putNumber("Pivot position", getPivotPosition());
+    SmartDashboard.putNumber("Extension position", getExtensionPosition());
+
+  }
+
 
 }

@@ -23,7 +23,7 @@ public class Unjammer extends SubsystemBase implements IUnjammer {
 
   public Unjammer() {
     unjammer = new CANSparkMax(RobotConstants2020.UNJAMMER_SPARKMAX, MotorType.kBrushless);
-    unjammerSpeed = 1;
+    unjammerSpeed = 0.3;
   }
 
   @Override
@@ -33,9 +33,6 @@ public class Unjammer extends SubsystemBase implements IUnjammer {
     } else {
       unjammer.set(0);
     }
-    // TODO: finish this logic
-    // direction = (number here);
-    // (something).setSpeed...
   }
 
 }

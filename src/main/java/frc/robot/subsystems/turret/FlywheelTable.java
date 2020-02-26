@@ -22,11 +22,6 @@ import edu.wpi.first.wpilibj.Filesystem;
  */
 public class FlywheelTable {
 
-    // TODOS:
-    // tune feeder system so it works
-    // use camera pos to manually tune shooter
-        // want to know power setting + hood position to go thru back port at every pos (into table)
-
     String row;
     BufferedReader csvReader;
     final String PATH = "flywheelTable.csv";

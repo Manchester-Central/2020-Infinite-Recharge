@@ -26,7 +26,7 @@ public class ManualTurret extends CommandBase {
   @Override
   public void execute() {
 
-    double xSpeedScale = 0.05;
+    double xSpeedScale = 0.30;
     double ySpeedScale = 0.5;
 
     Robot.turret.setPanSpeed(Robot.oi.getTurretPanTarget() * xSpeedScale);

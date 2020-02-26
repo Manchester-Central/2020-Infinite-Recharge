@@ -10,6 +10,7 @@ package frc.robot.subsystems.throat;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotConstants2020;
 
@@ -23,6 +24,7 @@ public class Throat extends SubsystemBase implements IThroat{
   public Throat(){
     ejector = new CANSparkMax(RobotConstants2020.EJECTER_SPARKMAX, MotorType.kBrushless);
     ejector.setInverted(true);
+    ejector.setIdleMode(CANSparkMax.IdleMode.kCoast);
   
   }
 
@@ -34,6 +36,10 @@ public class Throat extends SubsystemBase implements IThroat{
     ejector.set(1);
   }
 
+  public double getThroatSpeed() {
+    return ejector.getEncoder().getVelocity();
+  }
+  
   public void unJam() {
     ejector.set(-1);
   }

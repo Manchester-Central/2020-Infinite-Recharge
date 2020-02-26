@@ -38,13 +38,15 @@ public class Turret extends SubsystemBase implements ITurret {
     speedControllerX = new WPI_TalonSRX(RobotConstants2020.TURRET_PAN);
     speedControllerY = new WPI_TalonSRX(RobotConstants2020.TURRET_HOOD);
 
-    minAngleX = RobotConstants2020.MIN_ANGLE_PAN;
-    maxAngleX = RobotConstants2020.MAX_ANGLE_PAN;
+    speedControllerX.configOpenloopRamp(0.075);
+
     minRawX = RobotConstants2020.MIN_PAN_RAW;
     maxRawX = RobotConstants2020.MAX_PAN_RAW;
     minRawY = RobotConstants2020.MIN_HOOD_RAW;
     maxRawY = RobotConstants2020.MAX_HOOD_RAW;
     zeroRawX = RobotConstants2020.PAN_ZERO_RAW;
+    minAngleX = RobotConstants2020.MIN_ANGLE_PAN;
+    maxAngleX = RobotConstants2020.MAX_ANGLE_PAN;
 
     // set PID coefficients
     pidX.setP(xP);

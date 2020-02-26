@@ -41,7 +41,7 @@ public abstract class DriveBase extends SubsystemBase {
     protected SpeedControllerGroup rightDrive;
     public DifferentialDrive differentialDrive1;
     public DifferentialDriveOdometry odometer;
-    protected PIDController PIDRight; // TODO: should these be protected? (originally private)
+    protected PIDController PIDRight;
     protected PIDController PIDLeft;
     protected double setpointLeft, setpointRight;
 
@@ -124,7 +124,7 @@ public abstract class DriveBase extends SubsystemBase {
 
         // Translation2d translation = odometer.getPoseMeters().getTranslation();
 
-        // SmartDashboard.putNumber("Odometer x", translation.getX()); TODO: potentially re-enable
+        // SmartDashboard.putNumber("Odometer x", translation.getX());
         // SmartDashboard.putNumber("Odometer y", translation.getY());
     }
 

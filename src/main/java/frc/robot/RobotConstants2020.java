@@ -21,18 +21,17 @@ public class RobotConstants2020 {
     public final static int FLYWHEELB_SPARKMAX = 12; // CAN, right, closest to "Light"
 
     public final static int UNJAMMER_SPARKMAX = 13;
+    public final static int INTAKE_FALCON = 14;
 
-    public final static int LIMIT_SWITCH = 14; // TODO: find this value!
-
-    // public final static int INTAKE_FALCON = ?;
+    public final static int LIMIT_SWITCH = 1;
 
     public final static double ANGLE_POT_SLOPE_X = 1; // TODO: change!!
     public final static double ANGLE_POT_INTERCEPT_X = 1; // TODO: change!!
 
     public final static double MAX_ANGLE_PAN = 1; // TODO: change
     public final static double MIN_ANGLE_PAN = 1; // TODO: change
-    public final static int MIN_PAN_RAW = 10; // 136
-    public final static int MAX_PAN_RAW = 681; // 329
+    public final static int MIN_PAN_RAW = 136; // TODO: verify
+    public final static int MAX_PAN_RAW = 329; // TODO: verify
     public final static int PAN_ZERO_RAW = 227; // TODO: change
     public final static int PAN_BACKWARD_RAW = 0; // TODO: change
 
