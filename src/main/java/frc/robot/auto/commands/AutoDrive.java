@@ -42,8 +42,8 @@ public class AutoDrive extends BaseAutoCommand {
 
     public boolean isFinished() {
         if (Robot.driveBase.isAtTarget()) {
-        log("Autodrive at target\n");
-        return true;
+            log("Autodrive at target\n");
+            return true;
         }
         return super.isFinished();
     }
