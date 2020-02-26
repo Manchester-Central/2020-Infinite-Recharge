@@ -7,8 +7,10 @@
 
 package frc.robot.auto.commands;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Date;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.auto.ParseCommand;
@@ -65,5 +67,10 @@ public abstract class BaseAutoCommand extends CommandBase {
         }
         return false;
 
+    }
+
+    public void log(java.lang.String format, java.lang.Object... args) {
+        System.out.printf("%s - ", new Timestamp((new Date().getTime())));
+        System.out.printf(format, args);
     }
 }

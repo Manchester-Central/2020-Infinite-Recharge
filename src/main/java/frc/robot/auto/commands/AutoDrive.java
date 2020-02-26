@@ -39,4 +39,17 @@ public class AutoDrive extends BaseAutoCommand {
     public void execute() {
         Robot.driveBase.PIDDrive();
     }
+
+    public boolean isFinished() {
+        if (Robot.driveBase.isAtTarget()) {
+        log("Autodrive at target\n");
+        return true;
+        }
+        return super.isFinished();
+    }
+
+    public void end(boolean interrupted) {
+        log("done autodrive\n");
+        super.end(interrupted);
+    }
 }
