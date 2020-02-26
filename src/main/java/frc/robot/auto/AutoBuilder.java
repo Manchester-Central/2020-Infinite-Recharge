@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.auto.commands.*;
+import frc.robot.commands.climbtake.MoveToIntakePosition;
 
 /**
  * 
@@ -56,6 +57,8 @@ public class AutoBuilder {
             return new TurnAngleRobot(parsedCommand);
         case AimTurret.COMMAND_NAME:
             return new AimTurret(parsedCommand);
+        case "lowerArm":
+            return new MoveToIntakePosition();
         default:
             System.out.println("Auto command not recognized: " + parsedCommand);
             return new NullCommand();
