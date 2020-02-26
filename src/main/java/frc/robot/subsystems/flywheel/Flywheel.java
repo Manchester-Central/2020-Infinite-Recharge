@@ -53,7 +53,7 @@ public class Flywheel extends SubsystemBase implements IFlywheel {
     // PID coefficients
     kP = 0.0002;
     kI = 0;
-    kD = 0;
+    kD = 0.0002;
     kIz = 0;
     kFF = 0;
     maxRPM = 5676;

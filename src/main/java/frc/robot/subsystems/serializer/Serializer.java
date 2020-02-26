@@ -33,8 +33,8 @@ public class Serializer extends SubsystemBase implements ISerializer{
   private CANEncoder m_encoder;
   public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxRPM;
   private double setPoint;
-  private final double FAST_SPEED = 2000;
-  private final double SLOW_SPEED = 200;
+  private final double FAST_SPEED = 2500;
+  private final double SLOW_SPEED = 600;
   private double manualSpeedTarget;
 
   public Serializer() {
@@ -64,8 +64,8 @@ public class Serializer extends SubsystemBase implements ISerializer{
     kD = 0;
     kIz = 0;
     kFF = 0;
-    kMaxOutput = 0.25;
-    kMinOutput = -0.25;
+    kMaxOutput = 1;
+    kMinOutput = -1;
     maxRPM = 1500;
     setPoint = 0;
     manualSpeedTarget = 900;

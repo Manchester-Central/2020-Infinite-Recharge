@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.commands.climbtake.*;
 import frc.robot.commands.drive.TankDrive;
 import frc.robot.commands.inputs.SetPipeline;
+import frc.robot.commands.serializer.SerializerDefault;
 import frc.robot.commands.serializer.SerializerStop;
 import frc.robot.commands.turret.AimTurret;
 import frc.robot.commands.turret.AimTurretDashboard;
@@ -97,21 +98,21 @@ public class OI {
                 new SetClimbTakePosition(RobotConstants2020.INTAKE_POSITION, RobotConstants2020.EXTENDER_ZERO));
         operator.dPadLeft.whileHeld(
                 new SetClimbTakePosition(RobotConstants2020.CLIMB_POSITION, RobotConstants2020.EXTENDER_ZERO));
-        operator.dPadRight.whileHeld(
-                new SetClimbTakePosition(RobotConstants2020.CLIMB_POSITION, RobotConstants2020.EXTENDER_IN));
+        operator.dPadRight
+                .whileHeld(new SetClimbTakePosition(RobotConstants2020.CLIMB_POSITION, RobotConstants2020.EXTENDER_IN));
 
         operator.leftTrigger.whileHeld(new BumperShotAim());
         operator.leftBumper.whileHeld(new AimTurret());
 
-        operator.rightBumper.and(operator.rightTrigger.negate()).whileActiveContinuous(new PrepareFlywheel());
+        operator.rightBumper.and(operator.rightTrigger.negate())
+                .whileActiveContinuous(new PrepareFlywheel().alongWith(new SerializerStop()));
         // operator.rightBumper.whileHeld(new PrepareFlywheel());
         operator.rightTrigger.whileHeld(new Shoot());
 
-
-        //Tester
+        // Tester
         if (testMode) {
             tester = new LogitechF310(2);
-            
+
             tester.dPadUp.whileHeld(() -> Robot.climbTake.setExtenderSpeed(0.10), Robot.climbTake);
             tester.dPadDown.whileHeld(() -> Robot.climbTake.setExtenderSpeed(-0.10), Robot.climbTake);
             tester.dPadLeft.whileHeld(() -> Robot.climbTake.setPivotSpeed(-0.10), Robot.climbTake);
@@ -128,12 +129,11 @@ public class OI {
 
             tester.leftBumper.whileHeld(new AimTurretDashboard());
 
-            
-
         }
 
         // Framework for deadline commandGroup
-        // operator.leftBumper.whileHeld(Deadline.createDeadline(new AimTurret(), new PrepareFlywheel()));
+        // operator.leftBumper.whileHeld(Deadline.createDeadline(new AimTurret(), new
+        // PrepareFlywheel()));
 
         // Default Commands
         Robot.driveBase.setDefaultCommand(new TankDrive(1));
@@ -141,14 +141,14 @@ public class OI {
         Robot.camera.setDefaultCommand(new SetPipeline(9));
         // Robot.flywheel.setDefaultCommand(new FlywheelZero());
         Robot.flywheel.setDefaultCommand(new RunCommand(() -> Robot.flywheel.coastFlywheel(), Robot.flywheel));
-        Robot.serializer.setDefaultCommand(new SerializerStop()); // TODO: change to default
+        Robot.serializer.setDefaultCommand(new SerializerDefault()); // TODO: change to default
         Robot.throat.setDefaultCommand(new RunCommand(() -> Robot.throat.ejectorSpeed(false), Robot.throat));
-        Robot.unjammer.setDefaultCommand(new RunCommand(() -> Robot.unjammer.spin(false), Robot.unjammer));
+        Robot.unjammer.setDefaultCommand(new RunCommand(() -> Robot.unjammer.spin(true), Robot.unjammer));
         Robot.turret.setDefaultCommand(new ManualTurret());
         Robot.climbTake.setDefaultCommand(new RunCommand(() -> {
             Robot.climbTake.setPivotSpeed(tester.getLeftY());
             Robot.climbTake.setExtenderSpeed(tester.getRightY());
-            }, Robot.climbTake));
+        }, Robot.climbTake));
 
     }
 

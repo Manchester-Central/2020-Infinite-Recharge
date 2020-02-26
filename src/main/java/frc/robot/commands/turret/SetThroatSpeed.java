@@ -17,14 +17,17 @@ public class SetThroatSpeed extends DoneCommand {
    * Creates a new SetThroatSpeed.
    */
 
-   boolean on;
+  boolean on;
 
   public SetThroatSpeed(boolean on) {
     addRequirements(Robot.throat);
-    
+
     this.on = on;
     // Use addRequirements() here to declare subsystem dependencies.
+    SmartDashboard.putNumber("Throat Min", 500);
   }
+
+  double minThroat;
 
   // Called when the command is initially scheduled.
   @Override
@@ -37,7 +40,7 @@ public class SetThroatSpeed extends DoneCommand {
 
     Robot.throat.ejectorSpeed(on);
     SmartDashboard.putNumber("Throat RPM", Robot.throat.getThroatSpeed());
-
+    minThroat = SmartDashboard.getNumber("Throat Min", 500);
   }
 
   // Called once the command ends or is interrupted.
@@ -51,9 +54,9 @@ public class SetThroatSpeed extends DoneCommand {
     return false;
   }
 
-@Override
-public boolean isDone() {
-  double currentSpeed = Robot.throat.getThroatSpeed();
-  return currentSpeed > 500;
-}
+  @Override
+  public boolean isDone() {
+    double currentSpeed = Robot.throat.getThroatSpeed();
+    return currentSpeed > minThroat;
+  }
 }

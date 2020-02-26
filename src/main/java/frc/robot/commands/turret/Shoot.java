@@ -9,16 +9,17 @@ package frc.robot.commands.turret;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.serializer.SerializerFeed;
+import frc.robot.commands.serializer.SerializerStop;
 import frc.robot.commands.util.Deadline;
 
 public class Shoot extends SequentialCommandGroup {
   public Shoot() {
     // aim = turret needs to aim to target before shooting
     
-    var prepareFlywheel = Deadline.createDeadline(new PrepareFlywheel()); // finished when turret aligned + flywheel up to speed
+    var prepareFlywheel = Deadline.createDeadline(new PrepareFlywheel(), new SerializerStop()); // finished when turret aligned + flywheel up to speed
     addCommands(prepareFlywheel);
 
-    var prepareEjector = Deadline.createDeadline(new SetThroatSpeed(true), new PrepareFlywheel());
+    var prepareEjector = Deadline.createDeadline(new SetThroatSpeed(true), new PrepareFlywheel(), new SerializerStop());
     addCommands(prepareEjector);
 
     // aimTurret + flyWheel done (not finished) immediately, serializer never finishes (while held will interrupt)

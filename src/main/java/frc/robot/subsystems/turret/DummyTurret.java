@@ -55,7 +55,7 @@ public class DummyTurret extends SubsystemBase implements ITurret {
   public void addTurretSmartDashboard() {
   }
 
-  public void PIDDrive() {
+  public void PIDDrive(boolean usingCamera) {
     PIDDriveTilt();
   }
 

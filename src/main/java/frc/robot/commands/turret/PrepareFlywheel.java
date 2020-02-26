@@ -46,7 +46,7 @@ public class PrepareFlywheel extends DoneCommand {
   }
 
   public boolean isDone() {
-    return (((targetFlywheelRPM - 100) < currentFlywheelRPM) && (currentFlywheelRPM < (targetFlywheelRPM + 100)));
+    return (((targetFlywheelRPM * 0.9) < currentFlywheelRPM) && (currentFlywheelRPM < (targetFlywheelRPM * 1.1)));
   }
 
   // Called once after isFinished returns true or when interrupted

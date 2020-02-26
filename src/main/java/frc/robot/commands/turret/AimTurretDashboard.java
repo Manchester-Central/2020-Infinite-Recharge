@@ -38,7 +38,7 @@ public class AimTurretDashboard extends CommandBase {
 
     Robot.turret.setPanTarget(SmartDashboard.getNumber("Pan Turret PID target", 0));
 
-    Robot.turret.PIDDrive();
+    Robot.turret.PIDDrive(false);
   }
 
   // Make this return true when this Command no longer needs to run execute()

@@ -29,11 +29,9 @@ public interface ITurret extends Subsystem {
 
   public void setTiltTargetAngle(double angle);
 
-  public void PIDDriveTilt();
-
   public void addTurretSmartDashboard();
 
-  public void PIDDrive();
+  public void PIDDrive(boolean usingCamera);
 
   public void smartDashboardConstants();
 

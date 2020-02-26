@@ -9,9 +9,10 @@ package frc.robot.commands.serializer;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
+import frc.robot.commands.util.DoneCommand;
 import frc.robot.subsystems.serializer.SerializerSpeed;
 
-public class SerializerStop extends CommandBase {
+public class SerializerStop extends DoneCommand {
   public SerializerStop() {
     addRequirements(Robot.serializer);
     // Use requires() here to declare subsystem dependencies
@@ -40,5 +41,11 @@ public class SerializerStop extends CommandBase {
   // Called once after isFinished returns true or when interrupted
   @Override
   public void end(boolean interrupted) {
+  }
+
+  @Override
+  public boolean isDone() {
+    // TODO: check that the serializer actually stops
+    return true;
   }
 }

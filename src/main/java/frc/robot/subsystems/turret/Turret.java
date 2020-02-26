@@ -21,12 +21,16 @@ public class Turret extends SubsystemBase implements ITurret {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
   public Turret() {
-    panP = 0;
-    panI = 0;
-    panD = 0;
-    tiltP = 0;
+    panP = 0.06;
+    panI = 0.02;
+    panD = 0.015;
+    camPanP = 0.00025;
+    camPanI = 0;
+    camPanD = 0;
+    tiltP = 0.4;
     tiltI = 0;
     tiltD = 0;
+    camPanPID = new PIDController(camPanP, camPanI, camPanD);
     pidPan = new PIDController(panP, panI, panD);
     pidTilt = new PIDController(tiltP, tiltI, tiltD);
 
@@ -55,6 +59,17 @@ public class Turret extends SubsystemBase implements ITurret {
     SmartDashboard.putNumber("I Gain PAN", panI);
     SmartDashboard.putNumber("D Gain PAN", panD);
 
+    // set camera PID coefficients
+    pidPan.setP(camPanP);
+    pidPan.setI(camPanI);
+    pidPan.setD(camPanD);
+
+    // display camera PID coefficients on SmartDashboard
+    SmartDashboard.putNumber("Camera P Gain PAN", camPanP);
+    SmartDashboard.putNumber("Camera I Gain PAN", camPanI);
+    SmartDashboard.putNumber("Camera D Gain PAN", camPanD);
+
+
     // set PID coefficients
     pidTilt.setP(tiltP);
     pidTilt.setI(tiltI);
@@ -71,11 +86,11 @@ public class Turret extends SubsystemBase implements ITurret {
     interceptPan = maxAnglePan - (slopePan * maxRawPan);
   }
 
-  private double panP, panI, panD, tiltP, tiltI, tiltD;
+  private double panP, panI, panD, tiltP, tiltI, tiltD, camPanP, camPanI, camPanD;
   private int minRawTilt, maxRawTilt, minRawPan, maxRawPan;
   private double minAnglePan, maxAnglePan;
   private double slopePan, interceptPan;
-  PIDController pidPan, pidTilt;
+  PIDController pidPan, pidTilt, camPanPID;
   WPI_TalonSRX speedControllerPan, speedControllerTilt;
   
   double panMultiplier = 0.05;
@@ -97,6 +112,8 @@ public class Turret extends SubsystemBase implements ITurret {
 
   public void setPanTarget(double target) {
     pidPan.setSetpoint(target);
+    camPanPID.setSetpoint(target);
+    SmartDashboard.putNumber("Actual Pan Target", target);
   }
 
   public void setPanSpeed(double speed) {
@@ -120,9 +137,9 @@ public class Turret extends SubsystemBase implements ITurret {
     SmartDashboard.putNumber("Tilt (Y) speed joystick", speed);
   }
 
-  private void PIDDrivePan() { // pan
+  private void PIDDrivePan(boolean usingCamera) { // pan
+    double speed = usingCamera ? camPanPID.calculate(getPanAngle()) : pidPan.calculate(getPanAngle());
     double maxSpeed = 0.4;
-    double speed = pidPan.calculate(getPanAngle());
     setPanSpeed(speed * maxSpeed);
     System.out.println("Turret pan angle: " + getPanAngle() + " pan speed: " + speed);
   }
@@ -149,6 +166,7 @@ public class Turret extends SubsystemBase implements ITurret {
   public void setTiltTargetAngle(double angle) {
     double mathAngle = angle;
     pidTilt.setSetpoint(mathAngle);
+    SmartDashboard.putNumber("Actual Tilt Target", angle);
   }
 
   public void PIDDriveTilt() { // tilt
@@ -177,6 +195,10 @@ public class Turret extends SubsystemBase implements ITurret {
     double kYP = SmartDashboard.getNumber("P Gain TILT", 0);
     double kYI = SmartDashboard.getNumber("I Gain TILT", 0);
     double kYD = SmartDashboard.getNumber("D Gain TILT", 0);
+    
+    double kCXP = SmartDashboard.getNumber("Camera P Gain PAN", 0);
+    double kCXI = SmartDashboard.getNumber("Camera I Gain PAN", 0);
+    double kCXD = SmartDashboard.getNumber("Camera D Gain PAN", 0);
 
     
     if ((kXP != panP)) {
@@ -190,6 +212,19 @@ public class Turret extends SubsystemBase implements ITurret {
     if ((kXD != panD)) {
       pidPan.setD(kXD);
       panD = kXD;
+    }
+
+    if ((kCXP != camPanP)) {
+      camPanPID.setP(kCXP);
+      camPanP = kCXP;
+    }
+    if ((kCXI != camPanI)) {
+      camPanPID.setI(kCXI);
+      camPanI = kCXI;
+    }
+    if ((kCXD != camPanD)) {
+      camPanPID.setD(kCXD);
+      camPanD = kCXD;
     }
 
     if ((kYP != tiltP)) {
@@ -215,8 +250,8 @@ public class Turret extends SubsystemBase implements ITurret {
     return pidPan.getSetpoint();
   }
   
-  public void PIDDrive() {
-    PIDDrivePan();
+  public void PIDDrive(boolean usingCamera) {
+    PIDDrivePan(usingCamera);
     PIDDriveTilt();
   }
 }

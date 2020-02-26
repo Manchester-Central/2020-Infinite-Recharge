@@ -7,6 +7,7 @@
 
 package frc.robot.commands.turret;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 import frc.robot.commands.util.DoneCommand;
@@ -41,7 +42,7 @@ public class AimTurret extends DoneCommand {
 
       Robot.flywheel.setTarget(targetData.getSpeed());
     }
-    Robot.turret.PIDDrive();
+    Robot.turret.PIDDrive(true);
   }
 
   // Make this return true when this Command no longer needs to run execute()
