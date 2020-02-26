@@ -7,11 +7,9 @@
 
 package frc.robot.subsystems.turret;
 
-import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Robot;
 import frc.robot.RobotConstants2020;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
@@ -44,7 +42,6 @@ public class Turret extends SubsystemBase implements ITurret {
     maxRawX = RobotConstants2020.MAX_PAN_RAW;
     minRawY = RobotConstants2020.MIN_HOOD_RAW;
     maxRawY = RobotConstants2020.MAX_HOOD_RAW;
-    zeroRawX = RobotConstants2020.PAN_ZERO_RAW;
     minAngleX = RobotConstants2020.MIN_ANGLE_PAN;
     maxAngleX = RobotConstants2020.MAX_ANGLE_PAN;
 
@@ -67,29 +64,30 @@ public class Turret extends SubsystemBase implements ITurret {
     SmartDashboard.putNumber("P Gain TILT", yP);
     SmartDashboard.putNumber("I Gain TILT", yI);
     SmartDashboard.putNumber("D Gain TILT", yD);
+    
+    int rawRange = maxRawX - minRawX;
+    double angleRange = maxAngleX - minAngleX;
+    slopeX = angleRange/rawRange;
+    interceptX = maxAngleX - (slopeX * maxRawX);
   }
 
   private double xP, xI, xD, yP, yI, yD;
   private int minRawY, maxRawY, minRawX, maxRawX;
-  private double minAngleX, maxAngleX, zeroRawX;
+  private double minAngleX, maxAngleX;
   private double slopeX, interceptX;
   PIDController pidX, pidY;
   WPI_TalonSRX speedControllerX, speedControllerY;
   
   double panMultiplier = 0.05;
 
-  private double turretPanDegrees(double raw) {
-    int rawRange = maxRawX - minRawX;
-    double angleRange = maxAngleX - minAngleX;
-    slopeX = rawRange/angleRange;
-    interceptX = minAngleX + zeroRawX;
+  private double turretPanRawToDegrees(double raw) {
     return raw * slopeX + interceptX;
   }
 
   public double getPanAngle() {
     double raw = speedControllerX.getSensorCollection().getAnalogIn();
     // TODO: make sure the slope and intercept are accounted for
-    return turretPanDegrees(raw);
+    return turretPanRawToDegrees(raw);
   }
 
   public void setPanTarget(double target) {
