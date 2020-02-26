@@ -28,8 +28,8 @@ public class RobotConstants2020 {
     public final static double ANGLE_POT_SLOPE_X = 1; // TODO: change!!
     public final static double ANGLE_POT_INTERCEPT_X = 1; // TODO: change!!
 
-    public final static double MAX_ANGLE_PAN = 1; // TODO: change
-    public final static double MIN_ANGLE_PAN = 1; // TODO: change
+    public final static double MAX_ANGLE_PAN = 95; // TODO: change
+    public final static double MIN_ANGLE_PAN = -200; // TODO: change
     public final static int MIN_PAN_RAW = 136; // TODO: verify
     public final static int MAX_PAN_RAW = 329; // TODO: verify
     public final static int PAN_ZERO_RAW = 227; // TODO: change
@@ -44,5 +44,5 @@ public class RobotConstants2020 {
     public final static double INTAKE_POSITION = 0; // TODO: change!!    
     public final static double CLIMB_POSITION = 1; // TODO: change!!    
 
-
+    public final static double CLIMBTAKE_INITIAL = 0; // TODO: change!
 }

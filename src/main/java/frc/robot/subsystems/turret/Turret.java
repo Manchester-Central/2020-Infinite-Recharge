@@ -21,147 +21,152 @@ public class Turret extends SubsystemBase implements ITurret {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
   public Turret() {
-    xP = 0;
-    xI = 0;
-    xD = 0;
-    yP = 0;
-    yI = 0;
-    yD = 0;
-    pidX = new PIDController(xP, xI, xD);
-    pidY = new PIDController(yP, yI, yD);
+    panP = 0;
+    panI = 0;
+    panD = 0;
+    tiltP = 0;
+    tiltI = 0;
+    tiltD = 0;
+    pidPan = new PIDController(panP, panI, panD);
+    pidTilt = new PIDController(tiltP, tiltI, tiltD);
 
-    slopeX = RobotConstants2020.ANGLE_POT_SLOPE_X; // TODO: CHANGE!!!
-    interceptX = RobotConstants2020.ANGLE_POT_INTERCEPT_X; // TODO: CHANGE!!!
+    slopePan = RobotConstants2020.ANGLE_POT_SLOPE_X; // TODO: CHANGE!!!
+    interceptPan = RobotConstants2020.ANGLE_POT_INTERCEPT_X; // TODO: CHANGE!!!
 
-    speedControllerX = new WPI_TalonSRX(RobotConstants2020.TURRET_PAN);
-    speedControllerY = new WPI_TalonSRX(RobotConstants2020.TURRET_HOOD);
+    speedControllerPan = new WPI_TalonSRX(RobotConstants2020.TURRET_PAN);
+    speedControllerTilt = new WPI_TalonSRX(RobotConstants2020.TURRET_HOOD);
 
-    speedControllerX.configOpenloopRamp(0.075);
+    speedControllerPan.configOpenloopRamp(0.075);
 
-    minRawX = RobotConstants2020.MIN_PAN_RAW;
-    maxRawX = RobotConstants2020.MAX_PAN_RAW;
-    minRawY = RobotConstants2020.MIN_HOOD_RAW;
-    maxRawY = RobotConstants2020.MAX_HOOD_RAW;
-    minAngleX = RobotConstants2020.MIN_ANGLE_PAN;
-    maxAngleX = RobotConstants2020.MAX_ANGLE_PAN;
-
-    // set PID coefficients
-    pidX.setP(xP);
-    pidX.setI(xI);
-    pidX.setD(xD);
-
-    // display PID coefficients on SmartDashboard
-    SmartDashboard.putNumber("P Gain PAN", xP);
-    SmartDashboard.putNumber("I Gain PAN", xI);
-    SmartDashboard.putNumber("D Gain PAN", xD);
+    minRawPan = RobotConstants2020.MIN_PAN_RAW;
+    maxRawPan = RobotConstants2020.MAX_PAN_RAW;
+    minRawTilt = RobotConstants2020.MIN_HOOD_RAW;
+    maxRawTilt = RobotConstants2020.MAX_HOOD_RAW;
+    minAnglePan = RobotConstants2020.MIN_ANGLE_PAN;
+    maxAnglePan = RobotConstants2020.MAX_ANGLE_PAN;
 
     // set PID coefficients
-    pidY.setP(yP);
-    pidY.setI(yI);
-    pidY.setD(yD);
+    pidPan.setP(panP);
+    pidPan.setI(panI);
+    pidPan.setD(panD);
 
     // display PID coefficients on SmartDashboard
-    SmartDashboard.putNumber("P Gain TILT", yP);
-    SmartDashboard.putNumber("I Gain TILT", yI);
-    SmartDashboard.putNumber("D Gain TILT", yD);
+    SmartDashboard.putNumber("P Gain PAN", panP);
+    SmartDashboard.putNumber("I Gain PAN", panI);
+    SmartDashboard.putNumber("D Gain PAN", panD);
+
+    // set PID coefficients
+    pidTilt.setP(tiltP);
+    pidTilt.setI(tiltI);
+    pidTilt.setD(tiltD);
+
+    // display PID coefficients on SmartDashboard
+    SmartDashboard.putNumber("P Gain TILT", tiltP);
+    SmartDashboard.putNumber("I Gain TILT", tiltI);
+    SmartDashboard.putNumber("D Gain TILT", tiltD);
     
-    int rawRange = maxRawX - minRawX;
-    double angleRange = maxAngleX - minAngleX;
-    slopeX = angleRange/rawRange;
-    interceptX = maxAngleX - (slopeX * maxRawX);
+    int rawRange = maxRawPan - minRawPan;
+    double angleRange = maxAnglePan - minAnglePan;
+    slopePan = angleRange/rawRange;
+    interceptPan = maxAnglePan - (slopePan * maxRawPan);
   }
 
-  private double xP, xI, xD, yP, yI, yD;
-  private int minRawY, maxRawY, minRawX, maxRawX;
-  private double minAngleX, maxAngleX;
-  private double slopeX, interceptX;
-  PIDController pidX, pidY;
-  WPI_TalonSRX speedControllerX, speedControllerY;
+  private double panP, panI, panD, tiltP, tiltI, tiltD;
+  private int minRawTilt, maxRawTilt, minRawPan, maxRawPan;
+  private double minAnglePan, maxAnglePan;
+  private double slopePan, interceptPan;
+  PIDController pidPan, pidTilt;
+  WPI_TalonSRX speedControllerPan, speedControllerTilt;
   
   double panMultiplier = 0.05;
 
   private double turretPanRawToDegrees(double raw) {
-    return raw * slopeX + interceptX;
+    // return raw * slopePan + interceptPan;
+
+    return ((-0.0062 * raw * raw) + (4.418 * raw) - 684.81);
+
+    // panRaw = x, panAngle = y
+    // y = -0.0062x^2 + 4.418x - 684.81
   }
 
   public double getPanAngle() {
-    double raw = speedControllerX.getSensorCollection().getAnalogIn();
+    double raw = speedControllerPan.getSensorCollection().getAnalogInRaw();
     // TODO: make sure the slope and intercept are accounted for
     return turretPanRawToDegrees(raw);
   }
 
   public void setPanTarget(double target) {
-    pidX.setSetpoint(target);
+    pidPan.setSetpoint(target);
   }
 
   public void setPanSpeed(double speed) {
-    if (speedControllerX.getSensorCollection().getAnalogInRaw() <= minRawX && speed < 0) {
+    if (speedControllerPan.getSensorCollection().getAnalogInRaw() <= minRawPan && speed < 0) {
       speed = 0;
     }
-    if (speedControllerX.getSensorCollection().getAnalogInRaw() >= maxRawX && speed > 0) {
+    if (speedControllerPan.getSensorCollection().getAnalogInRaw() >= maxRawPan && speed > 0) {
       speed = 0;
     }
-    speedControllerX.set(speed);
+    speedControllerPan.set(speed);
   }
 
-  public void setXSpeedUnsafe(double speed) { // pan
-    speedControllerX.set(speed * panMultiplier); // DANGER!!
+  public void setPanSpeedUnsafe(double speed) { // pan
+    speedControllerPan.set(speed * panMultiplier); // DANGER!!
     SmartDashboard.putNumber("Pan (X) speed joystick", speed);
   }
 
-  public void setYSpeedUnsafe(double speed) { // tilt
+  public void setTiltSpeedUnsafe(double speed) { // tilt
     double multiplier = 0.5;
-    speedControllerY.set(speed * multiplier); // DANGER!!
+    speedControllerTilt.set(speed * multiplier); // DANGER!!
     SmartDashboard.putNumber("Tilt (Y) speed joystick", speed);
   }
 
-  private void PIDDriveX() { // pan
+  private void PIDDrivePan() { // pan
     double maxSpeed = 0.4;
-    double speed = pidX.calculate(getPanAngle());
+    double speed = pidPan.calculate(getPanAngle());
     setPanSpeed(speed * maxSpeed);
     System.out.println("Turret pan angle: " + getPanAngle() + " pan speed: " + speed);
   }
 
   public void setTiltSpeed(double speed) {
-    if (speedControllerY.getSensorCollection().getAnalogInRaw() <= minRawY && speed < 0) {
+    if (speedControllerTilt.getSensorCollection().getAnalogInRaw() <= minRawTilt && speed < 0) {
       speed = 0;
     }
-    if (speedControllerY.getSensorCollection().getAnalogInRaw() >= maxRawY && speed > 0) {
+    if (speedControllerTilt.getSensorCollection().getAnalogInRaw() >= maxRawTilt && speed > 0) {
       speed = 0;
     }
     SmartDashboard.putNumber("Turret Y Speed", speed);
-    speedControllerY.set(speed);
+    speedControllerTilt.set(speed);
   }
 
   public double getTiltAngle() {
-    return speedControllerY.getSensorCollection().getAnalogIn();
+    return speedControllerTilt.getSensorCollection().getAnalogIn();
   }
 
   public double getHoodSpeed() {
-    return speedControllerY.getSensorCollection().getAnalogInVel();
+    return speedControllerTilt.getSensorCollection().getAnalogInVel();
   }
 
   public void setTiltTargetAngle(double angle) {
     double mathAngle = angle;
-    pidY.setSetpoint(mathAngle);
+    pidTilt.setSetpoint(mathAngle);
   }
 
-  public void PIDDriveY() { // tilt
+  public void PIDDriveTilt() { // tilt
     double maxSpeed = 0.4;
-    double speed = pidY.calculate(getTiltAngle());
+    double speed = pidTilt.calculate(getTiltAngle());
     setTiltSpeed(speed * maxSpeed);
     System.out.println("Hood angle: " + getTiltAngle() + " hood speed: " + speed);
   }
 
   public void addTurretSmartDashboard(){
     SmartDashboard.putNumber("Pan Angle", getPanAngle());
-    SmartDashboard.putNumber("Pan Angle Raw", speedControllerX.getSensorCollection().getAnalogInRaw());
+    SmartDashboard.putNumber("Pan Angle Raw", speedControllerPan.getSensorCollection().getAnalogInRaw());
     SmartDashboard.putNumber("Tilt Angle", getTiltAngle());
   }
 
   public void setTurretAngleDashboard() {
     setTiltTargetAngle(SmartDashboard.getNumber("Y Potentiometer, tilt", 0));
-    PIDDriveY();
+    PIDDriveTilt();
   }
 
   public void smartDashboardConstants() {
@@ -174,44 +179,44 @@ public class Turret extends SubsystemBase implements ITurret {
     double kYD = SmartDashboard.getNumber("D Gain TILT", 0);
 
     
-    if ((kXP != xP)) {
-      pidX.setP(kXP);
-      xP = kXP;
+    if ((kXP != panP)) {
+      pidPan.setP(kXP);
+      panP = kXP;
     }
-    if ((kXI != xI)) {
-      pidX.setI(kXI);
-      xI = kXI;
+    if ((kXI != panI)) {
+      pidPan.setI(kXI);
+      panI = kXI;
     }
-    if ((kXD != xD)) {
-      pidX.setD(kXD);
-      xD = kXD;
+    if ((kXD != panD)) {
+      pidPan.setD(kXD);
+      panD = kXD;
     }
 
-    if ((kYP != yP)) {
-      pidY.setP(kYP);
-      yP = kYP;
+    if ((kYP != tiltP)) {
+      pidTilt.setP(kYP);
+      tiltP = kYP;
     }
-    if ((kYI != yI)) {
-      pidY.setI(kYI);
-      yI = kYI;
+    if ((kYI != tiltI)) {
+      pidTilt.setI(kYI);
+      tiltI = kYI;
     }
-    if ((kYD != yD)) {
-      pidY.setD(kYD);
-      yD = kYD;
+    if ((kYD != tiltD)) {
+      pidTilt.setD(kYD);
+      tiltD = kYD;
     }
 
   }
 
   public double getTiltTarget() {
-    return pidY.getSetpoint();
+    return pidTilt.getSetpoint();
   }
 
   public double getPanTarget() {
-    return pidX.getSetpoint();
+    return pidPan.getSetpoint();
   }
   
   public void PIDDrive() {
-    PIDDriveX();
-    PIDDriveY();
+    PIDDrivePan();
+    PIDDriveTilt();
   }
 }

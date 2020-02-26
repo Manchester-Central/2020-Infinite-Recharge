@@ -29,11 +29,11 @@ public class DummyTurret extends SubsystemBase implements ITurret {
     SmartDashboard.putNumber("Pan Speed", speed);
   }
 
-  public void setXSpeedUnsafe(double speed) {
+  public void setPanSpeedUnsafe(double speed) {
     SmartDashboard.putNumber("Pan Speed", speed);
   }
   
-  public void setYSpeedUnsafe(double speed) {
+  public void setTiltSpeedUnsafe(double speed) {
     SmartDashboard.putNumber("Hood Speed", speed);
   }
 
@@ -49,14 +49,14 @@ public class DummyTurret extends SubsystemBase implements ITurret {
     SmartDashboard.putNumber("HoodTarget", angle);
   }
 
-  public void PIDDriveY() {
+  public void PIDDriveTilt() {
   }
 
   public void addTurretSmartDashboard() {
   }
 
   public void PIDDrive() {
-    PIDDriveY();
+    PIDDriveTilt();
   }
 
   public void smartDashboardConstants() {

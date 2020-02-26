@@ -19,9 +19,9 @@ public interface ITurret extends Subsystem {
 
   public void setPanSpeed(double speed);
 
-  public void setXSpeedUnsafe(double speed);
+  public void setPanSpeedUnsafe(double speed);
 
-  public void setYSpeedUnsafe(double speed);
+  public void setTiltSpeedUnsafe(double speed);
 
   public void setTiltSpeed(double speed);
 
@@ -29,7 +29,7 @@ public interface ITurret extends Subsystem {
 
   public void setTiltTargetAngle(double angle);
 
-  public void PIDDriveY();
+  public void PIDDriveTilt();
 
   public void addTurretSmartDashboard();
 
