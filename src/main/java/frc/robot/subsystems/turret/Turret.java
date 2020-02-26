@@ -24,12 +24,13 @@ public class Turret extends SubsystemBase implements ITurret {
     panP = 0.06;
     panI = 0.02;
     panD = 0.015;
-    camPanP = 0.00025;
-    camPanI = 0;
+    camPanP = 0.06;
+    camPanI = 0.02;
     camPanD = 0;
     tiltP = 0.4;
     tiltI = 0;
     tiltD = 0;
+
     camPanPID = new PIDController(camPanP, camPanI, camPanD);
     pidPan = new PIDController(panP, panI, panD);
     pidTilt = new PIDController(tiltP, tiltI, tiltD);
@@ -68,7 +69,6 @@ public class Turret extends SubsystemBase implements ITurret {
     SmartDashboard.putNumber("Camera P Gain PAN", camPanP);
     SmartDashboard.putNumber("Camera I Gain PAN", camPanI);
     SmartDashboard.putNumber("Camera D Gain PAN", camPanD);
-
 
     // set PID coefficients
     pidTilt.setP(tiltP);
