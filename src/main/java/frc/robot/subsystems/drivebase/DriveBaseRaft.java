@@ -12,24 +12,16 @@ package frc.robot.subsystems.drivebase;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.CANSparkMax;
-import edu.wpi.first.wpilibj.controller.PIDController;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.geometry.Pose2d;
-import edu.wpi.first.wpilibj.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.geometry.Translation2d;
-import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
-import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
-import edu.wpi.first.wpilibj.smartdashboard.*;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj.Encoder;
+
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Victor;
-import frc.robot.commands.drive.*;
+import edu.wpi.first.wpilibj.controller.PIDController;
+import edu.wpi.first.wpilibj.geometry.Pose2d;
+import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
-import frc.robot.RobotConstants2019;
-import frc.robot.RobotConstants2020;
 import frc.robot.RobotConstantsRaft;
-import frc.robot.Robot.RobotType;
 
 /**
  *
@@ -44,7 +36,9 @@ public class DriveBaseRaft extends DriveBase {
     private Victor right2;
     private Victor right3;
     private WPI_TalonSRX right4 = null;
-   
+
+    private final double pidDoneAllowedPositionError = 1;
+    private final double pidDoneAllowedVelocityError = 1;
 
     public DriveBaseRaft() { 
         setup();
@@ -52,8 +46,8 @@ public class DriveBaseRaft extends DriveBase {
 
     protected void setup() {
         
-        PIDRight = new PIDController(0.1, 0.01, 0.01);
-        PIDLeft = new PIDController(0.1, 0.01, 0.01);
+        PIDRight = new PIDController(0.1, 0.00, 0.00);
+        PIDLeft = new PIDController(0.1, 0.00, 0.00);
 
         left1 = new Victor(RobotConstantsRaft.DRIVE_LEFT_VICTOR_A);
         addChild("Left1", left1);
@@ -155,6 +149,9 @@ public class DriveBaseRaft extends DriveBase {
         double minSpeed = 0.3;
         double right = PIDRight.calculate(getRightPosition());
         double left = PIDLeft.calculate(getLeftPosition());
+        SmartDashboard.putNumber("DB/pidRout", right);
+        SmartDashboard.putNumber("DB/pidLout", left);
+
         double leftSign = left / Math.abs(left);
         double rightSign = right / Math.abs(right);
 
@@ -166,6 +163,16 @@ public class DriveBaseRaft extends DriveBase {
 
         differentialDrive1.tankDrive(left, right);
 
+    }
+
+    public void periodic() {
+        super.periodic();
+        SmartDashboard.putNumber("DB/right", getRightPosition());
+        SmartDashboard.putNumber("DB/left", getLeftPosition());
+        SmartDashboard.putNumber("DB/pidLerror", PIDLeft.getPositionError());
+        SmartDashboard.putNumber("DB/pidRerror", PIDRight.getPositionError());
+        SmartDashboard.putNumber("DB/lVelocity", left4.getSensorCollection().getQuadratureVelocity());
+        SmartDashboard.putNumber("DB/Rvelocity", right4.getSensorCollection().getQuadratureVelocity());
     }
 
     
@@ -197,13 +204,15 @@ public class DriveBaseRaft extends DriveBase {
     }
 
     public boolean isAtRightTarget() {
-        double error = 2;
-        return (setpointRight < Robot.driveBase.getRightPosition() + error) && (setpointRight > Robot.driveBase.getRightPosition() - error);
+        final boolean AtPosition = PIDRight.getPositionError() < pidDoneAllowedPositionError;
+        final boolean AtVelocity = right4.getSensorCollection().getQuadratureVelocity() < pidDoneAllowedVelocityError;
+        return AtPosition && AtVelocity;
     }
 
     public boolean isAtLeftTarget() {
-        double error = 2;
-        return (setpointLeft < Robot.driveBase.getLeftPosition() + error) && (setpointLeft > Robot.driveBase.getLeftPosition() - error);
+        final boolean AtPosition = PIDLeft.getPositionError() < pidDoneAllowedPositionError;
+        final boolean AtVelocity = left4.getSensorCollection().getQuadratureVelocity() < pidDoneAllowedVelocityError;
+        return AtPosition && AtVelocity;
     }
 
     public void resetOdometry(){

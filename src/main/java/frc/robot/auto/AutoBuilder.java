@@ -31,10 +31,12 @@ public class AutoBuilder {
             // runs ParseCommand which separates the arguments apart (all the ? and & stuff)
             ParseCommand parsedCommand = new ParseCommand(args);
             // System.out.println(argParse.toString());
-            i++;
 
             Command command = this.getCommand(parsedCommand); // assigns current command to command
             commandList.addCommands(command); // add current command to queue of next commands
+            System.out.printf("Added command %s for %d\n", command.getClass(), i);
+
+            i++;
         }
     }
 
