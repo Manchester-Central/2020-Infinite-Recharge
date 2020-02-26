@@ -47,6 +47,8 @@ public class Flywheel extends SubsystemBase implements IFlywheel {
 
     m_pidControllerA = flywheelA.getPIDController();
     m_pidControllerB = flywheelB.getPIDController();
+
+    m_encoder = flywheelA.getEncoder();
   
     // PID coefficients
     kP = 0.0002;

@@ -7,6 +7,7 @@
 
 package frc.robot.subsystems.intake;
 
+import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -22,10 +23,10 @@ public class Intake extends SubsystemBase implements IIntake{
   TalonFX intake;
 
   public Intake () {
-    // intake = new TalonFX(RobotConstants2020.INTAKE_FALCON);
+    intake = new TalonFX(RobotConstants2020.INTAKE_FALCON);
   }
   
   public void setSpeedIntake(double speed) {
-
+    intake.set(TalonFXControlMode.PercentOutput, speed);
   }
 }

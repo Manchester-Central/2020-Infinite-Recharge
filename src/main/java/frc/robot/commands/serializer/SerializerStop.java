@@ -28,7 +28,7 @@ public class SerializerStop extends CommandBase {
   public void execute() {
     // Robot.serializer.driveTurnTable(SerializerSpeed.stop, false);
     Robot.serializer.manualSpeed(false);
-    Robot.throat.ejectorSpeed(false);
+    // Robot.throat.ejectorSpeed(false);
   }
 
   // Make this return true when this Command no longer needs to run execute()

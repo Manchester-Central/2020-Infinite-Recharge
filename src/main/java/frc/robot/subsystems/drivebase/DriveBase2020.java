@@ -46,7 +46,6 @@ public class DriveBase2020 extends DriveBase {
     private Victor right3;
     private WPI_TalonSRX right4 = null;
     private SpeedControllerGroup rightDrive;
-    public DifferentialDrive differentialDrive1;
     public DifferentialDriveOdometry odometer;
     private PIDController PIDRight;
     private PIDController PIDLeft;

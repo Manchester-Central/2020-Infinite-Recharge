@@ -68,4 +68,9 @@ public class DummyClimbTake implements IClimbTake2020 {
   public void setPivotSpeed(double speed) {
 
   }
+
+  @Override
+  public void addToDashboard() {
+
+  }
 }

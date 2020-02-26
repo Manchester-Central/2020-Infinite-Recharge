@@ -24,6 +24,7 @@ public class Throat extends SubsystemBase implements IThroat{
   public Throat(){
     ejector = new CANSparkMax(RobotConstants2020.EJECTER_SPARKMAX, MotorType.kBrushless);
     ejector.setInverted(true);
+    ejector.setIdleMode(CANSparkMax.IdleMode.kCoast);
   
   }
 

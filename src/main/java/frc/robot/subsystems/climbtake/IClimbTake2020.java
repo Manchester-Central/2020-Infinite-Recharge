@@ -34,4 +34,5 @@ public interface IClimbTake2020 extends Subsystem {
 
   public void setPivotSpeed(double speed);
 
+  public void addToDashboard();
 }

@@ -18,6 +18,7 @@ import frc.robot.commands.drive.TankDrive;
 import frc.robot.commands.inputs.SetPipeline;
 import frc.robot.commands.serializer.SerializerStop;
 import frc.robot.commands.turret.AimTurret;
+import frc.robot.commands.turret.AimTurretDashboard;
 import frc.robot.commands.serializer.Unjam;
 import frc.robot.commands.turret.BumperShotAim;
 import frc.robot.commands.turret.FlywheelZero;
@@ -111,13 +112,21 @@ public class OI {
         if (testMode) {
             tester = new LogitechF310(2);
             
-            tester.dPadUp.whileHeld(() -> Robot.climbTake.setExtenderSpeed(0.25));
-            tester.dPadDown.whileHeld(() -> Robot.climbTake.setExtenderSpeed(-0.25));
-            tester.dPadLeft.whileHeld(() -> Robot.climbTake.setPivotSpeed(-0.25));
-            tester.dPadLeft.whileHeld(() -> Robot.climbTake.setPivotSpeed(0.25));
+            tester.dPadUp.whileHeld(() -> Robot.climbTake.setExtenderSpeed(0.10), Robot.climbTake);
+            tester.dPadDown.whileHeld(() -> Robot.climbTake.setExtenderSpeed(-0.10), Robot.climbTake);
+            tester.dPadLeft.whileHeld(() -> Robot.climbTake.setPivotSpeed(-0.10), Robot.climbTake);
+            tester.dPadRight.whileHeld(() -> Robot.climbTake.setPivotSpeed(0.10), Robot.climbTake);
 
-            tester.aButton.whileHeld(() -> Robot.unjammer.spin(false));
-            tester.bButton.whileHeld(() -> Robot.unjammer.spin(true));
+            // tester.aButton.whileHeld(() -> Robot.unjammer.spin(false), Robot.unjammer);
+            tester.bButton.whileHeld(() -> Robot.unjammer.spin(true), Robot.unjammer);
+
+            tester.yButton.whileHeld(() -> Robot.throat.ejectorSpeed(true), Robot.throat);
+
+            tester.xButton.whileHeld(() -> Robot.serializer.manualSpeed(true), Robot.serializer);
+
+            tester.rightBumper.and(tester.rightTrigger.negate()).whileActiveContinuous(new PrepareFlywheel());
+
+            tester.leftBumper.whileHeld(new AimTurretDashboard());
 
             
 
@@ -133,8 +142,13 @@ public class OI {
         // Robot.flywheel.setDefaultCommand(new FlywheelZero());
         Robot.flywheel.setDefaultCommand(new RunCommand(() -> Robot.flywheel.coastFlywheel(), Robot.flywheel));
         Robot.serializer.setDefaultCommand(new SerializerStop()); // TODO: change to default
+        Robot.throat.setDefaultCommand(new RunCommand(() -> Robot.throat.ejectorSpeed(false), Robot.throat));
         Robot.unjammer.setDefaultCommand(new RunCommand(() -> Robot.unjammer.spin(false), Robot.unjammer));
         Robot.turret.setDefaultCommand(new ManualTurret());
+        Robot.climbTake.setDefaultCommand(new RunCommand(() -> {
+            Robot.climbTake.setPivotSpeed(tester.getLeftY());
+            Robot.climbTake.setExtenderSpeed(tester.getRightY());
+            }, Robot.climbTake));
 
     }
 
