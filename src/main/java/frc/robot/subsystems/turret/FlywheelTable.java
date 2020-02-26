@@ -34,14 +34,13 @@ public class FlywheelTable {
 
     public FlywheelTable() {
         readCSV(PATH);
-        printArrayTest();
     }
 
     // parses data from .csv into doubles for addData()
     public void readCSV(String path) { // change return type
         try {
             // System.out.println(realPath.toString());
-            csvReader = new BufferedReader (new FileReader(realPath.toString()));
+            csvReader = new BufferedReader(new FileReader(realPath.toString()));
         } catch (FileNotFoundException ie) {
             ie.printStackTrace();
         }
@@ -80,12 +79,8 @@ public class FlywheelTable {
 
     // takes raw data, adds to data structure
     private void addData(TableData data) {
-
         // System.out.println(data.getDistance() + " " + data.getSpeed() + " " + data.getAngle());
-            
         flyTable.add(data);
-
-
     }
 
     private TableData getTableData(int index) {
@@ -105,7 +100,6 @@ public class FlywheelTable {
     }
 
     private int findIndex(double distance) {
-        
         for (int i = 0; i < flyTable.size(); i++) {
             if (distance < getDistance(i)) {
                 return i;
@@ -122,9 +116,7 @@ public class FlywheelTable {
     }
 
     public TableData getIdealTarget(double distance) {
-
         int initialIndex = findIndex(distance);
-
         int topIndex = initialIndex == 0 ? 1 : findIndex(distance);
         int botIndex = topIndex - 1;
 
@@ -132,12 +124,5 @@ public class FlywheelTable {
         double idealAngle = getInterpolatedValue(getDistance(topIndex), getDistance(botIndex), getAngle(topIndex), getAngle(botIndex), distance);
 
         return new TableData(distance, idealSpeed, idealAngle);
-
-    }
-
-    public void printArrayTest() {
-
-        System.out.println(data.toString());
-
     }
 }
