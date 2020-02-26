@@ -29,4 +29,10 @@ public class DummySerializer extends SubsystemBase implements ISerializer {
   public void unJam() {
     SmartDashboard.putBoolean("Serializer Unjamming", true);
   }
+
+  @Override
+  public double getPosition() {
+    // TODO Auto-generated method stub
+    return 0;
+  }
 }

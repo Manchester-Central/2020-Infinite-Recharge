@@ -36,6 +36,7 @@ public class Serializer extends SubsystemBase implements ISerializer{
   private final double FAST_SPEED = 2500;
   private final double SLOW_SPEED = 600;
   private double manualSpeedTarget;
+  private double rotationLength;
 
   public Serializer() {
     turnTable = new CANSparkMax(RobotConstants2020.TURN_TABLE_SPARKMAX, CANSparkMax.MotorType.kBrushless);
@@ -88,6 +89,7 @@ public class Serializer extends SubsystemBase implements ISerializer{
     SmartDashboard.putNumber("Min Output Serializer", kMinOutput); */
 
     SmartDashboard.putNumber("Serializer Target", manualSpeedTarget);
+    rotationLength = 11.202576;
   }
 
   private double turnTableDegrees(CANSparkMax input) {
@@ -186,6 +188,12 @@ public class Serializer extends SubsystemBase implements ISerializer{
     SmartDashboard.putNumber("SerializerSetpoint", setPoint);
     SmartDashboard.putNumber("ManualSpeedTarget", manualSpeedTarget);
     SmartDashboard.putNumber("Serializer Encoder", m_encoder.getVelocity());
+    SmartDashboard.putNumber("Serializer Position", m_encoder.getPosition());
+  }
+
+  @Override
+  public double getPosition() {
+    return m_encoder.getPosition() / rotationLength;
   }
   
   // Put methods for controlling this subsystem

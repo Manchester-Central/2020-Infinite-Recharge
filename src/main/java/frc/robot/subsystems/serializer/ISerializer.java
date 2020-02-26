@@ -13,10 +13,11 @@ import edu.wpi.first.wpilibj2.command.Subsystem;
  * Add your docs here.
  */
 public interface ISerializer extends Subsystem {
-
     public void driveTurnTable(SerializerSpeed speed);
 
     public void unJam();
 
     public void manualSpeed(boolean on);
+
+    public double getPosition();
 }

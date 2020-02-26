@@ -12,7 +12,15 @@ import frc.robot.commands.util.DoneCommand;
 import frc.robot.subsystems.serializer.SerializerSpeed;
 
 public class SerializerFeed extends DoneCommand {
+  private double distance;
+  private double start;
+
   public SerializerFeed() {
+    this(-1);
+  }
+
+  public SerializerFeed(double distance) {
+    this.distance = distance;
     // Use requires() here to declare subsystem dependencies
     addRequirements(Robot.serializer);
   }
@@ -20,6 +28,8 @@ public class SerializerFeed extends DoneCommand {
   // Called just before this Command runs the first time
   @Override
   public void initialize() {
+    start = Robot.serializer.getPosition();
+    System.out.println("starting" + start);
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -32,7 +42,10 @@ public class SerializerFeed extends DoneCommand {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   public boolean isFinished() {
-    return false;
+    if (distance < 0) {
+      return false;
+    }
+    return Math.abs(start - Robot.serializer.getPosition()) > distance;
   }
 
   // Called once after isFinished returns true or when interrupted
@@ -42,6 +55,8 @@ public class SerializerFeed extends DoneCommand {
 
   @Override
   public boolean isDone() {
+    // TODO Auto-generated method stub
     return false;
   }
+
 }
