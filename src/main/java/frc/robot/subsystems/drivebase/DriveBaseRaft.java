@@ -243,6 +243,12 @@ public class DriveBaseRaft extends DriveBase {
         return new SpeedControllerGroup(right1, right2, right3, right4);
     }
 
+    @Override
+    public void resetPosition() {
+        // TODO Auto-generated method stub
+
+    }
+
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 

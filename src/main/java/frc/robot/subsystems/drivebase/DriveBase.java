@@ -88,6 +88,8 @@ public abstract class DriveBase extends SubsystemBase {
 
     public abstract void PIDDrive();
 
+    public abstract void resetPosition();
+
     
     public abstract PIDController getPIDLeft();
 

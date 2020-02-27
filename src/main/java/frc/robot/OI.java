@@ -12,9 +12,13 @@ package frc.robot;
 
 import com.chaos131.LogitechF310;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.commands.climbtake.*;
+import frc.robot.commands.drive.DriveDistancePID;
+import frc.robot.commands.drive.DriveDistancePIDDashboard;
 import frc.robot.commands.drive.TankDrive;
+import frc.robot.commands.drive.TurnAnglePID;
 import frc.robot.commands.inputs.SetPipeline;
 import frc.robot.commands.serializer.SerializerDefault;
 import frc.robot.commands.serializer.SerializerStop;
@@ -74,6 +78,16 @@ public class OI {
         // Driver
         driver.rightBumper.whileHeld(new TankDrive(0.5));
         driver.rightTrigger.whileHeld(new SetIntake(1));
+
+        // TODO: remove once tested and happy
+        driver.aButton.whileActiveOnce(new DriveDistancePID(12));
+        driver.yButton.whileActiveOnce(new DriveDistancePID(-12));
+        driver.xButton.whileActiveOnce(new TurnAnglePID(90));
+        driver.bButton.whileActiveOnce(new TurnAnglePID(-90));
+        driver.selectButton.whileActiveOnce(new DriveDistancePIDDashboard());
+
+        driver.startButton.whenPressed(() -> Robot.driveBase.resetPosition(), Robot.driveBase);
+
 
         /*
          * Operator Testing operator.rightTrigger.whileHeld(() ->
