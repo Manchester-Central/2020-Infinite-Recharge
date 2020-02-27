@@ -37,10 +37,12 @@ table = NetworkTables.getTable('Preferences')
 for key in table.getKeys():
     table.delete(key)
 
-step = 0
+step = 1
 for line in content:
     table.putString('auto' + str(step), line)
     step = step + 1
 
 for key in table.getKeys():
     print(key, table.getString(key, ""))
+
+input("Press Enter to continue...")
