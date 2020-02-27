@@ -44,3 +44,5 @@ for line in content:
 
 for key in table.getKeys():
     print(key, table.getString(key, ""))
+
+input("Press Enter to continue...")
