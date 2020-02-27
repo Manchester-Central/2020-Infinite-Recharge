@@ -41,7 +41,7 @@ public class Throat extends SubsystemBase implements IThroat{
   }
   
   public void unJam() {
-    ejector.set(-1);
+    ejector.set(-1); // TODO: check with Dan for magnitude
   }
 
 

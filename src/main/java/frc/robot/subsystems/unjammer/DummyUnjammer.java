@@ -19,4 +19,7 @@ public class DummyUnjammer extends SubsystemBase implements IUnjammer{
   public void spin(boolean on) {
     SmartDashboard.putBoolean("Unjammer on", on);
   }
+
+  public void unJam(){
+  }
 }

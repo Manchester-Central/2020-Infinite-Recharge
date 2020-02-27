@@ -24,6 +24,7 @@ public class RobotConstants2020 {
     public final static int INTAKE_FALCON = 14;
 
     public final static int LIMIT_SWITCH = 1;
+    public final static int CLIMB_POT = 0;
 
     public final static double ANGLE_POT_SLOPE_X = 1; // TODO: change!!
     public final static double ANGLE_POT_INTERCEPT_X = 1; // TODO: change!!

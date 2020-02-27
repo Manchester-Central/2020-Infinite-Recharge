@@ -180,7 +180,7 @@ public class Serializer extends SubsystemBase implements ISerializer{
   }
 
   public void unJam() {
-    turnTable.set(-1);
+    turnTable.set(-1); // TODO: check with Dan for magnitude 
   }
 
   @Override

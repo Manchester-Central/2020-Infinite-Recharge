@@ -9,6 +9,7 @@ package frc.robot.subsystems.climbtake;
 
 import com.revrobotics.CANSparkMax;
 
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -56,6 +57,7 @@ public class ClimbTake2020 extends SubsystemBase implements IClimbTake2020 {
   PIDController pidPivot, pidExtend;
   double maxExtendSpeed = 0.4;
   double maxPivotSpeed = 0.4;
+  AnalogInput pivotPot = new AnalogInput(RobotConstants2020.CLIMB_POT);
 
   public void setPivotPosition(double target) {
     pidPivot.setSetpoint(target);

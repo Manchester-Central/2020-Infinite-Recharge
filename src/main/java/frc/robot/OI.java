@@ -104,7 +104,7 @@ public class OI {
         operator.aButton.whileHeld(new SetIntake(0.5));
         operator.bButton.whileHeld(new SetIntake(-0.5));
         operator.xButton.whileHeld(new Unjam());
-        operator.yButton.whileHeld(new SetPipeline(8));
+        operator.yButton.whileHeld(new AimTurret().alongWith(new SetPipeline(8)));
 
         operator.dPadUp.and(driver.leftTrigger).whileActiveContinuous(
                 new SetClimbTakePosition(RobotConstants2020.CLIMB_POSITION, RobotConstants2020.EXTENDER_OUT));
@@ -116,7 +116,7 @@ public class OI {
                 .whileHeld(new SetClimbTakePosition(RobotConstants2020.CLIMB_POSITION, RobotConstants2020.EXTENDER_IN));
 
         operator.leftTrigger.whileHeld(new BumperShotAim());
-        operator.leftBumper.whileHeld(new AimTurret());
+        operator.leftBumper.whileHeld(new AimTurret().alongWith(new SetPipeline(9)));
 
         operator.rightBumper.and(operator.rightTrigger.negate())
                 .whileActiveContinuous(new PrepareFlywheel().alongWith(new SerializerStop()));
@@ -152,7 +152,7 @@ public class OI {
         // Default Commands
         Robot.driveBase.setDefaultCommand(new TankDrive(1));
         Robot.intake.setDefaultCommand(new SetIntake(0));
-        Robot.camera.setDefaultCommand(new SetPipeline(9));
+        Robot.camera.setDefaultCommand(new SetPipeline(7));
         // Robot.flywheel.setDefaultCommand(new FlywheelZero());
         Robot.flywheel.setDefaultCommand(new RunCommand(() -> Robot.flywheel.coastFlywheel(), Robot.flywheel));
         Robot.serializer.setDefaultCommand(new SerializerDefault()); // TODO: change to default

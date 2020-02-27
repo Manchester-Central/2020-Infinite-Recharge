@@ -12,7 +12,7 @@ import frc.robot.Robot;
 
 public class Unjam extends CommandBase {
   public Unjam() {
-    addRequirements(Robot.serializer, Robot.throat);
+    addRequirements(Robot.serializer, Robot.throat, Robot.unjammer);
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }
@@ -27,6 +27,7 @@ public class Unjam extends CommandBase {
   public void execute() {
     Robot.throat.unJam();
     Robot.serializer.unJam();
+    Robot.unjammer.unJam();
   }
 
   // Make this return true when this Command no longer needs to run execute()

@@ -18,4 +18,6 @@ public interface IUnjammer extends Subsystem {
 
   public void spin(boolean on);
 
+  public void unJam();
+
 }
