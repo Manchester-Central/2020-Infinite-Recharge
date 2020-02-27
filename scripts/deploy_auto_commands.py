@@ -1,3 +1,6 @@
+# IMPORTANT: run the following code to install the NetworkTables package
+# py -3 -m pip install pynetworktables
+
 import threading
 from networktables import NetworkTables
 from tkinter.filedialog import askopenfilename
@@ -19,7 +22,6 @@ with cond:
     if not notified[0]:
         cond.wait()
 
-# Insert your processing code here
 print("Connected!")
 
 filename = askopenfilename()
@@ -27,7 +29,6 @@ print(filename)
 
 with open(filename) as f:
     content = f.readlines()
-# you may also want to remove whitespace characters like `\n` at the end of each line
 content = [x.strip() for x in content] 
 
 print(content)
