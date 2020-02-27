@@ -1,0 +1,49 @@
+Auto:
+turn on camera & align to target & move intake down
+while flywheel is spinning up
+
+then after on target and intake is touching limit switch: run shooting sequence for cale's 1.25 revolutions
+
+then drive back 3 feet
+
+then drive forward 3 feet
+
+then align turret and spin up flywheel
+
+shoot
+
+
+
+format:
+
+command?parameter=val&para2=val2
+
+drive?dist=2&speed=4
+
+setCamera?pipeline
+
+
+Order
+setCameraState(9)
+aimTurret (have timeMS)
+MoveToIntakePosition
+AutoPrepareFlywheel
+AutoShoot
+AutoDrive(-36)
+AutoDrive(36)
+aimTurret
+AutoPrepareFlywheel
+AutoShoot
+
+setCamera?pipeline=9
+aimTurret?timeMs=5000
+lowerArm?timeMs=5000
+prepareFlywheel?timeMs=2000
+shoot?timeMs=5000
+drive?distanceIn=-36
+drive?distanceIn=36
+aimTurret?timeMs=5000
+prepareFlywheel?timeMs=2000
+shoot?timeMs=5000
+
+
