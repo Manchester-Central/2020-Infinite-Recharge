@@ -23,7 +23,8 @@ public class AutoDrive extends BaseAutoCommand {
         super(parsedCommand);
         addRequirements(Robot.driveBase);
 
-        this.distance = Double.parseDouble(parsedCommand.getArgument("distanceIn"));
+        // this.distance = Double.parseDouble(parsedCommand.getArgument("distanceIn"));
+        this.distance = -12;
     }
 
     @Override

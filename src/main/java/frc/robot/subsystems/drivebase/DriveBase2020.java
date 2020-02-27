@@ -233,7 +233,7 @@ public class DriveBase2020 extends DriveBase {
     }
 
     public boolean isAtRightTarget() {
-        final boolean AtPosition = PIDRight.getPositionError() < pidDoneAllowedPositionError;
+        final boolean AtPosition = (PIDRight.getSetpoint() - getRightPosition()) < pidDoneAllowedPositionError;
         final boolean AtVelocity = rightSpark1.getEncoder().getVelocity() < pidDoneAllowedVelocityError;
         return AtPosition && AtVelocity;
     }

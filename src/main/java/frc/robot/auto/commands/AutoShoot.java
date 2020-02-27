@@ -8,8 +8,11 @@
 package frc.robot.auto.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.Robot;
 import frc.robot.auto.ParseCommand;
+import frc.robot.commands.serializer.SerializerDefault;
 import frc.robot.commands.serializer.SerializerFeed;
 import frc.robot.commands.serializer.SerializerStop;
 import frc.robot.commands.turret.PrepareFlywheel;
@@ -32,6 +35,9 @@ public class AutoShoot extends SequentialCommandGroup {
     // aimTurret + flyWheel done (not finished) immediately, serializer never finishes (while held will interrupt)
     var shoot = Deadline.createDeadline(new SetThroatSpeed(true), new PrepareFlywheel(), new SerializerFeed(1.2)); 
     addCommands(shoot);
+    addCommands(new InstantCommand(() -> Robot.serializer.manualSpeed(false), Robot.serializer));
+    addCommands(new InstantCommand(() -> Robot.flywheel.coastFlywheel(), Robot.flywheel));
+
 
     
     // Use addRequirements() here to declare subsystem dependencies.
