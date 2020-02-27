@@ -98,11 +98,11 @@ public class OI {
          * 
          * operator.bButton.whileHeld(() -> Robot.flywheel.setFlywheelTargetDashboard(),
          * Robot.flywheel);
-         */
+        */
 
         // Operator
-        operator.aButton.whileHeld(new SetIntake(1));
-        operator.bButton.whileHeld(new SetIntake(-1));
+        operator.aButton.whileHeld(new SetIntake(0.5));
+        operator.bButton.whileHeld(new SetIntake(-0.5));
         operator.xButton.whileHeld(new Unjam());
         operator.yButton.whileHeld(new SetPipeline(8));
 

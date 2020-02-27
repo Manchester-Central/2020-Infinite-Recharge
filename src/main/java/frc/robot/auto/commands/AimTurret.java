@@ -28,6 +28,7 @@ public class AimTurret extends BaseAutoCommand {
     super.initialize();
     Robot.turret.setPanTarget(Robot.turret.getPanAngle());
     Robot.turret.setTiltTargetAngle(Robot.turret.getTiltAngle());
+    System.out.println("Aim initialized");
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -49,5 +50,7 @@ public class AimTurret extends BaseAutoCommand {
 
     }
     Robot.turret.PIDDrive(true);
+    System.out.println("Aim executed");
+
   }
 }

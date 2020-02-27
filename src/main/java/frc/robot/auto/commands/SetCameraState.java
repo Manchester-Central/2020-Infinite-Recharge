@@ -31,6 +31,7 @@ public class SetCameraState extends BaseAutoCommand {
   @Override
   public void initialize() {
     super.initialize();
+    System.out.println("Camera state is set");
     Robot.camera.setPipeline(pipeline);
   }
 

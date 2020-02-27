@@ -55,8 +55,10 @@ public class SerializerFeed extends DoneCommand {
 
   @Override
   public boolean isDone() {
-    // TODO Auto-generated method stub
-    return false;
+    if (distance < 0) {
+      return false;
+    }
+    return Math.abs(start - Robot.serializer.getPosition()) > distance;
   }
 
 }

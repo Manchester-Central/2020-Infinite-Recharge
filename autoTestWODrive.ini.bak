@@ -1,0 +1,7 @@
+[NetworkTables Storage 3.0]
+string "/Preferences/.type"="RobotPreferences"
+string "/Preferences/auto1"="drive?timeMs\x3D10000&speed\x3D0.3&distanceIn\x3D20"
+string "/Preferences/auto2"="stop?timeMs\x3D3000"
+string "/Preferences/auto3"="drive?timeMs\x3D10000&speed\x3D-0.3&distanceIn\x3D10"
+string "/Preferences/auto4"="prepareFlywheel?timeMs\x3D2000"
+string "/Preferences/auto5"="shoot?timeMs\x3D5000"
