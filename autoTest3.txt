@@ -1,0 +1,3 @@
+prepareFlywheel?timeMs=2000
+shoot?timeMs=5000
+aimTurret?timeMs=5000

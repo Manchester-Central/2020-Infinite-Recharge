@@ -58,7 +58,9 @@ public class SerializerFeed extends DoneCommand {
     if (distance < 0) {
       return false;
     }
-    return Math.abs(start - Robot.serializer.getPosition()) > distance;
+    boolean verdict = Math.abs(start - Robot.serializer.getPosition()) > distance;
+    System.out.println("SerializerFeed isDone? = " + verdict);
+    return verdict;
   }
 
 }

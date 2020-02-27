@@ -46,6 +46,7 @@ public class SerializerStop extends DoneCommand {
   @Override
   public boolean isDone() {
     // TODO: check that the serializer actually stops
+    System.out.println("SerializerStop is done");
     return true;
   }
 }

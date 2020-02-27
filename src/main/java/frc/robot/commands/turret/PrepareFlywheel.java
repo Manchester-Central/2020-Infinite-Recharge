@@ -46,7 +46,9 @@ public class PrepareFlywheel extends DoneCommand {
   }
 
   public boolean isDone() {
-    return (((targetFlywheelRPM * 0.9) < currentFlywheelRPM) && (currentFlywheelRPM < (targetFlywheelRPM * 1.1)));
+    boolean result = (((targetFlywheelRPM * 0.9) < currentFlywheelRPM) && (currentFlywheelRPM < (targetFlywheelRPM * 1.1)));
+    System.out.println("PrepareFlywheel is done: isDone? = " + result);
+    return result;
   }
 
   // Called once after isFinished returns true or when interrupted

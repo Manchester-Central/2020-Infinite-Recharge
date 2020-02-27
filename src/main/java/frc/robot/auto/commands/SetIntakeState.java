@@ -5,42 +5,36 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.turret;
+package frc.robot.auto.commands;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
-import frc.robot.commands.util.DoneCommand;
+import frc.robot.auto.ParseCommand;
 
-public class SetThroatSpeed extends DoneCommand {
+public class SetIntakeState extends BaseAutoCommand {
   /**
-   * Creates a new SetThroatSpeed.
+   * Creates a new SetIntakeState.
    */
+  public static final String COMMAND_NAME = "setIntake";
+  double speed;
 
-  boolean on;
+  public SetIntakeState(ParseCommand parsedCommand) {
+    super(parsedCommand);
+    addRequirements(Robot.intake);
 
-  public SetThroatSpeed(boolean on) {
-    addRequirements(Robot.throat);
-
-    this.on = on;
-    // Use addRequirements() here to declare subsystem dependencies.
-    SmartDashboard.putNumber("Throat Min", 300);
+    this.speed = Double.parseDouble(parsedCommand.getArgument("speed"));
   }
-
-  double minThroat;
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    super.initialize();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
-    Robot.throat.ejectorSpeed(on);
-    SmartDashboard.putNumber("Throat RPM", Robot.throat.getThroatSpeed());
-    minThroat = SmartDashboard.getNumber("Throat Min", 300);
+    Robot.intake.setSpeedIntake(speed);
   }
 
   // Called once the command ends or is interrupted.
@@ -52,12 +46,5 @@ public class SetThroatSpeed extends DoneCommand {
   @Override
   public boolean isFinished() {
     return false;
-  }
-
-  @Override
-  public boolean isDone() {
-    double currentSpeed = Robot.throat.getThroatSpeed();
-    System.out.println("SetThroatSpeed is done");
-    return currentSpeed > minThroat;
   }
 }

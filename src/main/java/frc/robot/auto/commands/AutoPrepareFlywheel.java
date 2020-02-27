@@ -30,6 +30,7 @@ public class AutoPrepareFlywheel extends BaseAutoCommand {
   @Override
   public void initialize() {
     super.initialize();
+    System.out.println("AutoPrepareFlywheel init");
     currentFlywheelRPM = Robot.flywheel.getCurrentFlywheelRPM();
     targetFlywheelRPM = SmartDashboard.getNumber("Flywheel target speed RPM", 0);
   }
@@ -37,6 +38,7 @@ public class AutoPrepareFlywheel extends BaseAutoCommand {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    System.out.println("AutoPrepareFlywheel executing");
     currentFlywheelRPM = Robot.flywheel.getCurrentFlywheelRPM();
     targetFlywheelRPM = SmartDashboard.getNumber("Flywheel target speed RPM", 0);
     Robot.flywheel.accelerateToSetPoint();
@@ -45,11 +47,15 @@ public class AutoPrepareFlywheel extends BaseAutoCommand {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    System.out.println("AutoPrepareFlywheel ended");
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    if (super.isFinished()) {
+      return true;
+    }
     return (((targetFlywheelRPM * 0.9) < currentFlywheelRPM) && (currentFlywheelRPM < (targetFlywheelRPM * 1.1)));
   }
 }

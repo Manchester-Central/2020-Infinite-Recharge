@@ -64,6 +64,8 @@ public class AutoBuilder {
             return new AutoPrepareFlywheel(parsedCommand);
         case AutoShoot.COMMAND_NAME:
             return new AutoShoot(parsedCommand);
+        case SetIntakeState.COMMAND_NAME:
+            return new SetIntakeState(parsedCommand);
         default:
             System.out.println("Auto command not recognized: " + parsedCommand);
             return new NullCommand();
