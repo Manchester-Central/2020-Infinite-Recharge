@@ -59,6 +59,7 @@ public class DriveBase2020 extends DriveBase {
     private Encoder sim_encoder_r;
     private double setpointLeft, setpointRight;
     private double kP, kI, kD;
+    private int currentLimit;
 
     private final double pidDoneAllowedPositionError = 1;
     private final double pidDoneAllowedVelocityError = 1;
@@ -71,6 +72,7 @@ public class DriveBase2020 extends DriveBase {
         kP = 0.055;
         kI = 0.025;
         kD = 0;
+        currentLimit = 60;
 
         PIDRight = new PIDController(kP, kI, kD);
         PIDLeft = new PIDController(kP, kI, kD);
@@ -78,18 +80,22 @@ public class DriveBase2020 extends DriveBase {
         leftSpark1 = new CANSparkMax(RobotConstants2020.DRIVE_LEFT_SPARKMAX_A, CANSparkMax.MotorType.kBrushless);
         // addChild("Left1", leftSpark1);
         leftSpark1.setInverted(false);
+        leftSpark1.setSmartCurrentLimit(currentLimit);
 
         leftSpark2 = new CANSparkMax(RobotConstants2020.DRIVE_LEFT_SPARKMAX_B, CANSparkMax.MotorType.kBrushless);
         // addChild("Left2", leftSpark2);
         leftSpark2.setInverted(false);
+        leftSpark2.setSmartCurrentLimit(currentLimit);
 
         rightSpark1 = new CANSparkMax(RobotConstants2020.DRIVE_RIGHT_SPARKMAX_A, CANSparkMax.MotorType.kBrushless);
         // addChild("Right1", rightSpark1);
         rightSpark1.setInverted(false);
+        rightSpark1.setSmartCurrentLimit(currentLimit);
 
         rightSpark2 = new CANSparkMax(RobotConstants2020.DRIVE_RIGHT_SPARKMAX_B, CANSparkMax.MotorType.kBrushless);
         // addChild("Right2", rightSpark2);
         rightSpark2.setInverted(false);
+        rightSpark2.setSmartCurrentLimit(currentLimit);
 
         leftDrive = new SpeedControllerGroup(leftSpark1, leftSpark2);
         rightDrive = new SpeedControllerGroup(rightSpark1, rightSpark2);
