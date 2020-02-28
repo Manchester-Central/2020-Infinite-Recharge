@@ -36,7 +36,7 @@ public class Unjammer extends SubsystemBase implements IUnjammer {
   }
 
   public void unJam() {
-    unjammer.set(-0.5); // TODO: check with Dan on direction
+    unjammer.set(-1);
   }
 
 }
