@@ -15,6 +15,7 @@ import java.util.Date;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.auto.ParseCommand;
 import frc.robot.auto.conditions.*;
+import frc.robot.util.LogUtils;
 
 /**
  * Holds conditions that will be run.
@@ -70,7 +71,8 @@ public abstract class BaseAutoCommand extends CommandBase {
     }
 
     public void log(java.lang.String format, java.lang.Object... args) {
-        System.out.printf("%s - ", new Timestamp((new Date().getTime())));
-        System.out.printf(format, args);
+        var timestamp = String.format("%s - ", new Timestamp((new Date().getTime())));
+        var message = String.format(format, args);
+        LogUtils.log(timestamp + " - " +  message);
     }
 }

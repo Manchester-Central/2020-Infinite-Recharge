@@ -7,9 +7,11 @@
 
 package frc.robot.auto.conditions;
 
+import frc.robot.util.LogUtils;
+
 /**
- * Stops auto command if based on time.
- * Requires int "timeMs" in parameter (in milliseconds)
+ * Stops auto command if based on time. Requires int "timeMs" in parameter (in
+ * milliseconds)
  */
 public class TimeAutoCondition implements IAutoCondition {
 
@@ -22,7 +24,7 @@ public class TimeAutoCondition implements IAutoCondition {
 
     @Override
     public void init() {
-        System.out.println("TimeAutoCondition.init");
+        LogUtils.log("TimeAutoCondition.init");
         startTime = System.currentTimeMillis();
     }
 
@@ -30,7 +32,7 @@ public class TimeAutoCondition implements IAutoCondition {
     @Override
     public boolean isDone() {
         boolean result = (System.currentTimeMillis() - startTime) > timeMs;
-        //System.out.printf("TimeAutoCondition done? %s\n", result ? "T" : "F");
+        //LogUtils.log("TimeAutoCondition done? %s\n", result ? "T" : "F");
         return result;
     }
 }

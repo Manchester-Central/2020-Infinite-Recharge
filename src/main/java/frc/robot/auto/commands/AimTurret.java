@@ -10,6 +10,7 @@ package frc.robot.auto.commands;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.auto.ParseCommand;
+import frc.robot.util.LogUtils;
 
 public class AimTurret extends BaseAutoCommand {
 
@@ -29,7 +30,7 @@ public class AimTurret extends BaseAutoCommand {
     Robot.turret.setPanTarget(Robot.turret.getPanAngle());
     Robot.turret.setTiltTargetAngle(134);
     Robot.flywheel.setTarget(3166);
-    System.out.println("Aim initialized");
+    LogUtils.log("Aim initialized");
   }
 
   // Called repeatedly when this Command is scheduled to run

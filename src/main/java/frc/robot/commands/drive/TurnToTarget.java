@@ -9,6 +9,7 @@ package frc.robot.commands.drive;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
+import frc.robot.util.LogUtils;
 
 public class TurnToTarget extends CommandBase {
   public TurnToTarget() {
@@ -29,7 +30,7 @@ public class TurnToTarget extends CommandBase {
     targetLeft = Robot.driveBase.getLeftPosition() + delta;
     targetRight = Robot.driveBase.getRightPosition() - delta;
     Robot.driveBase.setTarget(targetLeft, targetRight);
-    System.out.println("TurnAnglePID initialized, target left = " + targetLeft + " target right = " + targetRight);
+    LogUtils.log("TurnAnglePID initialized, target left = " + targetLeft + " target right = " + targetRight);
   }
 
   // Called repeatedly when this Command is scheduled to run

@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.RobotConstantsRaft;
+import frc.robot.util.LogUtils;
 
 /**
  *
@@ -196,7 +197,7 @@ public class DriveBaseRaft extends DriveBase {
         double targetLeft = getLeftPosition() + delta;
         double targetRight = getRightPosition() - delta;
         Robot.driveBase.setTarget(targetLeft, targetRight);
-        System.out.println("setTargetAngle initialized, target left = " + targetLeft + " target right = " + targetRight);
+        LogUtils.log("setTargetAngle initialized, target left = " + targetLeft + " target right = " + targetRight);
     }
 
     public boolean isAtTarget() {

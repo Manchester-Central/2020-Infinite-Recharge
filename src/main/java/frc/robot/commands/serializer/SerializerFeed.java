@@ -10,6 +10,7 @@ package frc.robot.commands.serializer;
 import frc.robot.Robot;
 import frc.robot.commands.util.DoneCommand;
 import frc.robot.subsystems.serializer.SerializerSpeed;
+import frc.robot.util.LogUtils;
 
 public class SerializerFeed extends DoneCommand {
   private double distance;
@@ -29,7 +30,7 @@ public class SerializerFeed extends DoneCommand {
   @Override
   public void initialize() {
     start = Robot.serializer.getPosition();
-    System.out.println("starting" + start);
+    LogUtils.log("starting" + start);
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -59,7 +60,7 @@ public class SerializerFeed extends DoneCommand {
       return false;
     }
     boolean verdict = Math.abs(start - Robot.serializer.getPosition()) > distance;
-    System.out.println("SerializerFeed isDone? = " + verdict);
+    LogUtils.log("SerializerFeed isDone? = " + verdict);
     return verdict;
   }
 

@@ -10,6 +10,7 @@ package frc.robot.commands.drive;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 import frc.robot.commands.util.DoneCommand;
+import frc.robot.util.LogUtils;
 
 public class DriveDistancePID extends DoneCommand {
   public DriveDistancePID(double inches) {
@@ -29,7 +30,7 @@ public class DriveDistancePID extends DoneCommand {
     targetLeft = Robot.driveBase.getLeftPosition() + targetInches;
     targetRight = Robot.driveBase.getRightPosition() + targetInches;
     Robot.driveBase.setTarget(targetLeft, targetRight);
-    System.out.println("DriveDistancePID initialized, target left = " + targetLeft + " target right = " + targetRight);
+    LogUtils.log("DriveDistancePID initialized, target left = " + targetLeft + " target right = " + targetRight);
   }
 
   // Called repeatedly when this Command is scheduled to run
