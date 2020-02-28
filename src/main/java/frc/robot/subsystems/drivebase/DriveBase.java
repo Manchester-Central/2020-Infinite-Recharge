@@ -54,10 +54,10 @@ public abstract class DriveBase extends SubsystemBase {
         leftDrive = getLeftDrive();
         rightDrive = getRightDrive();
         
-        addChild("LeftDrive", leftDrive);
-        addChild("RightDrive", rightDrive);
+        //addChild("LeftDrive", leftDrive);
+        //addChild("RightDrive", rightDrive);
         differentialDrive1 = new DifferentialDrive(leftDrive, rightDrive);
-        addChild("Differential Drive 1", differentialDrive1);
+        //addChild("Differential Drive 1", differentialDrive1);
         differentialDrive1.setSafetyEnabled(true);
         differentialDrive1.setExpiration(0.1);
         differentialDrive1.setMaxOutput(1.0);

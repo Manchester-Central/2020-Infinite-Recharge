@@ -18,6 +18,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
  * Add your docs here.
  */
 public class Turret extends SubsystemBase implements ITurret {
+  final boolean tuning = false;
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
   public Turret() {
@@ -55,30 +56,35 @@ public class Turret extends SubsystemBase implements ITurret {
     pidPan.setI(panI);
     pidPan.setD(panD);
 
-    // display PID coefficients on SmartDashboard
-    SmartDashboard.putNumber("P Gain PAN", panP);
-    SmartDashboard.putNumber("I Gain PAN", panI);
-    SmartDashboard.putNumber("D Gain PAN", panD);
-
+    if (tuning) {
+      // display PID coefficients on SmartDashboard
+      SmartDashboard.putNumber("P Gain PAN", panP);
+      SmartDashboard.putNumber("I Gain PAN", panI);
+      SmartDashboard.putNumber("D Gain PAN", panD);
+    }
     // set camera PID coefficients
     pidPan.setP(camPanP);
     pidPan.setI(camPanI);
     pidPan.setD(camPanD);
 
-    // display camera PID coefficients on SmartDashboard
-    SmartDashboard.putNumber("Camera P Gain PAN", camPanP);
-    SmartDashboard.putNumber("Camera I Gain PAN", camPanI);
-    SmartDashboard.putNumber("Camera D Gain PAN", camPanD);
+    if (tuning) {
+      // display camera PID coefficients on SmartDashboard
+      SmartDashboard.putNumber("Camera P Gain PAN", camPanP);
+      SmartDashboard.putNumber("Camera I Gain PAN", camPanI);
+      SmartDashboard.putNumber("Camera D Gain PAN", camPanD);
+    }
 
     // set PID coefficients
     pidTilt.setP(tiltP);
     pidTilt.setI(tiltI);
     pidTilt.setD(tiltD);
 
-    // display PID coefficients on SmartDashboard
-    SmartDashboard.putNumber("P Gain TILT", tiltP);
-    SmartDashboard.putNumber("I Gain TILT", tiltI);
-    SmartDashboard.putNumber("D Gain TILT", tiltD);
+    if (tuning) {
+      // display PID coefficients on SmartDashboard
+      SmartDashboard.putNumber("P Gain TILT", tiltP);
+      SmartDashboard.putNumber("I Gain TILT", tiltI);
+      SmartDashboard.putNumber("D Gain TILT", tiltD);
+    }
     
     int rawRange = maxRawPan - minRawPan;
     double angleRange = maxAnglePan - minAnglePan;
@@ -193,58 +199,59 @@ public class Turret extends SubsystemBase implements ITurret {
   }
 
   public void smartDashboardConstants() {
-    double kXP = SmartDashboard.getNumber("P Gain PAN", 0);
-    double kXI = SmartDashboard.getNumber("I Gain PAN", 0);
-    double kXD = SmartDashboard.getNumber("D Gain PAN", 0);
+    if (tuning) {
+      double kXP = SmartDashboard.getNumber("P Gain PAN", 0);
+      double kXI = SmartDashboard.getNumber("I Gain PAN", 0);
+      double kXD = SmartDashboard.getNumber("D Gain PAN", 0);
 
-    double kYP = SmartDashboard.getNumber("P Gain TILT", 0);
-    double kYI = SmartDashboard.getNumber("I Gain TILT", 0);
-    double kYD = SmartDashboard.getNumber("D Gain TILT", 0);
-    
-    double kCXP = SmartDashboard.getNumber("Camera P Gain PAN", 0);
-    double kCXI = SmartDashboard.getNumber("Camera I Gain PAN", 0);
-    double kCXD = SmartDashboard.getNumber("Camera D Gain PAN", 0);
+      double kYP = SmartDashboard.getNumber("P Gain TILT", 0);
+      double kYI = SmartDashboard.getNumber("I Gain TILT", 0);
+      double kYD = SmartDashboard.getNumber("D Gain TILT", 0);
+      
+      double kCXP = SmartDashboard.getNumber("Camera P Gain PAN", 0);
+      double kCXI = SmartDashboard.getNumber("Camera I Gain PAN", 0);
+      double kCXD = SmartDashboard.getNumber("Camera D Gain PAN", 0);
 
-    
-    if ((kXP != panP)) {
-      pidPan.setP(kXP);
-      panP = kXP;
-    }
-    if ((kXI != panI)) {
-      pidPan.setI(kXI);
-      panI = kXI;
-    }
-    if ((kXD != panD)) {
-      pidPan.setD(kXD);
-      panD = kXD;
-    }
+      
+      if ((kXP != panP)) {
+        pidPan.setP(kXP);
+        panP = kXP;
+      }
+      if ((kXI != panI)) {
+        pidPan.setI(kXI);
+        panI = kXI;
+      }
+      if ((kXD != panD)) {
+        pidPan.setD(kXD);
+        panD = kXD;
+      }
 
-    if ((kCXP != camPanP)) {
-      camPanPID.setP(kCXP);
-      camPanP = kCXP;
-    }
-    if ((kCXI != camPanI)) {
-      camPanPID.setI(kCXI);
-      camPanI = kCXI;
-    }
-    if ((kCXD != camPanD)) {
-      camPanPID.setD(kCXD);
-      camPanD = kCXD;
-    }
+      if ((kCXP != camPanP)) {
+        camPanPID.setP(kCXP);
+        camPanP = kCXP;
+      }
+      if ((kCXI != camPanI)) {
+        camPanPID.setI(kCXI);
+        camPanI = kCXI;
+      }
+      if ((kCXD != camPanD)) {
+        camPanPID.setD(kCXD);
+        camPanD = kCXD;
+      }
 
-    if ((kYP != tiltP)) {
-      pidTilt.setP(kYP);
-      tiltP = kYP;
+      if ((kYP != tiltP)) {
+        pidTilt.setP(kYP);
+        tiltP = kYP;
+      }
+      if ((kYI != tiltI)) {
+        pidTilt.setI(kYI);
+        tiltI = kYI;
+      }
+      if ((kYD != tiltD)) {
+        pidTilt.setD(kYD);
+        tiltD = kYD;
+      }
     }
-    if ((kYI != tiltI)) {
-      pidTilt.setI(kYI);
-      tiltI = kYI;
-    }
-    if ((kYD != tiltD)) {
-      pidTilt.setD(kYD);
-      tiltD = kYD;
-    }
-
     SmartDashboard.putBoolean("Target Aligned", isAtTarget());
 
   }

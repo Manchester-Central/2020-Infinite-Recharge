@@ -64,6 +64,8 @@ public class DriveBase2020 extends DriveBase {
     private final double pidDoneAllowedVelocityError = 1;
     private final double TRACK_WIDTH = 26.5;
 
+    final boolean tuning = false;
+
     public DriveBase2020() {
 
         kP = 0.055;
@@ -92,14 +94,16 @@ public class DriveBase2020 extends DriveBase {
         leftDrive = new SpeedControllerGroup(leftSpark1, leftSpark2);
         rightDrive = new SpeedControllerGroup(rightSpark1, rightSpark2);
 
-        SmartDashboard.putNumber("P Gain Drive", 0);
-        SmartDashboard.putNumber("I Gain Drive", 0);
-        SmartDashboard.putNumber("D Gain Drive", 0);
+        if (tuning){
+            SmartDashboard.putNumber("P Gain Drive", 0);
+            SmartDashboard.putNumber("I Gain Drive", 0);
+            SmartDashboard.putNumber("D Gain Drive", 0);
+        }
 
-        addChild("LeftDrive", leftDrive);
-        addChild("RightDrive", rightDrive);
+        //addChild("LeftDrive", leftDrive);
+        //addChild("RightDrive", rightDrive);
         differentialDrive1 = new DifferentialDrive(leftDrive, rightDrive);
-        addChild("Differential Drive 1", differentialDrive1);
+        //addChild("Differential Drive 1", differentialDrive1);
         differentialDrive1.setSafetyEnabled(true);
         differentialDrive1.setExpiration(0.1);
         differentialDrive1.setMaxOutput(1.0);
@@ -264,10 +268,8 @@ public class DriveBase2020 extends DriveBase {
 
     @Override
     public void periodic() {
-        SmartDashboard.putNumber("Right Encoder",
-        rightSpark1.getEncoder().getPosition());
-        SmartDashboard.putNumber("Left Encoder",
-        -leftSpark1.getEncoder().getPosition());
+        //SmartDashboard.putNumber("Right Encoder", rightSpark1.getEncoder().getPosition());
+        //SmartDashboard.putNumber("Left Encoder", -leftSpark1.getEncoder().getPosition());
         // Put code here to be run every loop
         double rightInches = getRightPosition();
         double leftInches = getLeftPosition();
@@ -277,27 +279,29 @@ public class DriveBase2020 extends DriveBase {
         SmartDashboard.putNumber("Right Position", rightInches);
         SmartDashboard.putNumber("Left Position", leftInches);
 
-        // read PID coefficients from SmartDashboard
-        double p = SmartDashboard.getNumber("P Gain Drive", 0);
-        double i = SmartDashboard.getNumber("I Gain Drive", 0);
-        double d = SmartDashboard.getNumber("D Gain Drive", 0);
+        if (tuning) {
+            // read PID coefficients from SmartDashboard
+            double p = SmartDashboard.getNumber("P Gain Drive", 0);
+            double i = SmartDashboard.getNumber("I Gain Drive", 0);
+            double d = SmartDashboard.getNumber("D Gain Drive", 0);
 
-        // if PID coefficients on SmartDashboard have changed, write new values to
-        // controller
-        if ((p != kP)) {
-            PIDRight.setP(p);
-            PIDLeft.setP(p);
-            kP = p;
-        }
-        if ((i != kI)) {
-            PIDRight.setI(i);
-            PIDLeft.setI(i);
-            kI = i;
-        }
-        if ((d != kD)) {
-            PIDRight.setD(d);
-            PIDLeft.setD(d);
-            kD = d;
+            // if PID coefficients on SmartDashboard have changed, write new values to
+            // controller
+            if ((p != kP)) {
+                PIDRight.setP(p);
+                PIDLeft.setP(p);
+                kP = p;
+            }
+            if ((i != kI)) {
+                PIDRight.setI(i);
+                PIDLeft.setI(i);
+                kI = i;
+            }
+            if ((d != kD)) {
+                PIDRight.setD(d);
+                PIDLeft.setD(d);
+                kD = d;
+            }
         }
 
         // Translation2d translation = odometer.getPoseMeters().getTranslation();

@@ -38,6 +38,8 @@ public class Serializer extends SubsystemBase implements ISerializer{
   private double manualSpeedTarget;
   private double rotationLength;
 
+  final boolean tuning = false;
+
   public Serializer() {
     turnTable = new CANSparkMax(RobotConstants2020.TURN_TABLE_SPARKMAX, CANSparkMax.MotorType.kBrushless);
     //turnTable.setInverted(true);
@@ -78,11 +80,14 @@ public class Serializer extends SubsystemBase implements ISerializer{
     /* m_pidController.setIZone(kIz);
     m_pidController.setFF(kFF);
     m_pidController.setOutputRange(kMinOutput, kMaxOutput); */
+    if (tuning) {
+    
 
-    // display PID coefficients on SmartDashboard
-    SmartDashboard.putNumber("P Gain Serializer", kP);
-    SmartDashboard.putNumber("I Gain Serializer", kI);
-    SmartDashboard.putNumber("D Gain Serializer", kD);
+      // display PID coefficients on SmartDashboard
+      SmartDashboard.putNumber("P Gain Serializer", kP);
+      SmartDashboard.putNumber("I Gain Serializer", kI);
+      SmartDashboard.putNumber("D Gain Serializer", kD);
+    }
     /* SmartDashboard.putNumber("I Zone Serializer", kIz);
     SmartDashboard.putNumber("Feed Forward Serializer", kFF);
     SmartDashboard.putNumber("Max Output Serializer", kMaxOutput);
@@ -101,46 +106,48 @@ public class Serializer extends SubsystemBase implements ISerializer{
 
   public void driveTurnTable(SerializerSpeed speed) {
     // read PID coefficients from SmartDashboard
-    double p = SmartDashboard.getNumber("P Gain Serializer", 0);
-    double i = SmartDashboard.getNumber("I Gain Serializer", 0);
-    double d = SmartDashboard.getNumber("D Gain Serializer", 0);
+    if (tuning) {
+      double p = SmartDashboard.getNumber("P Gain Serializer", 0);
+      double i = SmartDashboard.getNumber("I Gain Serializer", 0);
+      double d = SmartDashboard.getNumber("D Gain Serializer", 0);
 
-    /*
-    double iz = SmartDashboard.getNumber("I Zone Serializer", 0);
-    double ff = SmartDashboard.getNumber("Feed Forward Serializer", 0);
-    double max = SmartDashboard.getNumber("Max Output Serializer", 0);
-    double min = SmartDashboard.getNumber("Min Output Serializer", 0);
-    */
+      /*
+      double iz = SmartDashboard.getNumber("I Zone Serializer", 0);
+      double ff = SmartDashboard.getNumber("Feed Forward Serializer", 0);
+      double max = SmartDashboard.getNumber("Max Output Serializer", 0);
+      double min = SmartDashboard.getNumber("Min Output Serializer", 0);
+      */
 
-    // if PID coefficients on SmartDashboard have changed, write new values to
-    // controller
-    if ((p != kP)) {
-      m_pidController.setP(p);
-      kP = p;
+      // if PID coefficients on SmartDashboard have changed, write new values to
+      // controller
+      if ((p != kP)) {
+        m_pidController.setP(p);
+        kP = p;
+      }
+      if ((i != kI)) {
+        m_pidController.setI(i);
+        kI = i;
+      }
+      if ((d != kD)) {
+        m_pidController.setD(d);
+        kD = d;
+      }
+      /*
+      if ((iz != kIz)) {
+        m_pidController.setIZone(iz);
+        kIz = iz;
+      }
+      if ((ff != kFF)) {
+        m_pidController.setFF(ff);
+        kFF = ff;
+      }
+      if ((max != kMaxOutput) || (min != kMinOutput)) {
+        m_pidController.setOutputRange(min, max);
+        kMinOutput = min;
+        kMaxOutput = max;
+      }
+      */
     }
-    if ((i != kI)) {
-      m_pidController.setI(i);
-      kI = i;
-    }
-    if ((d != kD)) {
-      m_pidController.setD(d);
-      kD = d;
-    }
-    /*
-    if ((iz != kIz)) {
-      m_pidController.setIZone(iz);
-      kIz = iz;
-    }
-    if ((ff != kFF)) {
-      m_pidController.setFF(ff);
-      kFF = ff;
-    }
-    if ((max != kMaxOutput) || (min != kMinOutput)) {
-      m_pidController.setOutputRange(min, max);
-      kMinOutput = min;
-      kMaxOutput = max;
-    }
-    */
 
     switch (speed) {
       case fast:

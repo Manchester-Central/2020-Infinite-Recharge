@@ -25,6 +25,8 @@ public class Flywheel extends SubsystemBase implements IFlywheel {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
+  final boolean tuning = false;
+
   private CANPIDController m_pidControllerA, m_pidControllerB;
   private CANEncoder m_encoder;
   public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxRPM;
@@ -79,14 +81,17 @@ public class Flywheel extends SubsystemBase implements IFlywheel {
     // m_pidControllerB.setFF(kFF);
     m_pidControllerB.setOutputRange(kMinOutput, kMaxOutput);
 
-    // display PID coefficients on SmartDashboard
-    SmartDashboard.putNumber("P Gain Flywheel", kP);
-    SmartDashboard.putNumber("I Gain Flywheel", kI);
-    SmartDashboard.putNumber("D Gain Flywheel", kD);
+    if (tuning) {
+      // display PID coefficients on SmartDashboard
+      SmartDashboard.putNumber("P Gain Flywheel", kP);
+      SmartDashboard.putNumber("I Gain Flywheel", kI);
+      SmartDashboard.putNumber("D Gain Flywheel", kD);
+      SmartDashboard.putNumber("I Zone Flywheel", kIz);
+      SmartDashboard.putNumber("Feed Forward Flywheel", kFF);
+    }
     SmartDashboard.putNumber(FLYWHEEL_TARGET, 0);
 
-    SmartDashboard.putNumber("I Zone Flywheel", kIz);
-    SmartDashboard.putNumber("Feed Forward Flywheel", kFF);
+
     SmartDashboard.putNumber("Max Output Flywheel", kMaxOutput);
     SmartDashboard.putNumber("Min Output Flywheel", kMinOutput);
 
@@ -100,42 +105,48 @@ public class Flywheel extends SubsystemBase implements IFlywheel {
   public void accelerateToSetPoint() {
     double setPoint = SmartDashboard.getNumber(FLYWHEEL_TARGET, 0);
     // read PID coefficients from SmartDashboard
-    double p = SmartDashboard.getNumber("P Gain Flywheel", 0);
-    double i = SmartDashboard.getNumber("I Gain Flywheel", 0);
-    double d = SmartDashboard.getNumber("D Gain Flywheel", 0);
-    
-    double iz = SmartDashboard.getNumber("I Zone", 0);
-    double ff = SmartDashboard.getNumber("Feed Forward", 0);
+    double p, i, d, iz, ff;
+    if (tuning) {
+      p = SmartDashboard.getNumber("P Gain Flywheel", 0);
+      i = SmartDashboard.getNumber("I Gain Flywheel", 0);
+      d = SmartDashboard.getNumber("D Gain Flywheel", 0);
+      
+      iz = SmartDashboard.getNumber("I Zone", 0);
+      ff = SmartDashboard.getNumber("Feed Forward", 0);
+    }
+
     double max = SmartDashboard.getNumber("Max Output", 0);
     double min = SmartDashboard.getNumber("Min Output", 0);
 
     // if PID coefficients on SmartDashboard have changed, write new values to
     // controller
-    if ((p != kP)) {
-      m_pidControllerA.setP(p);
-      m_pidControllerB.setP(p);
-      kP = p;
-    }
-    if ((i != kI)) {
-      m_pidControllerA.setI(i);
-      m_pidControllerB.setI(i);
-      kI = i;
-    }
-    if ((d != kD)) {
-      m_pidControllerA.setD(d);
-      m_pidControllerB.setD(d);
-      kD = d;
-    }
-    /* if ((iz != kIz)) {
-      m_pidControllerA.setIZone(iz);
-      m_pidControllerB.setIZone(iz);
-      kIz = iz;
-    }
-    if ((ff != kFF)) {
-      m_pidControllerA.setFF(ff);
-      m_pidControllerB.setFF(ff);
-      kFF = ff;
-    } */
+    if (tuning) {
+      if ((p != kP)) {
+        m_pidControllerA.setP(p);
+        m_pidControllerB.setP(p);
+        kP = p;
+      }
+      if ((i != kI)) {
+        m_pidControllerA.setI(i);
+        m_pidControllerB.setI(i);
+        kI = i;
+      }
+      if ((d != kD)) {
+        m_pidControllerA.setD(d);
+        m_pidControllerB.setD(d);
+        kD = d;
+      }
+      /* if ((iz != kIz)) {
+        m_pidControllerA.setIZone(iz);
+        m_pidControllerB.setIZone(iz);
+        kIz = iz;
+      }
+      if ((ff != kFF)) {
+        m_pidControllerA.setFF(ff);
+        m_pidControllerB.setFF(ff);
+        kFF = ff;
+      } */
+   }
     if ((max != kMaxOutput) || (min != kMinOutput)) {
       //m_pidControllerA.setOutputRange(min, max);
       //m_pidControllerB.setOutputRange(min, max);
