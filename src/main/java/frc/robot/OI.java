@@ -69,7 +69,7 @@ public class OI {
     public LogitechF310 operator;
     public LogitechF310 tester;
 
-    public boolean testMode = true;
+    public boolean testMode = false;
 
     public OI() {
         driver = new LogitechF310(0);
@@ -91,7 +91,7 @@ public class OI {
         driver.startButton.whenPressed(() -> Robot.driveBase.resetPosition(), Robot.driveBase);
 
         driver.leftTrigger.whileHeld(() -> {
-            Robot.climbTake.setExtenderSpeed(Math.abs(operator.getRightX()));
+            Robot.climbTake.setExtenderSpeed(Math.abs(operator.getRightY()));
         }, Robot.climbTake);
 
         /*
@@ -112,14 +112,14 @@ public class OI {
         operator.xButton.whileHeld(new Unjam());
         operator.yButton.whileHeld(new AimTurret().alongWith(new SetPipeline(8)));
 
-        operator.dPadUp.and(driver.leftTrigger).whileActiveContinuous(
+        operator.dPadUp.whileHeld(
                 new SetClimbTakePosition(RobotConstants2020.CLIMB_POSITION, RobotConstants2020.EXTENDER_OUT));
         operator.dPadDown.whileHeld(
                 new SetClimbTakePosition(RobotConstants2020.INTAKE_POSITION, RobotConstants2020.EXTENDER_ZERO));
         operator.dPadLeft.whileHeld(
-                new SetClimbTakePosition(RobotConstants2020.CLIMB_POSITION, RobotConstants2020.EXTENDER_ZERO));
+                new SetClimbTakePosition(RobotConstants2020.PIVOT_THRESHOLD, RobotConstants2020.EXTENDER_ZERO));
         operator.dPadRight
-                .whileHeld(new SetClimbTakePosition(RobotConstants2020.CLIMB_POSITION, RobotConstants2020.EXTENDER_IN));
+                .whileHeld(new SetClimbTakePosition(RobotConstants2020.CLEAR_OF_BALLS, RobotConstants2020.EXTENDER_IN));
 
         operator.selectButton.whileHeld(() -> Robot.climbTake.PIDDrivePivot(), Robot.climbTake);
 

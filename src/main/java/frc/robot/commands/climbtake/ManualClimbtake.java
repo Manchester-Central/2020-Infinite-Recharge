@@ -31,13 +31,10 @@ public class ManualClimbtake extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double testControlPivot = Robot.oi.manualPivot();
 
     if (!seenLimit) {
       Robot.climbTake.goToLimit();
       seenLimit = Robot.climbTake.getLimitSwitchState();
-    } else if (Math.abs(testControlPivot) > 0.1) {
-      Robot.climbTake.setPivotSpeed(testControlPivot);
     } else {
      Robot.climbTake.setPivotSpeed(0);
     }
