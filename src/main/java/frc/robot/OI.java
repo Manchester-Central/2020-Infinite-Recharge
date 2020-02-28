@@ -90,9 +90,9 @@ public class OI {
 
         driver.startButton.whenPressed(() -> Robot.driveBase.resetPosition(), Robot.driveBase);
 
-        driver.leftTrigger.whileHeld(() -> {
-            Robot.climbTake.setExtenderSpeed(Math.abs(operator.getRightY()));
-        }, Robot.climbTake);
+        //driver.leftTrigger.whileHeld(() -> {
+        //    Robot.climbTake.setExtenderSpeed(Math.abs(operator.getRightY()));
+        //}, Robot.climbTake);
 
         /*
          * Operator Testing operator.rightTrigger.whileHeld(() ->
@@ -187,12 +187,16 @@ public class OI {
         return driver.getRightY();
     }
 
-    public double manualPivot()
+    public boolean getEnableExtend() {
+        return driver.leftTrigger.get();
+    }
+
+    public double manualExtend()
     {
         return operator.getRightY();
     }
 
-    public double manualExtend()
+    public double manualTestExtend()
     {
         if (tester == null) {
             return 0;
