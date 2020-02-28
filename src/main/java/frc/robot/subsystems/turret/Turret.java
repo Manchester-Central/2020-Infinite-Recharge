@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotConstants2020;
+import frc.robot.util.LogUtils;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
@@ -152,7 +153,7 @@ public class Turret extends SubsystemBase implements ITurret {
     double speed = usingCamera ? camPanPID.calculate(getPanAngle()) : pidPan.calculate(getPanAngle());
     double maxSpeed = 0.4;
     setPanSpeed(speed * maxSpeed);
-    System.out.println("Turret pan angle: " + getPanAngle() + " pan speed: " + speed);
+    LogUtils.log("Turret pan angle: " + getPanAngle() + " pan speed: " + speed);
   }
 
   public void setTiltSpeed(double speed) {
@@ -184,7 +185,7 @@ public class Turret extends SubsystemBase implements ITurret {
     double maxSpeed = 0.4;
     double speed = pidTilt.calculate(getTiltAngle());
     setTiltSpeed(speed * maxSpeed);
-    System.out.println("Hood angle: " + getTiltAngle() + " hood speed: " + speed);
+    LogUtils.log("Hood angle: " + getTiltAngle() + " hood speed: " + speed);
   }
 
   public void addTurretSmartDashboard(){

@@ -25,6 +25,7 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Victor;
 import frc.robot.commands.drive.*;
+import frc.robot.util.LogUtils;
 import frc.robot.Robot;
 import frc.robot.RobotConstants2019;
 import frc.robot.RobotConstants2020;
@@ -186,7 +187,7 @@ public class DriveBase2019 extends DriveBase {
         double targetLeft = getLeftPosition() + delta;
         double targetRight = getRightPosition() - delta;
         Robot.driveBase.setTarget(targetLeft, targetRight);
-        System.out.println("setTargetAngle initialized, target left = " + targetLeft + " target right = " + targetRight);
+        LogUtils.log("setTargetAngle initialized, target left = " + targetLeft + " target right = " + targetRight);
     }
 
     public boolean isAtTarget() {

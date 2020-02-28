@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 import frc.robot.commands.util.DoneCommand;
 import frc.robot.subsystems.serializer.SerializerSpeed;
+import frc.robot.util.LogUtils;
 
 public class SerializerStop extends DoneCommand {
   public SerializerStop() {
@@ -46,7 +47,7 @@ public class SerializerStop extends DoneCommand {
   @Override
   public boolean isDone() {
     // TODO: check that the serializer actually stops
-    System.out.println("SerializerStop is done");
+    LogUtils.log("SerializerStop is done");
     return true;
   }
 }

@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 import frc.robot.commands.util.DoneCommand;
+import frc.robot.util.LogUtils;
 
 public class PrepareFlywheel extends DoneCommand {
   public PrepareFlywheel() {
@@ -47,7 +48,7 @@ public class PrepareFlywheel extends DoneCommand {
 
   public boolean isDone() {
     boolean result = (((targetFlywheelRPM * 0.9) < currentFlywheelRPM) && (currentFlywheelRPM < (targetFlywheelRPM * 1.1)));
-    System.out.println("PrepareFlywheel is done: isDone? = " + result);
+    LogUtils.log("PrepareFlywheel is done: isDone? = " + result);
     return result;
   }
 

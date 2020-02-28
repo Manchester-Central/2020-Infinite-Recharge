@@ -9,6 +9,7 @@ package frc.robot.auto.commands;
 
 import frc.robot.Robot;
 import frc.robot.auto.ParseCommand;
+import frc.robot.util.LogUtils;
 
 /**
  * Autonomously drives robot.
@@ -32,13 +33,13 @@ public class SimpleAutoDrive extends BaseAutoCommand {
     @Override
     public void initialize() {
         super.initialize();
-        System.out.println("Simple Auto drive init");
+        LogUtils.log("Simple Auto drive init");
     }
 
     // sets the robot to drive at speed from arguments of parsedCommand
     @Override
     public void execute() {
-        System.out.println("Simple Auto drive executing");
+        LogUtils.log("Simple Auto drive executing");
         Robot.driveBase.differentialDrive1.tankDrive(speed, speed);
     }
 

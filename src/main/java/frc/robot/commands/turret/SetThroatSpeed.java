@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 import frc.robot.commands.util.DoneCommand;
+import frc.robot.util.LogUtils;
 
 public class SetThroatSpeed extends DoneCommand {
   /**
@@ -57,7 +58,7 @@ public class SetThroatSpeed extends DoneCommand {
   @Override
   public boolean isDone() {
     double currentSpeed = Robot.throat.getThroatSpeed();
-    System.out.println("SetThroatSpeed is done");
+    LogUtils.log("SetThroatSpeed is done");
     return currentSpeed > minThroat;
   }
 }

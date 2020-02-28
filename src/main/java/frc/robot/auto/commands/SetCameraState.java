@@ -10,6 +10,7 @@ package frc.robot.auto.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 import frc.robot.auto.ParseCommand;
+import frc.robot.util.LogUtils;
 
 public class SetCameraState extends BaseAutoCommand {
   /**
@@ -31,7 +32,7 @@ public class SetCameraState extends BaseAutoCommand {
   @Override
   public void initialize() {
     super.initialize();
-    System.out.println("Camera state is set");
+    LogUtils.log("Camera state is set");
     Robot.camera.setPipeline(pipeline);
   }
 
