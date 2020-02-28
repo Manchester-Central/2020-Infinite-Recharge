@@ -30,6 +30,7 @@ import frc.robot.commands.turret.FlywheelZero;
 import frc.robot.commands.turret.ManualTurret;
 import frc.robot.commands.turret.PrepareFlywheel;
 import frc.robot.commands.turret.Shoot;
+import frc.robot.commands.turret.TiltSafe;
 import frc.robot.commands.util.Deadline;
 
 /**
@@ -121,7 +122,7 @@ public class OI {
         operator.dPadRight
                 .whileHeld(new SetClimbTakePosition(RobotConstants2020.CLEAR_OF_BALLS, RobotConstants2020.EXTENDER_IN));
 
-        operator.selectButton.whileHeld(() -> Robot.climbTake.PIDDrivePivot(), Robot.climbTake);
+        operator.selectButton.whileHeld(new TiltSafe());
 
         operator.leftTrigger.whileHeld(new BumperShotAim());
         operator.leftBumper.whileHeld(new AimTurret().alongWith(new SetPipeline(9)));

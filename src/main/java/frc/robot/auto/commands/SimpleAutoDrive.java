@@ -9,6 +9,7 @@ package frc.robot.auto.commands;
 
 import frc.robot.Robot;
 import frc.robot.auto.ParseCommand;
+import frc.robot.subsystems.drivebase.DriveBase;
 import frc.robot.util.LogUtils;
 
 /**
@@ -50,5 +51,6 @@ public class SimpleAutoDrive extends BaseAutoCommand {
     public void end(boolean interrupted) {
         log("done simple autodrive\n");
         super.end(interrupted);
+        Robot.driveBase.differentialDrive1.tankDrive(0, 0);
     }
 }
