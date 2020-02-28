@@ -27,7 +27,8 @@ public class AimTurret extends BaseAutoCommand {
   public void initialize() {
     super.initialize();
     Robot.turret.setPanTarget(Robot.turret.getPanAngle());
-    Robot.turret.setTiltTargetAngle(Robot.turret.getTiltAngle());
+    Robot.turret.setTiltTargetAngle(134);
+    Robot.flywheel.setTarget(3166);
     System.out.println("Aim initialized");
   }
 
@@ -50,7 +51,12 @@ public class AimTurret extends BaseAutoCommand {
 
     }
     Robot.turret.PIDDrive(true);
-    System.out.println("Aim executed");
+    //log("Aim executed");
 
   }
+
+  public void end(boolean interrupted) {
+    log("aim end %s\n", interrupted ? "T" : "F");
+    super.end(interrupted);
+}
 }
