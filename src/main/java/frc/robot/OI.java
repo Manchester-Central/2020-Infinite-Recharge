@@ -88,6 +88,11 @@ public class OI {
 
         driver.startButton.whenPressed(() -> Robot.driveBase.resetPosition(), Robot.driveBase);
 
+        driver.leftTrigger.whileHeld(() -> {
+            Robot.climbTake.setPivotSpeed(operator.getRightY());
+            Robot.climbTake.setExtenderSpeed(Math.abs(operator.getRightX())); 
+        }, Robot.climbTake);
+
 
         /*
          * Operator Testing operator.rightTrigger.whileHeld(() ->
