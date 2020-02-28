@@ -50,6 +50,8 @@ public class AutoBuilder {
         switch (parsedCommand.commandName) {
         case AutoDrive.COMMAND_NAME:
             return new AutoDrive(parsedCommand);
+        case SimpleAutoDrive.COMMAND_NAME:
+            return new SimpleAutoDrive(parsedCommand);
         case DoNothing.COMMAND_NAME:
             return new DoNothing(parsedCommand);
         case TurnAngleRobot.COMMAND_NAME:
