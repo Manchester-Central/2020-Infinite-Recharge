@@ -50,11 +50,14 @@ public class ClimbTake2020 extends SubsystemBase implements IClimbTake2020 {
     SmartDashboard.putNumber("Extension P", extendP);
     SmartDashboard.putNumber("Extension I", extendI);
     SmartDashboard.putNumber("Extension D", extendD);
+    
+    SmartDashboard.putNumber("Pivot Setpoint", pidPivot.getSetpoint());
+
 
     extensionBottomPosition = getExtensionPosition();
 
-    slowSpeed = 0.1; // TODO: check values with Dan
-    pivotThreshold = 1.11; // TODO: check values with Dan
+    slowSpeed = RobotConstants2020.PIVOT_SLOW_SPEED; // TODO: check values with Dan
+    pivotThreshold = RobotConstants2020.PIVOT_THRESHOLD; // TODO: check values with Dan
   }
 
   double pivotP, pivotI, pivotD, extendP, extendI, extendD;
@@ -95,6 +98,11 @@ public class ClimbTake2020 extends SubsystemBase implements IClimbTake2020 {
     double kEI = SmartDashboard.getNumber("Extension I", 0);
     double kED = SmartDashboard.getNumber("Extension D", 0);
 
+    double kSet = SmartDashboard.getNumber("Pivot Setpoint", pidPivot.getSetpoint());
+
+    if (kSet != pidPivot.getSetpoint()) {
+      pidPivot.setSetpoint(kSet);
+    }
     
     if ((kPP != pivotP)) {
       pidPivot.setP(kPP);
@@ -171,7 +179,6 @@ public class ClimbTake2020 extends SubsystemBase implements IClimbTake2020 {
   public void addToDashboard() {
     SmartDashboard.putNumber("Pivot position", getPivotPosition());
     SmartDashboard.putNumber("Extension position", getExtensionPosition());
-
   }
 
 

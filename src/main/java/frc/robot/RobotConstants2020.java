@@ -46,4 +46,7 @@ public class RobotConstants2020 {
     public final static double CLIMB_POSITION = 1; // TODO: change!!    
 
     public final static double CLIMBTAKE_INITIAL = 0; // TODO: change!
+
+    public final static double PIVOT_THRESHOLD = 1.11;
+    public final static double PIVOT_SLOW_SPEED = 0.1;
 }
