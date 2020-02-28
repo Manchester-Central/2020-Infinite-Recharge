@@ -58,7 +58,7 @@ public class AutoBuilder {
             return new AimTurret(parsedCommand);
         case MoveToIntakePosition.COMMAND_NAME:
             //return new MoveToIntakePosition(parsedCommand);
-            return new DoNothing(parsedCommand);
+            return new NullCommand();
         case SetCameraState.COMMAND_NAME:
             return new SetCameraState(parsedCommand);
         case AutoPrepareFlywheel.COMMAND_NAME:
