@@ -269,6 +269,7 @@ public class Robot extends TimedRobot {
         SmartDashboard.putBoolean("Limit Switch on?", climbTake.getLimitSwitchState());
 
         climbTake.addToDashboard();
+        climbTake.smartdashboardConstants();
 
         // System.out.println(camera.getPipeline());
 

@@ -42,11 +42,12 @@ public class RobotConstants2020 {
     public final static double EXTENDER_OUT = 0.5; // TODO: change!! 
     public final static double EXTENDER_IN = 1; // TODO: change!!    
     public final static double EXTENDER_ZERO = 0; // TODO: change!!    
-    public final static double INTAKE_POSITION = 0; // TODO: change!!    
-    public final static double CLIMB_POSITION = 1; // TODO: change!!    
+    public final static double INTAKE_POSITION = 0.7; // TODO: change!!    
+    public final static double CLIMB_POSITION = 1.86; // TODO: change!!    
+    public final static double CLEAR_OF_BALLS = 1.54; // TODO: get this value again
 
     public final static double CLIMBTAKE_INITIAL = 0; // TODO: change!
 
-    public final static double PIVOT_THRESHOLD = 1.11;
+    public final static double PIVOT_THRESHOLD = 1.11; // Cale's other position: 1.00
     public final static double PIVOT_SLOW_SPEED = 0.1;
 }

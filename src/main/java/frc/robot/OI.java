@@ -77,7 +77,8 @@ public class OI {
 
         // Driver
         driver.rightBumper.whileHeld(new TankDrive(0.5));
-        driver.rightTrigger.whileHeld(new SetIntake(1));
+        driver.rightTrigger.whileHeld(new SetIntake(0.5).alongWith(
+                new SetClimbTakePosition(RobotConstants2020.INTAKE_POSITION, RobotConstants2020.EXTENDER_ZERO)));
 
         // TODO: remove once tested and happy
         driver.aButton.whileActiveOnce(new DriveDistancePID(12));
@@ -89,10 +90,8 @@ public class OI {
         driver.startButton.whenPressed(() -> Robot.driveBase.resetPosition(), Robot.driveBase);
 
         driver.leftTrigger.whileHeld(() -> {
-            Robot.climbTake.setPivotSpeed(operator.getRightY());
-            Robot.climbTake.setExtenderSpeed(Math.abs(operator.getRightX())); 
+            Robot.climbTake.setExtenderSpeed(Math.abs(operator.getRightX()));
         }, Robot.climbTake);
-
 
         /*
          * Operator Testing operator.rightTrigger.whileHeld(() ->
@@ -103,10 +102,11 @@ public class OI {
          * 
          * operator.bButton.whileHeld(() -> Robot.flywheel.setFlywheelTargetDashboard(),
          * Robot.flywheel);
-        */
+         */
 
         // Operator
-        operator.aButton.whileHeld(new SetIntake(0.5));
+        operator.aButton.whileHeld(new SetIntake(0.5).alongWith(
+                new SetClimbTakePosition(RobotConstants2020.INTAKE_POSITION, RobotConstants2020.EXTENDER_ZERO)));
         operator.bButton.whileHeld(new SetIntake(-0.5));
         operator.xButton.whileHeld(new Unjam());
         operator.yButton.whileHeld(new AimTurret().alongWith(new SetPipeline(8)));
@@ -119,6 +119,8 @@ public class OI {
                 new SetClimbTakePosition(RobotConstants2020.CLIMB_POSITION, RobotConstants2020.EXTENDER_ZERO));
         operator.dPadRight
                 .whileHeld(new SetClimbTakePosition(RobotConstants2020.CLIMB_POSITION, RobotConstants2020.EXTENDER_IN));
+
+        operator.selectButton.whileHeld(() -> Robot.climbTake.PIDDrivePivot(), Robot.climbTake);
 
         operator.leftTrigger.whileHeld(new BumperShotAim());
         operator.leftBumper.whileHeld(new AimTurret().alongWith(new SetPipeline(9)));
@@ -165,7 +167,7 @@ public class OI {
         Robot.unjammer.setDefaultCommand(new RunCommand(() -> Robot.unjammer.spin(true), Robot.unjammer));
         Robot.turret.setDefaultCommand(new ManualTurret());
         Robot.climbTake.setDefaultCommand(new RunCommand(() -> {
-            Robot.climbTake.setPivotSpeed(tester.getLeftY());
+            Robot.climbTake.setPivotSpeed(operator.getRightY());
             Robot.climbTake.setExtenderSpeed(tester.getRightY());
         }, Robot.climbTake));
 

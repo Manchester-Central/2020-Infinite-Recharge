@@ -39,4 +39,6 @@ public interface IClimbTake2020 extends Subsystem {
   public void PIDDriveExtend();
 
   public void addToDashboard();
+
+  public void smartdashboardConstants();
 }

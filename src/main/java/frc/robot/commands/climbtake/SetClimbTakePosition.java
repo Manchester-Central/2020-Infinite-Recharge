@@ -28,7 +28,7 @@ public class SetClimbTakePosition extends CommandBase {
   @Override
   public void initialize() {
     Robot.climbTake.setPivotPosition(target);
-    Robot.climbTake.setExtenderPosition(position);
+    // Robot.climbTake.setExtenderPosition(position);
   }
 
   // Called repeatedly when this Command is scheduled to run

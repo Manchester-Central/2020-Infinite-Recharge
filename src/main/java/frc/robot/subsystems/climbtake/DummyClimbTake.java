@@ -81,4 +81,7 @@ public class DummyClimbTake implements IClimbTake2020 {
   @Override
   public void PIDDriveExtend() {
   }
+
+  public void smartdashboardConstants() {
+  }
 }

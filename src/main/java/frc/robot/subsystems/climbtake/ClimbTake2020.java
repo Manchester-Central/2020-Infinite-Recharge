@@ -35,7 +35,7 @@ public class ClimbTake2020 extends SubsystemBase implements IClimbTake2020 {
     pivot.setInverted(true);
     resetExtendEncoder();
 
-    pivotP = 0;
+    pivotP = 0.75;
     pivotI = 0;
     pivotD = 0;
     extendP = 0;
@@ -63,7 +63,7 @@ public class ClimbTake2020 extends SubsystemBase implements IClimbTake2020 {
   double pivotP, pivotI, pivotD, extendP, extendI, extendD;
   PIDController pidPivot, pidExtend;
   double maxExtendSpeed = 0.4;
-  double maxPivotSpeed = 0.4;
+  double maxPivotSpeed = 0.2;
   AnalogInput pivotPot;
   double slowSpeed, pivotThreshold;
 
@@ -73,6 +73,7 @@ public class ClimbTake2020 extends SubsystemBase implements IClimbTake2020 {
 
   public void setPivotPosition(double target) {
     pidPivot.setSetpoint(target);
+    SmartDashboard.putNumber("Pivot Setpoint", pidPivot.getSetpoint());
   }
 
   public void setExtenderPosition(double target) {
@@ -143,7 +144,7 @@ public class ClimbTake2020 extends SubsystemBase implements IClimbTake2020 {
     if (getLimitSwitchState() && speed < 0) { // check direction of speed
       pivot.set(0);
     } else if ((getPivotPosition() < pivotThreshold) && (speed < 0)){
-      pivot.set(speed * slowSpeed);
+      pivot.set(Math.min(speed, slowSpeed));
     } else {
       pivot.set(speed);
     }
@@ -173,12 +174,14 @@ public class ClimbTake2020 extends SubsystemBase implements IClimbTake2020 {
   
   public void PIDDrivePivot() {
     double speed = pidPivot.calculate(getPivotPosition());
-    setPivotSpeed(speed * maxPivotSpeed);
+    SmartDashboard.putNumber("Pivot Output", speed);
+    setPivotSpeed(speed);
   }
 
   public void addToDashboard() {
     SmartDashboard.putNumber("Pivot position", getPivotPosition());
     SmartDashboard.putNumber("Extension position", getExtensionPosition());
+    
   }
 
 
