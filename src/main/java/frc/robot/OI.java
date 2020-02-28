@@ -74,6 +74,7 @@ public class OI {
     public OI() {
         driver = new LogitechF310(0);
         operator = new LogitechF310(1);
+        tester = null;
 
         // Driver
         driver.rightBumper.whileHeld(new TankDrive(0.5));
@@ -166,10 +167,7 @@ public class OI {
         Robot.throat.setDefaultCommand(new RunCommand(() -> Robot.throat.ejectorSpeed(false), Robot.throat));
         Robot.unjammer.setDefaultCommand(new RunCommand(() -> Robot.unjammer.spin(true), Robot.unjammer));
         Robot.turret.setDefaultCommand(new ManualTurret());
-        Robot.climbTake.setDefaultCommand(new RunCommand(() -> {
-            Robot.climbTake.setPivotSpeed(operator.getRightY());
-            Robot.climbTake.setExtenderSpeed(tester.getRightY());
-        }, Robot.climbTake));
+        Robot.climbTake.setDefaultCommand(new ManualClimbtake());
 
     }
 
@@ -188,4 +186,17 @@ public class OI {
     public double getRightSpeed() {
         return driver.getRightY();
     }
+
+    public double manualPivot()
+    {
+        return operator.getRightY();
+    }
+
+    public double manualExtend()
+    {
+        if (tester == null) {
+            return 0;
+        }
+        return Math.abs(tester.getRightY());
+    }    
 }
