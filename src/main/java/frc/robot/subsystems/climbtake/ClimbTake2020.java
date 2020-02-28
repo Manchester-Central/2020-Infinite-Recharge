@@ -144,7 +144,7 @@ public class ClimbTake2020 extends SubsystemBase implements IClimbTake2020 {
     if (getLimitSwitchState() && speed < 0) { // check direction of speed
       pivot.set(0);
     } else if ((getPivotPosition() < pivotThreshold) && (speed < 0)){
-      pivot.set(Math.min(speed, slowSpeed));
+      pivot.set(Math.max(speed, (slowSpeed * -1.0)));
     } else {
       pivot.set(speed);
     }
@@ -160,9 +160,10 @@ public class ClimbTake2020 extends SubsystemBase implements IClimbTake2020 {
 
   public void goToLimit() {
     if (!getLimitSwitchState()) {
-      double speed = -0.25;
+      double speed = -0.15;
       setPivotSpeed(speed * maxPivotSpeed);
     } else {
+      setPivotSpeed(0);
       pivotBottomPosition = getPivotPosition();
     }
   }

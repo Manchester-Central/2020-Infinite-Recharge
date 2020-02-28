@@ -22,12 +22,15 @@ public class TimeAutoCondition implements IAutoCondition {
 
     @Override
     public void init() {
+        System.out.println("TimeAutoCondition.init");
         startTime = System.currentTimeMillis();
     }
 
     // when the total time is greater than 5, stop time auto command
     @Override
     public boolean isDone() {
-        return (System.currentTimeMillis() - startTime) > timeMs;
+        boolean result = (System.currentTimeMillis() - startTime) > timeMs;
+        //System.out.printf("TimeAutoCondition done? %s\n", result ? "T" : "F");
+        return result;
     }
 }

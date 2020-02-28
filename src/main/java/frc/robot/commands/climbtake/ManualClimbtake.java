@@ -5,30 +5,43 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.auto.commands;
+package frc.robot.commands.climbtake;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 
-public class FindLimitClimbtake extends CommandBase {
+public class ManualClimbtake extends CommandBase {
   /**
    * Creates a new FindLimitClimbtake.
    */
-  public FindLimitClimbtake() {
+  private boolean seenLimit;
+
+  public ManualClimbtake() {
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(Robot.climbTake);
+    seenLimit = false;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    seenLimit = false;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    double testControlPivot = Robot.oi.manualPivot();
 
-    Robot.climbTake.goToLimit();
-
+    if (!seenLimit) {
+      Robot.climbTake.goToLimit();
+      seenLimit = Robot.climbTake.getLimitSwitchState();
+    } else if (Math.abs(testControlPivot) > 0.1) {
+      Robot.climbTake.setPivotSpeed(testControlPivot);
+    } else {
+     Robot.climbTake.setPivotSpeed(0);
+    }
+    Robot.climbTake.setExtenderSpeed(Robot.oi.manualExtend());
   }
 
   // Called once the command ends or is interrupted.
@@ -39,6 +52,6 @@ public class FindLimitClimbtake extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return Robot.climbTake.getLimitSwitchState();
+    return false;
   }
 }
