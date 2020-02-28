@@ -84,6 +84,10 @@ public class Turret extends SubsystemBase implements ITurret {
     double angleRange = maxAnglePan - minAnglePan;
     slopePan = angleRange/rawRange;
     interceptPan = maxAnglePan - (slopePan * maxRawPan);
+
+    panError = 0.1;
+    tiltError = 0.1;
+
   }
 
   private double panP, panI, panD, tiltP, tiltI, tiltD, camPanP, camPanI, camPanD;
@@ -92,6 +96,7 @@ public class Turret extends SubsystemBase implements ITurret {
   private double slopePan, interceptPan;
   PIDController pidPan, pidTilt, camPanPID;
   WPI_TalonSRX speedControllerPan, speedControllerTilt;
+  private double panError, tiltError;
   
   double panMultiplier = 0.05;
 
@@ -240,6 +245,8 @@ public class Turret extends SubsystemBase implements ITurret {
       tiltD = kYD;
     }
 
+    SmartDashboard.putBoolean("Target Aligned", isAtTarget());
+
   }
 
   public double getTiltTarget() {
@@ -248,6 +255,22 @@ public class Turret extends SubsystemBase implements ITurret {
 
   public double getPanTarget() {
     return pidPan.getSetpoint();
+  }
+
+  private boolean isAtPanTarget(){
+    double target = getPanTarget();
+    double position = getPanAngle();
+    return ((position <= target + panError) && (position >= target - panError));
+  }
+
+  private boolean isAtTiltTarget(){
+    double target = getTiltTarget();
+    double position = getTiltAngle();
+    return ((position <= target + tiltError) && (position >= target - tiltError));
+  }
+
+  public boolean isAtTarget() {
+    return isAtPanTarget() && isAtTiltTarget();
   }
   
   public void PIDDrive(boolean usingCamera) {

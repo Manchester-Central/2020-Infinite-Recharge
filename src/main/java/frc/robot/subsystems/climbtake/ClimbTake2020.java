@@ -31,8 +31,10 @@ public class ClimbTake2020 extends SubsystemBase implements IClimbTake2020 {
     pivot = new CANSparkMax(RobotConstants2020.ARM_SPARKMAX, CANSparkMax.MotorType.kBrushless);
     extension = new CANSparkMax(RobotConstants2020.CLIMB_SPARKMAX, CANSparkMax.MotorType.kBrushless);
     limitSwitch = new DigitalInput(RobotConstants2020.LIMIT_SWITCH);
+    pivotPot = new AnalogInput(RobotConstants2020.CLIMB_POT);
     pivot.setInverted(true);
-    
+    resetExtendEncoder();
+
     pivotP = 0;
     pivotI = 0;
     pivotD = 0;
@@ -51,13 +53,20 @@ public class ClimbTake2020 extends SubsystemBase implements IClimbTake2020 {
 
     extensionBottomPosition = getExtensionPosition();
 
+    slowSpeed = 0.5; // TODO: check values with Dan
+    pivotThreshold = 60; // TODO: check values with Dan
   }
 
   double pivotP, pivotI, pivotD, extendP, extendI, extendD;
   PIDController pidPivot, pidExtend;
   double maxExtendSpeed = 0.4;
   double maxPivotSpeed = 0.4;
-  AnalogInput pivotPot = new AnalogInput(RobotConstants2020.CLIMB_POT);
+  AnalogInput pivotPot;
+  double slowSpeed, pivotThreshold;
+
+  private void resetExtendEncoder() {
+    extension.getEncoder().setPosition(0);
+  }
 
   public void setPivotPosition(double target) {
     pidPivot.setSetpoint(target);
@@ -115,7 +124,7 @@ public class ClimbTake2020 extends SubsystemBase implements IClimbTake2020 {
   }
 
   public double getPivotPosition() {
-    return pivot.getEncoder().getPosition();
+    return pivotPot.getVoltage();
   }
 
   public double getExtensionPosition() {
@@ -125,6 +134,8 @@ public class ClimbTake2020 extends SubsystemBase implements IClimbTake2020 {
   public void setPivotSpeed(double speed) {
     if (getLimitSwitchState() && speed < 0) { // check direction of speed
       pivot.set(0);
+    } else if ((getPivotPosition() < pivotThreshold) && (speed < 0)){
+      pivot.set(speed * slowSpeed);
     } else {
       pivot.set(speed);
     }
@@ -153,7 +164,7 @@ public class ClimbTake2020 extends SubsystemBase implements IClimbTake2020 {
   }
   
   public void PIDDrivePivot() {
-    double speed = pidExtend.calculate(getPivotPosition());
+    double speed = pidPivot.calculate(getPivotPosition());
     setPivotSpeed(speed * maxPivotSpeed);
   }
 

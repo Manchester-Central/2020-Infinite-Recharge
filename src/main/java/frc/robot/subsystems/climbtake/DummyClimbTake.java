@@ -73,4 +73,12 @@ public class DummyClimbTake implements IClimbTake2020 {
   public void addToDashboard() {
 
   }
+
+  @Override
+  public void PIDDrivePivot() {
+  }
+
+  @Override
+  public void PIDDriveExtend() {
+  }
 }
