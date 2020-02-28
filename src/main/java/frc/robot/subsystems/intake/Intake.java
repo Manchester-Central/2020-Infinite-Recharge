@@ -7,6 +7,7 @@
 
 package frc.robot.subsystems.intake;
 
+import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
@@ -24,6 +25,7 @@ public class Intake extends SubsystemBase implements IIntake{
 
   public Intake () {
     intake = new TalonFX(RobotConstants2020.INTAKE_FALCON);
+    intake.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, 15, 15, 0), 0);
   }
   
   public void setSpeedIntake(double speed) {

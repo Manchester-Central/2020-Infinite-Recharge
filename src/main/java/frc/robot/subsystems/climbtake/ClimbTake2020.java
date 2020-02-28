@@ -53,8 +53,8 @@ public class ClimbTake2020 extends SubsystemBase implements IClimbTake2020 {
 
     extensionBottomPosition = getExtensionPosition();
 
-    slowSpeed = 0.5; // TODO: check values with Dan
-    pivotThreshold = 60; // TODO: check values with Dan
+    slowSpeed = 0.1; // TODO: check values with Dan
+    pivotThreshold = 1.11; // TODO: check values with Dan
   }
 
   double pivotP, pivotI, pivotD, extendP, extendI, extendD;
