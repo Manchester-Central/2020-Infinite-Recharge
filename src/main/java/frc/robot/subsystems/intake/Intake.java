@@ -26,7 +26,7 @@ public class Intake extends SubsystemBase implements IIntake{
   double currentLimit;
 
   public Intake () {
-    currentLimit = 30;
+    currentLimit = 35;
     intake = new TalonFX(RobotConstants2020.INTAKE_FALCON);
     intake.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, currentLimit, currentLimit, 0), 0);
     intake.setNeutralMode(NeutralMode.Coast);
