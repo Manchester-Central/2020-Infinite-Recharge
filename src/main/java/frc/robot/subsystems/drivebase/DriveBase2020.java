@@ -237,12 +237,18 @@ public class DriveBase2020 extends DriveBase {
     }
 
     public boolean isAtRightTarget() {
+        LogUtils.log("Drive/RightPositionErr", PIDRight.getSetpoint() - getRightPosition());
+        LogUtils.log("Drive/RightVelocityErr", rightSpark1.getEncoder().getVelocity());
+
         final boolean AtPosition = (PIDRight.getSetpoint() - getRightPosition()) < pidDoneAllowedPositionError;
         final boolean AtVelocity = rightSpark1.getEncoder().getVelocity() < pidDoneAllowedVelocityError;
         return AtPosition && AtVelocity;
     }
 
     public boolean isAtLeftTarget() {
+        LogUtils.log("Drive/LeftPositionErr", PIDLeft.getPositionError();
+        LogUtils.log("Drive/LefttVelocityErr", leftSpark1.getEncoder().getVelocity());
+
         final boolean AtPosition = PIDLeft.getPositionError() < pidDoneAllowedPositionError;
         final boolean AtVelocity = leftSpark1.getEncoder().getVelocity() < pidDoneAllowedVelocityError;
         return AtPosition && AtVelocity;
