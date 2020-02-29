@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class LogUtils {
     private LogUtils() {}
-    public static boolean loggingEnabled = false;
+    public static boolean loggingEnabled = true;
 
     public static void log(String message) {
         if(loggingEnabled){
