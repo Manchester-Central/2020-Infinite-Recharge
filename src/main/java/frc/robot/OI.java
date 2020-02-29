@@ -78,7 +78,7 @@ public class OI {
 
         // Driver
         driver.rightBumper.whileHeld(new TankDrive(0.5));
-        driver.rightTrigger.whileHeld(new SetIntake(0.5).alongWith(
+        driver.rightTrigger.whileHeld(new SetIntake(0.75).alongWith(
                 new SetClimbTakePosition(RobotConstants2020.INTAKE_POSITION, RobotConstants2020.EXTENDER_ZERO)));
 
         // TODO: remove once tested and happy
@@ -106,9 +106,9 @@ public class OI {
          */
 
         // Operator
-        operator.aButton.whileHeld(new SetIntake(0.5).alongWith(
+        operator.aButton.whileHeld(new SetIntake(0.75).alongWith(
                 new SetClimbTakePosition(RobotConstants2020.INTAKE_POSITION, RobotConstants2020.EXTENDER_ZERO)));
-        operator.bButton.whileHeld(new SetIntake(-0.5));
+        operator.bButton.whileHeld(new SetIntake(-0.75));
         operator.xButton.whileHeld(new Unjam());
         operator.yButton.whileHeld(new AimTurret().alongWith(new SetPipeline(8)));
 
