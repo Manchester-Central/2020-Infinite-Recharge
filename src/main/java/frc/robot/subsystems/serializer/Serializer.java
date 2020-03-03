@@ -10,18 +10,19 @@ package frc.robot.subsystems.serializer;
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.ControlType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.commands.serializer.*;
-import frc.robot.Robot;
+import frc.robot.util.dashboard.NumberDashboardValue;
+import frc.robot.util.dashboard.PIDDashboardUpdater;
 import frc.robot.RobotConstants2020;
 
 /**
  * Add your docs here.
  */
 public class Serializer extends SubsystemBase implements ISerializer{
+
+  private static final String DASHBOARD_KEY = "Serializer";
 
   private CANSparkMax turnTable;
 
@@ -37,6 +38,9 @@ public class Serializer extends SubsystemBase implements ISerializer{
   private final double SLOW_SPEED = 425;
   private double manualSpeedTarget;
   private double rotationLength;
+  private PIDDashboardUpdater pidDashboardValues;
+
+  private NumberDashboardValue serializerTargetSpeed;
 
   final boolean tuning = false;
 
@@ -77,23 +81,19 @@ public class Serializer extends SubsystemBase implements ISerializer{
     m_pidController.setP(kP);
     m_pidController.setI(kI);
     m_pidController.setD(kD);
+    pidDashboardValues = PIDDashboardUpdater.createDashboardPID(m_pidController, DASHBOARD_KEY, kP, kI, kD);
+    // Log the PID values mostly to avoid an unused warning on pidDashboardValues
+    pidDashboardValues.logPID();
+
     /* m_pidController.setIZone(kIz);
     m_pidController.setFF(kFF);
     m_pidController.setOutputRange(kMinOutput, kMaxOutput); */
-    if (tuning) {
-    
-
-      // display PID coefficients on SmartDashboard
-      SmartDashboard.putNumber("P Gain Serializer", kP);
-      SmartDashboard.putNumber("I Gain Serializer", kI);
-      SmartDashboard.putNumber("D Gain Serializer", kD);
-    }
     /* SmartDashboard.putNumber("I Zone Serializer", kIz);
     SmartDashboard.putNumber("Feed Forward Serializer", kFF);
     SmartDashboard.putNumber("Max Output Serializer", kMaxOutput);
     SmartDashboard.putNumber("Min Output Serializer", kMinOutput); */
+    serializerTargetSpeed = new NumberDashboardValue(DASHBOARD_KEY + "/Target Speed", manualSpeedTarget);
 
-    SmartDashboard.putNumber("Serializer Target", manualSpeedTarget);
     rotationLength = 11.202576;
   }
 
@@ -105,50 +105,6 @@ public class Serializer extends SubsystemBase implements ISerializer{
   }
 
   public void driveTurnTable(SerializerSpeed speed) {
-    // read PID coefficients from SmartDashboard
-    if (tuning) {
-      double p = SmartDashboard.getNumber("P Gain Serializer", 0);
-      double i = SmartDashboard.getNumber("I Gain Serializer", 0);
-      double d = SmartDashboard.getNumber("D Gain Serializer", 0);
-
-      /*
-      double iz = SmartDashboard.getNumber("I Zone Serializer", 0);
-      double ff = SmartDashboard.getNumber("Feed Forward Serializer", 0);
-      double max = SmartDashboard.getNumber("Max Output Serializer", 0);
-      double min = SmartDashboard.getNumber("Min Output Serializer", 0);
-      */
-
-      // if PID coefficients on SmartDashboard have changed, write new values to
-      // controller
-      if ((p != kP)) {
-        m_pidController.setP(p);
-        kP = p;
-      }
-      if ((i != kI)) {
-        m_pidController.setI(i);
-        kI = i;
-      }
-      if ((d != kD)) {
-        m_pidController.setD(d);
-        kD = d;
-      }
-      /*
-      if ((iz != kIz)) {
-        m_pidController.setIZone(iz);
-        kIz = iz;
-      }
-      if ((ff != kFF)) {
-        m_pidController.setFF(ff);
-        kFF = ff;
-      }
-      if ((max != kMaxOutput) || (min != kMinOutput)) {
-        m_pidController.setOutputRange(min, max);
-        kMinOutput = min;
-        kMaxOutput = max;
-      }
-      */
-    }
-
     switch (speed) {
       case fast:
       setPoint = FAST_SPEED;
@@ -181,7 +137,7 @@ public class Serializer extends SubsystemBase implements ISerializer{
       turnTable.set(0);
       return;
     }
-    manualSpeedTarget = SmartDashboard.getNumber("Serializer Target", 0);
+    manualSpeedTarget = serializerTargetSpeed.get();
     m_pidController.setReference(manualSpeedTarget, ControlType.kVelocity);
     
   }
