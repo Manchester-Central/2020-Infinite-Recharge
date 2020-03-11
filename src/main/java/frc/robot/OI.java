@@ -69,7 +69,7 @@ public class OI {
     public LogitechF310 operator;
     public LogitechF310 tester;
 
-    public boolean testMode = false;
+    public boolean testMode = true;
 
     public OI() {
         driver = new LogitechF310(0);

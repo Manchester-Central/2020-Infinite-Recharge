@@ -32,7 +32,7 @@ public class TurretDefault extends CommandBase {
   public void execute() {
     Robot.turret.setPanSpeed(Robot.oi.getTurretPanTarget() * panSpeedScale);
 
-    Robot.turret.PIDDrive(false);
+    Robot.turret.PIDDriveTilt();
   }
 
   // Make this return true when this Command no longer needs to run execute()

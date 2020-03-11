@@ -41,4 +41,6 @@ public interface ITurret extends Subsystem {
   
   public double getPanTarget();
 
+  public void PIDDriveTilt();
+
 }
