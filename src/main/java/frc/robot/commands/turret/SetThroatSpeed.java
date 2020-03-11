@@ -8,7 +8,6 @@
 package frc.robot.commands.turret;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 import frc.robot.commands.util.DoneCommand;
 import frc.robot.util.LogUtils;

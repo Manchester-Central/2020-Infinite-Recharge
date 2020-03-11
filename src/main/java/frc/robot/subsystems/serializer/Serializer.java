@@ -10,12 +10,9 @@ package frc.robot.subsystems.serializer;
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.ControlType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.commands.serializer.*;
-import frc.robot.Robot;
 import frc.robot.RobotConstants2020;
 
 /**
@@ -97,12 +94,12 @@ public class Serializer extends SubsystemBase implements ISerializer{
     rotationLength = 11.202576;
   }
 
-  private double turnTableDegrees(CANSparkMax input) {
-    double gearRatio = (double) 10 / 1; // ratio of the axel the turntable lies on to the axel the encoder reads
-    int ticksPerRev = 42; // amount of ticks in one revolution of the encoder axel
-    double counts = input.getEncoder().getPosition();
-    return (counts * gearRatio) / ticksPerRev;
-  }
+  // private double turnTableDegrees(CANSparkMax input) {
+  //   double gearRatio = (double) 10 / 1; // ratio of the axel the turntable lies on to the axel the encoder reads
+  //   int ticksPerRev = 42; // amount of ticks in one revolution of the encoder axel
+  //   double counts = input.getEncoder().getPosition();
+  //   return (counts * gearRatio) / ticksPerRev;
+  // }
 
   public void driveTurnTable(SerializerSpeed speed) {
     // read PID coefficients from SmartDashboard

@@ -7,35 +7,32 @@
 
 package frc.robot.commands.turret;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
-import frc.robot.commands.util.DoneCommand;
-import frc.robot.util.LogUtils;
+import frc.robot.RobotConstants2020;
 
-public class PrepareFlywheel extends DoneCommand {
-  public PrepareFlywheel() {
-    addRequirements(Robot.flywheel);
+public class TurretDefault extends CommandBase {
+  public TurretDefault() {
+    addRequirements(Robot.turret);
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }
 
-  double currentFlywheelRPM, targetFlywheelRPM;
+  double panSpeedScale;
 
   // Called just before this Command runs the first time
   @Override
   public void initialize() {
-    currentFlywheelRPM = Robot.flywheel.getCurrentFlywheelRPM();
-    targetFlywheelRPM = SmartDashboard.getNumber("Flywheel target speed RPM", 0);
+    Robot.turret.setTiltTargetAngle(RobotConstants2020.MIN_HOOD_RAW + 5);
+    panSpeedScale = 0.30;
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   public void execute() {
+    Robot.turret.setPanSpeed(Robot.oi.getTurretPanTarget() * panSpeedScale);
 
-    currentFlywheelRPM = Robot.flywheel.getCurrentFlywheelRPM();
-    targetFlywheelRPM = SmartDashboard.getNumber("Flywheel target speed RPM", 0);
-    Robot.flywheel.accelerateToSetPoint();
-
+    Robot.turret.PIDDrive(false);
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -45,9 +42,7 @@ public class PrepareFlywheel extends DoneCommand {
   }
 
   public boolean isDone() {
-    boolean result = (((targetFlywheelRPM * 0.9) < currentFlywheelRPM) && (currentFlywheelRPM < (targetFlywheelRPM * 1.1)));
-    LogUtils.log("PrepareFlywheel is done: isDone? = " + result);
-    return result;
+    return Robot.turret.getTiltAngle() == Robot.turret.getTiltTarget();
   }
 
   // Called once after isFinished returns true or when interrupted

@@ -7,10 +7,8 @@
 
 package frc.robot.commands.serializer;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 import frc.robot.commands.util.DoneCommand;
-import frc.robot.subsystems.serializer.SerializerSpeed;
 import frc.robot.util.LogUtils;
 
 public class SerializerStop extends DoneCommand {

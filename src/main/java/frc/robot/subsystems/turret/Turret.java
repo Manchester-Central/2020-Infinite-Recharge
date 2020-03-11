@@ -37,8 +37,8 @@ public class Turret extends SubsystemBase implements ITurret {
     pidPan = new PIDController(panP, panI, panD);
     pidTilt = new PIDController(tiltP, tiltI, tiltD);
 
-    slopePan = RobotConstants2020.ANGLE_POT_SLOPE_X; // TODO: CHANGE!!!
-    interceptPan = RobotConstants2020.ANGLE_POT_INTERCEPT_X; // TODO: CHANGE!!!
+    // slopePan = RobotConstants2020.ANGLE_POT_SLOPE_X; // TODO: CHANGE!!!
+    // interceptPan = RobotConstants2020.ANGLE_POT_INTERCEPT_X; // TODO: CHANGE!!!
 
     speedControllerPan = new WPI_TalonSRX(RobotConstants2020.TURRET_PAN);
     speedControllerTilt = new WPI_TalonSRX(RobotConstants2020.TURRET_HOOD);
@@ -49,8 +49,8 @@ public class Turret extends SubsystemBase implements ITurret {
     maxRawPan = RobotConstants2020.MAX_PAN_RAW;
     minRawTilt = RobotConstants2020.MIN_HOOD_RAW;
     maxRawTilt = RobotConstants2020.MAX_HOOD_RAW;
-    minAnglePan = RobotConstants2020.MIN_ANGLE_PAN;
-    maxAnglePan = RobotConstants2020.MAX_ANGLE_PAN;
+    // minAnglePan = RobotConstants2020.MIN_ANGLE_PAN;
+    // maxAnglePan = RobotConstants2020.MAX_ANGLE_PAN;
 
     // set PID coefficients
     pidPan.setP(panP);
@@ -87,10 +87,10 @@ public class Turret extends SubsystemBase implements ITurret {
       SmartDashboard.putNumber("D Gain TILT", tiltD);
     }
     
-    int rawRange = maxRawPan - minRawPan;
-    double angleRange = maxAnglePan - minAnglePan;
-    slopePan = angleRange/rawRange;
-    interceptPan = maxAnglePan - (slopePan * maxRawPan);
+    // int rawRange = maxRawPan - minRawPan;
+    // double angleRange = maxAnglePan - minAnglePan;
+    // slopePan = angleRange/rawRange;
+    // interceptPan = maxAnglePan - (slopePan * maxRawPan);
 
     panError = 0.1;
     tiltError = 0.1;
@@ -99,8 +99,8 @@ public class Turret extends SubsystemBase implements ITurret {
 
   private double panP, panI, panD, tiltP, tiltI, tiltD, camPanP, camPanI, camPanD;
   private int minRawTilt, maxRawTilt, minRawPan, maxRawPan;
-  private double minAnglePan, maxAnglePan;
-  private double slopePan, interceptPan;
+  // private double minAnglePan, maxAnglePan;
+  // private double slopePan, interceptPan;
   PIDController pidPan, pidTilt, camPanPID;
   WPI_TalonSRX speedControllerPan, speedControllerTilt;
   private double panError, tiltError;

@@ -11,11 +11,8 @@ import com.revrobotics.CANEncoder;
 import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.ControlType;
-import edu.wpi.first.wpilibj.controller.PIDController;
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Robot;
 import frc.robot.RobotConstants2020;
 
 /**
@@ -32,6 +29,7 @@ public class Flywheel extends SubsystemBase implements IFlywheel {
   public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxRPM;
   CANSparkMax flywheelA, flywheelB;
   public final String FLYWHEEL_TARGET = "Flywheel target speed RPM";
+  public final int FLYWHEEL_DEFAULT = 3000;
 
   public Flywheel() {
 
@@ -103,16 +101,17 @@ public class Flywheel extends SubsystemBase implements IFlywheel {
 
   // takes in RPM
   public void accelerateToSetPoint() {
-    double setPoint = SmartDashboard.getNumber(FLYWHEEL_TARGET, 0);
+    double setPoint = SmartDashboard.getNumber(FLYWHEEL_TARGET, FLYWHEEL_DEFAULT);
     // read PID coefficients from SmartDashboard
-    double p, i, d, iz, ff;
+    double p, i, d;
+    // double iz, ff;
     if (tuning) {
       p = SmartDashboard.getNumber("P Gain Flywheel", 0);
       i = SmartDashboard.getNumber("I Gain Flywheel", 0);
       d = SmartDashboard.getNumber("D Gain Flywheel", 0);
       
-      iz = SmartDashboard.getNumber("I Zone", 0);
-      ff = SmartDashboard.getNumber("Feed Forward", 0);
+      // iz = SmartDashboard.getNumber("I Zone", 0);
+      // ff = SmartDashboard.getNumber("Feed Forward", 0);
     }
 
     double max = SmartDashboard.getNumber("Max Output", 0);

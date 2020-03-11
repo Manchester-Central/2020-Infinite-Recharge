@@ -8,10 +8,9 @@
 package frc.robot.subsystems.colorsensor;
 
 import com.revrobotics.ColorMatch;
-import com.revrobotics.ColorMatchResult;
+// import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorSensorV3;
 import edu.wpi.first.wpilibj.I2C;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 
 /**
@@ -43,22 +42,22 @@ public class ColorSensor implements IColorSensor {
 
   public void updateColorDashboard() {
 
-    detectedColor = m_colorSensor.getColor();
+    // detectedColor = m_colorSensor.getColor();
 
-    String colorString;
-    ColorMatchResult match = m_colorMatcher.matchClosestColor(detectedColor);
+    // String colorString;
+    // ColorMatchResult match = m_colorMatcher.matchClosestColor(detectedColor);
 
-    if (match.color == kBlueTarget) {
-      colorString = "Blue";
-    } else if (match.color == kRedTarget) {
-      colorString = "Red";
-    } else if (match.color == kGreenTarget) {
-      colorString = "Green";
-    } else if (match.color == kYellowTarget) {
-      colorString = "Yellow";
-    } else {
-      colorString = "Unknown";
-    }
+    // if (match.color == kBlueTarget) {
+    //   colorString = "Blue";
+    // } else if (match.color == kRedTarget) {
+    //   colorString = "Red";
+    // } else if (match.color == kGreenTarget) {
+    //   colorString = "Green";
+    // } else if (match.color == kYellowTarget) {
+    //   colorString = "Yellow";
+    // } else {
+    //   colorString = "Unknown";
+    // }
 
     // SmartDashboard.putNumber("Red", detectedColor.red);
     // SmartDashboard.putNumber("Green", detectedColor.green);

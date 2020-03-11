@@ -10,7 +10,7 @@
 
 package frc.robot;
 
-import java.net.InetAddress;
+// import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 
@@ -26,9 +26,6 @@ import edu.wpi.first.wpilibj.util.Units;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.auto.AutoBuilder;
-import frc.robot.auto.commands.NullCommand;
-import frc.robot.commands.climbtake.ManualClimbtake;
-import frc.robot.commands.drive.DriveSquare;
 import frc.robot.subsystems.drivebase.*;
 import frc.robot.subsystems.camera.*;
 import frc.robot.subsystems.climbtake.*;
@@ -180,7 +177,7 @@ public class Robot extends TimedRobot {
 
     public String getMACAddress() {
         String address = "";
-        InetAddress ip;
+        // InetAddress ip;
         try {
 
             NetworkInterface network = NetworkInterface.getByName("eth0");

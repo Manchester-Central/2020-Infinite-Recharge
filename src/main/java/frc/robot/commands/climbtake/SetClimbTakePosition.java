@@ -9,8 +9,6 @@ package frc.robot.commands.climbtake;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
-import frc.robot.RobotConstants2019;
-import frc.robot.RobotConstants2020;
 
 public class SetClimbTakePosition extends CommandBase {
 

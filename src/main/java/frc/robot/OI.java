@@ -12,7 +12,6 @@ package frc.robot;
 
 import com.chaos131.LogitechF310;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.commands.climbtake.*;
 import frc.robot.commands.drive.DriveDistancePID;
@@ -27,12 +26,11 @@ import frc.robot.commands.turret.AimTurret;
 import frc.robot.commands.turret.AimTurretDashboard;
 import frc.robot.commands.serializer.Unjam;
 import frc.robot.commands.turret.BumperShotAim;
-import frc.robot.commands.turret.FlywheelZero;
 import frc.robot.commands.turret.ManualTurret;
 import frc.robot.commands.turret.PrepareFlywheel;
 import frc.robot.commands.turret.Shoot;
 import frc.robot.commands.turret.TiltSafe;
-import frc.robot.commands.util.Deadline;
+import frc.robot.commands.turret.TurretDefault;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -154,6 +152,8 @@ public class OI {
 
             tester.leftBumper.whileHeld(new AimTurretDashboard());
 
+            tester.leftTrigger.whileHeld(new ManualTurret());
+
         }
 
         // Framework for deadline commandGroup
@@ -166,22 +166,26 @@ public class OI {
         Robot.camera.setDefaultCommand(new SetPipeline(7));
         // Robot.flywheel.setDefaultCommand(new FlywheelZero());
         Robot.flywheel.setDefaultCommand(new RunCommand(() -> Robot.flywheel.coastFlywheel(), Robot.flywheel));
-        Robot.serializer.setDefaultCommand(new SerializerDefault()); // TODO: change to default
+        Robot.serializer.setDefaultCommand(new SerializerDefault());
         Robot.throat.setDefaultCommand(new RunCommand(() -> Robot.throat.ejectorSpeed(false), Robot.throat));
         Robot.unjammer.setDefaultCommand(new RunCommand(() -> Robot.unjammer.spin(true), Robot.unjammer));
-        Robot.turret.setDefaultCommand(new ManualTurret());
+        Robot.turret.setDefaultCommand(new TurretDefault());
         Robot.climbTake.setDefaultCommand(new ManualClimbtake());
 
+    }
+
+    public double testTurretPanTarget() {
+        return tester.getLeftX();
+    }
+
+    public double testTurretTiltTarget() {
+        return tester.getLeftY();
     }
 
     public double getTurretPanTarget() {
         return operator.getLeftX();
     }
-
-    public double getTurretTiltTarget() {
-        return operator.getLeftY();
-    }
-
+    
     public double getLeftSpeed() {
         return driver.getLeftY();
     }

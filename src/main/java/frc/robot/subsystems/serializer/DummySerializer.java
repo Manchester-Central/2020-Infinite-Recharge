@@ -9,7 +9,6 @@ package frc.robot.subsystems.serializer;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Robot;
 
 /**
  * Add your docs here.

@@ -28,7 +28,7 @@ public class RamseteFactory {
     private final double KS = 0.593;
     private final double KV = 0.172;
     private final double KA = 0.0393;
-    private final double RSQUARED = 0.987;
+    // private final double RSQUARED = 0.987;
     private final double TRACK_WIDTH = 117.072;
     private final double MAX_VOLTAGE = 10;
 

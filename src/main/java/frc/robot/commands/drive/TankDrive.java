@@ -7,11 +7,8 @@
 
 package frc.robot.commands.drive;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
-import frc.robot.OI;
-import frc.robot.Robot.RobotType;
 
 public class TankDrive extends CommandBase {
   public TankDrive(double speedScale) {

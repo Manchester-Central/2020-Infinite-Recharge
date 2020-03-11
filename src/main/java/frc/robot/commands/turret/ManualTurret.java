@@ -29,8 +29,8 @@ public class ManualTurret extends CommandBase {
     double xSpeedScale = 0.30;
     double ySpeedScale = 0.5;
 
-    Robot.turret.setPanSpeed(Robot.oi.getTurretPanTarget() * xSpeedScale);
-    Robot.turret.setTiltSpeed(Robot.oi.getTurretTiltTarget() * ySpeedScale);
+    Robot.turret.setPanSpeed(Robot.oi.testTurretPanTarget() * xSpeedScale);
+    Robot.turret.setTiltSpeed(Robot.oi.testTurretTiltTarget() * ySpeedScale);
   }
 
   // Make this return true when this Command no longer needs to run execute()

@@ -7,12 +7,10 @@
 
 package frc.robot.auto.commands;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Robot;
 import frc.robot.auto.ParseCommand;
-import frc.robot.commands.serializer.SerializerDefault;
 import frc.robot.commands.serializer.SerializerFeed;
 import frc.robot.commands.serializer.SerializerStop;
 import frc.robot.commands.turret.PrepareFlywheel;

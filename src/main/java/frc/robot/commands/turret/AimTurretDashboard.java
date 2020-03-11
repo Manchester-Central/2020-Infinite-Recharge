@@ -10,7 +10,6 @@ package frc.robot.commands.turret;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
-import frc.robot.commands.util.DoneCommand;
 
 public class AimTurretDashboard extends CommandBase {
   public AimTurretDashboard() {
@@ -21,7 +20,6 @@ public class AimTurretDashboard extends CommandBase {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }
-  private double offsetX;
 
   // Called just before this Command runs the first time
   @Override

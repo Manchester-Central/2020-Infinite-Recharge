@@ -8,8 +8,8 @@
 package frc.robot.commands.turret;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
+import frc.robot.RobotConstants2020;
 import frc.robot.commands.util.DoneCommand;
 
 public class AimTurret extends DoneCommand {
@@ -20,7 +20,6 @@ public class AimTurret extends DoneCommand {
     SmartDashboard.putNumber("Pan Trim", panTrim);
   }
   private double limelightXAngle, limelightYAngle;
-  private double offsetX;
   private double panTrim = -2.5;
 
   // Called just before this Command runs the first time
@@ -45,6 +44,10 @@ public class AimTurret extends DoneCommand {
       Robot.turret.setPanTarget(limelightXAngle + Robot.turret.getPanAngle() + panTrim);
 
       Robot.flywheel.setTarget(targetData.getSpeed());
+    }
+    else {
+      Robot.turret.setTiltTargetAngle(RobotConstants2020.MIDDLE_HOOD_RAW);
+      Robot.turret.setPanTarget(RobotConstants2020.PAN_ZERO_RAW);
     }
     Robot.turret.PIDDrive(true);
   }
