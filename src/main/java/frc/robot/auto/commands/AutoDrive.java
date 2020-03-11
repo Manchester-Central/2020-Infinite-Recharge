@@ -30,10 +30,10 @@ public class AutoDrive extends BaseAutoCommand {
     @Override
     public void initialize() {
         super.initialize();
-        LogUtils.log("Auto drive init");
         double targetL = Robot.driveBase.getLeftPosition() + distance;
         double targetR = Robot.driveBase.getRightPosition() + distance;
         Robot.driveBase.setTarget(targetL, targetR);
+        LogUtils.log("Auto drive init" + targetL + " " + targetR);
     }
 
     // sets the robot to drive at speed from arguments of parsedCommand

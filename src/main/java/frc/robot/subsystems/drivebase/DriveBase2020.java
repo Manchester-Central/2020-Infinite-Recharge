@@ -36,7 +36,7 @@ import frc.robot.Robot.RobotType;
 /**
  *
  */
-public class DriveBase2020 extends DriveBase {
+public class DriveBase2020 extends SubsystemBase implements IDriveBase {
 
     private Victor left1;
     private Victor left2;
@@ -61,6 +61,8 @@ public class DriveBase2020 extends DriveBase {
     private double setpointLeft, setpointRight;
     private double kP, kI, kD;
     private int currentLimit;
+    public DifferentialDrive differentialDrive1;
+   
 
     private final double pidDoneAllowedPositionError = 1;
     private final double pidDoneAllowedVelocityError = 1;
@@ -141,7 +143,7 @@ public class DriveBase2020 extends DriveBase {
          * new SpeedControllerGroup(rightSpark1, rightSpark2);
          */
 
-        super.setup();
+
 
     }
 
@@ -338,6 +340,13 @@ public class DriveBase2020 extends DriveBase {
     public SpeedControllerGroup getRightDrive() {
         return new SpeedControllerGroup(right1, right2, right3, right4);
     }
+
+    @Override
+    public void tankDrive(double left, double right) {
+        // TODO Auto-generated method stub
+        differentialDrive1.tankDrive(left, right);
+    }
+
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.

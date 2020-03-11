@@ -1,12 +1,3 @@
-setCamera?pipeline=9
-aimTurret?timeMs=5000
-lowerArm?timeMs=5000
-prepareFlywheel?timeMs=2000
-shoot?timeMs=5000
-setIntake?speed=0.3&timeMs=10
-drive?distanceIn=-36
-drive?distanceIn=36
-setIntake?speed=0.0&timeMs=10
-aimTurret?timeMs=5000
-prepareFlywheel?timeMs=2000
-shoot?timeMs=5000
+drive?distanceIn=-36&timeMs=10000
+drive?distanceIn=36&timeMs=10000
+
