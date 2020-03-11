@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.smartdashboard.*;
+import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
@@ -34,13 +35,13 @@ import frc.robot.Robot.RobotType;
 /**
  *
  */
-public interface IDriveBase {
+public interface IDriveBase extends Subsystem {
+
+    public void tankDrive(double left, double right);
 
     public SpeedControllerGroup getLeftDrive();
 
     public SpeedControllerGroup getRightDrive();
-
-    private double encoderInches(WPI_TalonSRX driveInput);
 
     public double encoderInches(CANSparkMax driveInput);
 

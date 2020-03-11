@@ -41,7 +41,7 @@ public class SimpleAutoDrive extends BaseAutoCommand {
     @Override
     public void execute() {
         LogUtils.log("Simple Auto drive executing");
-        Robot.driveBase.differentialDrive1.tankDrive(speed, speed);
+        Robot.driveBase.tankDrive(speed, speed);
     }
 
     public boolean isFinished() {
@@ -51,6 +51,6 @@ public class SimpleAutoDrive extends BaseAutoCommand {
     public void end(boolean interrupted) {
         log("done simple autodrive\n");
         super.end(interrupted);
-        Robot.driveBase.differentialDrive1.tankDrive(0, 0);
+        Robot.driveBase.tankDrive(0, 0);
     }
 }

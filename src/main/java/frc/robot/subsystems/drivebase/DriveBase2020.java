@@ -143,7 +143,7 @@ public class DriveBase2020 extends SubsystemBase implements IDriveBase {
          * new SpeedControllerGroup(rightSpark1, rightSpark2);
          */
 
-        super.setup();
+
 
     }
 
@@ -340,6 +340,13 @@ public class DriveBase2020 extends SubsystemBase implements IDriveBase {
     public SpeedControllerGroup getRightDrive() {
         return new SpeedControllerGroup(right1, right2, right3, right4);
     }
+
+    @Override
+    public void tankDrive(double left, double right) {
+        // TODO Auto-generated method stub
+        differentialDrive1.tankDrive(left, right);
+    }
+
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.

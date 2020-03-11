@@ -153,4 +153,10 @@ public class DummyDrive extends SubsystemBase implements IDriveBase {
     // TODO Auto-generated method stub
     return null;
   }
+
+  @Override
+  public void tankDrive(double left, double right) {
+    // TODO Auto-generated method stub
+
+  }
 }

@@ -37,7 +37,7 @@ public class TankDrive extends CommandBase {
     double rightSpeed = Robot.oi.getRightSpeed() * speedScale;
 
     // Robot.driveBase.tankDriveVolts(leftSpeed, rightSpeed);
-    Robot.driveBase.differentialDrive1.tankDrive(leftSpeed, rightSpeed);
+    Robot.driveBase.tankDrive(leftSpeed, rightSpeed);
   }
 
   // Make this return true when this Command no longer needs to run execute()
