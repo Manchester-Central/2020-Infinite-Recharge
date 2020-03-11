@@ -9,7 +9,7 @@ package frc.robot.auto.commands;
 
 import frc.robot.Robot;
 import frc.robot.auto.ParseCommand;
-import frc.robot.subsystems.drivebase.DriveBase;
+import frc.robot.subsystems.drivebase.IDriveBase;
 import frc.robot.util.LogUtils;
 
 /**

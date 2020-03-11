@@ -67,7 +67,7 @@ public class Robot extends TimedRobot {
     public static RobotType hardware;
 
     public static OI oi;
-    public static DriveBase driveBase;
+    public static IDriveBase driveBase;
     public static IClimbTake2020 climbTake;
     public static IFlywheel flywheel;
     public static ITurret turret;
@@ -131,7 +131,7 @@ public class Robot extends TimedRobot {
             colorSensor = new DummyColorSensor();
             camera = new Camera(34, 47, 2);
             serializer = new DummySerializer();
-            driveBase = new DriveBase2019();
+            driveBase = new DummyDrive();
             throat = new DummyThroat();
             unjammer = new DummyUnjammer();
             intake = new DummyIntake();
@@ -147,7 +147,7 @@ public class Robot extends TimedRobot {
             colorSensor = new DummyColorSensor();
             camera = new DummyCamera();
             serializer = new DummySerializer();
-            driveBase = new DriveBaseRaft();
+            driveBase = new DummyDrive();
             throat = new DummyThroat();
             unjammer = new DummyUnjammer();
             intake = new DummyIntake();

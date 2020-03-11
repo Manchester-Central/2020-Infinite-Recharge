@@ -36,7 +36,7 @@ import frc.robot.Robot.RobotType;
 /**
  *
  */
-public class DriveBase2020 extends DriveBase {
+public class DriveBase2020 extends SubsystemBase implements IDriveBase {
 
     private Victor left1;
     private Victor left2;
@@ -61,6 +61,8 @@ public class DriveBase2020 extends DriveBase {
     private double setpointLeft, setpointRight;
     private double kP, kI, kD;
     private int currentLimit;
+    public DifferentialDrive differentialDrive1;
+   
 
     private final double pidDoneAllowedPositionError = 1;
     private final double pidDoneAllowedVelocityError = 1;
