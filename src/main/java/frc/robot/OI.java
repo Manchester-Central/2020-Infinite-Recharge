@@ -22,6 +22,7 @@ import frc.robot.commands.drive.TurnAnglePID;
 import frc.robot.commands.inputs.SetPipeline;
 import frc.robot.commands.serializer.SerializerDefault;
 import frc.robot.commands.serializer.SerializerStop;
+import frc.robot.commands.turret.AimAndShoot;
 import frc.robot.commands.turret.AimTurret;
 import frc.robot.commands.turret.AimTurretDashboard;
 import frc.robot.commands.serializer.Unjam;
@@ -123,6 +124,7 @@ public class OI {
                 .whileHeld(new SetClimbTakePosition(RobotConstants2020.CLEAR_OF_BALLS, RobotConstants2020.EXTENDER_IN));
 
         operator.selectButton.whileHeld(new TiltSafe());
+        operator.startButton.whileHeld(new AimAndShoot());
 
         operator.leftTrigger.whileHeld(new BumperShotAim());
         operator.leftBumper.whileHeld(new AimTurret().alongWith(new SetPipeline(9)));

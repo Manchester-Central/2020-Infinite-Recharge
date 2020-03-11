@@ -200,6 +200,9 @@ public class Turret extends SubsystemBase implements ITurret {
   }
 
   public void smartDashboardConstants() {
+    
+    SmartDashboard.putBoolean("Target Aligned", isAtTarget());
+    
     if (tuning) {
       double kXP = SmartDashboard.getNumber("P Gain PAN", 0);
       double kXI = SmartDashboard.getNumber("I Gain PAN", 0);
@@ -253,7 +256,6 @@ public class Turret extends SubsystemBase implements ITurret {
         tiltD = kYD;
       }
     }
-    SmartDashboard.putBoolean("Target Aligned", isAtTarget());
 
   }
 

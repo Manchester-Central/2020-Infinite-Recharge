@@ -62,7 +62,7 @@ public class AimTurret extends DoneCommand {
     double panCurrent = Robot.turret.getPanAngle();
     boolean pan = ((panTarget - 2) < panCurrent) && (panCurrent < (panTarget + 2));
 
-    return (tilt && pan);
+    return (tilt && pan) && Robot.camera.hasTarget();
   }
 
   // Called once after isFinished returns true or when interrupted

@@ -159,13 +159,8 @@ public class ClimbTake2020 extends SubsystemBase implements IClimbTake2020 {
   }
 
   public void goToLimit() {
-    if (!getLimitSwitchState()) {
-      double speed = -0.15;
-      setPivotSpeed(speed * maxPivotSpeed);
-    } else {
-      setPivotSpeed(0);
-      pivotBottomPosition = getPivotPosition();
-    }
+    setPivotPosition(RobotConstants2020.INTAKE_POSITION + 0.04);
+    PIDDrivePivot();
   }
   
   public void PIDDriveExtend() {
