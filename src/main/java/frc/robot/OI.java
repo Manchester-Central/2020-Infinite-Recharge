@@ -10,6 +10,7 @@
 
 package frc.robot;
 
+import com.chaos131.Gamepad;
 import com.chaos131.LogitechF310;
 
 import edu.wpi.first.wpilibj2.command.RunCommand;
@@ -67,9 +68,9 @@ public class OI {
     // until it is finished as determined by it's isFinished method.
     // button.whenReleased(new ExampleCommand());
 
-    public LogitechF310 driver;
-    public LogitechF310 operator;
-    public LogitechF310 tester;
+    public Gamepad driver;
+    public Gamepad operator;
+    public Gamepad tester;
 
     public boolean testMode = false;
 
@@ -119,10 +120,10 @@ public class OI {
         /*
          * Operator Testing operator.rightTrigger.whileHeld(() ->
          * Robot.serializer.driveTurnTable(SerializerSpeed.fast), Robot.serializer);
-         * 
+         *
          * operator.rightBumper.whileHeld(() -> Robot.throat.ejectorSpeed(true),
          * Robot.throat);
-         * 
+         *
          * operator.bButton.whileHeld(() -> Robot.flywheel.setFlywheelTargetDashboard(),
          * Robot.flywheel);
          */
