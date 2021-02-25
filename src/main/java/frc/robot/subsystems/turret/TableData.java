@@ -13,17 +13,14 @@ import java.util.Comparator;
  * Add your docs here.
  */
 public class TableData {
-
     private double distance;
     private double speed;
     private double angle;
 
     public TableData(double dist, double spd, double ang) {
-
         distance = dist;
         speed = spd;
         angle = ang;
-
     }
 
     public static Comparator<TableData> getComparator() {
@@ -46,5 +43,4 @@ public class TableData {
     public double getAngle() {
         return angle;
     }
-
 }

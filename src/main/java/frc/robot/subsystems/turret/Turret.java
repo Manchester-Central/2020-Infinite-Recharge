@@ -7,33 +7,44 @@
 
 package frc.robot.subsystems.turret;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotConstants2020;
 import frc.robot.util.LogUtils;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-
 /**
  * Add your docs here.
  */
 public class Turret extends SubsystemBase implements ITurret {
   final boolean tuning = false;
+  private int minRawTilt = RobotConstants2020.MIN_HOOD_RAW;
+  private int maxRawTilt = RobotConstants2020.MAX_HOOD_RAW;
+  private int minRawPan = RobotConstants2020.MIN_PAN_RAW;
+  private int maxRawPan = RobotConstants2020.MAX_PAN_RAW;
+  // private double minAnglePan, maxAnglePan;
+  // private double slopePan, interceptPan;
+  PIDController pidPan, pidTilt, camPanPID;
+  WPI_TalonSRX speedControllerPan, speedControllerTilt;
+  double panMultiplier = 0.05;
+
+  private double panP = 0.06;
+  private double panI = 0.02;
+  private double panD = 0.015;
+  private double camPanP = 0.06;
+  private double camPanI = 0.02;
+  private double camPanD = 0;
+  private double tiltP = 0.4;
+  private double tiltI = 0;
+  private double tiltD = 0;
+  private double panError = 0.1;
+  private double tiltError = 0.1;
 
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
   public Turret() {
-    panP = 0.06;
-    panI = 0.02;
-    panD = 0.015;
-    camPanP = 0.06;
-    camPanI = 0.02;
-    camPanD = 0;
-    tiltP = 0.4;
-    tiltI = 0;
-    tiltD = 0;
-
     camPanPID = new PIDController(camPanP, camPanI, camPanD);
     pidPan = new PIDController(panP, panI, panD);
     pidTilt = new PIDController(tiltP, tiltI, tiltD);
@@ -42,11 +53,6 @@ public class Turret extends SubsystemBase implements ITurret {
     speedControllerTilt = new WPI_TalonSRX(RobotConstants2020.TURRET_HOOD);
 
     speedControllerPan.configOpenloopRamp(0.075);
-
-    minRawPan = RobotConstants2020.MIN_PAN_RAW;
-    maxRawPan = RobotConstants2020.MAX_PAN_RAW;
-    minRawTilt = RobotConstants2020.MIN_HOOD_RAW;
-    maxRawTilt = RobotConstants2020.MAX_HOOD_RAW;
 
     // set PID coefficients
     pidPan.setP(panP);
@@ -87,21 +93,7 @@ public class Turret extends SubsystemBase implements ITurret {
     // double angleRange = maxAnglePan - minAnglePan;
     // slopePan = angleRange/rawRange;
     // interceptPan = maxAnglePan - (slopePan * maxRawPan);
-
-    panError = 0.1;
-    tiltError = 0.1;
-
   }
-
-  private double panP, panI, panD, tiltP, tiltI, tiltD, camPanP, camPanI, camPanD;
-  private int minRawTilt, maxRawTilt, minRawPan, maxRawPan;
-  // private double minAnglePan, maxAnglePan;
-  // private double slopePan, interceptPan;
-  PIDController pidPan, pidTilt, camPanPID;
-  WPI_TalonSRX speedControllerPan, speedControllerTilt;
-  private double panError, tiltError;
-
-  double panMultiplier = 0.05;
 
   private double turretPanRawToDegrees(double raw) {
     // return ((-0.0062 * raw * raw) + (4.418 * raw) - 684.81);
@@ -121,10 +113,11 @@ public class Turret extends SubsystemBase implements ITurret {
   }
 
   public void setPanSpeed(double speed) {
-    if (speedControllerPan.getSensorCollection().getAnalogInRaw() <= minRawPan && speed < 0) {
+    int rawPanValue = speedControllerPan.getSensorCollection().getAnalogInRaw();
+    if (rawPanValue <= minRawPan && speed < 0) {
       speed = 0;
     }
-    if (speedControllerPan.getSensorCollection().getAnalogInRaw() >= maxRawPan && speed > 0) {
+    if (rawPanValue >= maxRawPan && speed > 0) {
       speed = 0;
     }
     speedControllerPan.set(speed);
@@ -151,10 +144,11 @@ public class Turret extends SubsystemBase implements ITurret {
   }
 
   public void setTiltSpeed(double speed) {
-    if (speedControllerTilt.getSensorCollection().getAnalogInRaw() <= minRawTilt && speed < 0) {
+    int rawTiltValue = speedControllerTilt.getSensorCollection().getAnalogInRaw();
+    if (rawTiltValue <= minRawTilt && speed < 0) {
       speed = 0;
     }
-    if (speedControllerTilt.getSensorCollection().getAnalogInRaw() >= maxRawTilt && speed > 0) {
+    if (rawTiltValue >= maxRawTilt && speed > 0) {
       speed = 0;
     }
     SmartDashboard.putNumber("Turret Y Speed", speed);
@@ -263,13 +257,15 @@ public class Turret extends SubsystemBase implements ITurret {
   private boolean isAtPanTarget() {
     double target = getPanTarget();
     double position = getPanAngle();
-    return ((position <= target + panError) && (position >= target - panError));
+    double currentError = Math.abs(target - position);
+    return currentError <= panError;
   }
 
   private boolean isAtTiltTarget() {
     double target = getTiltTarget();
     double position = getTiltAngle();
-    return ((position <= target + tiltError) && (position >= target - tiltError));
+    double currentError = Math.abs(target - position);
+    return currentError <= tiltError;
   }
 
   public boolean isAtTarget() {
