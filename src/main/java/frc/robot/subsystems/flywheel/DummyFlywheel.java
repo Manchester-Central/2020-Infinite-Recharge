@@ -22,7 +22,6 @@ public class DummyFlywheel extends SubsystemBase implements IFlywheel {
   public final String DUMMY_FLYWHEEL_CURRENT_SPEED = "Dummy flywheel current speed";
 
   public DummyFlywheel() {
-
     SmartDashboard.putNumber(DUMMY_FLYWHEEL_CURRENT_SPEED, 0);
   }
 
@@ -30,7 +29,6 @@ public class DummyFlywheel extends SubsystemBase implements IFlywheel {
     // SmartDashboard.putNumber("Flywheel setPoint", setPoint);
     // SmartDashboard.putNumber("Dummy flywheel time", System.currentTimeMillis());
     SmartDashboard.putBoolean("Is Flywheel Accelerating", true);
-
   }
 
   public double getFlywheelSpeed() {
@@ -40,7 +38,6 @@ public class DummyFlywheel extends SubsystemBase implements IFlywheel {
   public void setFlywheelTargetDirect(double power) {
     SmartDashboard.putNumber("Flywheel target power", power);
     SmartDashboard.putBoolean("Is Flywheel Accelerating", false);
-
   }
 
   public void addFlywheelSmartDashboard() {
@@ -62,8 +59,4 @@ public class DummyFlywheel extends SubsystemBase implements IFlywheel {
     SmartDashboard.putBoolean("Is Flywheel Accelerating", false);
   }
 
-  @Override
-  public double getCurrentFlywheelRPM() {
-    return getFlywheelSpeed();
-  }
 }

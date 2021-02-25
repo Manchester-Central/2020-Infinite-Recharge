@@ -32,7 +32,7 @@ public class AutoPrepareFlywheel extends BaseAutoCommand {
   public void initialize() {
     super.initialize();
     LogUtils.log("AutoPrepareFlywheel init");
-    currentFlywheelRPM = Robot.flywheel.getCurrentFlywheelRPM();
+    currentFlywheelRPM = Robot.flywheel.getFlywheelSpeed();
     targetFlywheelRPM = Robot.flywheel.getFlywheelSetPoint();
   }
 
@@ -40,7 +40,7 @@ public class AutoPrepareFlywheel extends BaseAutoCommand {
   @Override
   public void execute() {
     LogUtils.log("AutoPrepareFlywheel executing");
-    currentFlywheelRPM = Robot.flywheel.getCurrentFlywheelRPM();
+    currentFlywheelRPM = Robot.flywheel.getFlywheelSpeed();
     targetFlywheelRPM = Robot.flywheel.getFlywheelSetPoint();
     Robot.flywheel.accelerateToSetPoint();
   }

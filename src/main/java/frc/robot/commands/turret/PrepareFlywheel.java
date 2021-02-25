@@ -24,7 +24,7 @@ public class PrepareFlywheel extends DoneCommand {
   // Called just before this Command runs the first time
   @Override
   public void initialize() {
-    currentFlywheelRPM = Robot.flywheel.getCurrentFlywheelRPM();
+    currentFlywheelRPM = Robot.flywheel.getFlywheelSpeed();
     targetFlywheelRPM = Robot.flywheel.getFlywheelSetPoint();
   }
 
@@ -32,7 +32,7 @@ public class PrepareFlywheel extends DoneCommand {
   @Override
   public void execute() {
 
-    currentFlywheelRPM = Robot.flywheel.getCurrentFlywheelRPM();
+    currentFlywheelRPM = Robot.flywheel.getFlywheelSpeed();
     targetFlywheelRPM = Robot.flywheel.getFlywheelSetPoint();
     Robot.flywheel.accelerateToSetPoint();
 

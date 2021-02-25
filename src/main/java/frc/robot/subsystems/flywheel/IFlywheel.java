@@ -27,6 +27,4 @@ public interface IFlywheel extends Subsystem {
     public void addFlywheelSmartDashboard();
 
     public void coastFlywheel();
-
-    public double getCurrentFlywheelRPM();
 }
