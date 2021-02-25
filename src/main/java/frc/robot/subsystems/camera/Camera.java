@@ -17,7 +17,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
  * Add your docs here.
  */
 
-public class Camera extends SubsystemBase implements ICamera{
+public class Camera extends SubsystemBase implements ICamera {
 
     NetworkTableEntry tv, tx, ty, ta, ts, tl, tshort, tlong, thor, tvert, getpipe, camtran, pipeline, ledMode;
     double robotHeight, totalHeight, offsetAngle;
@@ -50,9 +50,10 @@ public class Camera extends SubsystemBase implements ICamera{
 
     /***
      * returns the Camera network table
+     *
      * @return Camera NetworkTable
      */
-    public NetworkTable getTable () {
+    public NetworkTable getTable() {
         return NetworkTableInstance.getDefault().getTable("limelight");
     }
 

@@ -30,16 +30,18 @@ public class ParseCommand {
         System.out.println("CommandName: " + commandName);
 
         // if no arguments, stop
-        if(splitStrings.length < 2) {
+        if (splitStrings.length < 2) {
             return;
         }
 
         // stores right side of split for further use
         String rightSide = splitStrings[1];
-        
-        // for each loop: for every & symbol in string, split into new chunk and assign to array
-        for(String argString : rightSide.split("&")) {
-            // for every "=" symbol in the & chunk, split into new chunk and assign to array splitArgs
+
+        // for each loop: for every & symbol in string, split into new chunk and assign
+        // to array
+        for (String argString : rightSide.split("&")) {
+            // for every "=" symbol in the & chunk, split into new chunk and assign to array
+            // splitArgs
             String[] splitArgs = argString.split("=");
             // adds the arguments to map list arguments above
             arguments.put(splitArgs[0], splitArgs[1]);
@@ -53,6 +55,7 @@ public class ParseCommand {
 
     /***
      * returns arguments assigned from for each loop, found in map arguments
+     *
      * @param key
      * @return arguments in specific key
      */

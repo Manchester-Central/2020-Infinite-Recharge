@@ -18,7 +18,6 @@ public class DummyNavX extends SubsystemBase implements INavX {
 
   AHRS sensor;
 
-
   public DummyNavX() {
   }
 

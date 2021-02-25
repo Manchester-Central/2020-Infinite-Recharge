@@ -19,11 +19,11 @@ public interface IFlywheel extends Subsystem {
     public void accelerateToSetPoint();
 
     public void setTarget(double target);
-    
+
     public double getFlywheelSpeed();
-  
+
     public void setFlywheelTargetDirect(double speed);
-  
+
     public void addFlywheelSmartDashboard();
 
     public void coastFlywheel();

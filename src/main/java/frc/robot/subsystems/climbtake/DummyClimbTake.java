@@ -23,7 +23,7 @@ public class DummyClimbTake implements IClimbTake2020 {
   }
 
   public void setPivotPositionUNSAFE(double target) {
-    
+
     double speedScale = 0.25;
     SmartDashboard.putNumber("Pivot climbtake speed", (target * speedScale));
 
@@ -46,7 +46,7 @@ public class DummyClimbTake implements IClimbTake2020 {
 
   @Override
   public void periodic() {
-    
+
   }
 
   @Override

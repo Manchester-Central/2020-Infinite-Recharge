@@ -12,26 +12,21 @@ package frc.robot.subsystems.drivebase;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.CANSparkMax;
+
+import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
-import edu.wpi.first.wpilibj.smartdashboard.*;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
-import edu.wpi.first.wpilibj.Victor;
-import frc.robot.commands.climbtake.SamShimmy;
-import frc.robot.commands.drive.*;
-import frc.robot.util.LogUtils;
 import frc.robot.Robot;
-import frc.robot.RobotConstants2019;
 import frc.robot.RobotConstants2020;
-import frc.robot.RobotConstantsRaft;
-import frc.robot.Robot.RobotType;
+import frc.robot.util.LogUtils;
 
 /**
  *
@@ -62,7 +57,6 @@ public class DriveBase2020 extends SubsystemBase implements IDriveBase {
     private double kP, kI, kD;
     private int currentLimit;
     public DifferentialDrive differentialDrive1;
-   
 
     private final double pidDoneAllowedPositionError = 1;
     private final double pidDoneAllowedVelocityError = 1;
@@ -103,16 +97,16 @@ public class DriveBase2020 extends SubsystemBase implements IDriveBase {
         leftDrive = new SpeedControllerGroup(leftSpark1, leftSpark2);
         rightDrive = new SpeedControllerGroup(rightSpark1, rightSpark2);
 
-        if (tuning){
+        if (tuning) {
             SmartDashboard.putNumber("P Gain Drive", 0);
             SmartDashboard.putNumber("I Gain Drive", 0);
             SmartDashboard.putNumber("D Gain Drive", 0);
         }
 
-        //addChild("LeftDrive", leftDrive);
-        //addChild("RightDrive", rightDrive);
+        // addChild("LeftDrive", leftDrive);
+        // addChild("RightDrive", rightDrive);
         differentialDrive1 = new DifferentialDrive(leftDrive, rightDrive);
-        //addChild("Differential Drive 1", differentialDrive1);
+        // addChild("Differential Drive 1", differentialDrive1);
         differentialDrive1.setSafetyEnabled(true);
         differentialDrive1.setExpiration(0.1);
         differentialDrive1.setMaxOutput(1.0);
@@ -126,25 +120,22 @@ public class DriveBase2020 extends SubsystemBase implements IDriveBase {
          * leftSpark1 = new CANSparkMax(RobotConstants2020.DRIVE_LEFT_SPARKMAX_A,
          * CANSparkMax.MotorType.kBrushless); // addChild("Left1", leftSpark1);
          * leftSpark1.setInverted(false);
-         * 
+         *
          * leftSpark2 = new CANSparkMax(RobotConstants2020.DRIVE_LEFT_SPARKMAX_B,
          * CANSparkMax.MotorType.kBrushless); // addChild("Left2", leftSpark2);
          * leftSpark2.setInverted(false);
-         * 
+         *
          * rightSpark1 = new CANSparkMax(RobotConstants2020.DRIVE_RIGHT_SPARKMAX_A,
          * CANSparkMax.MotorType.kBrushless); // addChild("Right1", rightSpark1);
          * rightSpark1.setInverted(false);
-         * 
+         *
          * rightSpark2 = new CANSparkMax(RobotConstants2020.DRIVE_RIGHT_SPARKMAX_B,
          * CANSparkMax.MotorType.kBrushless); // addChild("Right2", rightSpark2);
          * rightSpark2.setInverted(false);
-         * 
+         *
          * leftDrive = new SpeedControllerGroup(leftSpark1, leftSpark2); rightDrive =
          * new SpeedControllerGroup(rightSpark1, rightSpark2);
          */
-
-
-
     }
 
     protected double encoderInches(WPI_TalonSRX driveInput) {
@@ -276,7 +267,7 @@ public class DriveBase2020 extends SubsystemBase implements IDriveBase {
         return odometer.getPoseMeters();
     }
 
-    public void resetPosition(){
+    public void resetPosition() {
         rightSpark1.getEncoder().setPosition(0);
         leftSpark1.getEncoder().setPosition(0);
     }
@@ -346,7 +337,6 @@ public class DriveBase2020 extends SubsystemBase implements IDriveBase {
         // TODO Auto-generated method stub
         differentialDrive1.tankDrive(left, right);
     }
-
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.

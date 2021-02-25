@@ -32,7 +32,7 @@ public class TimeAutoCondition implements IAutoCondition {
     @Override
     public boolean isDone() {
         boolean result = (System.currentTimeMillis() - startTime) > timeMs;
-        //LogUtils.log("TimeAutoCondition done? %s\n", result ? "T" : "F");
+        // LogUtils.log("TimeAutoCondition done? %s\n", result ? "T" : "F");
         return result;
     }
 }

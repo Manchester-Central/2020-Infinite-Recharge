@@ -73,6 +73,6 @@ public abstract class BaseAutoCommand extends CommandBase {
     public void log(java.lang.String format, java.lang.Object... args) {
         var timestamp = String.format("%s - ", new Timestamp((new Date().getTime())));
         var message = String.format(format, args);
-        LogUtils.log(timestamp + " - " +  message);
+        LogUtils.log(timestamp + " - " + message);
     }
 }

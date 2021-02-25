@@ -38,7 +38,7 @@ public interface ITurret extends Subsystem {
   public void setTurretAngleDashboard();
 
   public double getTiltTarget();
-  
+
   public double getPanTarget();
 
   public void PIDDriveTilt();

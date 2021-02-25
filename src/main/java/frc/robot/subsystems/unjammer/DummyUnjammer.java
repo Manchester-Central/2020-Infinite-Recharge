@@ -13,13 +13,13 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 /**
  * Add your docs here.
  */
-public class DummyUnjammer extends SubsystemBase implements IUnjammer{
+public class DummyUnjammer extends SubsystemBase implements IUnjammer {
 
   @Override
   public void spin(boolean on) {
     SmartDashboard.putBoolean("Unjammer on", on);
   }
 
-  public void unJam(){
+  public void unJam() {
   }
 }

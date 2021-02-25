@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class Deadline extends CommandBase {
-  private Deadline(DoneCommand ... commandList) {
+  private Deadline(DoneCommand... commandList) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     commands = new ArrayList<DoneCommand>();
@@ -25,7 +25,7 @@ public class Deadline extends CommandBase {
 
   ArrayList<DoneCommand> commands;
 
-  public static Command createDeadline(DoneCommand ... commandList) {
+  public static Command createDeadline(DoneCommand... commandList) {
     var deadLine = new Deadline(commandList);
     return deadLine.deadlineWith(commandList);
   }
@@ -45,7 +45,7 @@ public class Deadline extends CommandBase {
   @Override
   public boolean isFinished() {
     for (DoneCommand command : commands) {
-      if (!command.isDone()){
+      if (!command.isDone()) {
         return false;
       }
     }

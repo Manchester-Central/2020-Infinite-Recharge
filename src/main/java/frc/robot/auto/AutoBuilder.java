@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.auto.commands.*;
 
 /**
- * 
+ *
  */
 public class AutoBuilder {
 
@@ -48,30 +48,30 @@ public class AutoBuilder {
     // depending on the arguments, creates new object
     private Command getCommand(ParseCommand parsedCommand) {
         switch (parsedCommand.commandName) {
-        case AutoDrive.COMMAND_NAME:
-            return new AutoDrive(parsedCommand);
-        case SimpleAutoDrive.COMMAND_NAME:
-            return new SimpleAutoDrive(parsedCommand);
-        case DoNothing.COMMAND_NAME:
-            return new DoNothing(parsedCommand);
-        case TurnAngleRobot.COMMAND_NAME:
-            return new TurnAngleRobot(parsedCommand);
-        case AimTurret.COMMAND_NAME:
-            return new AimTurret(parsedCommand);
-        case MoveToIntakePosition.COMMAND_NAME:
-            //return new MoveToIntakePosition(parsedCommand);
-            return new NullCommand();
-        case SetCameraState.COMMAND_NAME:
-            return new SetCameraState(parsedCommand);
-        case AutoPrepareFlywheel.COMMAND_NAME:
-            return new AutoPrepareFlywheel(parsedCommand);
-        case AutoShoot.COMMAND_NAME:
-            return new AutoShoot(parsedCommand);
-        case SetIntakeState.COMMAND_NAME:
-            return new SetIntakeState(parsedCommand);
-        default:
-            System.out.println("Auto command not recognized: " + parsedCommand);
-            return new NullCommand();
+            case AutoDrive.COMMAND_NAME:
+                return new AutoDrive(parsedCommand);
+            case SimpleAutoDrive.COMMAND_NAME:
+                return new SimpleAutoDrive(parsedCommand);
+            case DoNothing.COMMAND_NAME:
+                return new DoNothing(parsedCommand);
+            case TurnAngleRobot.COMMAND_NAME:
+                return new TurnAngleRobot(parsedCommand);
+            case AimTurret.COMMAND_NAME:
+                return new AimTurret(parsedCommand);
+            case MoveToIntakePosition.COMMAND_NAME:
+                // return new MoveToIntakePosition(parsedCommand);
+                return new NullCommand();
+            case SetCameraState.COMMAND_NAME:
+                return new SetCameraState(parsedCommand);
+            case AutoPrepareFlywheel.COMMAND_NAME:
+                return new AutoPrepareFlywheel(parsedCommand);
+            case AutoShoot.COMMAND_NAME:
+                return new AutoShoot(parsedCommand);
+            case SetIntakeState.COMMAND_NAME:
+                return new SetIntakeState(parsedCommand);
+            default:
+                System.out.println("Auto command not recognized: " + parsedCommand);
+                return new NullCommand();
         }
     }
 }

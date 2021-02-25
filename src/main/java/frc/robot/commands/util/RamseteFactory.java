@@ -61,4 +61,3 @@ public class RamseteFactory {
         return makeRamseteCommand("PathWeaverTest.wpilib.json");
     }
 }
-

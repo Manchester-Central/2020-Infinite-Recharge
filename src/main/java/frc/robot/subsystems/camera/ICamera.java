@@ -12,9 +12,9 @@ import edu.wpi.first.wpilibj2.command.Subsystem;
 /**
  * Add your docs here.
  */
-public interface ICamera extends Subsystem{
+public interface ICamera extends Subsystem {
     public double getXAngle();
-    
+
     public double getYAngle();
 
     public boolean hasTarget();
@@ -28,6 +28,7 @@ public interface ICamera extends Subsystem{
     // }
 
     public void updateDashboard();
+
     // Calculates angle
     // 2-degree offset hardcoded for raft testing
     public double getDistance();

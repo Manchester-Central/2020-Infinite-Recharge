@@ -16,6 +16,7 @@ public class AutoPrepareFlywheel extends BaseAutoCommand {
 
   public static final String COMMAND_NAME = "prepareFlywheel";
   double currentFlywheelRPM, targetFlywheelRPM;
+
   /**
    * Creates a new AutoPrepareFlywheel.
    */

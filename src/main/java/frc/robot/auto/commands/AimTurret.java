@@ -52,12 +52,12 @@ public class AimTurret extends BaseAutoCommand {
 
     }
     Robot.turret.PIDDrive(true);
-    //log("Aim executed");
+    // log("Aim executed");
 
   }
 
   public void end(boolean interrupted) {
     log("aim end %s\n", interrupted ? "T" : "F");
     super.end(interrupted);
-}
+  }
 }

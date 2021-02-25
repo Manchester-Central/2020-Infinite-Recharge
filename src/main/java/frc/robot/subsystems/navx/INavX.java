@@ -9,12 +9,10 @@ package frc.robot.subsystems.navx;
 
 import edu.wpi.first.wpilibj2.command.Subsystem;
 
-
 /**
  * Add your docs here.
  */
 public interface INavX extends Subsystem {
-
 
   public double getNavAngle();
 

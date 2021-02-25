@@ -36,7 +36,7 @@ public class ManualClimbtake extends CommandBase {
       Robot.climbTake.goToLimit();
       seenLimit = Robot.climbTake.getLimitSwitchState();
     } else {
-     Robot.climbTake.setPivotSpeed(0);
+      Robot.climbTake.setPivotSpeed(0);
     }
     Robot.climbTake.setExtenderSpeed(Robot.oi.manualTestExtend());
   }

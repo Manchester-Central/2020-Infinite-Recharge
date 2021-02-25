@@ -41,7 +41,7 @@ public class Flywheel extends SubsystemBase implements IFlywheel {
 
     flywheelA.setInverted(false);
     flywheelB.setInverted(true);
-    
+
     flywheelA.setIdleMode(CANSparkMax.IdleMode.kCoast);
     flywheelB.setIdleMode(CANSparkMax.IdleMode.kCoast);
 
@@ -49,7 +49,7 @@ public class Flywheel extends SubsystemBase implements IFlywheel {
     m_pidControllerB = flywheelB.getPIDController();
 
     m_encoder = flywheelA.getEncoder();
-  
+
     // PID coefficients
     kP = 0.0002;
     kI = 0;
@@ -64,18 +64,17 @@ public class Flywheel extends SubsystemBase implements IFlywheel {
     m_pidControllerA.setP(kP);
     m_pidControllerA.setI(kI);
     m_pidControllerA.setD(kD);
-    
+
     m_pidControllerB.setP(kP);
     m_pidControllerB.setI(kI);
     m_pidControllerB.setD(kD);
-
 
     // m_pidController.setIntegratorRange(minimumIntegral, maximumIntegral);
     // m_pidController.setIZone(kIz);
 
     // m_pidControllerA.setFF(kFF);
     m_pidControllerA.setOutputRange(kMinOutput, kMaxOutput);
-    
+
     // m_pidControllerB.setFF(kFF);
     m_pidControllerB.setOutputRange(kMinOutput, kMaxOutput);
 
@@ -88,7 +87,6 @@ public class Flywheel extends SubsystemBase implements IFlywheel {
       SmartDashboard.putNumber("Feed Forward Flywheel", kFF);
     }
     SmartDashboard.putNumber(FLYWHEEL_TARGET, 0);
-
 
     SmartDashboard.putNumber("Max Output Flywheel", kMaxOutput);
     SmartDashboard.putNumber("Min Output Flywheel", kMinOutput);
@@ -109,7 +107,7 @@ public class Flywheel extends SubsystemBase implements IFlywheel {
       p = SmartDashboard.getNumber("P Gain Flywheel", 0);
       i = SmartDashboard.getNumber("I Gain Flywheel", 0);
       d = SmartDashboard.getNumber("D Gain Flywheel", 0);
-      
+
       // iz = SmartDashboard.getNumber("I Zone", 0);
       // ff = SmartDashboard.getNumber("Feed Forward", 0);
     }
@@ -147,8 +145,8 @@ public class Flywheel extends SubsystemBase implements IFlywheel {
       } */
    }
     if ((max != kMaxOutput) || (min != kMinOutput)) {
-      //m_pidControllerA.setOutputRange(min, max);
-      //m_pidControllerB.setOutputRange(min, max);
+      // m_pidControllerA.setOutputRange(min, max);
+      // m_pidControllerB.setOutputRange(min, max);
       kMinOutput = min;
       kMaxOutput = max;
     }
@@ -175,7 +173,6 @@ public class Flywheel extends SubsystemBase implements IFlywheel {
   public double getCurrentFlywheelRPM() {
     return m_encoder.getVelocity();
   }
-  
 
   public double getFlywheelSpeed() {
     return flywheelA.getEncoder().getVelocity();
@@ -211,7 +208,7 @@ public class Flywheel extends SubsystemBase implements IFlywheel {
   }
 
   @Override
-  public void periodic(){
+  public void periodic() {
     addFlywheelSmartDashboard();
   }
 

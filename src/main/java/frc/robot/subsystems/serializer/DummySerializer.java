@@ -19,12 +19,11 @@ public class DummySerializer extends SubsystemBase implements ISerializer {
     SmartDashboard.putString("Serializer speed", speed.toString());
   }
 
-  public void manualSpeed(boolean on){
+  public void manualSpeed(boolean on) {
     SmartDashboard.putBoolean("Serializer manual on", on);
     SmartDashboard.putString("Serializer speed", "off");
   }
 
-  
   public void unJam() {
     SmartDashboard.putBoolean("Serializer Unjamming", true);
   }

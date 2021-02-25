@@ -13,6 +13,7 @@ import frc.robot.auto.ParseCommand;
 public class MoveToIntakePosition extends BaseAutoCommand {
 
   public static final String COMMAND_NAME = "lowerArm";
+
   /**
    * Creates a new MoveToIntakePosition.
    */

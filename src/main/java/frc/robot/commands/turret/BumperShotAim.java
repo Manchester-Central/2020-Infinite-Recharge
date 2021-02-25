@@ -16,7 +16,7 @@ public class BumperShotAim extends CommandBase {
   }
 
   private final double FLYWHEEL_SPEED = 4500;
-  private final double TURRET_TILT = 65; 
+  private final double TURRET_TILT = 65;
 
   // Called just before this Command runs the first time
   @Override

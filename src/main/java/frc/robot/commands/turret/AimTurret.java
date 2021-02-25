@@ -19,6 +19,7 @@ public class AimTurret extends DoneCommand {
     // eg. requires(chassis);
     SmartDashboard.putNumber("Pan Trim", panTrim);
   }
+
   private double limelightXAngle, limelightYAngle;
   private double panTrim = -2.5;
 
@@ -44,8 +45,7 @@ public class AimTurret extends DoneCommand {
       Robot.turret.setPanTarget(limelightXAngle + Robot.turret.getPanAngle() + panTrim);
 
       Robot.flywheel.setTarget(targetData.getSpeed());
-    }
-    else {
+    } else {
       Robot.turret.setTiltTargetAngle(RobotConstants2020.MIDDLE_HOOD_RAW);
       Robot.turret.setPanTarget(RobotConstants2020.PAN_ZERO_RAW);
     }

@@ -16,15 +16,15 @@ import frc.robot.RobotConstants2020;
 /**
  * Add your docs here.
  */
-public class Throat extends SubsystemBase implements IThroat{
-  
+public class Throat extends SubsystemBase implements IThroat {
+
   private CANSparkMax ejector;
 
-  public Throat(){
+  public Throat() {
     ejector = new CANSparkMax(RobotConstants2020.EJECTER_SPARKMAX, MotorType.kBrushless);
     ejector.setInverted(true);
     ejector.setIdleMode(CANSparkMax.IdleMode.kCoast);
-  
+
   }
 
   public void ejectorSpeed(boolean on) {
@@ -38,14 +38,12 @@ public class Throat extends SubsystemBase implements IThroat{
   public double getThroatSpeed() {
     return ejector.getEncoder().getVelocity();
   }
-  
+
   public void unJam() {
     ejector.set(-1); // TODO: check with Dan for magnitude
   }
 
-
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
-  
 }

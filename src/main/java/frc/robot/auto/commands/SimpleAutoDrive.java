@@ -9,7 +9,6 @@ package frc.robot.auto.commands;
 
 import frc.robot.Robot;
 import frc.robot.auto.ParseCommand;
-import frc.robot.subsystems.drivebase.IDriveBase;
 import frc.robot.util.LogUtils;
 
 /**
@@ -24,9 +23,8 @@ public class SimpleAutoDrive extends BaseAutoCommand {
         super(parsedCommand);
         addRequirements(Robot.driveBase);
 
-        var speedArgument =  parsedCommand.getArgument("speed");
-        if(speedArgument != null)
-        {
+        var speedArgument = parsedCommand.getArgument("speed");
+        if (speedArgument != null) {
             speed = Double.parseDouble(speedArgument);
         }
     }

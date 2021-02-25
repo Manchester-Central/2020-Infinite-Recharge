@@ -13,11 +13,11 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 /**
  * Add your docs here.
  */
-public class DummyThroat extends SubsystemBase implements IThroat{
+public class DummyThroat extends SubsystemBase implements IThroat {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-  
-  public void ejectorSpeed(boolean on){
+
+  public void ejectorSpeed(boolean on) {
     SmartDashboard.putBoolean("Throat on?", on);
   }
 
@@ -30,5 +30,5 @@ public class DummyThroat extends SubsystemBase implements IThroat{
     // TODO Auto-generated method stub
     return 0;
   }
-  
+
 }

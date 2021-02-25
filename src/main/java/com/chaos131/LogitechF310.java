@@ -14,8 +14,8 @@ import edu.wpi.first.wpilibj2.command.button.POVButton;
 /**
  * Add your docs here.
  */
-public class LogitechF310 extends Joystick{
-    public LogitechF310 (int port){
+public class LogitechF310 extends Joystick {
+    public LogitechF310(int port) {
         super(port);
         xButton = new JoystickButton(this, LEFT_X);
         aButton = new JoystickButton(this, DOWN_A);
@@ -34,7 +34,7 @@ public class LogitechF310 extends Joystick{
         dPadDown = new POVButton(this, DPAD_DOWN);
         dPadLeft = new POVButton(this, DPAD_LEFT);
     }
-    
+
     private static final int LEFT_X = 1;
     private static final int DOWN_A = 2;
     private static final int RIGHT_B = 3;
@@ -53,7 +53,7 @@ public class LogitechF310 extends Joystick{
     private static final int DPAD_UP = 0;
     private static final int DPAD_RIGHT = 90;
     private static final int DPAD_DOWN = 180;
-    private static final int DPAD_LEFT = 270; 
+    private static final int DPAD_LEFT = 270;
 
     public JoystickButton aButton;
     public JoystickButton bButton;
@@ -96,11 +96,11 @@ public class LogitechF310 extends Joystick{
         return -Math.toDegrees(Math.atan2(-x, y));
     }
 
-    public double getRightJoystickAngle(){
+    public double getRightJoystickAngle() {
         return calculateAngle(getRightX(), getRightY());
     }
 
-    public double getLeftJoystickAngle(){
+    public double getLeftJoystickAngle() {
         return calculateAngle(getLeftX(), getLeftY());
     }
 }

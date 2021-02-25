@@ -12,8 +12,8 @@ import edu.wpi.first.wpilibj2.command.Subsystem;
 /**
  * Add your docs here.
  */
-public interface IIntake extends Subsystem{
-    
+public interface IIntake extends Subsystem {
+
   public void setSpeedIntake(double speed);
-  
+
 }

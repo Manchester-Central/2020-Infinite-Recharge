@@ -32,7 +32,7 @@ public class DummyTurret extends SubsystemBase implements ITurret {
   public void setPanSpeedUnsafe(double speed) {
     SmartDashboard.putNumber("Pan Speed", speed);
   }
-  
+
   public void setTiltSpeedUnsafe(double speed) {
     SmartDashboard.putNumber("Hood Speed", speed);
   }

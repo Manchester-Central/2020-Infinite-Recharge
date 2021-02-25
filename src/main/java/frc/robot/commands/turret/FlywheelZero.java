@@ -23,7 +23,6 @@ public class FlywheelZero extends CommandBase {
     Robot.flywheel.setFlywheelTargetDirect(0);
   }
 
-
   // Called once after isFinished returns true
   @Override
   public void end(boolean interrupted) {

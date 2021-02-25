@@ -10,28 +10,30 @@ package frc.robot.util;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- * A class to to  log  things based on a static flag 'loggingEnabled'
+ * A class to to log things based on a static flag 'loggingEnabled'
  */
 public class LogUtils {
-    private LogUtils() {}
+    private LogUtils() {
+    }
+
     public static boolean loggingEnabled = false;
 
     public static void log(String message) {
-        if(loggingEnabled){
+        if (loggingEnabled) {
             System.out.println(message);
         }
-    } 
+    }
 
     public static void log(String key, String value) {
-        if(loggingEnabled){
-            System.out.println(key + "\n\t" +  value);
+        if (loggingEnabled) {
+            System.out.println(key + "\n\t" + value);
             SmartDashboard.putString(key, value);
         }
-    } 
+    }
 
     public static void log(String key, double value) {
-        if(loggingEnabled){
-            System.out.println(key + "\n\t" +  value);
+        if (loggingEnabled) {
+            System.out.println(key + "\n\t" + value);
             SmartDashboard.putNumber(key, value);
         }
     }

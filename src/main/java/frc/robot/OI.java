@@ -185,7 +185,7 @@ public class OI {
     public double getTurretPanTarget() {
         return operator.getLeftX();
     }
-    
+
     public double getLeftSpeed() {
         return driver.getLeftY();
     }
@@ -198,16 +198,14 @@ public class OI {
         return driver.leftTrigger.get();
     }
 
-    public double manualExtend()
-    {
+    public double manualExtend() {
         return operator.getRightY();
     }
 
-    public double manualTestExtend()
-    {
+    public double manualTestExtend() {
         if (tester == null) {
             return 0;
         }
         return Math.abs(tester.getRightY());
-    }    
+    }
 }

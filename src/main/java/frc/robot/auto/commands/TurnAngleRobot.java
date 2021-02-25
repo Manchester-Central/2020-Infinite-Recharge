@@ -11,7 +11,7 @@ import frc.robot.auto.ParseCommand;
 import frc.robot.Robot;
 
 public class TurnAngleRobot extends BaseAutoCommand {
-  
+
   public static final String COMMAND_NAME = "turnRobot";
   double angle;
 

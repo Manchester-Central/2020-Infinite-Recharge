@@ -10,27 +10,13 @@
 
 package frc.robot.subsystems.drivebase;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.CANSparkMax;
-import edu.wpi.first.wpilibj.controller.PIDController;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.geometry.Pose2d;
-import edu.wpi.first.wpilibj.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.geometry.Translation2d;
-import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
-import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
-import edu.wpi.first.wpilibj.smartdashboard.*;
-import edu.wpi.first.wpilibj2.command.Subsystem;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj.Encoder;
+
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
-import edu.wpi.first.wpilibj.Victor;
-import frc.robot.commands.drive.*;
-import frc.robot.Robot;
-import frc.robot.RobotConstants2019;
-import frc.robot.RobotConstants2020;
-import frc.robot.RobotConstantsRaft;
-import frc.robot.Robot.RobotType;
+import edu.wpi.first.wpilibj.controller.PIDController;
+import edu.wpi.first.wpilibj.geometry.Pose2d;
+import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.wpilibj2.command.Subsystem;
 
 /**
  *
@@ -82,8 +68,6 @@ public interface IDriveBase extends Subsystem {
     public DifferentialDriveWheelSpeeds getWheelSpeeds();
 
     public void periodic();
-
-    
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.

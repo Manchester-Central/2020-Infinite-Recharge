@@ -13,8 +13,8 @@ import frc.robot.Robot;
 
 public class ResetNavX extends CommandBase {
   public ResetNavX(JoystickButton startButton) {
-   addRequirements(Robot.navx);
-   button = startButton;
+    addRequirements(Robot.navx);
+    button = startButton;
   }
 
   private JoystickButton button;
@@ -22,13 +22,13 @@ public class ResetNavX extends CommandBase {
   // Called just before this Command runs the first time
   @Override
   public void initialize() {
-    
+
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   public void execute() {
-    if (button.get()){
+    if (button.get()) {
       Robot.navx.reset(); // resets all variables stored on navX (such as yaw)
     }
   }

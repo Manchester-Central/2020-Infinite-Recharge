@@ -22,6 +22,7 @@ public class AutoShoot extends SequentialCommandGroup {
    * Creates a new AutoShoot.
    */
   public static final String COMMAND_NAME = "shoot";
+
   public AutoShoot(ParseCommand parsedCommand) {
 
     var prepareFlywheel = Deadline.createDeadline(new PrepareFlywheel(), new SerializerStop()); // finished when turret aligned + flywheel up to speed
@@ -36,8 +37,6 @@ public class AutoShoot extends SequentialCommandGroup {
     addCommands(new InstantCommand(() -> Robot.serializer.manualSpeed(false), Robot.serializer));
     addCommands(new InstantCommand(() -> Robot.flywheel.coastFlywheel(), Robot.flywheel));
 
-
-    
     // Use addRequirements() here to declare subsystem dependencies.
   }
 }

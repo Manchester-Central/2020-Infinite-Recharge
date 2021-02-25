@@ -15,8 +15,8 @@ import frc.robot.commands.util.Deadline;
 public class AimAndShoot extends SequentialCommandGroup {
   public AimAndShoot() {
     // aim = turret needs to aim to target before shooting
-    
-    var prepareFlywheel = Deadline.createDeadline(new PrepareFlywheel(), new SerializerStop(), new AimTurret()); // finished when turret aligned + flywheel up to speed
+    // finished when turret aligned + flywheel up to speed
+    var prepareFlywheel = Deadline.createDeadline(new PrepareFlywheel(), new SerializerStop(), new AimTurret()); 
     addCommands(prepareFlywheel);
 
     var prepareEjector = Deadline.createDeadline(new SetThroatSpeed(true), new PrepareFlywheel(), new SerializerStop(), new AimTurret());
@@ -25,8 +25,6 @@ public class AimAndShoot extends SequentialCommandGroup {
     // aimTurret + flyWheel done (not finished) immediately, serializer never finishes (while held will interrupt)
     var shoot = Deadline.createDeadline(new SetThroatSpeed(true), new PrepareFlywheel(), new SerializerFeed(), new AimTurret()); // TODO: confim y/n for aim while shooting
     addCommands(shoot);
-
-
   }
 
 }

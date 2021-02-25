@@ -24,5 +24,4 @@ public class InDrivePositionCondition implements IAutoCondition {
         return Robot.driveBase.isAtTarget();
     }
 
-
 }

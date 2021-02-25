@@ -18,7 +18,7 @@ import frc.robot.RobotConstants2020;
 /**
  * Add your docs here.
  */
-public class Serializer extends SubsystemBase implements ISerializer{
+public class Serializer extends SubsystemBase implements ISerializer {
 
   private CANSparkMax turnTable;
 
@@ -39,10 +39,10 @@ public class Serializer extends SubsystemBase implements ISerializer{
 
   public Serializer() {
     turnTable = new CANSparkMax(RobotConstants2020.TURN_TABLE_SPARKMAX, CANSparkMax.MotorType.kBrushless);
-    //turnTable.setInverted(true);
+    // turnTable.setInverted(true);
     m_encoder = turnTable.getEncoder();
     // m_encoder.setInverted(true);
-    
+
     /**
      * The RestoreFactoryDefaults method can be used to reset the configuration
      * parameters in the SPARK MAX to their factory default state. If no argument is
@@ -85,10 +85,12 @@ public class Serializer extends SubsystemBase implements ISerializer{
       SmartDashboard.putNumber("I Gain Serializer", kI);
       SmartDashboard.putNumber("D Gain Serializer", kD);
     }
-    /* SmartDashboard.putNumber("I Zone Serializer", kIz);
-    SmartDashboard.putNumber("Feed Forward Serializer", kFF);
-    SmartDashboard.putNumber("Max Output Serializer", kMaxOutput);
-    SmartDashboard.putNumber("Min Output Serializer", kMinOutput); */
+    /*
+     * SmartDashboard.putNumber("I Zone Serializer", kIz);
+     * SmartDashboard.putNumber("Feed Forward Serializer", kFF);
+     * SmartDashboard.putNumber("Max Output Serializer", kMaxOutput);
+     * SmartDashboard.putNumber("Min Output Serializer", kMinOutput);
+     */
 
     SmartDashboard.putNumber("Serializer Target", manualSpeedTarget);
     rotationLength = 11.202576;
@@ -148,23 +150,23 @@ public class Serializer extends SubsystemBase implements ISerializer{
 
     switch (speed) {
       case fast:
-      setPoint = FAST_SPEED;
-      break;
+        setPoint = FAST_SPEED;
+        break;
       case slow:
-      setPoint = SLOW_SPEED;
-      break;
+        setPoint = SLOW_SPEED;
+        break;
       case stop:
-      setPoint = 0;
-      break;
+        setPoint = 0;
+        break;
     }
 
     /**
      * PIDController objects are commanded to a set point using the SetReference()
      * method.
-     * 
+     *
      * The first parameter is the value of the set point, whose units vary depending
      * on the control type set in the second parameter.
-     * 
+     *
      * The second parameter is the control type can be set to one of four
      * parameters: com.revrobotics.ControlType.kDutyCycle
      * com.revrobotics.ControlType.kPosition com.revrobotics.ControlType.kVelocity
@@ -180,15 +182,15 @@ public class Serializer extends SubsystemBase implements ISerializer{
     }
     manualSpeedTarget = SmartDashboard.getNumber("Serializer Target", 0);
     m_pidController.setReference(manualSpeedTarget, ControlType.kVelocity);
-    
+
   }
 
   public void unJam() {
-    turnTable.set(-0.4); // TODO: check with Dan for magnitude 
+    turnTable.set(-0.4); // TODO: check with Dan for magnitude
   }
 
   @Override
-  public void periodic(){
+  public void periodic() {
     SmartDashboard.putNumber("SerializerSetpoint", setPoint);
     SmartDashboard.putNumber("ManualSpeedTarget", manualSpeedTarget);
     SmartDashboard.putNumber("Serializer Encoder", m_encoder.getVelocity());
@@ -199,7 +201,7 @@ public class Serializer extends SubsystemBase implements ISerializer{
   public double getPosition() {
     return m_encoder.getPosition() / rotationLength;
   }
-  
+
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 }

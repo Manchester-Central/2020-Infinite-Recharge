@@ -18,20 +18,20 @@ import frc.robot.RobotConstants2020;
 /**
  * Add your docs here.
  */
-public class Intake extends SubsystemBase implements IIntake{
+public class Intake extends SubsystemBase implements IIntake {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
   TalonFX intake;
   double currentLimit;
 
-  public Intake () {
+  public Intake() {
     currentLimit = 35;
     intake = new TalonFX(RobotConstants2020.INTAKE_FALCON);
     intake.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, currentLimit, currentLimit, 0), 0);
     intake.setNeutralMode(NeutralMode.Coast);
   }
-  
+
   public void setSpeedIntake(double speed) {
     intake.set(TalonFXControlMode.PercentOutput, speed);
   }

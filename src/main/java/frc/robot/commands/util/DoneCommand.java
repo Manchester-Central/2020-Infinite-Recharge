@@ -10,10 +10,11 @@ package frc.robot.commands.util;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
- * Specific type of Command.
- * If a RunAfterReady command is ready early, keeps running command.
- * 
- * Combined w. ParallelGroup, allows all commands to keep running until all are ready.
+ * Specific type of Command. If a RunAfterReady command is ready early, keeps
+ * running command.
+ *
+ * Combined w. ParallelGroup, allows all commands to keep running until all are
+ * ready.
  */
 public abstract class DoneCommand extends CommandBase {
 

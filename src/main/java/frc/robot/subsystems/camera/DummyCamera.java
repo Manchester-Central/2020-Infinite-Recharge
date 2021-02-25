@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
  * Add your docs here.
  */
 
-public class DummyCamera extends SubsystemBase implements ICamera{
+public class DummyCamera extends SubsystemBase implements ICamera {
 
     public DummyCamera() {
         SmartDashboard.putNumber("y angle camera", 0);
