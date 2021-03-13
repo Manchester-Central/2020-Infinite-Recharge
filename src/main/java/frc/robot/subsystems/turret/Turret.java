@@ -110,8 +110,8 @@ public class Turret extends SubsystemBase implements ITurret {
   private double turretPanRawToDegrees(double raw) {
     // return raw * slopePan + interceptPan;
 
-    return ((-0.0062 * raw * raw) + (4.418 * raw) - 684.81);
-
+  //  return ((-0.0062 * raw * raw) + (4.418 * raw) - 684.81);
+  return ((-0.0079 * raw * raw) + (5.36 * raw) - 795);
     // panRaw = x, panAngle = y
     // y = -0.0062x^2 + 4.418x - 684.81
   }
@@ -192,6 +192,7 @@ public class Turret extends SubsystemBase implements ITurret {
     SmartDashboard.putNumber("Pan Angle", getPanAngle());
     SmartDashboard.putNumber("Pan Angle Raw", speedControllerPan.getSensorCollection().getAnalogInRaw());
     SmartDashboard.putNumber("Tilt Angle", getTiltAngle());
+    SmartDashboard.putNumber("Tilt Raw", speedControllerTilt.getSensorCollection().getAnalogInRaw());
   }
 
   public void setTurretAngleDashboard() {

@@ -44,13 +44,14 @@ public class ClimbTake2020 extends SubsystemBase implements IClimbTake2020 {
     pidPivot = new PIDController(pivotP, pivotI, pivotD);
     pidExtend = new PIDController(extendP, extendI, extendD);
 
+    /*
     SmartDashboard.putNumber("Pivot P", pivotP);
     SmartDashboard.putNumber("Pivot I", pivotI);
     SmartDashboard.putNumber("Pivot D", pivotD);
     SmartDashboard.putNumber("Extension P", extendP);
     SmartDashboard.putNumber("Extension I", extendI);
     SmartDashboard.putNumber("Extension D", extendD);
-    
+    */
     SmartDashboard.putNumber("Pivot Setpoint", pidPivot.getSetpoint());
 
 

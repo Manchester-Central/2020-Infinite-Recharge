@@ -23,16 +23,17 @@ public class TurretDefault extends CommandBase {
   // Called just before this Command runs the first time
   @Override
   public void initialize() {
-    Robot.turret.setTiltTargetAngle(RobotConstants2020.MIN_HOOD_RAW + 5);
-    panSpeedScale = 0.30;
+    //Robot.turret.setTiltTargetAngle(RobotConstants2020.MIN_HOOD_RAW + 5);
+    panSpeedScale = 0.3;
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   public void execute() {
-    Robot.turret.setPanSpeed(Robot.oi.getTurretPanTarget() * panSpeedScale);
-
-    Robot.turret.PIDDriveTilt();
+    double pan = Robot.oi.getTurretPanTarget() * panSpeedScale;
+    Robot.turret.setPanSpeed(pan);
+    System.out.println("pan " + pan);
+    //Robot.turret.PIDDriveTilt();
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -42,7 +43,7 @@ public class TurretDefault extends CommandBase {
   }
 
   public boolean isDone() {
-    return Robot.turret.getTiltAngle() == Robot.turret.getTiltTarget();
+    return false;// Robot.turret.getTiltAngle() == Robot.turret.getTiltTarget();
   }
 
   // Called once after isFinished returns true or when interrupted
