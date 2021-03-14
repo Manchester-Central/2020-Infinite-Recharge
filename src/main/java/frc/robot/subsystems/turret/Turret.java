@@ -20,6 +20,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
  */
 public class Turret extends SubsystemBase implements ITurret {
   final boolean tuning = false;
+
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
   public Turret() {
@@ -37,9 +38,6 @@ public class Turret extends SubsystemBase implements ITurret {
     pidPan = new PIDController(panP, panI, panD);
     pidTilt = new PIDController(tiltP, tiltI, tiltD);
 
-    // slopePan = RobotConstants2020.ANGLE_POT_SLOPE_X; // TODO: CHANGE!!!
-    // interceptPan = RobotConstants2020.ANGLE_POT_INTERCEPT_X; // TODO: CHANGE!!!
-
     speedControllerPan = new WPI_TalonSRX(RobotConstants2020.TURRET_PAN);
     speedControllerTilt = new WPI_TalonSRX(RobotConstants2020.TURRET_HOOD);
 
@@ -49,8 +47,6 @@ public class Turret extends SubsystemBase implements ITurret {
     maxRawPan = RobotConstants2020.MAX_PAN_RAW;
     minRawTilt = RobotConstants2020.MIN_HOOD_RAW;
     maxRawTilt = RobotConstants2020.MAX_HOOD_RAW;
-    // minAnglePan = RobotConstants2020.MIN_ANGLE_PAN;
-    // maxAnglePan = RobotConstants2020.MAX_ANGLE_PAN;
 
     // set PID coefficients
     pidPan.setP(panP);
@@ -86,7 +82,7 @@ public class Turret extends SubsystemBase implements ITurret {
       SmartDashboard.putNumber("I Gain TILT", tiltI);
       SmartDashboard.putNumber("D Gain TILT", tiltD);
     }
-    
+
     // int rawRange = maxRawPan - minRawPan;
     // double angleRange = maxAnglePan - minAnglePan;
     // slopePan = angleRange/rawRange;
@@ -104,16 +100,12 @@ public class Turret extends SubsystemBase implements ITurret {
   PIDController pidPan, pidTilt, camPanPID;
   WPI_TalonSRX speedControllerPan, speedControllerTilt;
   private double panError, tiltError;
-  
+
   double panMultiplier = 0.05;
 
   private double turretPanRawToDegrees(double raw) {
-    // return raw * slopePan + interceptPan;
-
-    return ((-0.0062 * raw * raw) + (4.418 * raw) - 684.81);
-
-    // panRaw = x, panAngle = y
-    // y = -0.0062x^2 + 4.418x - 684.81
+    // return ((-0.0062 * raw * raw) + (4.418 * raw) - 684.81);
+    return ((-0.0079 * raw * raw) + (5.36 * raw) - 795);
   }
 
   public double getPanAngle() {
@@ -188,7 +180,7 @@ public class Turret extends SubsystemBase implements ITurret {
     LogUtils.log("Hood angle: " + getTiltAngle() + " hood speed: " + speed);
   }
 
-  public void addTurretSmartDashboard(){
+  public void addTurretSmartDashboard() {
     SmartDashboard.putNumber("Pan Angle", getPanAngle());
     SmartDashboard.putNumber("Pan Angle Raw", speedControllerPan.getSensorCollection().getAnalogInRaw());
     SmartDashboard.putNumber("Tilt Angle", getTiltAngle());
@@ -200,9 +192,9 @@ public class Turret extends SubsystemBase implements ITurret {
   }
 
   public void smartDashboardConstants() {
-    
+
     SmartDashboard.putBoolean("Target Aligned", isAtTarget());
-    
+
     if (tuning) {
       double kXP = SmartDashboard.getNumber("P Gain PAN", 0);
       double kXI = SmartDashboard.getNumber("I Gain PAN", 0);
@@ -211,12 +203,11 @@ public class Turret extends SubsystemBase implements ITurret {
       double kYP = SmartDashboard.getNumber("P Gain TILT", 0);
       double kYI = SmartDashboard.getNumber("I Gain TILT", 0);
       double kYD = SmartDashboard.getNumber("D Gain TILT", 0);
-      
+
       double kCXP = SmartDashboard.getNumber("Camera P Gain PAN", 0);
       double kCXI = SmartDashboard.getNumber("Camera I Gain PAN", 0);
       double kCXD = SmartDashboard.getNumber("Camera D Gain PAN", 0);
 
-      
       if ((kXP != panP)) {
         pidPan.setP(kXP);
         panP = kXP;
@@ -267,13 +258,13 @@ public class Turret extends SubsystemBase implements ITurret {
     return pidPan.getSetpoint();
   }
 
-  private boolean isAtPanTarget(){
+  private boolean isAtPanTarget() {
     double target = getPanTarget();
     double position = getPanAngle();
     return ((position <= target + panError) && (position >= target - panError));
   }
 
-  private boolean isAtTiltTarget(){
+  private boolean isAtTiltTarget() {
     double target = getTiltTarget();
     double position = getTiltAngle();
     return ((position <= target + tiltError) && (position >= target - tiltError));
@@ -282,7 +273,7 @@ public class Turret extends SubsystemBase implements ITurret {
   public boolean isAtTarget() {
     return isAtPanTarget() && isAtTiltTarget();
   }
-  
+
   public void PIDDrive(boolean usingCamera) {
     PIDDrivePan(usingCamera);
     PIDDriveTilt();

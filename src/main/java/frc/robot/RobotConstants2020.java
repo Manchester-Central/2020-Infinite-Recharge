@@ -16,7 +16,7 @@ public class RobotConstants2020 {
 
     public final static int TURRET_PAN = 9; // CAN
     public final static int TURRET_HOOD = 10; // CAN
-    
+
     public final static int FLYWHEELA_SPARKMAX = 11; // CAN, left, closest to "Lime"
     public final static int FLYWHEELB_SPARKMAX = 12; // CAN, right, closest to "Light"
 
@@ -26,25 +26,20 @@ public class RobotConstants2020 {
     public final static int LIMIT_SWITCH = 1;
     public final static int CLIMB_POT = 0;
 
-    public final static double ANGLE_POT_SLOPE_X = 1; // TODO: change!!
-    public final static double ANGLE_POT_INTERCEPT_X = 1; // TODO: change!!
-
-    public final static double MAX_ANGLE_PAN = 95; // TODO: change
-    public final static double MIN_ANGLE_PAN = -200; // TODO: change
-    public final static int MIN_PAN_RAW = 136; // TODO: verify
-    public final static int MAX_PAN_RAW = 329; // TODO: verify
+    public final static int MIN_PAN_RAW = 136; // 2021-03-13
+    public final static int MAX_PAN_RAW = 300; // 2021-03-13
     public final static int PAN_ZERO_RAW = 227; // TODO: change
     public final static int PAN_BACKWARD_RAW = 30; // TODO: change!!!!!!!!!!!!!!!!
 
-    public final static int MIN_HOOD_RAW = 68; // 68
-    public final static int MAX_HOOD_RAW = 169; // 169
+    public final static int MIN_HOOD_RAW = 68; // 2021-03-13 - 64 hard stop
+    public final static int MAX_HOOD_RAW = 164; // 2021-03-13 - 168 hard stop
     public final static int MIDDLE_HOOD_RAW = (MIN_HOOD_RAW + MAX_HOOD_RAW) / 2;
 
-    public final static double EXTENDER_OUT = 0.5; // TODO: change!! 
-    public final static double EXTENDER_IN = 1; // TODO: change!!    
-    public final static double EXTENDER_ZERO = 0; // TODO: change!!    
-    public final static double INTAKE_POSITION = 0.616; // TODO: change!!    
-    public final static double CLIMB_POSITION = 1.86; // TODO: change!!    
+    public final static double EXTENDER_OUT = 0.5; // TODO: change!!
+    public final static double EXTENDER_IN = 1; // TODO: change!!
+    public final static double EXTENDER_ZERO = 0; // TODO: change!!
+    public final static double INTAKE_POSITION = 0.616; // TODO: change!!
+    public final static double CLIMB_POSITION = 1.86; // TODO: change!!
     public final static double CLEAR_OF_BALLS = 1.54; // TODO: get this value again
 
     public final static double CLIMBTAKE_INITIAL = 0; // TODO: change!
