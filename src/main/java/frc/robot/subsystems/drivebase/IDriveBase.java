@@ -23,6 +23,8 @@ import edu.wpi.first.wpilibj2.command.Subsystem;
  */
 public interface IDriveBase extends Subsystem {
 
+    public void arcadeDrive(double xaxisSpeed, double zaxisRotate, boolean smoothing);
+
     public void tankDrive(double left, double right);
 
     public SpeedControllerGroup getLeftDrive();

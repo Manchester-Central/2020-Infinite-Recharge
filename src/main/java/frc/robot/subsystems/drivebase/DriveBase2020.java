@@ -338,6 +338,10 @@ public class DriveBase2020 extends SubsystemBase implements IDriveBase {
         differentialDrive1.tankDrive(left, right);
     }
 
+    public void arcadeDrive(double xaxisSpeed, double zaxisRotate, boolean smoothing) {
+        differentialDrive1.arcadeDrive(xaxisSpeed, zaxisRotate, smoothing);
+      }
+
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 

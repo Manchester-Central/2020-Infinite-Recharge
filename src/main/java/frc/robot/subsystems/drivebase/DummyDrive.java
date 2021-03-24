@@ -159,4 +159,10 @@ public class DummyDrive extends SubsystemBase implements IDriveBase {
     // TODO Auto-generated method stub
 
   }
+
+  @Override
+  public void arcadeDrive(double xaxisSpeed, double zaxisRotate, boolean smoothing) {
+    // TODO Auto-generated method stub
+
+  }
 }
