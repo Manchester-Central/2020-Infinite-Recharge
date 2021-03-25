@@ -31,6 +31,7 @@ import frc.robot.commands.turret.PrepareFlywheel;
 import frc.robot.commands.turret.Shoot;
 import frc.robot.commands.turret.TiltSafe;
 import frc.robot.commands.turret.TurretDefault;
+import frc.robot.commands.drive.ArcadeDrive;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -87,6 +88,7 @@ public class OI {
         driver.xButton.whileActiveOnce(new TurnAnglePID(90));
         driver.bButton.whileActiveOnce(new TurnAnglePID(-90));
         driver.selectButton.whileActiveOnce(new DriveDistancePIDDashboard());
+        driver.leftTrigger.whileHeld(new ArcadeDrive());
 
         driver.startButton.whenPressed(() -> Robot.driveBase.resetPosition(), Robot.driveBase);
 
