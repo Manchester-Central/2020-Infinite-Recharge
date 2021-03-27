@@ -149,7 +149,11 @@ public class DriveBase2020 extends SubsystemBase implements IDriveBase {
         double ratio = (gearRatio * wheelDiameter * Math.PI) / ticksPerRev;
         return counts * ratio;
     }
-
+    public double encoderMeters(CANSparkMax driveInput) {
+        double counts = driveInput.getEncoder().getPosition();
+        double ratio = 1 / 10.71;
+        return counts * ratio;
+    }
     public double encoderInches(CANSparkMax driveInput) {
 
         double counts = driveInput.getEncoder().getPosition();
@@ -284,6 +288,9 @@ public class DriveBase2020 extends SubsystemBase implements IDriveBase {
         odometer.update(Rotation2d.fromDegrees(navxAngle), leftInches, rightInches);
         SmartDashboard.putNumber("Right Position", rightInches);
         SmartDashboard.putNumber("Left Position", leftInches);
+        
+        SmartDashboard.putNumber("Left Position Meters", encoderMeters(leftSpark1));
+        SmartDashboard.putNumber("Right Position Meters", encoderMeters(rightSpark1));
 
         if (tuning) {
             // read PID coefficients from SmartDashboard
