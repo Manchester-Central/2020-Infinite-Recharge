@@ -63,7 +63,7 @@ public interface IDriveBase extends Subsystem {
 
     public boolean isAtLeftTarget();
 
-    public void resetOdometry();
+    public void resetOdometry(Pose2d resetPosition);
 
     public Pose2d getPose();
 

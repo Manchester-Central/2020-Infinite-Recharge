@@ -33,15 +33,7 @@ import frc.robot.util.LogUtils;
  */
 public class DriveBase2020 extends SubsystemBase implements IDriveBase {
 
-    private Victor left1;
-    private Victor left2;
-    private Victor left3;
-    private WPI_TalonSRX left4 = null;
     private SpeedControllerGroup leftDrive;
-    private Victor right1;
-    private Victor right2;
-    private Victor right3;
-    private WPI_TalonSRX right4 = null;
     private SpeedControllerGroup rightDrive;
     public DifferentialDriveOdometry odometer;
     private PIDController PIDRight;
@@ -138,22 +130,18 @@ public class DriveBase2020 extends SubsystemBase implements IDriveBase {
          */
     }
 
-    protected double encoderInches(WPI_TalonSRX driveInput) {
-        if (driveInput == null) {
-            return 0;
-        }
-        double wheelDiameter = 4.0;
-        double gearRatio = (double) 1 / 1; // ratio of the axel the wheel lies on to the axel the encoder reads
-        int ticksPerRev = 4096; // amount of ticks in one revolution of the encoder axel
-        double counts = driveInput.getSensorCollection().getQuadraturePosition();
-        double ratio = (gearRatio * wheelDiameter * Math.PI) / ticksPerRev;
-        return counts * ratio;
-    }
     public double encoderMeters(CANSparkMax driveInput) {
         double counts = driveInput.getEncoder().getPosition();
         double ratio = 1 / 10.71;
         return counts * ratio;
     }
+
+    public double encoderMetersPerSecond(CANSparkMax driveInput) {
+        double velocity = driveInput.getEncoder().getVelocity();
+        double ratio = 1 / 10.71;
+        return velocity * ratio;
+    }
+
     public double encoderInches(CANSparkMax driveInput) {
 
         double counts = driveInput.getEncoder().getPosition();
@@ -167,7 +155,7 @@ public class DriveBase2020 extends SubsystemBase implements IDriveBase {
         return speed * volts * speedFactor;
     }
 
-    public void tankDriveVolts(double leftSpeed, double rightSpeed) {
+    public void tankDriveVolts(double leftVolts, double rightVolts) {
         // double leftVolts = speedToVolts(leftSpeed);
         // double rightVolts = speedToVolts(rightSpeed);
         // leftDrive.setVoltage(leftVolts);
@@ -175,7 +163,10 @@ public class DriveBase2020 extends SubsystemBase implements IDriveBase {
 
         // // differentialDrive1.feed(); commented out from before
 
-        differentialDrive1.tankDrive(leftSpeed, rightSpeed);
+        // differentialDrive1.tankDrive(leftSpeed, rightSpeed);
+        leftDrive.setVoltage(leftVolts);
+        rightDrive.setVoltage(-rightVolts);
+        differentialDrive1.feed();
     }
 
     public double angleToDist(double angle) {
@@ -258,13 +249,13 @@ public class DriveBase2020 extends SubsystemBase implements IDriveBase {
         return AtPosition && AtVelocity;
     }
 
-    public void resetOdometry() {
+    public void resetOdometry(Pose2d resetPosition) {
         leftSpark1.getEncoder().setPosition(0);
         rightSpark1.getEncoder().setPosition(0);
 
         double navxAngle = Robot.navx.getNavYaw();
         Rotation2d rotation = Rotation2d.fromDegrees(navxAngle);
-        odometer.resetPosition(new Pose2d(0, 0, rotation), rotation);
+        odometer.resetPosition(resetPosition, rotation);
     }
 
     public Pose2d getPose() {
@@ -281,16 +272,18 @@ public class DriveBase2020 extends SubsystemBase implements IDriveBase {
         //SmartDashboard.putNumber("Right Encoder", rightSpark1.getEncoder().getPosition());
         //SmartDashboard.putNumber("Left Encoder", -leftSpark1.getEncoder().getPosition());
         // Put code here to be run every loop
-        double rightInches = getRightPosition();
         double leftInches = getLeftPosition();
+        double rightInches = getRightPosition();
+        double leftMeters = encoderMeters(leftSpark1);
+        double rightMeters = encoderMeters(rightSpark1);
         double navxAngle = Robot.navx.getNavYaw();
         // converts raw encoder readout to inches
-        odometer.update(Rotation2d.fromDegrees(navxAngle), leftInches, rightInches);
+        odometer.update(Rotation2d.fromDegrees(navxAngle), leftMeters, rightMeters);
         SmartDashboard.putNumber("Right Position", rightInches);
         SmartDashboard.putNumber("Left Position", leftInches);
         
-        SmartDashboard.putNumber("Left Position Meters", encoderMeters(leftSpark1));
-        SmartDashboard.putNumber("Right Position Meters", encoderMeters(rightSpark1));
+        SmartDashboard.putNumber("Left Position Meters", leftMeters);
+        SmartDashboard.putNumber("Right Position Meters", rightMeters);
 
         if (tuning) {
             // read PID coefficients from SmartDashboard
@@ -325,18 +318,20 @@ public class DriveBase2020 extends SubsystemBase implements IDriveBase {
     }
 
     public DifferentialDriveWheelSpeeds getWheelSpeeds() {
-        return new DifferentialDriveWheelSpeeds(left4.getSensorCollection().getQuadratureVelocity(),
-                right4.getSensorCollection().getQuadratureVelocity()); // TODO: separate and clean up
+        return new DifferentialDriveWheelSpeeds(
+            encoderMetersPerSecond(leftSpark1),
+            encoderMetersPerSecond(rightSpark1)
+        ); 
     }
 
     @Override
     public SpeedControllerGroup getLeftDrive() {
-        return new SpeedControllerGroup(left1, left2, left3, left4);
+        return leftDrive;
     }
 
     @Override
     public SpeedControllerGroup getRightDrive() {
-        return new SpeedControllerGroup(right1, right2, right3, right4);
+        return rightDrive;
     }
 
     @Override
