@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.commands.climbtake.*;
 import frc.robot.commands.drive.DriveDistancePID;
 import frc.robot.commands.drive.DriveDistancePIDDashboard;
+import frc.robot.commands.drive.PathDrive;
 import frc.robot.commands.drive.TankDrive;
 import frc.robot.commands.drive.TurnAnglePID;
 import frc.robot.commands.inputs.SetPipeline;
@@ -83,12 +84,13 @@ public class OI {
                 new SetClimbTakePosition(RobotConstants2020.INTAKE_POSITION, RobotConstants2020.EXTENDER_ZERO)));
 
         // TODO: remove once tested and happy
-        driver.aButton.whileActiveOnce(new DriveDistancePID(12));
-        driver.yButton.whileActiveOnce(new DriveDistancePID(-12));
-        driver.xButton.whileActiveOnce(new TurnAnglePID(90));
-        driver.bButton.whileActiveOnce(new TurnAnglePID(-90));
-        driver.selectButton.whileActiveOnce(new DriveDistancePIDDashboard());
+        // driver.aButton.whileActiveOnce(new DriveDistancePID(12));
+        // driver.yButton.whileActiveOnce(new DriveDistancePID(-12));
+        // driver.xButton.whileActiveOnce(new TurnAnglePID(90));
+        // driver.bButton.whileActiveOnce(new TurnAnglePID(-90));
+        // driver.selectButton.whileActiveOnce(new DriveDistancePIDDashboard());
         driver.leftTrigger.whileHeld(new ArcadeDrive());
+        driver.aButton.whileActiveOnce(new PathDrive("Galactic_Search_A", Robot.driveBase));
 
         driver.startButton.whenPressed(() -> Robot.driveBase.resetPosition(), Robot.driveBase);
 
