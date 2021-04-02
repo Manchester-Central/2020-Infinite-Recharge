@@ -37,7 +37,7 @@ private final double kTrackWidthMeter = 0.6731;
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addRequirements(driveBase);
-    String trajectoryJSON = "paths/output/" + pathName + ".wpilib.json";
+    String trajectoryJSON = "output/" + pathName + ".wpilib.json";
     Trajectory trajectory; 
     try {
       Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON);

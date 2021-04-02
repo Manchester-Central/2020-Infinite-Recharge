@@ -19,7 +19,7 @@ public class ResetOdometry extends CommandBase {
   // Called just before this Command runs the first time
   @Override
   public void initialize() {
-    Robot.driveBase.resetOdometry();
+    //Robot.driveBase.resetOdometry();
   }
 
   // Called repeatedly when this Command is scheduled to run

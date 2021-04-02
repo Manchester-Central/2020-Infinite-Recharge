@@ -132,8 +132,7 @@ public class DriveBase2020 extends SubsystemBase implements IDriveBase {
 
     public double encoderMeters(CANSparkMax driveInput) {
         double counts = driveInput.getEncoder().getPosition();
-        double ratio = 1 / 10.71;
-        return counts * ratio;
+        return counts / 23.715877840;
     }
 
     public double encoderMetersPerSecond(CANSparkMax driveInput) {
@@ -164,8 +163,8 @@ public class DriveBase2020 extends SubsystemBase implements IDriveBase {
         // // differentialDrive1.feed(); commented out from before
 
         // differentialDrive1.tankDrive(leftSpeed, rightSpeed);
-        // leftDrive.setVoltage(leftVolts);
-        // rightDrive.setVoltage(-rightVolts);
+        leftDrive.setVoltage(leftVolts);
+        rightDrive.setVoltage(-rightVolts);
         differentialDrive1.feed();
         SmartDashboard.putNumber("Left Drive Voltage", leftVolts);
         SmartDashboard.putNumber("Right Drive Voltage", rightVolts);
