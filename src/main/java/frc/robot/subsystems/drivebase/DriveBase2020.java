@@ -167,6 +167,8 @@ public class DriveBase2020 extends SubsystemBase implements IDriveBase {
         leftDrive.setVoltage(leftVolts);
         rightDrive.setVoltage(-rightVolts);
         differentialDrive1.feed();
+        SmartDashboard.putNumber("Left Drive Voltage", leftVolts);
+        SmartDashboard.putNumber("Right Drive Voltage", -rightVolts);
     }
 
     public double angleToDist(double angle) {
@@ -284,6 +286,8 @@ public class DriveBase2020 extends SubsystemBase implements IDriveBase {
         
         SmartDashboard.putNumber("Left Position Meters", leftMeters);
         SmartDashboard.putNumber("Right Position Meters", rightMeters);
+        SmartDashboard.putNumber("Angle", navxAngle);
+        
 
         if (tuning) {
             // read PID coefficients from SmartDashboard
