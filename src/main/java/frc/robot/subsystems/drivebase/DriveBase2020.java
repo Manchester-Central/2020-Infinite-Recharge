@@ -164,11 +164,12 @@ public class DriveBase2020 extends SubsystemBase implements IDriveBase {
         // // differentialDrive1.feed(); commented out from before
 
         // differentialDrive1.tankDrive(leftSpeed, rightSpeed);
-        leftDrive.setVoltage(leftVolts);
-        rightDrive.setVoltage(-rightVolts);
+        // leftDrive.setVoltage(leftVolts);
+        // rightDrive.setVoltage(-rightVolts);
         differentialDrive1.feed();
         SmartDashboard.putNumber("Left Drive Voltage", leftVolts);
-        SmartDashboard.putNumber("Right Drive Voltage", -rightVolts);
+        SmartDashboard.putNumber("Right Drive Voltage", rightVolts);
+        SmartDashboard.putNumber("Average Drive Voltage", (rightVolts + leftVolts) / 2.0);
     }
 
     public double angleToDist(double angle) {
