@@ -90,11 +90,12 @@ public class OI {
         // driver.bButton.whileActiveOnce(new TurnAnglePID(-90));
         // driver.selectButton.whileActiveOnce(new DriveDistancePIDDashboard());
         driver.leftTrigger.whileHeld(new ArcadeDrive());
-        driver.aButton.whileActiveOnce(new PathDrive("SpinInPlace", Robot.driveBase));
+        driver.aButton.whileActiveOnce(new PathDrive("TestingPath", Robot.driveBase));
         driver.bButton.whileActiveOnce(new PathDrive("StraightLine", Robot.driveBase));
         driver.xButton.whileActiveOnce(new PathDrive("QuarterCircle", Robot.driveBase));
         driver.yButton.whileActiveOnce(new PathDrive("TurningConfidenceTest", Robot.driveBase));
         driver.startButton.whenPressed(() -> Robot.driveBase.resetPosition(), Robot.driveBase);
+        driver.startButton.whenPressed(() -> Robot.navx.reset(), Robot.driveBase);
 
         //driver.leftTrigger.whileHeld(() -> {
         //    Robot.climbTake.setExtenderSpeed(Math.abs(operator.getRightY()));
