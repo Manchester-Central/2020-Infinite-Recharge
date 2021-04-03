@@ -26,6 +26,9 @@ import frc.robot.subsystems.drivebase.IDriveBase;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class PathDrive extends SequentialCommandGroup {
 
+  // b - Tuning parameter (b > 0) for which larger values make convergence more aggressive like a proportional term.
+  // zeta - Tuning parameter (0 < zeta < 1) for which larger values provide more damping in response.
+
 private final double kRamseteB = 2;
 private final double kRamseteZeta = 0.7;
 private final double ksVolts = 0.224;// old value: 0.215
