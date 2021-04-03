@@ -28,10 +28,10 @@ public class PathDrive extends SequentialCommandGroup {
 
 private final double kRamseteB = 2;
 private final double kRamseteZeta = 0.7;
-private final double ksVolts = 0.215;
-private final double kvVoltSecondsPerMeter = 1.35;
-private final double kaVoltSecondsSquaredPerMeter = 0.191;
-private final double kTrackWidthMeter = 0.6731;
+private final double ksVolts = 0.224;// old value: 0.215
+private final double kvVoltSecondsPerMeter = 2.99;// old value: 1.35
+private final double kaVoltSecondsSquaredPerMeter = 0.422;// old value: 0.191
+private final double kTrackWidthMeter = 0.6731;// old value: 0.6731
 
 private final String m_pathName; 
   /** Creates a new PathDrive. */
