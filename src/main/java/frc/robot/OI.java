@@ -90,7 +90,7 @@ public class OI {
         // driver.bButton.whileActiveOnce(new TurnAnglePID(-90));
         // driver.selectButton.whileActiveOnce(new DriveDistancePIDDashboard());
         driver.leftTrigger.whileHeld(new ArcadeDrive());
-        driver.aButton.whileActiveOnce(new PathDrive("Galactic_Search_A", Robot.driveBase));
+        driver.aButton.whileActiveOnce(new PathDrive("SpinInPlace", Robot.driveBase));
         driver.bButton.whileActiveOnce(new PathDrive("StraightLine", Robot.driveBase));
         driver.xButton.whileActiveOnce(new PathDrive("QuarterCircle", Robot.driveBase));
         driver.yButton.whileActiveOnce(new PathDrive("TurningConfidenceTest", Robot.driveBase));
