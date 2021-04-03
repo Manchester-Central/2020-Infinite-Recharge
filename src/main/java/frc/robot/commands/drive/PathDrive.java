@@ -60,8 +60,8 @@ private final String m_pathName;
       new SimpleMotorFeedforward(ksVolts, kvVoltSecondsPerMeter, kaVoltSecondsSquaredPerMeter), 
       new DifferentialDriveKinematics(kTrackWidthMeter), 
       driveBase::getWheelSpeeds, 
-      new PIDController(0.055, 0, 0), //driveBase.getPIDLeft(),
-      new PIDController(0.055, 0, 0), //driveBase.getPIDRight(), 
+      new PIDController(0.00289, 0, 0), //driveBase.getPIDLeft(),
+      new PIDController(0.00289, 0, 0), //driveBase.getPIDRight(), 
       driveBase::tankDriveVolts, 
       driveBase);
 
