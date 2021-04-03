@@ -91,7 +91,9 @@ public class OI {
         // driver.selectButton.whileActiveOnce(new DriveDistancePIDDashboard());
         driver.leftTrigger.whileHeld(new ArcadeDrive());
         driver.aButton.whileActiveOnce(new PathDrive("Galactic_Search_A", Robot.driveBase));
-
+        driver.bButton.whileActiveOnce(new PathDrive("StraightLine", Robot.driveBase));
+        driver.xButton.whileActiveOnce(new PathDrive("QuarterCircle", Robot.driveBase));
+        driver.yButton.whileActiveOnce(new PathDrive("TurningConfidenceTest", Robot.driveBase));
         driver.startButton.whenPressed(() -> Robot.driveBase.resetPosition(), Robot.driveBase);
 
         //driver.leftTrigger.whileHeld(() -> {
