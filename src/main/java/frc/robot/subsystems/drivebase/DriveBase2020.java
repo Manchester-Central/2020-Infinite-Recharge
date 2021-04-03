@@ -137,8 +137,7 @@ public class DriveBase2020 extends SubsystemBase implements IDriveBase {
 
     public double encoderMetersPerSecond(CANSparkMax driveInput) {
         double velocity = driveInput.getEncoder().getVelocity();
-        double ratio = 1 / 10.71;
-        return velocity * ratio;
+        return velocity / 23.715877840;
     }
 
     public double encoderInches(CANSparkMax driveInput) {
