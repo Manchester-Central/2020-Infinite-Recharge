@@ -47,7 +47,8 @@ public class AimTurret extends DoneCommand {
       Robot.flywheel.setTarget(targetData.getSpeed());
     } else {
       Robot.turret.setTiltTargetAngle(RobotConstants2020.MIDDLE_HOOD_RAW);
-      Robot.turret.setPanTarget(RobotConstants2020.PAN_ZERO_RAW);
+      Robot.turret.setPanTarget(0);
+
     }
     Robot.turret.PIDDrive(true);
   }
