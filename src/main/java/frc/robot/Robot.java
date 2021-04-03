@@ -110,7 +110,7 @@ public class Robot extends TimedRobot {
             turret = new Turret();
             climbTake = new ClimbTake2020();
             flywheel = new Flywheel();
-            navx = new DummyNavX(); // testing
+            navx = new NavX();
             colorSensor = new DummyColorSensor();
             camera = new Camera(34, 47, 2);
             serializer = new Serializer();

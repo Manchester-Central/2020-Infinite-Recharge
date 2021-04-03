@@ -9,6 +9,7 @@ package frc.robot.subsystems.navx;
 
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 /**
@@ -43,9 +44,9 @@ public class NavX extends SubsystemBase implements INavX {
   public void updateNavDashboard() {
 
     // post to smart dashboard periodically
-    // SmartDashboard.putNumber("NavX Angle", getNavAngle());
-    // SmartDashboard.putNumber("NavX Pitch", getNavPitch());
-    // SmartDashboard.putNumber("currentYaw", getNavYaw());
-    // SmartDashboard.putBoolean("Callibrating?", sensor.isCalibrating()); // not necessary long term
+    SmartDashboard.putNumber("NavX Angle", getNavAngle());
+    SmartDashboard.putNumber("NavX Pitch", getNavPitch());
+    SmartDashboard.putNumber("currentYaw", getNavYaw());
+    SmartDashboard.putBoolean("Callibrating?", sensor.isCalibrating()); // not necessary long term
   }
 }
