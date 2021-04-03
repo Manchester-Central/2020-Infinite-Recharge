@@ -9,6 +9,7 @@ import java.nio.file.Path;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
+import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.controller.RamseteController;
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
@@ -59,8 +60,8 @@ private final String m_pathName;
       new SimpleMotorFeedforward(ksVolts, kvVoltSecondsPerMeter, kaVoltSecondsSquaredPerMeter), 
       new DifferentialDriveKinematics(kTrackWidthMeter), 
       driveBase::getWheelSpeeds, 
-      driveBase.getPIDLeft(), 
-      driveBase.getPIDRight(), 
+      new PIDController(0.055, 0, 0), //driveBase.getPIDLeft(),
+      new PIDController(0.055, 0, 0), //driveBase.getPIDRight(), 
       driveBase::tankDriveVolts, 
       driveBase);
 
