@@ -32,10 +32,12 @@ private final double kvVoltSecondsPerMeter = 1.35;
 private final double kaVoltSecondsSquaredPerMeter = 0.191;
 private final double kTrackWidthMeter = 0.6731;
 
+private final String m_pathName; 
   /** Creates a new PathDrive. */
   public PathDrive(String pathName, IDriveBase driveBase) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
+    m_pathName = pathName;
     addRequirements(driveBase);
     String trajectoryJSON = "output/" + pathName + ".wpilib.json";
     Trajectory trajectory; 
@@ -66,5 +68,13 @@ private final double kTrackWidthMeter = 0.6731;
 
 
     addCommands(startCommand, driveCommand, endCommand);
+  }
+
+  @Override
+  public void initialize() {
+    // TODO Auto-generated method stub
+    super.initialize();
+
+    System.out.println("Starting path " + m_pathName); 
   }
 }
