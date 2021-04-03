@@ -65,6 +65,8 @@ public interface IDriveBase extends Subsystem {
 
     public void resetOdometry(Pose2d resetPosition);
 
+    public void resetOdometry();
+
     public Pose2d getPose();
 
     public DifferentialDriveWheelSpeeds getWheelSpeeds();

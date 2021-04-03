@@ -137,6 +137,12 @@ public class DummyDrive extends SubsystemBase implements IDriveBase {
   }
 
   @Override
+  public void resetOdometry() {
+    // TODO Auto-generated method stub
+
+  }
+
+  @Override
   public void resetOdometry(Pose2d resetPosition) {
     // TODO Auto-generated method stub
 

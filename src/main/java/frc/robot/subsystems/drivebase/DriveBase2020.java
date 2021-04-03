@@ -251,6 +251,13 @@ public class DriveBase2020 extends SubsystemBase implements IDriveBase {
         return AtPosition && AtVelocity;
     }
 
+
+    public void resetOdometry() {
+        double navxAngle = Robot.navx.getNavYaw();
+        Rotation2d rotation = Rotation2d.fromDegrees(navxAngle);
+        resetOdometry(new Pose2d(0, 0, rotation));
+    }
+
     public void resetOdometry(Pose2d resetPosition) {
         leftSpark1.getEncoder().setPosition(0);
         rightSpark1.getEncoder().setPosition(0);
