@@ -284,7 +284,7 @@ public class DriveBase2020 extends SubsystemBase implements IDriveBase {
         double leftInches = getLeftPosition();
         double rightInches = getRightPosition();
         double leftMeters = encoderMeters(leftSpark1);
-        double rightMeters = encoderMeters(rightSpark1);
+        double rightMeters = encoderMeters(rightSpark1) * -1;
         double navxAngle = Robot.navx.getNavYaw();
         // converts raw encoder readout to inches
         odometer.update(Rotation2d.fromDegrees(navxAngle), leftMeters, rightMeters);
@@ -331,7 +331,7 @@ public class DriveBase2020 extends SubsystemBase implements IDriveBase {
     public DifferentialDriveWheelSpeeds getWheelSpeeds() {
         return new DifferentialDriveWheelSpeeds(
             encoderMetersPerSecond(leftSpark1),
-            encoderMetersPerSecond(rightSpark1)
+            -1 * encoderMetersPerSecond(rightSpark1)
         ); 
     }
 
