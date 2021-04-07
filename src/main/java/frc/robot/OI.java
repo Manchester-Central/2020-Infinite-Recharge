@@ -78,8 +78,18 @@ public class OI {
         operator = new LogitechF310(1);
         tester = null;
 
+        var tankDriveCommand = new TankDrive();
+        var arcadeDriveCommand = new ArcadeDrive();
+        
         // Driver
-        driver.rightBumper.whileHeld(new TankDrive(0.5));
+        driver.rightBumper.whenPressed(() -> {
+            tankDriveCommand.updatePowerScale(0.5);
+            //Do something for arcade drive
+        });
+        driver.rightBumper.whenReleased(() -> {
+            tankDriveCommand.updatePowerScale(1.0);
+            //Do something for arcade drive
+        });
         driver.rightTrigger.whileHeld(new SetIntake(0.75).alongWith(
                 new SetClimbTakePosition(RobotConstants2020.INTAKE_POSITION, RobotConstants2020.EXTENDER_ZERO)));
 
@@ -89,7 +99,7 @@ public class OI {
         // driver.xButton.whileActiveOnce(new TurnAnglePID(90));
         // driver.bButton.whileActiveOnce(new TurnAnglePID(-90));
         // driver.selectButton.whileActiveOnce(new DriveDistancePIDDashboard());
-        driver.leftTrigger.whileHeld(new ArcadeDrive());
+        driver.leftTrigger.whileHeld(arcadeDriveCommand);
         driver.aButton.whileActiveOnce(new PathDrive("AutoNavSlalom", Robot.driveBase));
         driver.bButton.whileActiveOnce( 
             new PathDrive("AutoNavBounce1", Robot.driveBase)
@@ -173,7 +183,7 @@ public class OI {
         // PrepareFlywheel()));
 
         // Default Commands
-        Robot.driveBase.setDefaultCommand(new TankDrive(1));
+        Robot.driveBase.setDefaultCommand(tankDriveCommand);
         Robot.intake.setDefaultCommand(new SetIntake(0));
         Robot.camera.setDefaultCommand(new SetPipeline(7));
         // Robot.flywheel.setDefaultCommand(new FlywheelZero());

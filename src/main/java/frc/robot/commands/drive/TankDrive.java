@@ -11,16 +11,22 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 
 public class TankDrive extends CommandBase {
-  public TankDrive(double speedScale) {
+  public TankDrive() {
     addRequirements(Robot.driveBase);
-
-    this.speedScale = speedScale;
 
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }
 
-  double speedScale;
+  private double powerScale = 1.0;
+
+  /**
+   * Updates the power scale 
+   * @param powerScale
+   */
+  public void updatePowerScale(double powerScale) {
+    this.powerScale = powerScale;
+  }
 
   // Called just before this Command runs the first time
   @Override
@@ -30,8 +36,8 @@ public class TankDrive extends CommandBase {
   // Called repeatedly when this Command is scheduled to run
   @Override
   public void execute() {
-    double leftSpeed = Robot.oi.getLeftSpeed() * speedScale;
-    double rightSpeed = Robot.oi.getRightSpeed() * speedScale;
+    double leftSpeed = Robot.oi.getLeftSpeed() * powerScale;
+    double rightSpeed = Robot.oi.getRightSpeed() * powerScale;
 
     // Robot.driveBase.tankDriveVolts(leftSpeed, rightSpeed);
     Robot.driveBase.tankDrive(leftSpeed, rightSpeed);
