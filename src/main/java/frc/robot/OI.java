@@ -91,7 +91,12 @@ public class OI {
         // driver.selectButton.whileActiveOnce(new DriveDistancePIDDashboard());
         driver.leftTrigger.whileHeld(new ArcadeDrive());
         driver.aButton.whileActiveOnce(new PathDrive("AutoNavSlalom", Robot.driveBase));
-        driver.bButton.whileActiveOnce(new PathDrive("StraightLine", Robot.driveBase));
+        driver.bButton.whileActiveOnce( 
+            new PathDrive("AutoNavBounce1", Robot.driveBase)
+            .andThen(new PathDrive ("AutoNavBounce2", Robot.driveBase))
+            .andThen(new PathDrive ("AutoNavBounce3", Robot.driveBase))
+            .andThen(new PathDrive ("AutoNavBounce4", Robot.driveBase))
+        );
         driver.xButton.whileActiveOnce(new PathDrive("AutoNavBarrelRacing", Robot.driveBase));
         driver.yButton.whileActiveOnce(new PathDrive("TurningConfidenceTest", Robot.driveBase));
         driver.startButton.whenPressed(() -> Robot.driveBase.resetPosition(), Robot.driveBase);
