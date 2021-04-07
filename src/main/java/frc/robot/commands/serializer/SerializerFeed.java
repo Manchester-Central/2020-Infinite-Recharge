@@ -36,7 +36,7 @@ public class SerializerFeed extends DoneCommand {
   // Called repeatedly when this Command is scheduled to run
   @Override
   public void execute() {
-    Robot.serializer.driveTurnTable(SerializerSpeed.fast);
+    Robot.serializer.driveTurnTable(SerializerSpeed.slow);
 
   }
 
