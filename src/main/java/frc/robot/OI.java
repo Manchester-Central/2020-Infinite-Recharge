@@ -80,15 +80,15 @@ public class OI {
 
         var tankDriveCommand = new TankDrive();
         var arcadeDriveCommand = new ArcadeDrive();
-        
+
         // Driver
         driver.rightBumper.whenPressed(() -> {
             tankDriveCommand.updatePowerScale(0.5);
-            //Do something for arcade drive
+            arcadeDriveCommand.updatePowerScale(0.5);
         });
         driver.rightBumper.whenReleased(() -> {
             tankDriveCommand.updatePowerScale(1.0);
-            //Do something for arcade drive
+            arcadeDriveCommand.updatePowerScale(1.0);
         });
         driver.rightTrigger.whileHeld(new SetIntake(0.75).alongWith(
                 new SetClimbTakePosition(RobotConstants2020.INTAKE_POSITION, RobotConstants2020.EXTENDER_ZERO)));
@@ -99,7 +99,7 @@ public class OI {
         // driver.xButton.whileActiveOnce(new TurnAnglePID(90));
         // driver.bButton.whileActiveOnce(new TurnAnglePID(-90));
         // driver.selectButton.whileActiveOnce(new DriveDistancePIDDashboard());
-        driver.leftTrigger.whileHeld(arcadeDriveCommand);
+        driver.leftTrigger.whileHeld(tankDriveCommand);
         driver.aButton.whileActiveOnce(new PathDrive("AutoNavSlalom", Robot.driveBase));
         driver.bButton.whileActiveOnce( 
             new PathDrive("AutoNavBounce1", Robot.driveBase)
@@ -183,7 +183,7 @@ public class OI {
         // PrepareFlywheel()));
 
         // Default Commands
-        Robot.driveBase.setDefaultCommand(tankDriveCommand);
+        Robot.driveBase.setDefaultCommand(arcadeDriveCommand);
         Robot.intake.setDefaultCommand(new SetIntake(0));
         Robot.camera.setDefaultCommand(new SetPipeline(7));
         // Robot.flywheel.setDefaultCommand(new FlywheelZero());
