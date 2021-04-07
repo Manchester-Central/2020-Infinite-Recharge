@@ -185,7 +185,7 @@ public class OI {
         // Default Commands
         Robot.driveBase.setDefaultCommand(arcadeDriveCommand);
         Robot.intake.setDefaultCommand(new SetIntake(0));
-        Robot.camera.setDefaultCommand(new SetPipeline(7));
+        Robot.camera.setDefaultCommand(new SetPipeline(9));
         // Robot.flywheel.setDefaultCommand(new FlywheelZero());
         Robot.flywheel.setDefaultCommand(new RunCommand(() -> Robot.flywheel.coastFlywheel(), Robot.flywheel));
         Robot.serializer.setDefaultCommand(new SerializerDefault());
