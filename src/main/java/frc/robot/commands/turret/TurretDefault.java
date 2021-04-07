@@ -23,7 +23,7 @@ public class TurretDefault extends CommandBase {
   // Called just before this Command runs the first time
   @Override
   public void initialize() {
-    Robot.turret.setTiltTargetAngle(RobotConstants2020.MIN_HOOD_RAW + 5);
+    //Robot.turret.setTiltTargetAngle(RobotConstants2020.MIN_HOOD_RAW + 5);
     panSpeedScale = 0.30;
   }
 
@@ -32,7 +32,7 @@ public class TurretDefault extends CommandBase {
   public void execute() {
     Robot.turret.setPanSpeed(Robot.oi.getTurretPanTarget() * panSpeedScale);
 
-    Robot.turret.PIDDriveTilt();
+    //Robot.turret.PIDDriveTilt();
   }
 
   // Make this return true when this Command no longer needs to run execute()
