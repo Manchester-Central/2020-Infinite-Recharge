@@ -45,12 +45,17 @@ public class AimTurret extends DoneCommand {
       Robot.turret.setPanTarget(limelightXAngle + Robot.turret.getPanAngle() + panTrim);
 
       Robot.flywheel.setTarget(targetData.getSpeed());
+    
+    Robot.turret.PIDDrive(true);
+
     } else {
       //Robot.turret.setTiltTargetAngle(RobotConstants2020.MIDDLE_HOOD_RAW);
       Robot.turret.setPanTarget(0);
+    Robot.turret.PIDDrive(false);
+
 
     }
-    Robot.turret.PIDDrive(true);
+    //Robot.turret.PIDDrive(true);
   }
 
   // Make this return true when this Command no longer needs to run execute()

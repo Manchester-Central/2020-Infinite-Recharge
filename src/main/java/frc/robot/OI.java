@@ -132,7 +132,7 @@ public class OI {
                 new SetClimbTakePosition(RobotConstants2020.INTAKE_POSITION, RobotConstants2020.EXTENDER_ZERO)));
         operator.bButton.whileHeld(new SetIntake(-0.75));
         operator.xButton.whileHeld(new Unjam());
-        operator.yButton.whileHeld(new AimTurret().alongWith(new SetPipeline(8)));
+        operator.yButton.whileHeld(new AimTurret().alongWith(new SetPipeline(8))); // "long"
 
         operator.dPadUp.whileHeld(
                 new SetClimbTakePosition(RobotConstants2020.CLIMB_POSITION, RobotConstants2020.EXTENDER_OUT));
@@ -147,7 +147,7 @@ public class OI {
         operator.startButton.whileHeld(new AimAndShoot());
 
         operator.leftTrigger.whileHeld(new BumperShotAim());
-        operator.leftBumper.whileHeld(new AimTurret().alongWith(new SetPipeline(9)));
+        operator.leftBumper.whileHeld(new AimTurret().alongWith(new SetPipeline(9))); // "short"
 
         operator.rightBumper.and(operator.rightTrigger.negate())
                 .whileActiveContinuous(new PrepareFlywheel().alongWith(new SerializerStop()));
@@ -221,6 +221,10 @@ public class OI {
     }
 
     public double manualExtend() {
+        return 0; 
+    }
+
+    public double tiltSpeed() {
         return operator.getRightY();
     }
 

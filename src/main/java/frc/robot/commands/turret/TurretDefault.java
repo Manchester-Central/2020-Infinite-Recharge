@@ -31,6 +31,7 @@ public class TurretDefault extends CommandBase {
   @Override
   public void execute() {
     Robot.turret.setPanSpeed(Robot.oi.getTurretPanTarget() * panSpeedScale);
+    Robot.turret.setTiltSpeed(Robot.oi.tiltSpeed() * 0.5);
 
     //Robot.turret.PIDDriveTilt();
   }
