@@ -56,6 +56,17 @@ public class AimTurret extends BaseAutoCommand {
 
   }
 
+  @Override
+  public boolean isFinished() {
+    boolean tilt = Robot.turret.getTiltAngle() == Robot.turret.getTiltTarget();
+
+    double panTarget = Robot.turret.getPanTarget();
+    double panCurrent = Robot.turret.getPanAngle();
+    boolean pan = ((panTarget - 2) < panCurrent) && (panCurrent < (panTarget + 2));
+
+    return (tilt && pan) && Robot.camera.hasTarget();
+  }
+
   public void end(boolean interrupted) {
     log("aim end %s\n", interrupted ? "T" : "F");
     super.end(interrupted);
