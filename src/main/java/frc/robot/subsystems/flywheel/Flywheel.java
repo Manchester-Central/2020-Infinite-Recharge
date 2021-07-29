@@ -86,7 +86,7 @@ public class Flywheel extends SubsystemBase implements IFlywheel {
       SmartDashboard.putNumber("I Zone Flywheel", kIz);
       SmartDashboard.putNumber("Feed Forward Flywheel", kFF);
     }
-    SmartDashboard.putNumber(FLYWHEEL_TARGET, 0);
+    SmartDashboard.putNumber(FLYWHEEL_TARGET, FLYWHEEL_DEFAULT);
 
     SmartDashboard.putNumber("Max Output Flywheel", kMaxOutput);
     SmartDashboard.putNumber("Min Output Flywheel", kMinOutput);
