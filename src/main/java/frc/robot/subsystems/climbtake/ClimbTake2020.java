@@ -14,6 +14,8 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import frc.robot.RobotConstants2020;
 
 /**
@@ -23,13 +25,14 @@ public class ClimbTake2020 extends SubsystemBase implements IClimbTake2020 {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
-  CANSparkMax pivot, extension;
+  CANSparkMax pivot;
+  TalonFX extension;
   DigitalInput limitSwitch;
   double pivotBottomPosition, extensionBottomPosition;
 
   public ClimbTake2020() {
     pivot = new CANSparkMax(RobotConstants2020.ARM_SPARKMAX, CANSparkMax.MotorType.kBrushless);
-    extension = new CANSparkMax(RobotConstants2020.CLIMB_SPARKMAX, CANSparkMax.MotorType.kBrushless);
+    extension = new TalonFX(RobotConstants2020.CLIMB_SPARKMAX);
     limitSwitch = new DigitalInput(RobotConstants2020.LIMIT_SWITCH);
     pivotPot = new AnalogInput(RobotConstants2020.CLIMB_POT);
     pivot.setInverted(true);
@@ -67,7 +70,7 @@ public class ClimbTake2020 extends SubsystemBase implements IClimbTake2020 {
   double slowSpeed, pivotThreshold;
 
   private void resetExtendEncoder() {
-    extension.getEncoder().setPosition(0);
+    extension.getSensorCollection().setIntegratedSensorPosition(0, 0);
   }
 
   public void setPivotPosition(double target) {
@@ -86,7 +89,7 @@ public class ClimbTake2020 extends SubsystemBase implements IClimbTake2020 {
 
   public void setExtensionPositionUNSAFE(double target) {
     double speedScale = 0.25;
-    extension.set(target * speedScale);
+    extension.set(TalonFXControlMode.PercentOutput, target * speedScale);
   }
 
   public void smartdashboardConstants() {
@@ -136,7 +139,7 @@ public class ClimbTake2020 extends SubsystemBase implements IClimbTake2020 {
   }
 
   public double getExtensionPosition() {
-    return extension.getEncoder().getPosition();
+    return extension.getSensorCollection().getIntegratedSensorPosition();
   }
 
   public void setPivotSpeed(double speed) {
@@ -150,7 +153,7 @@ public class ClimbTake2020 extends SubsystemBase implements IClimbTake2020 {
   }
 
   public void setExtenderSpeed(double speed) {
-    extension.set(speed);
+    extension.set(TalonFXControlMode.PercentOutput, speed);
   }
 
   public boolean getLimitSwitchState() {

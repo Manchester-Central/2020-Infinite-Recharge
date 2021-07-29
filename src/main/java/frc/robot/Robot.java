@@ -108,7 +108,7 @@ public class Robot extends TimedRobot {
 
         if (hardware == RobotType.chaos2020) {
             turret = new Turret();
-            climbTake = new DummyClimbTake();// new ClimbTake2020();
+            climbTake = new ClimbTake2020();
             flywheel = new Flywheel();
             navx = new NavX();
             colorSensor = new DummyColorSensor();
