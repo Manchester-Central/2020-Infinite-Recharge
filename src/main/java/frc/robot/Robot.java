@@ -91,7 +91,7 @@ public class Robot extends TimedRobot {
             hardware = RobotType.chaos2019;
         } else if (macAddress.equals(RobotConstants2020.MAC_ADDRESS)) {
             hardware = RobotType.chaos2020;
-        } else if (macAddress.equals(RobotConstantsSim.MAC_ADDRESS)) {
+        } else if (macAddress.equals(RobotConstantsSim.MAC_ADDRESS) || macAddress.isBlank()) {
             hardware = RobotType.simulator;
         } else {
             hardware = RobotType.chaos2020;
@@ -135,7 +135,7 @@ public class Robot extends TimedRobot {
 
         }
 
-        if (hardware == RobotType.raft) {
+        if (hardware == RobotType.raft || hardware == RobotType.simulator) {
             trackWidth = 26;
             flywheel = new DummyFlywheel();
             turret = new DummyTurret();
