@@ -1,0 +1,7 @@
+[NetworkTables Storage 3.0]
+string "/Preferences/.type"="RobotPreferences"
+string "/Preferences/auto1"="setCamera?pipeline\x3D9"
+string "/Preferences/auto2"="aimTurret?timeMs\x3D5000"
+string "/Preferences/auto3"="prepareFlywheel?timeMs\x3D2000"
+string "/Preferences/auto4"="shoot?timeMs\x3D5000"
+string "/Preferences/auto5"="path-drive?path\x3DDriveBack"
