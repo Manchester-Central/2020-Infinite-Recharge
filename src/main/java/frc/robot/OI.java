@@ -221,7 +221,7 @@ public class OI {
     }
 
     public double manualExtend() {
-        return driver.dPadUp.get() ? 0.3 : (driver.dPadDown.get() ? -0.3 : 0); 
+        return driver.dPadUp.get() ? 1.0 : (driver.dPadDown.get() ? -1.0 : 0); 
     }
 
     public double tiltSpeed() {

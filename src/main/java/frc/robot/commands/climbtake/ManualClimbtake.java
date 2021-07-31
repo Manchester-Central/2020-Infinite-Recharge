@@ -38,7 +38,7 @@ public class ManualClimbtake extends CommandBase {
     } else {
       Robot.climbTake.setPivotSpeed(0);
     }
-    Robot.climbTake.setExtenderSpeed(Robot.oi.manualTestExtend());
+    Robot.climbTake.setExtenderSpeed(Robot.oi.manualExtend());
   }
 
   // Called once the command ends or is interrupted.
