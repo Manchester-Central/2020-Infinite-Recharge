@@ -15,13 +15,19 @@ import frc.robot.util.LogUtils;
 public class SerializerFeed extends DoneCommand {
   private double distance;
   private double start;
+  private SerializerSpeed speed; 
 
   public SerializerFeed() {
     this(-1);
   }
 
   public SerializerFeed(double distance) {
+    this(distance, SerializerSpeed.fast);
+  }
+
+  public SerializerFeed(double distance, SerializerSpeed speed) {
     this.distance = distance;
+    this.speed = speed;
     // Use requires() here to declare subsystem dependencies
     addRequirements(Robot.serializer);
   }
@@ -36,7 +42,7 @@ public class SerializerFeed extends DoneCommand {
   // Called repeatedly when this Command is scheduled to run
   @Override
   public void execute() {
-    Robot.serializer.driveTurnTable(SerializerSpeed.slow);
+    Robot.serializer.driveTurnTable(speed);
 
   }
 
