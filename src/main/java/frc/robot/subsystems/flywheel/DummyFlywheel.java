@@ -52,6 +52,10 @@ public class DummyFlywheel extends SubsystemBase implements IFlywheel {
     SmartDashboard.putNumber(FLYWHEEL_TARGET, target);
   }
 
+  public double getFlywheelSetPoint() {
+    return setPoint;
+  }
+
   @Override
   public void coastFlywheel() {
     // SmartDashboard.putNumber("Current Flywheel RPM", setPoint);

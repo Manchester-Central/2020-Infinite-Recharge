@@ -25,7 +25,7 @@ public class PrepareFlywheel extends DoneCommand {
   @Override
   public void initialize() {
     currentFlywheelRPM = Robot.flywheel.getCurrentFlywheelRPM();
-    targetFlywheelRPM = SmartDashboard.getNumber("Flywheel target speed RPM", 0);
+    targetFlywheelRPM = Robot.flywheel.getFlywheelSetPoint();
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -33,7 +33,7 @@ public class PrepareFlywheel extends DoneCommand {
   public void execute() {
 
     currentFlywheelRPM = Robot.flywheel.getCurrentFlywheelRPM();
-    targetFlywheelRPM = SmartDashboard.getNumber("Flywheel target speed RPM", 0);
+    targetFlywheelRPM = Robot.flywheel.getFlywheelSetPoint();
     Robot.flywheel.accelerateToSetPoint();
 
   }

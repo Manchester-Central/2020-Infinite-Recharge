@@ -213,7 +213,7 @@ public class Robot extends TimedRobot {
     @Override
     public void disabledPeriodic() {
         CommandScheduler.getInstance().run();
-        turret.smartDashboardConstants();
+        //turret.smartDashboardConstants();
     }
 
     @Override
@@ -256,12 +256,12 @@ public class Robot extends TimedRobot {
         camera.updateDashboard();
         camera.getDistance();
         navx.updateNavDashboard();
-        turret.addTurretSmartDashboard();
-        turret.smartDashboardConstants();
-        SmartDashboard.putBoolean("Limit Switch on?", climbTake.getLimitSwitchState());
+        //turret.addTurretSmartDashboard();
+        //turret.smartDashboardConstants();
+        //SmartDashboard.putBoolean("Limit Switch on?", climbTake.getLimitSwitchState());
 
-        climbTake.addToDashboard();
-        climbTake.smartdashboardConstants();
+        //climbTake.addToDashboard();
+        //climbTake.smartdashboardConstants();
 
         // System.out.println(camera.getPipeline());
 
