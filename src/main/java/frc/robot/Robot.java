@@ -30,7 +30,6 @@ import frc.robot.auto.AutoBuilder;
 import frc.robot.subsystems.drivebase.*;
 import frc.robot.subsystems.camera.*;
 import frc.robot.subsystems.climbtake.*;
-import frc.robot.subsystems.colorsensor.*;
 import frc.robot.subsystems.flywheel.*;
 import frc.robot.subsystems.intake.*;
 import frc.robot.subsystems.navx.*;
@@ -69,7 +68,6 @@ public class Robot extends TimedRobot {
     public static IClimbTake2020 climbTake;
     public static IFlywheel flywheel;
     public static ITurret turret;
-    public static IColorSensor colorSensor;
     public static ISerializer serializer;
     public static IThroat throat;
     public static IUnjammer unjammer;
@@ -104,7 +102,6 @@ public class Robot extends TimedRobot {
         }
         System.out.println("RobotType = " + hardware);
 
-        // detectedColor.addColorMatch();
         autoBuilder = new AutoBuilder();
 
         if (hardware == RobotType.chaos2020) {
@@ -112,7 +109,6 @@ public class Robot extends TimedRobot {
             climbTake = new ClimbTake2020();
             flywheel = new Flywheel();
             navx = new NavX();
-            colorSensor = new DummyColorSensor();
             camera = new Camera(34, 47, 2);
             serializer = new Serializer();
             driveBase = new DriveBase2020();
@@ -124,7 +120,6 @@ public class Robot extends TimedRobot {
             climbTake = new DummyClimbTake();
             flywheel = new DummyFlywheel();
             navx = new DummyNavX();
-            colorSensor = new DummyColorSensor();
             camera = new Camera(34, 47, 2);
             serializer = new DummySerializer();
             driveBase = new DummyDrive();
@@ -137,7 +132,6 @@ public class Robot extends TimedRobot {
             turret = new DummyTurret();
             navx = new DummyNavX();
             climbTake = new DummyClimbTake();
-            colorSensor = new DummyColorSensor();
             camera = new DummyCamera();
             serializer = new DummySerializer();
             driveBase = new DummyDrive();
@@ -150,7 +144,6 @@ public class Robot extends TimedRobot {
             turret = new DummyTurret();
             navx = new DummyNavX();
             climbTake = new DummyClimbTake();
-            colorSensor = new DummyColorSensor();
             camera = new DummyCamera();
             serializer = new DummySerializer();
             driveBase = new DummyDrive();
