@@ -7,17 +7,21 @@
 
 package frc.robot.subsystems.camera;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 /**
  * Add your docs here.
  */
 
 public class Camera extends SubsystemBase implements ICamera {
+
+    public static final int NoCvPipeline = 0; // TODO: Double-check constant
+    public static final int LongDistancePipeline = 8;
+    public static final int ShortDistancePipeline = 9;
 
     NetworkTableEntry tv, tx, ty, ta, ts, tl, tshort, tlong, thor, tvert, getpipe, camtran, pipeline, ledMode;
     double robotHeight, totalHeight, offsetAngle;
@@ -77,19 +81,14 @@ public class Camera extends SubsystemBase implements ICamera {
         return getpipe.getDouble(0.0);
     }
 
-    // public void turnRobot(double angle) {
-
-    // }
-
     public void updateDashboard() {
-
         // post to smart dashboard periodically
         SmartDashboard.putNumber("LimelightX", tx.getDouble(0.0));
         SmartDashboard.putNumber("LimelightY", ty.getDouble(0.0));
         SmartDashboard.putNumber("LimelightArea", ta.getDouble(0.0));
-        SmartDashboard.putNumber("LimelightSkew", ts.getDouble(0.0)); // not useful
         SmartDashboard.putNumber("Limelight Pipeline", getPipeline());
-
+		
+		// SmartDashboard.putNumber("LimelightSkew", ts.getDouble(0.0));
         // SmartDashboard.putNumber("LimelightShort", tshort.getDouble(0.0));
         // SmartDashboard.putNumber("LimelightLong", tlong.getDouble(0.0));
         // SmartDashboard.putNumber("LimelightHorizSidelen", thor.getDouble(0.0));
@@ -99,8 +98,6 @@ public class Camera extends SubsystemBase implements ICamera {
 
     }
 
-    // Calculates angle
-    // 2-degree offset hardcoded for raft testing
     public double getDistance() {
         double distance = (totalHeight - robotHeight) / Math.tan(Math.toRadians(getYAngle() + offsetAngle));
         SmartDashboard.putNumber("distance", distance);

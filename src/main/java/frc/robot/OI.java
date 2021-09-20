@@ -33,6 +33,7 @@ import frc.robot.commands.turret.PrepareFlywheel;
 import frc.robot.commands.turret.Shoot;
 import frc.robot.commands.turret.TiltSafe;
 import frc.robot.commands.turret.TurretDefault;
+import frc.robot.subsystems.camera.Camera;
 import frc.robot.commands.drive.ArcadeDrive;
 
 /**
@@ -113,27 +114,21 @@ public class OI {
         driver.startButton.whenPressed(() -> Robot.driveBase.resetPosition(), Robot.driveBase);
         driver.startButton.whenPressed(() -> Robot.navx.reset(), Robot.driveBase);
 
-        //driver.leftTrigger.whileHeld(() -> {
-        //    Robot.climbTake.setExtenderSpeed(Math.abs(operator.getRightY()));
-        //}, Robot.climbTake);
+        // driver.leftTrigger.whileHeld(() -> {
+        // Robot.climbTake.setExtenderSpeed(Math.abs(operator.getRightY()));
+        // }, Robot.climbTake);
 
-        /*
-         * Operator Testing operator.rightTrigger.whileHeld(() ->
-         * Robot.serializer.driveTurnTable(SerializerSpeed.fast), Robot.serializer);
-         *
-         * operator.rightBumper.whileHeld(() -> Robot.throat.ejectorSpeed(true),
-         * Robot.throat);
-         *
-         * operator.bButton.whileHeld(() -> Robot.flywheel.setFlywheelTargetDashboard(),
-         * Robot.flywheel);
-         */
+        // Operator Testing
+        // operator.rightTrigger.whileHeld(() -> Robot.serializer.driveTurnTable(SerializerSpeed.fast), Robot.serializer);
+        // operator.rightBumper.whileHeld(() -> Robot.throat.ejectorSpeed(true), Robot.throat);
+        // operator.bButton.whileHeld(() -> Robot.flywheel.setFlywheelTargetDashboard(), Robot.flywheel);
 
         // Operator
         operator.aButton.whileHeld(new SetIntake(0.75).alongWith(
                 new SetClimbTakePosition(RobotConstants2020.INTAKE_POSITION, RobotConstants2020.EXTENDER_ZERO)));
         operator.bButton.whileHeld(new SetIntake(-0.75));
         operator.xButton.whileHeld(new Unjam());
-        operator.yButton.whileHeld(new AimTurret().alongWith(new SetPipeline(8))); // "long"
+        operator.yButton.whileHeld(new AimTurret().alongWith(new SetPipeline(Camera.LongDistancePipeline)));
 
         operator.dPadUp.whileHeld(
                 new SetClimbTakePosition(RobotConstants2020.CLIMB_POSITION, RobotConstants2020.EXTENDER_OUT));
@@ -148,7 +143,7 @@ public class OI {
         operator.startButton.whileHeld(new AimAndShoot());
 
         operator.leftTrigger.whileHeld(new BumperShotAim());
-        operator.leftBumper.whileHeld(new AimTurret().alongWith(new SetPipeline(9))); // "short"
+        operator.leftBumper.whileHeld(new AimTurret().alongWith(new SetPipeline(Camera.ShortDistancePipeline)));
 
         operator.rightBumper.and(operator.rightTrigger.negate())
                 .whileActiveContinuous(new PrepareFlywheel().alongWith(new SerializerStop()));
@@ -186,7 +181,7 @@ public class OI {
         // Default Commands
         Robot.driveBase.setDefaultCommand(arcadeDriveCommand);
         Robot.intake.setDefaultCommand(new SetIntake(0));
-        Robot.camera.setDefaultCommand(new SetPipeline(9));
+        Robot.camera.setDefaultCommand(new SetPipeline(Camera.ShortDistancePipeline));
         // Robot.flywheel.setDefaultCommand(new FlywheelZero());
         Robot.flywheel.setDefaultCommand(new RunCommand(() -> Robot.flywheel.coastFlywheel(), Robot.flywheel));
         Robot.serializer.setDefaultCommand(new SerializerDefault());
@@ -222,7 +217,7 @@ public class OI {
     }
 
     public double manualExtend() {
-        return driver.dPadUp.get() ? 1.0 : (driver.dPadDown.get() ? -0.5 : 0); 
+        return driver.dPadUp.get() ? 1.0 : (driver.dPadDown.get() ? -0.5 : 0);
     }
 
     public double tiltSpeed() {
