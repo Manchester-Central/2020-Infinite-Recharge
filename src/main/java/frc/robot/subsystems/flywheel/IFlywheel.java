@@ -14,13 +14,13 @@ import edu.wpi.first.wpilibj2.command.Subsystem;
  */
 public interface IFlywheel extends Subsystem {
 
-    public String FLYWHEEL_TARGET = "Flywheel target speed RPM";
-
     public void accelerateToSetPoint();
 
     public void setTarget(double target);
 
     public double getFlywheelSpeed();
+
+    public double getFlywheelSetPoint();
 
     public void setFlywheelTargetDirect(double speed);
 

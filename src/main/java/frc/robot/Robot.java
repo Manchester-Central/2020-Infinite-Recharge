@@ -91,7 +91,7 @@ public class Robot extends TimedRobot {
             hardware = RobotType.chaos2019;
         } else if (macAddress.equals(RobotConstants2020.MAC_ADDRESS)) {
             hardware = RobotType.chaos2020;
-        } else if (macAddress.equals(RobotConstantsSim.MAC_ADDRESS)) {
+        } else if (macAddress.equals(RobotConstantsSim.MAC_ADDRESS) || macAddress.isBlank()) {
             hardware = RobotType.simulator;
         } else {
             hardware = RobotType.chaos2020;
@@ -135,7 +135,7 @@ public class Robot extends TimedRobot {
 
         }
 
-        if (hardware == RobotType.raft) {
+        if (hardware == RobotType.raft || hardware == RobotType.simulator) {
             trackWidth = 26;
             flywheel = new DummyFlywheel();
             turret = new DummyTurret();
@@ -213,7 +213,7 @@ public class Robot extends TimedRobot {
     @Override
     public void disabledPeriodic() {
         CommandScheduler.getInstance().run();
-        turret.smartDashboardConstants();
+        //turret.smartDashboardConstants();
     }
 
     @Override
@@ -256,12 +256,12 @@ public class Robot extends TimedRobot {
         camera.updateDashboard();
         camera.getDistance();
         navx.updateNavDashboard();
-        turret.addTurretSmartDashboard();
-        turret.smartDashboardConstants();
-        SmartDashboard.putBoolean("Limit Switch on?", climbTake.getLimitSwitchState());
+        //turret.addTurretSmartDashboard();
+        //turret.smartDashboardConstants();
+        //SmartDashboard.putBoolean("Limit Switch on?", climbTake.getLimitSwitchState());
 
-        climbTake.addToDashboard();
-        climbTake.smartdashboardConstants();
+        //climbTake.addToDashboard();
+        //climbTake.smartdashboardConstants();
 
         // System.out.println(camera.getPipeline());
 

@@ -16,6 +16,7 @@ import frc.robot.commands.serializer.SerializerStop;
 import frc.robot.commands.turret.PrepareFlywheel;
 import frc.robot.commands.turret.SetThroatSpeed;
 import frc.robot.commands.util.Deadline;
+import frc.robot.subsystems.serializer.SerializerSpeed;
 
 public class AutoShoot extends SequentialCommandGroup {
   /**
@@ -32,7 +33,7 @@ public class AutoShoot extends SequentialCommandGroup {
     addCommands(prepareEjector);
 
     // aimTurret + flyWheel done (not finished) immediately, serializer never finishes (while held will interrupt)
-    var shoot = Deadline.createDeadline(new SetThroatSpeed(true), new PrepareFlywheel(), new SerializerFeed(1.2)); 
+    var shoot = Deadline.createDeadline(new SetThroatSpeed(true), new PrepareFlywheel(), new SerializerFeed(1.2, SerializerSpeed.slow)); 
     addCommands(shoot);
     addCommands(new InstantCommand(() -> Robot.serializer.manualSpeed(false), Robot.serializer));
     addCommands(new InstantCommand(() -> Robot.flywheel.coastFlywheel(), Robot.flywheel));

@@ -33,9 +33,9 @@ public class SetClimbTakePosition extends CommandBase {
   @Override
   public void execute() {
     Robot.climbTake.PIDDrivePivot();
-    if (Robot.oi.getEnableExtend()) {
-      Robot.climbTake.setExtenderSpeed(Math.abs(Robot.oi.manualExtend()));
-    }
+    //if (Robot.oi.getEnableExtend()) {
+      Robot.climbTake.setExtenderSpeed(Robot.oi.manualExtend());
+    //}
   }
 
   // Make this return true when this Command no longer needs to run execute()

@@ -23,13 +23,13 @@ public class Flywheel extends SubsystemBase implements IFlywheel {
   // here. Call these from Commands.
 
   final boolean tuning = false;
+  public final String FLYWHEEL_TARGET = "Flywheel target speed RPM";
+  public final int FLYWHEEL_DEFAULT = 3000;
 
   private CANPIDController m_pidControllerA, m_pidControllerB;
   private CANEncoder m_encoder;
-  public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxRPM;
+  public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxRPM, setPoint = FLYWHEEL_DEFAULT;
   CANSparkMax flywheelA, flywheelB;
-  public final String FLYWHEEL_TARGET = "Flywheel target speed RPM";
-  public final int FLYWHEEL_DEFAULT = 3000;
 
   public Flywheel() {
 
@@ -86,7 +86,7 @@ public class Flywheel extends SubsystemBase implements IFlywheel {
       SmartDashboard.putNumber("I Zone Flywheel", kIz);
       SmartDashboard.putNumber("Feed Forward Flywheel", kFF);
     }
-    SmartDashboard.putNumber(FLYWHEEL_TARGET, 0);
+
 
     SmartDashboard.putNumber("Max Output Flywheel", kMaxOutput);
     SmartDashboard.putNumber("Min Output Flywheel", kMinOutput);
@@ -94,12 +94,15 @@ public class Flywheel extends SubsystemBase implements IFlywheel {
   }
 
   public void setTarget(double target) {
-    SmartDashboard.putNumber(FLYWHEEL_TARGET, target);
+    setPoint = target;
+  }
+
+  public double getFlywheelSetPoint() {
+    return setPoint;
   }
 
   // takes in RPM
   public void accelerateToSetPoint() {
-    double setPoint = SmartDashboard.getNumber(FLYWHEEL_TARGET, FLYWHEEL_DEFAULT);
     // read PID coefficients from SmartDashboard
     double p, i, d;
     // double iz, ff;
@@ -153,9 +156,9 @@ public class Flywheel extends SubsystemBase implements IFlywheel {
 
     // setPoint = speed * maxRPM;
 
-    setPoint = Math.min(setPoint, maxRPM) * 2;
-    m_pidControllerA.setReference(setPoint, ControlType.kVelocity);
-    m_pidControllerB.setReference(setPoint, ControlType.kVelocity);
+    var newSetPoint = Math.min(setPoint, maxRPM) * 2;
+    m_pidControllerA.setReference(newSetPoint, ControlType.kVelocity);
+    m_pidControllerB.setReference(newSetPoint, ControlType.kVelocity);
 
     // m_pidController.setReference(setPoint, ControlType.kVelocity);
 
@@ -205,11 +208,12 @@ public class Flywheel extends SubsystemBase implements IFlywheel {
     SmartDashboard.putNumber("Displacement B", flywheelB.getEncoder().getPosition());
 
     SmartDashboard.putNumber("Flywheel RPM", getFlywheelSpeed());
+    SmartDashboard.putNumber(FLYWHEEL_TARGET, setPoint);
   }
 
   @Override
   public void periodic() {
-    addFlywheelSmartDashboard();
+    //addFlywheelSmartDashboard();
   }
 
 }

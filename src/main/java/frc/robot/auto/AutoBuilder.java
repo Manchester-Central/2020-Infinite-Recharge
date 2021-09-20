@@ -50,6 +50,8 @@ public class AutoBuilder {
         switch (parsedCommand.commandName) {
             case AutoDrive.COMMAND_NAME:
                 return new AutoDrive(parsedCommand);
+            case AutoPathDrive.COMMAND_NAME:
+                return new AutoPathDrive(parsedCommand);
             case SimpleAutoDrive.COMMAND_NAME:
                 return new SimpleAutoDrive(parsedCommand);
             case DoNothing.COMMAND_NAME:

@@ -15,6 +15,7 @@ def connectionListener(connected, info):
         cond.notify()
 
 NetworkTables.initialize(server='10.1.31.2')
+#NetworkTables.initialize(server='localhost')
 NetworkTables.addConnectionListener(connectionListener, immediateNotify=True)
 
 with cond:

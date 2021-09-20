@@ -33,7 +33,7 @@ public class AutoPrepareFlywheel extends BaseAutoCommand {
     super.initialize();
     LogUtils.log("AutoPrepareFlywheel init");
     currentFlywheelRPM = Robot.flywheel.getCurrentFlywheelRPM();
-    targetFlywheelRPM = SmartDashboard.getNumber("Flywheel target speed RPM", 0);
+    targetFlywheelRPM = Robot.flywheel.getFlywheelSetPoint();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -41,7 +41,7 @@ public class AutoPrepareFlywheel extends BaseAutoCommand {
   public void execute() {
     LogUtils.log("AutoPrepareFlywheel executing");
     currentFlywheelRPM = Robot.flywheel.getCurrentFlywheelRPM();
-    targetFlywheelRPM = SmartDashboard.getNumber("Flywheel target speed RPM", 0);
+    targetFlywheelRPM = Robot.flywheel.getFlywheelSetPoint();
     Robot.flywheel.accelerateToSetPoint();
   }
 

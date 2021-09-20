@@ -142,7 +142,9 @@ public class Turret extends SubsystemBase implements ITurret {
   }
 
   private void PIDDrivePan(boolean usingCamera) { // pan
-    double speed = usingCamera ? camPanPID.calculate(getPanAngle()) : pidPan.calculate(getPanAngle());
+    double camCalculatedValue = camPanPID.calculate(getPanAngle());
+    double nonCamCalculatedValue = pidPan.calculate(getPanAngle());
+    double speed = usingCamera ? camCalculatedValue : nonCamCalculatedValue;
     double maxSpeed = 0.4;
     setPanSpeed(speed * maxSpeed);
     LogUtils.log("Turret pan angle: " + getPanAngle() + " pan speed: " + speed);

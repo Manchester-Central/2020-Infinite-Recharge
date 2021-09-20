@@ -71,7 +71,7 @@ public class OI {
     public LogitechF310 operator;
     public LogitechF310 tester;
 
-    public boolean testMode = true;
+    public boolean testMode = false;
 
     public OI() {
         driver = new LogitechF310(0);
@@ -99,7 +99,7 @@ public class OI {
         // driver.xButton.whileActiveOnce(new TurnAnglePID(90));
         // driver.bButton.whileActiveOnce(new TurnAnglePID(-90));
         // driver.selectButton.whileActiveOnce(new DriveDistancePIDDashboard());
-        driver.leftTrigger.whileHeld(tankDriveCommand);
+        driver.leftTrigger.toggleWhenPressed(tankDriveCommand);
         driver.aButton.whileActiveOnce(new PathDrive("AutoNavSlalom", Robot.driveBase));
         driver.bButton.whileActiveOnce( 
             new PathDrive("AutoNavBounce1", Robot.driveBase)
@@ -221,7 +221,7 @@ public class OI {
     }
 
     public double manualExtend() {
-        return 0; 
+        return driver.dPadUp.get() ? 1.0 : (driver.dPadDown.get() ? -0.5 : 0); 
     }
 
     public double tiltSpeed() {
