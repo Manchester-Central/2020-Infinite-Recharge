@@ -105,7 +105,8 @@ public class Turret extends SubsystemBase implements ITurret {
 
   private double turretPanRawToDegrees(double raw) {
     // return ((-0.0062 * raw * raw) + (4.418 * raw) - 684.81);
-    return ((-0.0079 * raw * raw) + (5.36 * raw) - 795);
+    // return ((-0.0079 * raw * raw) + (5.36 * raw) - 795);
+    return ((-0.0025 * raw * raw) + (2.6286 * raw) - 599.72);
   }
 
   public double getPanAngle() {

@@ -26,9 +26,9 @@ public class RobotConstants2020 {
     public final static int LIMIT_SWITCH = 1;
     public final static int CLIMB_POT = 0;
 
-    public final static int MIN_PAN_RAW = 136; // 2021-03-13
-    public final static int MAX_PAN_RAW = 300; // 2021-03-13
-    public final static int PAN_ZERO_RAW = 227; // TODO: change
+    public final static int MIN_PAN_RAW = 188; // 2021-03-13
+    public final static int MAX_PAN_RAW = 502; // 2021-03-13
+    public final static int PAN_ZERO_RAW = 338; // TODO: change
     public final static int PAN_BACKWARD_RAW = 30; // TODO: change!!!!!!!!!!!!!!!!
 
     public final static int MIN_HOOD_RAW = 68; // 2021-03-13 - 64 hard stop
