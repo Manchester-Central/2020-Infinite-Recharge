@@ -40,6 +40,7 @@ public class Turret extends SubsystemBase implements ITurret {
 
     speedControllerPan = new WPI_TalonSRX(RobotConstants2020.TURRET_PAN);
     speedControllerTilt = new WPI_TalonSRX(RobotConstants2020.TURRET_HOOD);
+    speedControllerTilt.setInverted(true);
 
     speedControllerPan.configOpenloopRamp(0.075);
 
@@ -152,10 +153,10 @@ public class Turret extends SubsystemBase implements ITurret {
   }
 
   public void setTiltSpeed(double speed) {
-    if (speedControllerTilt.getSensorCollection().getAnalogInRaw() <= minRawTilt && speed < 0) {
+    if (getTiltAngle() <= minRawTilt && speed < 0) {
       speed = 0;
     }
-    if (speedControllerTilt.getSensorCollection().getAnalogInRaw() >= maxRawTilt && speed > 0) {
+    if (getTiltAngle() >= maxRawTilt && speed > 0) {
       speed = 0;
     }
     SmartDashboard.putNumber("Turret Y Speed", speed);
@@ -163,7 +164,7 @@ public class Turret extends SubsystemBase implements ITurret {
   }
 
   public double getTiltAngle() {
-    return speedControllerTilt.getSensorCollection().getAnalogIn();
+    return speedControllerTilt.getSensorCollection().getAnalogIn() - 1023; // subtracting an offset to get angle values back to their original state after replacing sensor
   }
 
   public double getHoodSpeed() {
