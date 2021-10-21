@@ -30,6 +30,8 @@ public class RobotConstants2020 {
     public final static int MAX_PAN_RAW = 502; // 2021-03-13
     public final static int PAN_ZERO_RAW = 338; // TODO: change
     public final static int PAN_BACKWARD_RAW = 30; // TODO: change!!!!!!!!!!!!!!!!
+    public final static int PAN_SLOWDOWN_THRESHOLD = 50; // TODO: change!!!!!!!!!!!!!!!!
+    public final static double PAN_MIN_POWER = 0.1; // TODO: change!!!!!!!!!!!!!!!!
 
     public final static int MIN_HOOD_RAW = 68; // 2021-03-13 - 64 hard stop
     public final static int MAX_HOOD_RAW = 164; // 2021-03-13 - 168 hard stop
