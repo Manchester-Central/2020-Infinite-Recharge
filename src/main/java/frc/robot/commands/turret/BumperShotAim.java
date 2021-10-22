@@ -16,13 +16,13 @@ public class BumperShotAim extends CommandBase {
   }
 
   private final double FLYWHEEL_SPEED = 4500;
-  private final double TURRET_TILT = 65;
+  private final double TURRET_TILT = 74;
 
   // Called just before this Command runs the first time
   @Override
   public void initialize() {
     Robot.turret.setTiltTargetAngle(TURRET_TILT);
-    Robot.turret.setPanTarget(0);
+    Robot.turret.setPanTarget(-180);
     Robot.flywheel.setTarget(FLYWHEEL_SPEED);
   }
 

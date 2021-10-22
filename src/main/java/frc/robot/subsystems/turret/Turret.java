@@ -128,8 +128,11 @@ public class Turret extends SubsystemBase implements ITurret {
   public void setPanSpeed(double speed) {
     double currentPanPosition = speedControllerPan.getSensorCollection().getAnalogInRaw();
     double slowdownThreshold = RobotConstants2020.PAN_SLOWDOWN_THRESHOLD;
-    double distanceToMin = currentPanPosition - minRawPan;
-    double distanceToMax = maxRawPan - currentPanPosition;
+    double currentAngle = getPanAngle(); 
+    double minAngle = turretPanRawToDegrees(minRawPan);
+    double maxAngle = turretPanRawToDegrees(maxRawPan);
+    double distanceToMin = Math.abs(currentAngle - minAngle);
+    double distanceToMax = Math.abs(currentAngle - maxAngle);
 
     if (currentPanPosition <= minRawPan && speed < 0) {
       speed = 0;
@@ -181,7 +184,7 @@ public class Turret extends SubsystemBase implements ITurret {
   }
 
   public double getTiltAngle() {
-    return speedControllerTilt.getSensorCollection().getAnalogIn() - 1023; // subtracting an offset to get angle values back to their original state after replacing sensor
+    return speedControllerTilt.getSensorCollection().getAnalogIn(); // subtracting an offset to get angle values back to their original state after replacing sensor
   }
 
   public double getHoodSpeed() {
