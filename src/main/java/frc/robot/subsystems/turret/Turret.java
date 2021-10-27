@@ -21,6 +21,19 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 public class Turret extends SubsystemBase implements ITurret {
   final boolean tuning = false;
 
+  private double panP, panI, panD, tiltP, tiltI, tiltD, camPanP, camPanI, camPanD;
+
+  private int minRawTilt, maxRawTilt, minRawPan, maxRawPan;
+
+
+  // private double minAnglePan, maxAnglePan;
+  // private double slopePan, interceptPan;
+  PIDController pidPan, pidTilt, camPanPID;
+  WPI_TalonSRX speedControllerPan, speedControllerTilt;
+  private double panError, tiltError;
+
+  double panMultiplier = 0.05;
+
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
   public Turret() {
@@ -94,16 +107,6 @@ public class Turret extends SubsystemBase implements ITurret {
 
   }
 
-  private double panP, panI, panD, tiltP, tiltI, tiltD, camPanP, camPanI, camPanD;
-  private int minRawTilt, maxRawTilt, minRawPan, maxRawPan;
-  // private double minAnglePan, maxAnglePan;
-  // private double slopePan, interceptPan;
-  PIDController pidPan, pidTilt, camPanPID;
-  WPI_TalonSRX speedControllerPan, speedControllerTilt;
-  private double panError, tiltError;
-
-  double panMultiplier = 0.05;
-
   private double turretPanRawToDegrees(double raw) {
     // return ((-0.0062 * raw * raw) + (4.418 * raw) - 684.81);
     // return ((-0.0079 * raw * raw) + (5.36 * raw) - 795);
@@ -123,12 +126,29 @@ public class Turret extends SubsystemBase implements ITurret {
   }
 
   public void setPanSpeed(double speed) {
-    if (speedControllerPan.getSensorCollection().getAnalogInRaw() <= minRawPan && speed < 0) {
+    double currentPanPosition = speedControllerPan.getSensorCollection().getAnalogInRaw();
+    double slowdownThreshold = RobotConstants2020.PAN_SLOWDOWN_THRESHOLD;
+    double currentAngle = getPanAngle(); 
+    double minAngle = turretPanRawToDegrees(minRawPan);
+    double maxAngle = turretPanRawToDegrees(maxRawPan);
+    double distanceToMin = Math.abs(currentAngle - minAngle);
+    double distanceToMax = Math.abs(currentAngle - maxAngle);
+
+    if (currentPanPosition <= minRawPan && speed < 0) {
       speed = 0;
     }
-    if (speedControllerPan.getSensorCollection().getAnalogInRaw() >= maxRawPan && speed > 0) {
+    else if (distanceToMin <= slowdownThreshold && speed < 0) {
+      var percentToLimit = distanceToMin / slowdownThreshold;
+      speed = Math.min(RobotConstants2020.PAN_MIN_POWER * -1.0, speed * percentToLimit);
+    }
+    else if (currentPanPosition >= maxRawPan && speed > 0) {
       speed = 0;
     }
+    else if (distanceToMax <= slowdownThreshold && speed > 0) {
+      var percentToLimit = distanceToMax / slowdownThreshold;
+      speed = Math.max(RobotConstants2020.PAN_MIN_POWER, speed * percentToLimit);
+    }
+
     speedControllerPan.set(speed);
   }
 
@@ -164,7 +184,7 @@ public class Turret extends SubsystemBase implements ITurret {
   }
 
   public double getTiltAngle() {
-    return speedControllerTilt.getSensorCollection().getAnalogIn() - 1023; // subtracting an offset to get angle values back to their original state after replacing sensor
+    return speedControllerTilt.getSensorCollection().getAnalogIn(); // subtracting an offset to get angle values back to their original state after replacing sensor
   }
 
   public double getHoodSpeed() {

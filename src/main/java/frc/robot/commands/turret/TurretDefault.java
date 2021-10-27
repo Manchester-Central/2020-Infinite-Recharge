@@ -24,7 +24,7 @@ public class TurretDefault extends CommandBase {
   @Override
   public void initialize() {
     //Robot.turret.setTiltTargetAngle(RobotConstants2020.MIN_HOOD_RAW + 5);
-    panSpeedScale = 0.30;
+    panSpeedScale = 0.60;
   }
 
   // Called repeatedly when this Command is scheduled to run
