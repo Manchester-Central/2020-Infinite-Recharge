@@ -165,6 +165,7 @@ public class Robot extends TimedRobot {
 
         HAL.report(tResourceType.kResourceType_Framework, tInstances.kFramework_RobotBuilder);
 
+        autoBuilder.robotInit();
     }
 
     /**
@@ -218,7 +219,7 @@ public class Robot extends TimedRobot {
 
     @Override
     public void autonomousInit() {
-        autoBuilder.init();
+        autoBuilder.autoInit();
         autoBuilder.getAutoCommand().schedule();
 
     }
