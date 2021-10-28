@@ -37,7 +37,7 @@ public class Turret extends SubsystemBase implements ITurret {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
   public Turret() {
-    panP = 0.06;
+    panP = 0.08;
     panI = 0.02;
     panD = 0.015;
     camPanP = 0.06;
@@ -167,7 +167,7 @@ public class Turret extends SubsystemBase implements ITurret {
     double camCalculatedValue = camPanPID.calculate(getPanAngle());
     double nonCamCalculatedValue = pidPan.calculate(getPanAngle());
     double speed = usingCamera ? camCalculatedValue : nonCamCalculatedValue;
-    double maxSpeed = 0.4;
+    double maxSpeed = 0.5;
     setPanSpeed(speed * maxSpeed);
     LogUtils.log("Turret pan angle: " + getPanAngle() + " pan speed: " + speed);
   }
