@@ -37,10 +37,10 @@ public class Turret extends SubsystemBase implements ITurret {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
   public Turret() {
-    panP = 0.08;
+    panP = 0.055;
     panI = 0.02;
     panD = 0.015;
-    camPanP = 0.06;
+    camPanP = 0.07;
     camPanI = 0.02;
     camPanD = 0;
     tiltP = 0.4;
