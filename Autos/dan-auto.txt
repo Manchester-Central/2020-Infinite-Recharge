@@ -1,0 +1,7 @@
+setCamera?pipeline=9
+aimTurret?timeMs=3000
+prepareFlywheel?timeMs=2000
+autoScore?timeMs=5000
+setIntake?speed=0.75
+simple-drive?speed=-0.4&timeMs=3000
+setIntake?speed=0.0

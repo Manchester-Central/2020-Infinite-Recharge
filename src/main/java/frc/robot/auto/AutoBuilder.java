@@ -78,6 +78,8 @@ public class AutoBuilder {
                 return new AutoPrepareFlywheel(parsedCommand);
             case AutoShoot.COMMAND_NAME:
                 return new AutoShoot(parsedCommand);
+            case NewAutoScore.COMMAND_NAME:
+                return new NewAutoScore(parsedCommand);
             case SetIntakeState.COMMAND_NAME:
                 return new SetIntakeState(parsedCommand);
             default:

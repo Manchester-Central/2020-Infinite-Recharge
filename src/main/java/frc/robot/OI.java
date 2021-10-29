@@ -28,6 +28,7 @@ import frc.robot.commands.turret.AimTurretDashboard;
 import frc.robot.commands.serializer.Unjam;
 import frc.robot.commands.turret.BumperShotAim;
 import frc.robot.commands.turret.ManualTurret;
+import frc.robot.commands.turret.NewScore;
 import frc.robot.commands.turret.PrepareFlywheel;
 import frc.robot.commands.turret.Shoot;
 import frc.robot.commands.turret.TiltSafe;
@@ -152,7 +153,7 @@ public class OI {
         operator.rightBumper.and(operator.rightTrigger.negate())
                 .whileActiveContinuous(new PrepareFlywheel().alongWith(new SerializerStop()));
         // operator.rightBumper.whileHeld(new PrepareFlywheel());
-        operator.rightTrigger.whileHeld(new Shoot());
+        operator.rightTrigger.whileHeld(new NewScore());
 
         // Tester
         if (testMode) {
