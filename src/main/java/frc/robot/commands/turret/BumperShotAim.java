@@ -22,14 +22,16 @@ public class BumperShotAim extends CommandBase {
   @Override
   public void initialize() {
     Robot.turret.setTiltTargetAngle(TURRET_TILT);
-    Robot.turret.setPanTarget(-180);
+    //Robot.turret.setPanTarget(-180);
     Robot.flywheel.setTarget(FLYWHEEL_SPEED);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   public void execute() {
-    Robot.turret.PIDDrive(false);
+    //Robot.turret.PIDDrive(false);
+    Robot.turret.PIDDriveTilt();
+    Robot.turret.setPanSpeed(Robot.oi.getTurretPanTarget() * 0.6);
   }
 
   // Make this return true when this Command no longer needs to run execute()
