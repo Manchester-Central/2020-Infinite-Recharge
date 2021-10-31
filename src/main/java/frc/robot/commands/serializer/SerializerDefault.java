@@ -26,7 +26,6 @@ public class SerializerDefault extends CommandBase {
   @Override
   public void execute() {
     Robot.serializer.driveTurnTable(SerializerSpeed.slow);
-    Robot.throat.ejectorSpeed(false);
   }
 
   // Make this return true when this Command no longer needs to run execute()
