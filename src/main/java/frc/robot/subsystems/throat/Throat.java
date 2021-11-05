@@ -8,7 +8,9 @@
 package frc.robot.subsystems.throat;
 
 import com.revrobotics.CANSparkMax;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import edu.wpi.first.wpilibj.RobotController;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotConstants2020;
@@ -30,15 +32,23 @@ public class Throat extends SubsystemBase implements IThroat {
     }
     ejector = new CANSparkMax(RobotConstants2020.EJECTER_SPARKMAX, MotorType.kBrushless);
     ejector.setInverted(true);
-    ejector.setIdleMode(CANSparkMax.IdleMode.kBrake);
+    ejector.setIdleMode(CANSparkMax.IdleMode.kCoast);
+  }
+
+  private void set(double value)
+  {
+    long start = RobotController.getFPGATime();
+    ejector.set(value);
+    SmartDashboard.putNumber("ThroatSetTime_ms", (RobotController.getFPGATime() - start) / 1000);
   }
 
   public void ejectorSpeed(boolean on) {
     if (!on) {
-      ejector.set(0);
+      set(0);
       return;
     }
-    ejector.set(1);
+    set(1);
+
   }
 
   public double getThroatSpeed() {
@@ -46,10 +56,16 @@ public class Throat extends SubsystemBase implements IThroat {
   }
 
   public void unJam() {
-    ejector.set(-1); // TODO: check with Dan for magnitude
+    set(-1); // TODO: check with Dan for magnitude
   }
 
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
+  public void periodic()
+  {
+    SmartDashboard.putNumber("ThroatFaults", ejector.getFaults());
+    SmartDashboard.putNumber("ThroatSpeed", getThroatSpeed());
+
+  }
 }
