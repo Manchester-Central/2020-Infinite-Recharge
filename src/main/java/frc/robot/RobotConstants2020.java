@@ -40,7 +40,7 @@ public class RobotConstants2020 {
     public final static double EXTENDER_OUT = 0.5; // TODO: change!!
     public final static double EXTENDER_IN = 1; // TODO: change!!
     public final static double EXTENDER_ZERO = 0; // TODO: change!!
-    public final static double INTAKE_POSITION = 0.616; // TODO: change!!
+    public final static double INTAKE_POSITION = 0.700; // TODO: change!!
     public final static double CLIMB_POSITION = 1.86; // TODO: change!!
     public final static double CLEAR_OF_BALLS = 1.54; // TODO: get this value again
 

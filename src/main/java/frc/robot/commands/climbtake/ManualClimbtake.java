@@ -7,6 +7,7 @@
 
 package frc.robot.commands.climbtake;
 
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 
@@ -15,6 +16,7 @@ public class ManualClimbtake extends CommandBase {
    * Creates a new FindLimitClimbtake.
    */
   private boolean seenLimit;
+  private long startTime;
 
   public ManualClimbtake() {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -26,6 +28,7 @@ public class ManualClimbtake extends CommandBase {
   @Override
   public void initialize() {
     seenLimit = false;
+    startTime = RobotController.getFPGATime();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -34,6 +37,8 @@ public class ManualClimbtake extends CommandBase {
 
     if (!seenLimit) {
       Robot.climbTake.goToLimit();
+      boolean timePassed = RobotController.getFPGATime() - startTime > 500000;
+      //seenLimit = Robot.climbTake.getLimitSwitchState() && timePassed;
       seenLimit = Robot.climbTake.getLimitSwitchState();
     } else {
       Robot.climbTake.setPivotSpeed(0);

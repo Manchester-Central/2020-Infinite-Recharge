@@ -157,7 +157,8 @@ public class ClimbTake2020 extends SubsystemBase implements IClimbTake2020 {
   }
 
   public boolean getLimitSwitchState() {
-    return limitSwitch.get();
+    //return limitSwitch.get();
+    return getPivotPosition() <= RobotConstants2020.INTAKE_POSITION + 0.04;
   }
 
   public void goToLimit() {
@@ -179,7 +180,12 @@ public class ClimbTake2020 extends SubsystemBase implements IClimbTake2020 {
   public void addToDashboard() {
     SmartDashboard.putNumber("Pivot position", getPivotPosition());
     SmartDashboard.putNumber("Extension position", getExtensionPosition());
+SmartDashboard.getBoolean("limitswitch", getLimitSwitchState()); 
+  }
 
+  public void periodic()
+  {
+    addToDashboard();
   }
 
 }
