@@ -43,4 +43,15 @@ public class NewAutoScore extends BaseAutoCommand {
       Robot.throat.ejectorSpeed(false);
     }
   }
+
+  public boolean isFinished() {
+      return super.isFinished();
+  }
+
+  public void end(boolean interrupted) {
+      super.end(interrupted);
+      Robot.throat.ejectorSpeed(false);
+      Robot.serializer.manualSpeed(false);
+      Robot.flywheel.coastFlywheel();
+  }
 }

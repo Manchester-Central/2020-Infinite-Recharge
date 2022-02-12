@@ -11,6 +11,8 @@ import com.revrobotics.CANEncoder;
 import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.ControlType;
+import com.revrobotics.CANSparkMax.IdleMode;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotConstants2020;
@@ -30,7 +32,7 @@ public class Serializer extends SubsystemBase implements ISerializer {
   private CANEncoder m_encoder;
   public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxRPM;
   private double setPoint;
-  private final double FAST_SPEED = 2200;
+  private final double FAST_SPEED = 1800;
   private final double SLOW_SPEED = 600;
   private double manualSpeedTarget;
   private double rotationLength;
@@ -49,6 +51,7 @@ public class Serializer extends SubsystemBase implements ISerializer {
      * passed, these parameters will not persist between power cycles
      */
     turnTable.restoreFactoryDefaults();
+    turnTable.setIdleMode(IdleMode.kBrake);
 
     /**
      * In order to use PID functionality for a controller, a CANPIDController object

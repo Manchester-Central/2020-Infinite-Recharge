@@ -213,6 +213,8 @@ public class Robot extends TimedRobot {
 
     @Override
     public void disabledPeriodic() {
+        // TODO: Adjust since this caused lost packet errors
+        //autoBuilder.autoInit();
         CommandScheduler.getInstance().run();
         //turret.smartDashboardConstants();
     }

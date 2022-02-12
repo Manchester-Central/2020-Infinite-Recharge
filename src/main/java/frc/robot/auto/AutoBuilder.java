@@ -30,6 +30,7 @@ public class AutoBuilder {
     }
 
     public void autoInit() {
+        commandList = new SequentialCommandGroup();
         int i = 1;
         // if there is an autoX in robot preferences, keep running!!!!!
         var steps = SmartDashboard.getStringArray("Auto Steps", new String[]{});

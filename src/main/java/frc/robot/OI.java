@@ -145,7 +145,7 @@ public class OI {
                 .whileHeld(new SetClimbTakePosition(RobotConstants2020.CLEAR_OF_BALLS, RobotConstants2020.EXTENDER_IN));
 
         operator.selectButton.whileHeld(new TiltSafe());
-        operator.startButton.whileHeld(new AimAndShoot());
+        operator.startButton.whileHeld(new RunCommand(() -> Robot.throat.setUpEjector(), Robot.throat));
 
         operator.leftTrigger.whileHeld(new BumperShotAim());
         operator.leftBumper.whileHeld(new AimTurret().alongWith(new SetPipeline(9))); // "short"

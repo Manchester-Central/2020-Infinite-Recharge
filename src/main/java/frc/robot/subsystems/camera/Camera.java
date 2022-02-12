@@ -107,4 +107,12 @@ public class Camera extends SubsystemBase implements ICamera {
         return distance;
     }
 
+    public void periodic()
+    {
+        boolean hasTarget = hasTarget();
+        SmartDashboard.putBoolean("TargetFound", hasTarget);
+        boolean xAligned = Math.abs(tx.getDouble(100.0)) < 4;
+        SmartDashboard.putBoolean("TargetAligned", hasTarget && xAligned);
+    }
+
 }
